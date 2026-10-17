@@ -48,11 +48,12 @@ body::after{
 .mast-name{
   font-family:"Bebas Neue",sans-serif;font-weight:400;
   font-size:clamp(3.3rem,15vw,6.2rem);line-height:.94;letter-spacing:.015em;
-  padding:14px 0 16px;border-bottom:var(--rule);text-align:center;
+  padding:16px 6px 14px;border-bottom:var(--rule);text-align:center;
+  background:var(--red);color:var(--paper);
 }
 .mast-name .hl{
-  background:var(--red);color:var(--paper);padding:0 .12em;
-  display:inline-block;transform:rotate(-1.4deg) translateY(.03em);
+  color:transparent;-webkit-text-stroke:2px var(--paper);text-stroke:2px var(--paper);
+  padding:0 .06em;display:inline-block;transform:rotate(-1.4deg) translateY(.03em);
 }
 .mast-date{padding:8px 0;border-bottom:4px double var(--ink)}
 .mast-date .dot{color:var(--red)}
@@ -81,6 +82,7 @@ body::after{
 .chip.design{background:var(--red)}
 .chip.news{background:var(--amber)}
 .chip.try{background:var(--yellow);color:var(--ink)}
+.chip.onscreen{background:var(--rose)}
 .redrule{width:64px;height:4px;background:var(--red);margin:16px 0 10px}
 .headline{
   font-family:"Bebas Neue",sans-serif;font-weight:400;text-transform:uppercase;
@@ -208,8 +210,8 @@ body::after{
 </div>
 
 <script>
-const KIND_CLASS = {"AI TIP":"ai","DESIGN":"design","AI NEWS":"news","TRY THIS":"try"};
-const KIND_VERB  = {"AI TIP":"Prompting desk","DESIGN":"Design desk","AI NEWS":"News wire","TRY THIS":"Practice desk"};
+const KIND_CLASS = {"AI TIP":"ai","DESIGN":"design","AI NEWS":"news","TRY THIS":"try","ON SCREEN":"onscreen"};
+const KIND_VERB  = {"AI TIP":"Prompting desk","DESIGN":"Design desk","AI NEWS":"News wire","TRY THIS":"Practice desk","ON SCREEN":"Screen desk"};
 const store = {
   get(){ try{ return JSON.parse(localStorage.getItem("tdr-read")||"{}"); }catch(e){ return {}; } },
   set(v){ localStorage.setItem("tdr-read", JSON.stringify(v)); }
@@ -286,11 +288,12 @@ function render(issue, idx){
 }
 
 function renderArchive(issues, currentDate){
-  const past = issues.filter(i => i.date !== currentDate);
-  if(!past.length) return;
   document.getElementById("archive-slot").innerHTML = `
-    <div class="archive"><h3>Back issues</h3>` +
-    past.map(i => `<a href="?date=${i.date}"><span class="a-date">${fmtDate(i.date)}</span><span class="a-count">№ ${i.number} · ${i.items.length} stories</span></a>`).join("") +
+    <div class="archive"><h3>The archive — every issue, kept</h3>` +
+    issues.map(i => {
+      const today = i.date === currentDate;
+      return `<a href="?date=${i.date}"><span class="a-date">${fmtDate(i.date)}${today ? " — today's edition" : ""}</span><span class="a-count">№ ${i.number} · ${i.items.length} stories</span></a>`;
+    }).join("") +
     `</div>`;
 }
 

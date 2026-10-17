@@ -36,7 +36,8 @@ itself.
 Every morning (~7 AM IST), a new issue is added:
 
 1. Research that day's real AI news (sourced), one AI-usage tip, one
-   art/graphic-design lesson, and optionally a small practice exercise.
+   art/graphic-design lesson, one design lesson drawn from a film,
+   series or anime (ON SCREEN), and optionally a small practice exercise.
 2. Prepend a new issue object to `issues` in `content.json` (newest first),
    incrementing `number`. 4-6 items per issue. Keep bodies short; this is a
    paper, not a blog.
