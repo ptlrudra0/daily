@@ -21,7 +21,7 @@
           "kind": "DESIGN",
           "headline": "Serif type is a trust signal",
           "deck": "Newspapers still set headlines in serif faces for a reason. The modern twist is not the serif itself, it is what you pair it with.",
-          "body": "A serif headline carries history: it reads as considered, editorial, finished. But the move in contemporary editorial design is contrast. One expressive serif for the voice of the page, one plain grotesque for labels and data. Two typefaces, never three. Give the serif the emotional jobs, headlines and quotes. Give the sans the functional jobs, dates, tags, captions. This page you are reading is set exactly that way: Fraunces speaks, Space Grotesk labels.",
+          "body": "A serif headline carries history: it reads as considered, editorial, finished. But the move in contemporary editorial design is contrast. One loud display face for the voice of the page, one quiet reading face for the story. Two typefaces, never three. Give the display face the emotional jobs, headlines and stamps. Give the reading face everything a reader settles into. This page you are reading is set exactly that way: Bebas Neue shouts the headlines, Newsreader tells the story. The tiny monospace credits are not a third voice, they are a printing convention, like the colophon under an old masthead.",
           "why": "Most designs that look generated fail on typography, not colour. Locking a two-font system is the fastest way to make your work look art-directed.",
           "source_name": "Practical Typography, Matthew Butterick",
           "source_url": "https://practicaltypography.com/",
