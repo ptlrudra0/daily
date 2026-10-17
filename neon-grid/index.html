@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#07060F">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Neon Grid</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-180.png">
+<style>
+  :root{
+    --bg0:#141126; --bg1:#07060F; --cell:#1D1A33; --cellwin:#3A2A5E;
+    --grid:#2A2550; --x:#37E6FF; --o:#FF3DA6; --ink:#EDEAF7; --dim:#8B86B0;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%}
+  body{
+    margin:0;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:18px;
+    background:radial-gradient(120% 90% at 50% 0%, var(--bg0), var(--bg1));
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Rounded",system-ui,sans-serif;
+    color:var(--ink);user-select:none;-webkit-user-select:none;overscroll-behavior:none;
+  }
+  h1{margin:0;font-size:20px;font-weight:800;letter-spacing:6px;color:var(--dim)}
+  h1 b{color:var(--x)} h1 i{color:var(--o);font-style:normal}
+  #score{font-size:14px;font-weight:700;color:var(--dim);letter-spacing:1px}
+  #score b{color:var(--x)} #score i{color:var(--o);font-style:normal}
+  #board{display:grid;grid-template-columns:repeat(3,minmax(84px,28vw));gap:12px}
+  .c{
+    aspect-ratio:1;border-radius:20px;background:var(--cell);border:1.5px solid var(--grid);
+    display:flex;align-items:center;justify-content:center;font-size:52px;font-weight:900;
+    cursor:pointer;transition:transform .08s ease, background .15s ease;
+  }
+  .c:active{transform:scale(.94)}
+  .c.win{background:var(--cellwin);border-color:currentColor}
+  .m-x{color:var(--x);text-shadow:0 0 18px rgba(55,230,255,.75)}
+  .m-o{color:var(--o);text-shadow:0 0 18px rgba(255,61,166,.75)}
+  #st{font-size:15px;font-weight:800;letter-spacing:2px;color:var(--dim);min-height:20px}
+  #st.won{color:var(--x)} #st.lost{color:var(--o)}
+  #new{
+    border:0;border-radius:16px;padding:14px 34px;font-weight:900;font-size:16px;letter-spacing:2px;
+    background:linear-gradient(135deg,var(--x),var(--o));color:#0B0A14;cursor:pointer;
+  }
+  #new:active{transform:scale(.96)}
+  #foot{font-size:11px;color:var(--dim);opacity:.7;letter-spacing:1px}
+</style>
+</head>
+<body>
+  <h1>NEON <b>GRID</b></h1>
+  <div id="score">YOU <b id="xw">0</b> &nbsp;·&nbsp; BOT <i id="ow">0</i> &nbsp;·&nbsp; DRAWS <span id="dr">0</span></div>
+  <div id="board"></div>
+  <div id="st">YOUR MOVE</div>
+  <button id="new">NEW GAME</button>
+  <div id="foot">tap a cell &middot; you are X</div>
+<script>
+const LINES=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+const KEY='neon-grid-web-v1';
+let s;
+try{s=JSON.parse(localStorage.getItem(KEY))}catch(e){}
+if(!s||!Array.isArray(s.board)||s.board.length!==9)s={board:Array(9).fill(''),status:'playing',line:[],xWins:0,oWins:0,draws:0};
+const save=()=>localStorage.setItem(KEY,JSON.stringify(s));
+const winnerOf=b=>{for(const l of LINES){const[a,x,c]=l;if(b[a]&&b[a]===b[x]&&b[a]===b[c])return{mark:b[a],line:l}}return{mark:'',line:[]}};
+function botPick(b){
+  const empty=i=>b[i]==='';
+  const findFor=m=>{for(const l of LINES){const t=[b[l[0]],b[l[1]],b[l[2]]];
+    if(t.filter(v=>v===m).length===2&&t.filter(v=>v==='').length===1)return l[t.indexOf('')]}return-1};
+  let p=findFor('O');if(p>=0)return p;
+  p=findFor('X');if(p>=0)return p;
+  if(empty(4))return 4;
+  const co=[0,2,6,8].filter(empty);if(co.length)return co[Math.random()*co.length|0];
+  const r=b.map((_,i)=>i).filter(empty);return r.length?r[Math.random()*r.length|0]:-1;
+}
+function tap(i){
+  if(s.status!=='playing'||s.board[i])return;
+  s.board[i]='X';
+  let r=winnerOf(s.board);
+  if(r.mark==='X'){s.status='won';s.line=r.line;s.xWins++}
+  else if(s.board.every(c=>c)){s.status='draw';s.draws++}
+  else{const p=botPick(s.board);if(p>=0)s.board[p]='O';
+    r=winnerOf(s.board);
+    if(r.mark==='O'){s.status='lost';s.line=r.line;s.oWins++}
+    else if(s.board.every(c=>c)){s.status='draw';s.draws++}}
+  save();render();
+}
+function render(){
+  document.getElementById('xw').textContent=s.xWins;
+  document.getElementById('ow').textContent=s.oWins;
+  document.getElementById('dr').textContent=s.draws;
+  const st=document.getElementById('st');
+  st.className=s.status==='won'?'won':s.status==='lost'?'lost':'';
+  st.textContent=s.status==='won'?'YOU WIN':s.status==='lost'?'BOT WINS':s.status==='draw'?'DRAW':'YOUR MOVE';
+  const g=document.getElementById('board');g.innerHTML='';
+  s.board.forEach((m,i)=>{
+    const d=document.createElement('div');
+    d.className='c'+(s.line.includes(i)?' win':'');
+    if(m){const t=document.createElement('span');t.className=m==='X'?'m-x':'m-o';t.textContent=m;d.appendChild(t);
+      if(s.line.includes(i))d.style.color=m==='X'?'#37E6FF':'#FF3DA6';}
+    d.onclick=()=>tap(i);g.appendChild(d);
+  });
+}
+document.getElementById('new').onclick=()=>{s={board:Array(9).fill(''),status:'playing',line:[],xWins:s.xWins,oWins:s.oWins,draws:s.draws};save();render()};
+render();
+</script>
+</body>
+</html>
