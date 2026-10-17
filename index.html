@@ -8,7 +8,7 @@
 <meta name="description" content="A one-reader morning paper: sharper AI habits, art and graphic design lessons, and the news worth knowing.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Newsreader:ital,opsz,wght@0,6..72,400..800;1,6..72,400..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Newsreader:ital,opsz,wght@0,6..72,400..800;1,6..72,400..800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --paper:#FAF5EA;
@@ -19,6 +19,7 @@
   --cobalt:#2B4BE0;
   --amber:#B87A00;
   --rose:#CE3A6B;
+  --yellow:#F2C200;
   --rule:1px solid #17140F;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -41,7 +42,7 @@ body::after{
 .masthead{padding-top:24px}
 .mast-top,.mast-date{
   display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;
-  font-size:.6rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);
+  font-family:"Space Mono",monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);
 }
 .mast-top{padding-bottom:8px;border-bottom:var(--rule)}
 .mast-name{
@@ -57,7 +58,12 @@ body::after{
 .mast-date .dot{color:var(--red)}
 .kicker-strip{
   margin:14px auto 0;display:flex;align-items:center;justify-content:center;gap:10px;
-  font-size:.6rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft);text-align:center;
+  font-family:"Space Mono",monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);text-align:center;
+}
+.checker{
+  height:10px;margin:16px 0 0;
+  background:repeating-conic-gradient(var(--ink) 0% 25%, transparent 0% 50%);
+  background-size:20px 20px;
 }
 .kicker-strip::before,.kicker-strip::after{content:"";width:32px;height:1px;background:var(--ink-soft);flex:none}
 
@@ -74,7 +80,7 @@ body::after{
 .chip.ai{background:var(--cobalt)}
 .chip.design{background:var(--red)}
 .chip.news{background:var(--amber)}
-.chip.try{background:var(--rose)}
+.chip.try{background:var(--yellow);color:var(--ink)}
 .redrule{width:64px;height:4px;background:var(--red);margin:16px 0 10px}
 .headline{
   font-family:"Bebas Neue",sans-serif;font-weight:400;text-transform:uppercase;
@@ -85,7 +91,7 @@ body::after{
   font-style:italic;font-size:1.08rem;line-height:1.45;color:var(--ink-soft);margin-bottom:16px;
 }
 .byline{
-  display:flex;align-items:center;gap:8px;font-size:.6rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  display:flex;align-items:center;gap:8px;font-family:"Space Mono",monospace;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;
   color:var(--ink-soft);border-top:var(--rule);border-bottom:var(--rule);padding:7px 0;margin-bottom:18px;
 }
 .byline b{color:var(--ink)}
@@ -99,8 +105,8 @@ body::after{
   font-size:3.3em;float:left;line-height:.78;padding:.08em .12em 0 0;color:var(--red);
 }
 .why{
-  margin-top:20px;padding:12px 0 12px 14px;border-left:4px solid var(--red);
-  font-size:.9rem;line-height:1.55;break-inside:avoid;
+  margin-top:20px;padding:12px 14px;border:1.5px dashed rgba(23,20,15,.55);
+  font-size:.9rem;line-height:1.55;break-inside:avoid;background:rgba(242,194,0,.07);
 }
 .why .why-label{display:block;font-size:.58rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--red);margin-bottom:4px}
 .source-line{margin-top:16px;font-size:.72rem;color:var(--ink-soft);letter-spacing:.03em}
@@ -111,7 +117,7 @@ body::after{
   margin-top:32px;border-top:4px double var(--ink);padding-top:18px;
   display:flex;align-items:center;justify-content:space-between;gap:14px;
 }
-.folio{font-family:"Bebas Neue",sans-serif;font-size:1rem;letter-spacing:.18em;color:var(--ink-soft);white-space:nowrap}
+.folio{font-family:"Space Mono",monospace;font-size:.78rem;letter-spacing:.1em;color:var(--ink-soft);white-space:nowrap}
 .folio b{color:var(--red);font-weight:400}
 .tick{
   display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;
@@ -155,7 +161,7 @@ body::after{
 
 /* ---------- archive ---------- */
 .archive{margin-top:42px;border-top:var(--rule);padding-top:14px}
-.archive h3{font-size:.6rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px}
+.archive h3{font-family:"Space Mono",monospace;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px}
 .archive a{
   display:flex;justify-content:space-between;align-items:baseline;gap:12px;
   padding:10px 0;border-bottom:1px solid rgba(23,20,15,.14);
@@ -168,7 +174,7 @@ body::after{
 .colophon{
   margin-top:44px;padding-top:12px;border-top:4px double var(--ink);
   display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
-  font-size:.56rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);
+  font-family:"Space Mono",monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);
 }
 .mark{display:inline-block;width:9px;height:9px;background:var(--red);vertical-align:baseline}
 </style>
@@ -187,6 +193,7 @@ body::after{
       <span id="mast-count">— stories</span>
     </div>
     <div class="kicker-strip">Sharper AI habits · Art &amp; design · News worth knowing</div>
+    <div class="checker"></div>
   </header>
 
   <main id="main" class="story" aria-live="polite"></main>
