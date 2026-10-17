@@ -8,14 +8,14 @@
 <meta name="description" content="A one-reader morning paper: sharper AI habits, art and graphic design lessons, and the news worth knowing.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Newsreader:ital,opsz,wght@0,6..72,400..800;1,6..72,400..800&display=swap" rel="stylesheet">
 <style>
 :root{
   --paper:#FAF5EA;
-  --paper-deep:#F2EAD8;
+  --paper-deep:#F1E9D7;
   --ink:#17140F;
   --ink-soft:#6B6255;
-  --accent:#E8480C;
+  --red:#E8480C;
   --cobalt:#2B4BE0;
   --amber:#B87A00;
   --rose:#CE3A6B;
@@ -24,107 +24,116 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{font-size:17px}
 body{
-  background:var(--paper);
-  color:var(--ink);
-  font-family:"Space Grotesk",system-ui,sans-serif;
-  min-height:100vh;
-  position:relative;
-  overflow-x:hidden;
+  background:var(--paper);color:var(--ink);
+  font-family:"Newsreader",Georgia,serif;
+  min-height:100vh;position:relative;overflow-x:hidden;
 }
-/* static paper grain */
 body::after{
   content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.05;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
 }
-.sheet{max-width:680px;margin:0 auto;padding:0 22px calc(48px + env(safe-area-inset-bottom));position:relative}
-@media(min-width:720px){
-  .sheet{border-left:var(--rule);border-right:var(--rule);padding:0 40px 64px}
+.sheet{max-width:720px;margin:0 auto;padding:0 20px calc(48px + env(safe-area-inset-bottom));position:relative}
+@media(min-width:760px){
+  .sheet{border-left:var(--rule);border-right:var(--rule);padding:0 42px 64px}
 }
 
 /* ---------- masthead ---------- */
-.masthead{padding-top:26px;text-align:center}
-.mast-top{display:flex;justify-content:space-between;align-items:baseline;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);padding-bottom:9px;border-bottom:var(--rule)}
+.masthead{padding-top:24px}
+.mast-top,.mast-date{
+  display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;
+  font-size:.6rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);
+}
+.mast-top{padding-bottom:8px;border-bottom:var(--rule)}
 .mast-name{
-  font-family:"Fraunces",serif;font-weight:900;font-variation-settings:"opsz" 144;
-  font-size:clamp(2.7rem,11.5vw,4.6rem);line-height:1.02;letter-spacing:-.015em;
-  padding:14px 0 12px;border-bottom:var(--rule);
+  font-family:"Bebas Neue",sans-serif;font-weight:400;
+  font-size:clamp(3.3rem,15vw,6.2rem);line-height:.94;letter-spacing:.015em;
+  padding:14px 0 16px;border-bottom:var(--rule);text-align:center;
 }
-.mast-name em{font-style:italic;font-weight:600}
-.mast-date{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;padding:8px 0;border-bottom:4px double var(--ink);flex-wrap:wrap}
-.mast-date .dot{color:var(--accent)}
+.mast-name .hl{
+  background:var(--red);color:var(--paper);padding:0 .12em;
+  display:inline-block;transform:rotate(-1.4deg) translateY(.03em);
+}
+.mast-date{padding:8px 0;border-bottom:4px double var(--ink)}
+.mast-date .dot{color:var(--red)}
 .kicker-strip{
-  margin:16px auto 0;display:inline-flex;align-items:center;gap:10px;
-  font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);
+  margin:14px auto 0;display:flex;align-items:center;justify-content:center;gap:10px;
+  font-size:.6rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft);text-align:center;
 }
-.kicker-strip::before,.kicker-strip::after{content:"";width:34px;height:1px;background:var(--ink-soft)}
+.kicker-strip::before,.kicker-strip::after{content:"";width:32px;height:1px;background:var(--ink-soft);flex:none}
 
 /* ---------- story ---------- */
-.story{padding-top:26px;position:relative}
+.story{padding-top:24px;position:relative;transition:opacity .3s,transform .3s}
+.story.turn{opacity:0;transform:translateX(-24px) rotate(-1.5deg)}
+.story.enter{animation:enter .45s cubic-bezier(.2,.9,.3,1)}
+@keyframes enter{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
 .chip{
-  display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--paper);padding:5px 10px 4px;transform:rotate(-1.2deg);
+  display:inline-block;font-family:"Bebas Neue",sans-serif;font-size:.85rem;letter-spacing:.22em;
+  color:var(--paper);padding:.28em .55em .14em .62em;transform:rotate(-1.2deg);
 }
 .chip.ai{background:var(--cobalt)}
-.chip.design{background:var(--accent)}
+.chip.design{background:var(--red)}
 .chip.news{background:var(--amber)}
 .chip.try{background:var(--rose)}
+.redrule{width:64px;height:4px;background:var(--red);margin:16px 0 10px}
 .headline{
-  font-family:"Fraunces",serif;font-variation-settings:"opsz" 144;
-  font-weight:800;font-size:clamp(1.85rem,7.4vw,2.65rem);
-  line-height:1.08;letter-spacing:-.01em;margin:16px 0 10px;
+  font-family:"Bebas Neue",sans-serif;font-weight:400;text-transform:uppercase;
+  font-size:clamp(2.5rem,11.5vw,4.1rem);line-height:.96;letter-spacing:.012em;
+  margin:0 0 12px;
 }
 .deck{
-  font-family:"Fraunces",serif;font-style:italic;font-weight:400;
-  font-size:1.06rem;line-height:1.45;color:var(--ink-soft);margin-bottom:18px;
+  font-style:italic;font-size:1.08rem;line-height:1.45;color:var(--ink-soft);margin-bottom:16px;
 }
 .byline{
-  display:flex;align-items:center;gap:8px;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--ink-soft);border-top:var(--rule);border-bottom:var(--rule);padding:7px 0;margin-bottom:20px;
+  display:flex;align-items:center;gap:8px;font-size:.6rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink-soft);border-top:var(--rule);border-bottom:var(--rule);padding:7px 0;margin-bottom:18px;
 }
 .byline b{color:var(--ink)}
+.columns{column-gap:30px}
+@media(min-width:760px){.columns{column-count:2;column-rule:1px solid rgba(23,20,15,.25)}}
 .body-text{
-  font-family:"Fraunces",serif;font-weight:340;font-variation-settings:"opsz" 40;
-  font-size:1.02rem;line-height:1.66;
+  font-size:1.0rem;line-height:1.62;text-align:justify;hyphens:auto;
 }
 .body-text::first-letter{
-  font-family:"Fraunces",serif;font-weight:900;font-variation-settings:"opsz" 144;
-  font-size:3.4em;float:left;line-height:.82;padding:5px 10px 0 0;color:var(--accent);
+  font-family:"Bebas Neue",sans-serif;
+  font-size:3.3em;float:left;line-height:.78;padding:.08em .12em 0 0;color:var(--red);
 }
 .why{
-  margin-top:20px;padding:12px 0 12px 14px;border-left:3px solid var(--accent);
-  font-size:.88rem;line-height:1.55;color:var(--ink);
+  margin-top:20px;padding:12px 0 12px 14px;border-left:4px solid var(--red);
+  font-size:.9rem;line-height:1.55;break-inside:avoid;
 }
-.why .why-label{display:block;font-size:.58rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
-.source-line{margin-top:18px;font-size:.72rem;color:var(--ink-soft);letter-spacing:.04em}
-.source-line a{color:var(--ink);text-decoration-color:var(--accent);text-underline-offset:3px}
+.why .why-label{display:block;font-size:.58rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--red);margin-bottom:4px}
+.source-line{margin-top:16px;font-size:.72rem;color:var(--ink-soft);letter-spacing:.03em}
+.source-line a{color:var(--ink);text-decoration-color:var(--red);text-underline-offset:3px}
 
 /* ---------- the checkbox ---------- */
 .checkrow{
-  margin-top:34px;border-top:4px double var(--ink);padding-top:20px;
+  margin-top:32px;border-top:4px double var(--ink);padding-top:18px;
   display:flex;align-items:center;justify-content:space-between;gap:14px;
 }
-.folio{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap}
+.folio{font-family:"Bebas Neue",sans-serif;font-size:1rem;letter-spacing:.18em;color:var(--ink-soft);white-space:nowrap}
+.folio b{color:var(--red);font-weight:400}
 .tick{
   display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;
-  background:none;border:none;font-family:inherit;padding:6px 0;
+  background:none;border:none;font-family:inherit;padding:6px 0;color:var(--ink);
 }
 .tick .box{
   width:26px;height:26px;border:2px solid var(--ink);position:relative;flex:none;
   background:var(--paper);transition:background .18s,transform .18s;
 }
 .tick .box svg{position:absolute;inset:-4px;width:32px;height:32px;opacity:0;transform:scale(.4) rotate(-14deg);transition:opacity .18s,transform .22s cubic-bezier(.34,1.56,.64,1)}
-.tick.done .box{background:var(--accent);border-color:var(--accent);transform:rotate(3deg)}
+.tick.done .box{background:var(--red);border-color:var(--red);transform:rotate(3deg)}
 .tick.done .box svg{opacity:1;transform:scale(1) rotate(-6deg)}
-.tick .tick-label{font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.tick .tick-label{font-family:"Bebas Neue",sans-serif;font-size:1.05rem;letter-spacing:.16em}
 .tick:active .box{transform:scale(.9)}
 
 /* READ stamp */
 .stamp{
-  position:absolute;top:38%;left:50%;z-index:5;pointer-events:none;
+  position:absolute;top:36%;left:50%;z-index:5;pointer-events:none;
   transform:translate(-50%,-50%) rotate(-14deg) scale(2.4);opacity:0;
-  border:4px solid var(--accent);color:var(--accent);border-radius:8px;
-  font-weight:700;font-size:2rem;letter-spacing:.28em;text-transform:uppercase;
-  padding:8px 20px 6px 24px;mix-blend-mode:multiply;
+  border:4px solid var(--red);color:var(--red);border-radius:6px;
+  font-family:"Bebas Neue",sans-serif;font-size:2.2rem;letter-spacing:.3em;
+  padding:.15em .4em 0 .65em;mix-blend-mode:multiply;
 }
 .stamp.slam{animation:slam .55s cubic-bezier(.2,1.4,.4,1) forwards}
 @keyframes slam{
@@ -132,40 +141,36 @@ body::after{
   55%{opacity:1;transform:translate(-50%,-50%) rotate(-14deg) scale(.96)}
   100%{opacity:1;transform:translate(-50%,-50%) rotate(-14deg) scale(1)}
 }
-.story{transition:opacity .3s,transform .3s}
-.story.turn{opacity:0;transform:translateX(-24px) rotate(-1.5deg)}
-.story.enter{animation:enter .45s cubic-bezier(.2,.9,.3,1)}
-@keyframes enter{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 
 /* ---------- caught up ---------- */
-.done-page{text-align:center;padding:56px 0 30px}
+.done-page{text-align:center;padding:52px 0 30px}
 .done-stamp{
-  display:inline-block;border:4px solid var(--accent);color:var(--accent);border-radius:50%;
-  width:150px;height:150px;line-height:1.05;transform:rotate(-10deg);
-  font-family:"Fraunces",serif;font-weight:900;font-size:1.5rem;letter-spacing:.06em;
-  padding-top:44px;margin-bottom:30px;mix-blend-mode:multiply;
+  display:inline-block;border:4px solid var(--red);color:var(--red);border-radius:50%;
+  width:150px;height:150px;transform:rotate(-10deg);
+  font-family:"Bebas Neue",sans-serif;font-size:1.9rem;letter-spacing:.1em;line-height:1;
+  padding-top:52px;margin-bottom:28px;mix-blend-mode:multiply;
 }
-.done-page h2{font-family:"Fraunces",serif;font-weight:800;font-size:1.9rem;margin-bottom:10px}
-.done-page p{color:var(--ink-soft);font-size:.92rem;line-height:1.6;max-width:340px;margin:0 auto}
+.done-page h2{font-family:"Bebas Neue",sans-serif;font-weight:400;font-size:2.4rem;letter-spacing:.03em;margin-bottom:8px;text-transform:uppercase}
+.done-page p{color:var(--ink-soft);font-size:.92rem;line-height:1.6;max-width:340px;margin:0 auto;font-style:italic}
 
 /* ---------- archive ---------- */
-.archive{margin-top:44px;border-top:var(--rule);padding-top:16px}
-.archive h3{font-size:.62rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px}
+.archive{margin-top:42px;border-top:var(--rule);padding-top:14px}
+.archive h3{font-size:.6rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px}
 .archive a{
   display:flex;justify-content:space-between;align-items:baseline;gap:12px;
   padding:10px 0;border-bottom:1px solid rgba(23,20,15,.14);
-  color:var(--ink);text-decoration:none;font-size:.86rem;
+  color:var(--ink);text-decoration:none;font-size:.9rem;
 }
-.archive a .a-date{font-family:"Fraunces",serif;font-style:italic}
-.archive a .a-count{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap}
+.archive a .a-date{font-style:italic}
+.archive a .a-count{font-family:"Bebas Neue",sans-serif;font-size:.9rem;letter-spacing:.14em;color:var(--ink-soft);white-space:nowrap}
 
 /* ---------- colophon ---------- */
 .colophon{
-  margin-top:46px;padding-top:14px;border-top:4px double var(--ink);
+  margin-top:44px;padding-top:12px;border-top:4px double var(--ink);
   display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
-  font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);
+  font-size:.56rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);
 }
-.mark{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--accent);vertical-align:baseline}
+.mark{display:inline-block;width:9px;height:9px;background:var(--red);vertical-align:baseline}
 </style>
 </head>
 <body>
@@ -173,7 +178,7 @@ body::after{
 
   <header class="masthead">
     <div class="mast-top"><span>Morning Edition</span><span>Vol. I — For Rudy</span></div>
-    <h1 class="mast-name">The Daily <em>Draft</em></h1>
+    <h1 class="mast-name">The Daily <span class="hl">Draft</span></h1>
     <div class="mast-date">
       <span id="mast-day">—</span>
       <span class="dot">●</span>
@@ -189,8 +194,8 @@ body::after{
   <div id="archive-slot"></div>
 
   <footer class="colophon">
-    <span>Set in Fraunces &amp; Space Grotesk</span>
-    <span><span class="mark"></span> Prints daily, 7 AM IST</span>
+    <span>Set in Bebas Neue &amp; Newsreader</span>
+    <span><span class="mark"></span>&nbsp;Prints daily, 7 AM IST</span>
     <span>One reader. No noise.</span>
   </footer>
 </div>
@@ -211,11 +216,14 @@ function fmtDate(iso){
 function itemHTML(it){
   return `
     <span class="chip ${KIND_CLASS[it.kind]||"news"}">${it.kind}</span>
+    <div class="redrule"></div>
     <h2 class="headline">${it.headline}</h2>
     <p class="deck">${it.deck}</p>
     <div class="byline"><b>${KIND_VERB[it.kind]||"News wire"}</b><span>·</span><span>${it.reading_time||"1 min read"}</span></div>
-    <p class="body-text">${it.body}</p>
-    ${it.why ? `<div class="why"><span class="why-label">Why it matters</span>${it.why}</div>` : ""}
+    <div class="columns">
+      <p class="body-text">${it.body}</p>
+      ${it.why ? `<div class="why"><span class="why-label">Why it matters</span>${it.why}</div>` : ""}
+    </div>
     ${it.source_url ? `<p class="source-line">Filed from <a href="${it.source_url}" target="_blank" rel="noopener">${it.source_name||it.source_url}</a> ↗</p>` : ""}
   `;
 }
@@ -243,7 +251,7 @@ function render(issue, idx){
         <span class="box"><svg viewBox="0 0 32 32" fill="none"><path d="M7 17.5 L13.5 23.5 L25 9" stroke="#FAF5EA" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         <span class="tick-label">Mark as read</span>
       </button>
-      <span class="folio">№ ${idx+1} — of ${total}</span>
+      <span class="folio">№ <b>${idx+1}</b> — of ${total}</span>
     </div>
     <div class="stamp" id="stamp">Read</div>`;
 
