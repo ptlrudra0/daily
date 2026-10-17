@@ -135,16 +135,20 @@ function buildWidget(s) {
     for (let col = 0; col < 3; col++) {
       const i = row * 3 + col;
       const cell = r.addStack();
+      cell.layoutHorizontally();
+      cell.centerAlignContent();
       cell.size = new Size(44, 44);
       cell.cornerRadius = 10;
       const inLine = s.line.indexOf(i) >= 0;
       cell.backgroundColor = inLine ? C.cellWin : C.cell;
       cell.url = runURL(i);
       const mark = s.board[i];
+      cell.addSpacer();
       const t = cell.addText(mark === "" ? " " : mark);
       t.font = Font.blackRoundedSystemFont(24);
       if (mark === "X") t.textColor = C.x;
       if (mark === "O") t.textColor = C.o;
+      cell.addSpacer();
       if (col < 2) r.addSpacer(8);
     }
     if (row < 2) w.addSpacer(8);
