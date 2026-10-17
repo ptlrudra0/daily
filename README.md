@@ -16,20 +16,26 @@ Live at **https://ptlrudra0.github.io/daily/**
 - When every story is read, the paper shows an ALL READ stamp and the archive
   of back issues.
 
-## iPhone widget (Scriptable)
+## iPhone widget + reader (Scriptable)
 
-The widget shows today's lead story on the home screen; tapping it opens the
-paper. iOS widgets are not interactive, so the checkbox lives inside the paper
-itself.
+The widget shows today's first UNREAD story on the home screen. Tapping it
+runs the script inside Scriptable, which opens the story as a paper-styled
+reader with a working **Mark as read** tick. Ticking saves the read state
+on-device (a JSON file in Scriptable's documents), turns to the next
+unread story, and updates the home-screen widget when you leave.
 
 1. Install the free **Scriptable** app from the App Store.
 2. Open Scriptable, tap **+**, paste in the whole contents of `widget.js`,
    name it "The Daily Draft".
 3. Long-press the home screen → **+** → **Scriptable** → choose the **Medium**
    widget → long-press the placed widget → **Edit Widget** → set Script to
-   "The Daily Draft".
-4. Done. iOS refreshes widgets on its own schedule (usually several times an
-   hour); the widget always pulls the latest `content.json` when it refreshes.
+   "The Daily Draft" and **When Interacting** to **Run Script**.
+4. Done. The widget refreshes on iOS's schedule (a nudge is set for 15
+   minutes) and re-renders right after every reading session.
+
+Note: the reader's read-state lives in Scriptable; the web paper keeps its
+own read-state in the browser's localStorage. The two are independent -
+the paper is the archive, the widget is the ticking checklist.
 
 ## Daily update pipeline
 
