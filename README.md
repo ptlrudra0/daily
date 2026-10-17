@@ -38,6 +38,11 @@ Every morning (~7 AM IST), a new issue is added:
 1. Research that day's real AI news (sourced), one AI-usage tip, one
    art/graphic-design lesson, one design lesson drawn from a film,
    series or anime (ON SCREEN), and optionally a small practice exercise.
+   Personalise to the reader, a first-year AIML student: where it fits
+   naturally, angle stories at his current problems and projects
+   (coding-education reels, GSoC prep, a cybersecurity demo, Arduino
+   hardware, class presentations, college life). Do not force it and do
+   not limit the paper to those topics; variety comes first.
 2. Make one original illustration per story: flat risograph-print style,
    white newsprint background (#F9F9F6), palette limited to ink #17140F,
    vermilion #E8480C, cobalt #2B4BE0, amber #F2C200. No people, no text,
