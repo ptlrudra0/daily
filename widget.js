@@ -5,7 +5,7 @@
 const FEED = "https://ptlrudra0.github.io/daily/content.json";
 const PAGE = "https://ptlrudra0.github.io/daily/";
 
-const PAPER = new Color("#FAF5EA");
+const PAPER = new Color("#F9F9F6");
 const INK   = new Color("#17140F");
 const SOFT  = new Color("#6B6255");
 const RED   = new Color("#E8480C");
@@ -13,7 +13,8 @@ const KIND_COLORS = {
   "AI TIP":  new Color("#2B4BE0"),
   "DESIGN":  new Color("#E8480C"),
   "AI NEWS": new Color("#B87A00"),
-  "TRY THIS":new Color("#CE3A6B")
+  "TRY THIS":new Color("#CE3A6B"),
+  "ON SCREEN":new Color("#CE3A6B")
 };
 
 const w = new ListWidget();
@@ -54,12 +55,26 @@ try {
 
   w.addSpacer(6);
 
-  // headline
-  const head = w.addText(lead.headline);
+  // headline + story art
+  const mid = w.addStack();
+  mid.layoutHorizontally();
+  mid.centerAlignContent();
+  const left = mid.addStack();
+  left.layoutVertically();
+  const head = left.addText(lead.headline);
   head.font = Font.semiboldSystemFont(19);
   head.textColor = INK;
-  head.lineLimit = 2;
+  head.lineLimit = 3;
   head.minimumScaleFactor = 0.8;
+  mid.addSpacer(6);
+  if (lead.image) {
+    try {
+      const img = await new Request(PAGE + lead.image).loadImage();
+      const pic = mid.addImage(img);
+      pic.imageSize = new Size(92, 62);
+      pic.rightAlignImage();
+    } catch (e2) {}
+  }
 
   w.addSpacer();
 

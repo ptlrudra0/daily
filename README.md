@@ -38,9 +38,22 @@ Every morning (~7 AM IST), a new issue is added:
 1. Research that day's real AI news (sourced), one AI-usage tip, one
    art/graphic-design lesson, one design lesson drawn from a film,
    series or anime (ON SCREEN), and optionally a small practice exercise.
-2. Prepend a new issue object to `issues` in `content.json` (newest first),
+2. Make one original illustration per story: flat risograph-print style,
+   white newsprint background (#F9F9F6), palette limited to ink #17140F,
+   vermilion #E8480C, cobalt #2B4BE0, amber #F2C200. No people, no text,
+   no logos, no third-party imagery or IP. Export ~1200px-wide JPEGs into
+   `img/<date>-<n>.jpg`.
+3. Prepend a new issue object to `issues` in `content.json` (newest first),
    incrementing `number`. 4-6 items per issue. Keep bodies short; this is a
-   paper, not a blog.
-3. Every factual item carries `source_name` + `source_url`. Practice items
+   paper, not a blog. Each item carries `image` + `image_alt` pointing at
+   its illustration.
+4. Every factual item carries `source_name` + `source_url`. Practice items
    need no source.
-4. Commit and push to `main`. GitHub Pages redeploys automatically.
+5. Commit and push to `main`. GitHub Pages redeploys automatically.
+
+## Look
+
+Clean white newsprint (#F9F9F6), never beige, with two subtle static
+textures (fine grain + fibre) layered over the page. Every story gets a
+bordered art plate with a coloured top bar matching its desk. Solid
+colours, hard shadows, print grain.

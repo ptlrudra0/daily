@@ -11,8 +11,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Newsreader:ital,opsz,wght@0,6..72,400..800;1,6..72,400..800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#FAF5EA;
-  --paper-deep:#F1E9D7;
+  --paper:#F9F9F6;
+  --paper-deep:#EFEFE8;
   --ink:#17140F;
   --ink-soft:#6B6255;
   --red:#E8480C;
@@ -30,8 +30,12 @@ body{
   min-height:100vh;position:relative;overflow-x:hidden;
 }
 body::after{
-  content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.05;
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.08;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:59;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.012 0.09' numOctaves='3' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0.09 0 0 0 0 0.08 0 0 0 0 0.06 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23f)'/%3E%3C/svg%3E");
 }
 .sheet{max-width:720px;margin:0 auto;padding:0 20px calc(48px + env(safe-area-inset-bottom));position:relative}
 @media(min-width:760px){
@@ -92,6 +96,23 @@ body::after{
 .deck{
   font-style:italic;font-size:1.08rem;line-height:1.45;color:var(--ink-soft);margin-bottom:16px;
 }
+.art{
+  margin:18px 0 20px;border:2px solid var(--ink);background:#fff;
+  box-shadow:4px 4px 0 rgba(23,20,15,.9);
+}
+.art img{display:block;width:100%;height:auto}
+.art figcaption{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+  font-family:"Space Mono",monospace;font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-soft);border-top:var(--rule);padding:5px 9px;
+}
+.art figcaption .plate-no{color:var(--red)}
+.art-top{height:4px}
+.art-top.ai{background:var(--cobalt)}
+.art-top.design{background:var(--red)}
+.art-top.news{background:var(--amber)}
+.art-top.try{background:var(--yellow)}
+.art-top.onscreen{background:var(--rose)}
 .byline{
   display:flex;align-items:center;gap:8px;font-family:"Space Mono",monospace;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;
   color:var(--ink-soft);border-top:var(--rule);border-bottom:var(--rule);padding:7px 0;margin-bottom:18px;
@@ -108,7 +129,7 @@ body::after{
 }
 .why{
   margin-top:20px;padding:12px 14px;border:1.5px dashed rgba(23,20,15,.55);
-  font-size:.9rem;line-height:1.55;break-inside:avoid;background:rgba(242,194,0,.07);
+  font-size:.9rem;line-height:1.55;break-inside:avoid;background:rgba(242,194,0,.13);
 }
 .why .why-label{display:block;font-size:.58rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--red);margin-bottom:4px}
 .source-line{margin-top:16px;font-size:.72rem;color:var(--ink-soft);letter-spacing:.03em}
@@ -222,12 +243,14 @@ function fmtDate(iso){
   return d.toLocaleDateString("en-GB",{weekday:"long", day:"numeric", month:"long", year:"numeric"});
 }
 
-function itemHTML(it){
+function itemHTML(it, plateNo){
+  const kc = KIND_CLASS[it.kind]||"news";
   return `
-    <span class="chip ${KIND_CLASS[it.kind]||"news"}">${it.kind}</span>
+    <span class="chip ${kc}">${it.kind}</span>
     <div class="redrule"></div>
     <h2 class="headline">${it.headline}</h2>
     <p class="deck">${it.deck}</p>
+    ${it.image ? `<figure class="art"><div class="art-top ${kc}"></div><img src="${it.image}" alt="${it.image_alt||it.headline}" loading="lazy"><figcaption><span>Illustration &middot; The Daily Draft</span><span class="plate-no">Plate № ${plateNo}</span></figcaption></figure>` : ""}
     <div class="byline"><b>${KIND_VERB[it.kind]||"News wire"}</b><span>·</span><span>${it.reading_time||"1 min read"}</span></div>
     <div class="columns">
       <p class="body-text">${it.body}</p>
@@ -254,7 +277,7 @@ function render(issue, idx){
     return;
   }
   const it = issue.items[idx];
-  main.innerHTML = itemHTML(it) + `
+  main.innerHTML = itemHTML(it, idx+1) + `
     <div class="checkrow">
       <button class="tick" id="tick" aria-pressed="false" aria-label="Mark story as read">
         <span class="box"><svg viewBox="0 0 32 32" fill="none"><path d="M7 17.5 L13.5 23.5 L25 9" stroke="#FAF5EA" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
