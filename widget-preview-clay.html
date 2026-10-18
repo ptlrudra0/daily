@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Widget preview - clay</title>
-<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400..800;1,400..800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400..800;1,400..800&family=Fraunces:ital,wght@0,600;1,500;1,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   body{background:#FAFAFA;font-family:"Figtree",-apple-system,sans-serif;margin:0;padding:30px 16px;display:flex;flex-direction:column;align-items:center;gap:40px}
   .label{font:600 10px Inter;letter-spacing:.2em;color:#6B6B66;text-transform:uppercase;margin-bottom:10px;align-self:flex-start}
@@ -75,6 +75,38 @@
     box-shadow:inset 0 1.5px 2.5px rgba(23,32,44,.22), inset 0 -1px 0 rgba(255,255,255,.9)}
   .r-folio{font:700 10px Inter;letter-spacing:.12em;color:#6B6B66}
   .r-folio b{color:#2B4BE0}
+
+  /* ---------- TRY IT playground ---------- */
+  .try .r-eyebrow{color:#2B4BE0}
+  .t-field{position:relative;margin:16px 0 14px;border-radius:14px;background:#ECECF0;
+    box-shadow:inset 0 2px 4px rgba(23,32,44,.14), inset 0 -1px 0 rgba(255,255,255,.9)}
+  .t-field input{width:100%;box-sizing:border-box;border:0;outline:0;background:transparent;
+    font:600 15px Figtree,sans-serif;color:#141414;padding:13px 16px}
+  .t-field span{position:absolute;left:16px;top:-7px;font:800 8px Inter;letter-spacing:.22em;
+    text-transform:uppercase;color:#2B4BE0;background:#FBFBFC;padding:0 6px;border-radius:4px}
+  .seg{display:flex;position:relative;border-radius:999px;background:#E9EAEE;padding:4px;margin-bottom:18px;
+    box-shadow:inset 0 2px 4px rgba(23,32,44,.18), inset 0 -1px 0 rgba(255,255,255,.95)}
+  .seg button{flex:1;border:0;background:transparent;cursor:pointer;padding:11px 0;border-radius:999px;
+    font:800 11px Inter;letter-spacing:.14em;text-transform:uppercase;color:#6B6B66;transition:color .15s}
+  .seg button.on{color:#141414;background:radial-gradient(circle at 50% 20%, #FFFFFF 0%, #F4F6F8 55%, #E7EAF0 100%);
+    box-shadow:0 3px 6px rgba(23,32,44,.22), inset 0 1px 1px rgba(255,255,255,.95)}
+  .stage{border-radius:22px;background:#F2F2F4;min-height:190px;display:flex;align-items:center;justify-content:center;
+    padding:26px 22px;box-shadow:inset 0 3px 6px rgba(23,32,44,.12), inset 0 -1px 0 rgba(255,255,255,.9);
+    overflow:hidden;transition:all .2s}
+  .stage .v-grand{font:italic 600 33px/1.16 Fraunces,serif;color:#141414;text-align:center}
+  .stage .v-calm{font:500 15px/1.55 Figtree,sans-serif;color:#3C3C38;text-align:left;align-self:flex-start}
+  .stage .v-poster{font:800 30px/1.02 Inter,sans-serif;text-transform:uppercase;letter-spacing:.02em;
+    color:#141414;text-align:center}
+  .stage .v-poster i{display:block;font-style:normal}
+  .t-row{display:flex;justify-content:space-between;align-items:center;margin:16px 2px 0}
+  .t-hint{font:500 10.5px Inter;color:#6B6B66}
+  .t-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+  .t-cell{border-radius:16px;background:#F2F2F4;min-height:120px;display:flex;align-items:center;justify-content:center;
+    padding:16px 12px;box-shadow:inset 0 2px 4px rgba(23,32,44,.10), inset 0 -1px 0 rgba(255,255,255,.9);overflow:hidden}
+  .t-cell span{display:block;text-align:center;word-break:break-word}
+  .t-cell .v-grand{font:italic 600 15px/1.25 Fraunces,serif;color:#141414}
+  .t-cell .v-calm{font:500 11px/1.5 Figtree,sans-serif;color:#3C3C38;text-align:left}
+  .t-cell .v-poster{font:800 13px/1.05 Inter,sans-serif;text-transform:uppercase;color:#141414}
 </style>
 </head>
 <body>
@@ -112,5 +144,61 @@
   </div>
 </div>
 
+
+<div class="wrap">
+  <div class="label">Try it - interactive exercise</div>
+  <div class="reader">
+    <div class="clay try">
+      <div class="r-eyebrow">Try This</div>
+      <div class="r-title">One Headline, Three Voices</div>
+      <div class="r-meta">10 min exercise &middot; interactive</div>
+      <div class="slot" style="margin:0 0 20px"></div>
+      <p class="r-deck">Set the same headline three ways and feel typography change its meaning. Do it right here.</p>
+      <div class="t-field"><span>Your headline</span><input id="tIn" type="text" value="Meta ships its first frontier model" maxlength="90"></div>
+      <div class="seg" id="tSeg">
+        <button class="on" data-v="grand">Grand</button>
+        <button data-v="calm">Calm</button>
+        <button data-v="poster">Poster</button>
+      </div>
+      <div class="stage" id="tStage"><div class="v-grand" id="tOut">Meta ships its first frontier model</div></div>
+      <div class="t-row">
+        <span style="display:flex;align-items:center;gap:10px"><span class="toggle" id="tAll"><i></i></span><span style="font:800 10px Inter;letter-spacing:.16em;text-transform:uppercase;color:#141414">Side by side</span></span>
+        <span class="t-hint">Same words, three stories.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var inp=document.getElementById('tIn'), out=document.getElementById('tOut'),
+      stage=document.getElementById('tStage'), seg=document.getElementById('tSeg'),
+      tog=document.getElementById('tAll'), voice='grand', all=false;
+  function words(t){return t.trim().split(/\s+/).filter(Boolean)}
+  function posterHTML(t){return words(t).map(function(w){return '<i>'+w+'</i>'}).join('')}
+  function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
+  function render(){
+    var t=inp.value.trim()||'Meta ships its first frontier model';
+    if(all){
+      stage.innerHTML='<div class="t-grid" style="width:100%">'
+        +'<div class="t-cell"><span class="v-grand">'+esc(t)+'</span></div>'
+        +'<div class="t-cell"><span class="v-calm">'+esc(t)+'</span></div>'
+        +'<div class="t-cell"><span class="v-poster">'+posterHTML(esc(t))+'</span></div></div>';
+      stage.style.padding='14px';
+    } else {
+      var inner = voice==='poster' ? posterHTML(esc(t)) : esc(t);
+      stage.innerHTML='<div class="v-'+voice+'">'+inner+'</div>';
+      stage.style.padding='26px 22px';
+    }
+  }
+  inp.addEventListener('input',render);
+  seg.addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b)return;
+    seg.querySelectorAll('button').forEach(function(x){x.classList.remove('on')});
+    b.classList.add('on'); voice=b.dataset.v; render();
+  });
+  tog.addEventListener('click',function(){ all=!all; tog.querySelector('i').style.left=all?'47px':'3px'; render(); });
+})();
+</script>
 </body>
 </html>
