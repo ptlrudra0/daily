@@ -11,10 +11,8 @@
   .wrap{display:flex;flex-direction:column;max-width:720px;width:100%}
 
   /* ---------- HOME SCREEN WIDGET (medium, 329x155pt @2x) ---------- */
-  .widget{
-    width:658px;height:310px;position:relative;border-radius:46px;overflow:hidden;
-    background:#FAFAFA url("img/clay-bg-medium.png") center/100% 100% no-repeat;
-  }
+  .widget{width:658px;max-width:100%}
+  .widget img{display:block;width:100%;height:auto}
   .w-warp{position:absolute;inset:0;filter:url(#puff)}
   .w-text{position:absolute;left:58px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:7px;max-width:540px}
   .w-eyebrow{font:800 12px Inter;letter-spacing:.22em;text-transform:uppercase;color:#E8480C}
@@ -61,24 +59,11 @@
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <filter id="puff" filterUnits="userSpaceOnUse" x="0" y="0" width="658" height="310">
-    <feImage href="img/clay-disp.png" xlink:href="img/clay-disp.png" x="0" y="0" width="658" height="310" preserveAspectRatio="none" result="map"/>
-    <feDisplacementMap in="SourceGraphic" in2="map" scale="40" xChannelSelector="R" yChannelSelector="G"/>
-  </filter>
-</svg>
 
 <div class="wrap">
   <div class="label">Home-screen widget (medium)</div>
-  <div class="widget">
-   <div class="w-warp">
-    <div class="w-text">
-      <span class="w-eyebrow">Design Desk</span>
-      <span class="w-title">Serif Type is a Trust Signal</span>
-      <span class="w-meta">№ 2 of 6 &middot; 1 min read</span>
-    </div>
-   </div>
-  </div>
+  <div class="widget"><img src="img/clay-face-medium.png" alt="Clay widget face"></div>
+</div>
 </div>
 
 <div class="wrap">
