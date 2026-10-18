@@ -50,6 +50,7 @@ function markRead(issue, id) {
 async function buildWidget(issue, state) {
   const w = new ListWidget();
   w.backgroundColor = PAPER;
+  try { w.backgroundImage = await new Request(PAGE + "img/paper.jpg").loadImage(); } catch (e0) {}
   w.setPadding(16, 16, 14, 16);
   w.refreshAfterDate = new Date(Date.now() + 15 * 60 * 1000);
 

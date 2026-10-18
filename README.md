@@ -66,6 +66,12 @@ Every morning (~7 AM IST), a new issue is added:
 ## Look
 
 Clean white newsprint (#F9F9F6), never beige, with two subtle static
-textures (fine grain + fibre) layered over the page. Every story gets a
+textures: a real paper-fibre photograph under the content plus a fine SVG
+grain over it. The fibre is Texturelabs Paper 234
+(https://texturelabs.org/textures/paper_234/, free for commercial use, no
+credit needed, websites OK) - shipped ONLY as a processed derivative
+(img/paper.jpg: greyscaled, levels-lifted, multiplied onto #F9F9F6,
+recompressed ~55KB). Never commit pristine Texturelabs originals;
+redistributing the raw resources is prohibited. Every story gets a
 bordered art plate with a coloured top bar matching its desk. Solid
 colours, hard shadows, print grain.
