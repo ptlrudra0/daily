@@ -1,0 +1,87 @@
+{
+  "paper": "The Daily Draft",
+  "issues": [
+    {
+      "date": "2026-10-18",
+      "number": 1,
+      "items": [
+        {
+          "id": "2026-10-18-1",
+          "kind": "AI TIP",
+          "headline": "Point, don't just describe",
+          "deck": "The newest image models let you show exactly what you mean: a reference image, a marked region, a box where the thing should go. Use them like an art director, not a search bar.",
+          "body": "Black Forest Labs released FLUX.3 Image Klein this week with open weights, and its standout tricks are reference-image-driven editing and bounding-box placement. You mark where the object goes and show what it should look like, instead of writing a paragraph and hoping. The habit to build: pair one reference image with one short instruction. Let the reference carry the composition, and let your words carry the style.",
+          "why": "You make graphics and reels. A reference-plus-region prompt gives repeatable results, closer to directing a shoot than pulling a slot machine.",
+          "source_name": "AI Week in Review, Patrick McGuinness",
+          "source_url": "https://patmcguinness.substack.com/p/ai-week-in-review-261017",
+          "reading_time": "1 min read",
+          "image": "img/pvb-2026-10-18-1.jpg",
+          "image_alt": "Illustration: a cursor arrow dragging a small landscape picture into a dashed bounding-box layout grid."
+        },
+        {
+          "id": "2026-10-18-2",
+          "kind": "DESIGN",
+          "headline": "Serif type is a trust signal",
+          "deck": "Newspapers still set headlines in serif faces for a reason. The modern twist is not the serif itself, it is what you pair it with.",
+          "body": "A serif headline carries history: it reads as considered, editorial, finished. But the move in contemporary editorial design is contrast. One loud display face for the voice of the page, one quiet reading face for the story. Two typefaces, never three. Give the display face the emotional jobs, headlines and stamps. Give the reading face everything a reader settles into. This page you are reading is set exactly that way: Bebas Neue shouts the headlines, Newsreader tells the story. The tiny monospace credits are not a third voice, they are a printing convention, like the colophon under an old masthead.",
+          "why": "Most designs that look generated fail on typography, not colour. Locking a two-font system is the fastest way to make your work look art-directed.",
+          "source_name": "Practical Typography, Matthew Butterick",
+          "source_url": "https://practicaltypography.com/",
+          "reading_time": "1 min read",
+          "image": "img/pvb-2026-10-18-2.jpg",
+          "image_alt": "Illustration: a giant black serif letter A with a misregistered red shadow, flanked by columns of text."
+        },
+        {
+          "id": "2026-10-18-3",
+          "kind": "AI NEWS",
+          "headline": "Meta ships its first frontier model",
+          "deck": "Muse Wonder landed on October 13, with an \"active memory\" that carries your context across conversations.",
+          "body": "Meta released Muse Wonder and Muse Wonder Full this week. On the Artificial Analysis intelligence index, Wonder Full scores 56, ahead of OpenAI's GPT-6 Astra and just behind Anthropic's Claude Opus 5.5. The headline feature is Active Memory: the model holds on to what matters between conversations and recovers from errors mid-task. Meta also dropped Muse Spark Open, open weights with a one-million-token context window.",
+          "why": "The frontier is no longer a two-horse race. More competition at the top means better tools, cheaper, faster, for the things you build.",
+          "source_name": "AI Magazine",
+          "source_url": "https://aimagazine.com/news/this-weeks-top-five-stories-in-ai-week-3-october",
+          "reading_time": "1 min read",
+          "image": "img/pvb-2026-10-18-3.jpg",
+          "image_alt": "Illustration: a telescope on white hills aimed at a huge red star, two smaller cobalt stars nearby."
+        },
+        {
+          "id": "2026-10-18-4",
+          "kind": "AI NEWS",
+          "headline": "ChatGPT can now see your open tabs",
+          "deck": "Since Thursday, ChatGPT can look at the pages open in your browser when you ask. Useful, and worth using deliberately.",
+          "body": "ChatGPT gained the ability to peek at your open browser tabs as context. Research changes shape: instead of copy-pasting five articles into a prompt, you ask \"compare the tabs I have open\" and get a synthesis. The flip side is discipline. Only ask when the tabs in view are things you are fine sharing, and close anything private before you prompt.",
+          "why": "The strongest AI habit this month is treating your open tabs as queryable context. Try it on your next TechBlast research session.",
+          "source_name": "AI News in 5 Minutes",
+          "source_url": "https://ainews.q-sci.org/ai-news-this-week.html",
+          "reading_time": "1 min read",
+          "image": "img/pvb-2026-10-18-4.jpg",
+          "image_alt": "Illustration: a fanned stack of browser windows, the front one outlined red, under a magnifying glass."
+        },
+        {
+          "id": "2026-10-18-6",
+          "kind": "ON SCREEN",
+          "headline": "One font, one colour, one era",
+          "deck": "What Stranger Things teaches about identity: the title card is just ITC Benguiat, red neon and black. Constraint is the whole trick.",
+          "body": "The Stranger Things title sequence sets two words in ITC Benguiat, a 1970s serif with long fangs, glows them red over black, and stops. No characters, no footage, no effects reel. That restraint is why you can hum it. The Duffer Brothers' titles work because every choice points one direction: 1983. The lesson for your own posters and reels: pick one era, one typeface and one colour, then refuse everything else. Ten effects read as a mood board. One effect, fully committed, reads as a world.",
+          "why": "You already collect references like this. The next step is stealing the discipline, not the surface: one font, one colour, one era per project.",
+          "source_name": "Art of the Title",
+          "source_url": "https://www.artofthetitle.com/title/stranger-things/",
+          "reading_time": "1 min read",
+          "image": "img/pvb-2026-10-18-5.jpg",
+          "image_alt": "Illustration: a retro television with a rabbit-ear antenna glowing solid red."
+        },
+        {
+          "id": "2026-10-18-5",
+          "kind": "TRY THIS",
+          "headline": "One headline, three voices",
+          "deck": "A ten-minute exercise: set the same headline three ways and feel typography change its meaning.",
+          "body": "Take the headline \"Meta ships its first frontier model\" from this very issue. Set it three times. Once huge and centred in an italic serif, and it turns grand and cinematic. Once small and left-aligned in a plain sans, and it turns calm and factual. Once stacked one word per line in all caps, and it turns into a loud poster. Same words, three different stories. That difference is art direction. Screenshot your three versions and look at them again tomorrow.",
+          "why": "Taste is trained by reps, not reading. One small exercise a day beats ten bookmarked threads.",
+          "reading_time": "10 min exercise",
+          "image": "img/pvb-2026-10-18-6.jpg",
+          "image_alt": "Illustration: three poster cards showing the same blocks arranged in three different layouts."
+        }
+      ]
+    }
+  ]
+}
