@@ -17,8 +17,20 @@
   /* ---------- matte-white soft-UI parts ---------- */
   .slot{height:13px;border-radius:999px;background:#ECECF0;
     box-shadow:inset 0 2px 3px rgba(23,32,44,.16), inset 0 -1px 0 rgba(255,255,255,.9), 0 1px 0 rgba(255,255,255,.9)}
-  .pearl{border-radius:50%;background:radial-gradient(circle at 35% 28%, #FFFFFF 0%, #F4F6F8 45%, #DDE3EA 100%);
-    box-shadow:inset -3px -5px 8px rgba(148,158,178,.35), 0 8px 14px rgba(23,32,44,.20)}
+  .knob{position:relative;width:56px;height:56px;border-radius:50%;background:#ECEDF1;
+    box-shadow:inset 0 3px 5px rgba(23,32,44,.10), inset 0 -1.5px 0 rgba(255,255,255,.95)}
+  .knob i{position:absolute;inset:7px;border-radius:50%;background:#FCFCFD;
+    box-shadow:0 4px 7px rgba(23,32,44,.16), inset 0 6px 8px rgba(255,255,255,.9), inset 0 -6px 10px rgba(148,158,178,.12)}
+  .knob b{position:absolute;left:50%;top:11px;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:#7FB3FF;
+    box-shadow:0 0 6px 2px rgba(127,179,255,.55)}
+  .toggle{position:relative;width:76px;height:30px;border-radius:999px;background:#E9EAEE;
+    box-shadow:inset 0 2px 4px rgba(23,32,44,.20), inset 0 -1px 0 rgba(255,255,255,.95)}
+  .toggle i{position:absolute;left:3px;top:2px;width:26px;height:26px;border-radius:50%;
+    background:radial-gradient(circle at 35% 28%, #FFFFFF 0%, #F4F6F8 50%, #E2E7EE 100%);
+    box-shadow:0 2px 4px rgba(23,32,44,.30)}
+  .ticks{display:flex;gap:7px;align-items:center}
+  .ticks b{width:6px;height:6px;border-radius:50%;background:#C9CCD3}
+  .ticks b.on{background:#93BEFF;box-shadow:0 0 5px 1px rgba(147,190,255,.6)}
   .track{position:relative;height:16px;border-radius:999px;background:#ECECF0;overflow:hidden;
     box-shadow:inset 0 2px 3px rgba(23,32,44,.18), 0 1px 0 rgba(255,255,255,.9)}
   .track i{position:absolute;left:0;top:0;bottom:0;border-radius:999px;
@@ -37,16 +49,18 @@
   .r-eyebrow{font:800 10px Inter;letter-spacing:.22em;text-transform:uppercase;color:#2B4BE0;margin-bottom:10px}
   .r-title{font:800 24px/1.15 Figtree,sans-serif;color:#141414;margin-bottom:6px}
   .r-meta{font:700 10px Inter;letter-spacing:.16em;text-transform:uppercase;color:#6B6B66;margin-bottom:16px}
-  .r-pearl{width:34px;height:34px;margin:2px 2px 0 0}
+  .r-head .knob{flex:none;margin-top:2px}
   .r-plate{border-radius:22px;overflow:hidden;box-shadow:0 12px 24px rgba(42,50,64,.12), inset 0 1px 0 rgba(255,255,255,.6);margin-bottom:18px}
   .r-plate img{display:block;width:100%;height:auto}
   .r-deck{font-style:italic;font-size:15.5px;line-height:1.5;color:#54544F;margin-bottom:16px}
   .r-body{font-size:15px;line-height:1.66;text-align:justify;hyphens:auto;color:#141414}
   .r-why{
     margin-top:20px;border-radius:20px;padding:14px 16px;font-size:13.5px;line-height:1.6;
-    background:linear-gradient(165deg, rgba(190,215,255,.55), rgba(147,190,255,.30));
-    box-shadow:inset 0 1.5px 2px rgba(255,255,255,.85), inset 0 -4px 8px rgba(43,75,224,.08), 0 8px 18px rgba(42,50,64,.08);
+    background:linear-gradient(165deg, rgba(190,215,255,.65), rgba(147,190,255,.35));
+    box-shadow:inset 0 1.5px 2px rgba(255,255,255,.9), inset 0 -4px 8px rgba(43,75,224,.10), 0 8px 18px rgba(42,50,64,.08);
+    position:relative;overflow:hidden
   }
+  .r-why:before{content:"";position:absolute;left:14px;right:40%;top:5px;height:3px;border-radius:3px;background:rgba(255,255,255,.85);filter:blur(1px)}
   .r-why span{display:block;font:800 8px Inter;letter-spacing:.22em;text-transform:uppercase;color:#2B4BE0;margin-bottom:5px}
   .r-src{margin:18px 2px 0;font:500 10.5px Inter;color:#6B6B66}
   .r-src a{color:#141414;text-decoration-color:#E8480C;text-underline-offset:3px}
@@ -67,7 +81,7 @@
 
 <div class="wrap">
   <div class="label">Home-screen widget (medium)</div>
-  <div class="widget"><img src="img/clay-face-medium.png?v=7" alt="Clay widget face"></div>
+  <div class="widget"><img src="img/clay-face-medium.png?v=8" alt="Clay widget face"></div>
 </div>
 </div>
 
@@ -80,7 +94,7 @@
           <div class="r-eyebrow">Design Desk</div>
           <div class="r-title">Serif Type is a Trust Signal</div>
         </div>
-        <div class="pearl r-pearl"></div>
+        <div class="knob"><i></i><b></b></div>
       </div>
       <div class="r-meta">№ 2 of 6 &middot; 1 min read</div>
       <div class="slot" style="margin:0 0 20px"></div>
@@ -90,10 +104,10 @@
       <div class="r-why"><span>Why it matters</span>Most designs that look generated fail on typography, not colour. Locking a two-font system is the fastest way to make your work look art-directed.</div>
       <p class="r-src">Filed from <a href="#">Practical Typography, Matthew Butterick</a> ↗</p>
       <div class="r-tickrow">
-        <a class="r-tick" href="#"><span class="r-box"></span>Mark as read</a>
+        <span style="display:flex;align-items:center;gap:12px"><span class="toggle"><i></i></span><span style="font:800 11px Inter;letter-spacing:.16em;text-transform:uppercase;color:#141414">Mark as read</span></span>
         <span class="r-folio">№ <b>2</b> / 6</span>
       </div>
-      <div class="track" style="margin-top:22px"><i style="width:33%"></i></div>
+      <div class="ticks" style="margin-top:22px;justify-content:center"><b class="on"></b><b class="on"></b><b></b><b></b><b></b><b></b></div>
     </div>
   </div>
 </div>
