@@ -13,34 +13,39 @@
   /* ---------- HOME SCREEN WIDGET (medium, 329x155pt @2x) ---------- */
   .widget{width:658px;max-width:100%}
   .widget img{display:block;width:100%;height:auto}
-  .w-text{position:absolute;left:58px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:7px;max-width:540px}
-  .w-eyebrow{font:800 12px Inter;letter-spacing:.22em;text-transform:uppercase;color:#E8480C}
-  .w-title{font:800 23px/1.18 -apple-system,"SF Pro Text",Figtree,sans-serif;color:#141414}
-  .w-meta{font:700 11px Inter;letter-spacing:.14em;text-transform:uppercase;color:#6B6B66;margin-top:3px}
 
-  /* pressed-in (debossed) groove strips, like the reference's letterpress rules */
-  .strip{display:flex;flex-direction:column;gap:6px}
-  .strip i{display:block;height:2px;border-radius:2px;background:rgba(23,32,44,.16);
-    box-shadow:inset 0 1px 1.5px rgba(23,32,44,.38), 0 1.5px 0 rgba(255,255,255,.95)}
+  /* ---------- matte-white soft-UI parts ---------- */
+  .slot{height:13px;border-radius:999px;background:#ECECF0;
+    box-shadow:inset 0 2px 3px rgba(23,32,44,.16), inset 0 -1px 0 rgba(255,255,255,.9), 0 1px 0 rgba(255,255,255,.9)}
+  .pearl{border-radius:50%;background:radial-gradient(circle at 35% 28%, #FFFFFF 0%, #F4F6F8 45%, #DDE3EA 100%);
+    box-shadow:inset -3px -5px 8px rgba(148,158,178,.35), 0 8px 14px rgba(23,32,44,.20)}
+  .track{position:relative;height:16px;border-radius:999px;background:#ECECF0;overflow:hidden;
+    box-shadow:inset 0 2px 3px rgba(23,32,44,.18), 0 1px 0 rgba(255,255,255,.9)}
+  .track i{position:absolute;left:0;top:0;bottom:0;border-radius:999px;
+    background:linear-gradient(180deg, rgba(255,255,255,.75), rgba(255,255,255,.05) 55%), #93BEFF;
+    box-shadow:inset 0 1px 1px rgba(255,255,255,.8)}
 
   /* ---------- READER ---------- */
   .reader{width:390px}
   .clay{
-    background:#FDFDFC;border-radius:28px;
-    box-shadow:0 18px 36px rgba(23,32,44,.13), inset 0 2px 5px rgba(255,255,255,.95), inset 0 -7px 14px rgba(23,32,44,.05);
-    padding:26px 24px 30px;
+    background:#FBFBFC;border-radius:40px;
+    box-shadow:0 24px 48px rgba(42,50,64,.14), 0 4px 10px rgba(42,50,64,.06),
+      inset 0 14px 22px rgba(255,255,255,.9), inset 0 -14px 26px rgba(42,50,64,.05);
+    padding:28px 26px 32px;
   }
-  .r-eyebrow{font:800 10px Inter;letter-spacing:.22em;text-transform:uppercase;color:#E8480C;margin-bottom:10px}
+  .r-head{display:flex;justify-content:space-between;align-items:flex-start}
+  .r-eyebrow{font:800 10px Inter;letter-spacing:.22em;text-transform:uppercase;color:#2B4BE0;margin-bottom:10px}
   .r-title{font:800 24px/1.15 Figtree,sans-serif;color:#141414;margin-bottom:6px}
-  .r-meta{font:700 10px Inter;letter-spacing:.16em;text-transform:uppercase;color:#6B6B66;margin-bottom:14px}
-  .r-plate{border-radius:18px;overflow:hidden;box-shadow:0 10px 22px rgba(23,32,44,.12);margin-bottom:18px}
+  .r-meta{font:700 10px Inter;letter-spacing:.16em;text-transform:uppercase;color:#6B6B66;margin-bottom:16px}
+  .r-pearl{width:34px;height:34px;margin:2px 2px 0 0}
+  .r-plate{border-radius:22px;overflow:hidden;box-shadow:0 12px 24px rgba(42,50,64,.12), inset 0 1px 0 rgba(255,255,255,.6);margin-bottom:18px}
   .r-plate img{display:block;width:100%;height:auto}
   .r-deck{font-style:italic;font-size:15.5px;line-height:1.5;color:#54544F;margin-bottom:16px}
   .r-body{font-size:15px;line-height:1.66;text-align:justify;hyphens:auto;color:#141414}
   .r-why{
-    margin-top:20px;background:#FDFDFC;border-radius:16px;
-    box-shadow:0 10px 22px rgba(23,32,44,.10), inset 0 2px 4px rgba(255,255,255,.9), inset 0 -5px 10px rgba(23,32,44,.05);
-    padding:14px 16px;font-size:13.5px;line-height:1.6;
+    margin-top:20px;border-radius:20px;padding:14px 16px;font-size:13.5px;line-height:1.6;
+    background:linear-gradient(165deg, rgba(190,215,255,.55), rgba(147,190,255,.30));
+    box-shadow:inset 0 1.5px 2px rgba(255,255,255,.85), inset 0 -4px 8px rgba(43,75,224,.08), 0 8px 18px rgba(42,50,64,.08);
   }
   .r-why span{display:block;font:800 8px Inter;letter-spacing:.22em;text-transform:uppercase;color:#2B4BE0;margin-bottom:5px}
   .r-src{margin:18px 2px 0;font:500 10.5px Inter;color:#6B6B66}
@@ -49,19 +54,20 @@
   .r-tick{
     display:flex;align-items:center;gap:10px;text-decoration:none;
     font:800 11px Inter;letter-spacing:.16em;text-transform:uppercase;color:#141414;
-    background:#FDFDFC;border-radius:999px;padding:12px 18px;
-    box-shadow:0 10px 20px rgba(23,32,44,.12), inset 0 2px 4px rgba(255,255,255,.95), inset 0 -4px 8px rgba(23,32,44,.05);
+    background:#FBFBFC;border-radius:999px;padding:12px 18px;
+    box-shadow:0 8px 16px rgba(42,50,64,.12), inset 0 2px 3px rgba(255,255,255,.95), inset 0 -4px 8px rgba(42,50,64,.06);
   }
-  .r-box{width:16px;height:16px;border:1.5px solid #141414;border-radius:5px;display:inline-block}
+  .r-box{width:16px;height:16px;border-radius:6px;display:inline-block;background:#FBFBFC;
+    box-shadow:inset 0 1.5px 2.5px rgba(23,32,44,.22), inset 0 -1px 0 rgba(255,255,255,.9)}
   .r-folio{font:700 10px Inter;letter-spacing:.12em;color:#6B6B66}
-  .r-folio b{color:#E8480C}
+  .r-folio b{color:#2B4BE0}
 </style>
 </head>
 <body>
 
 <div class="wrap">
   <div class="label">Home-screen widget (medium)</div>
-  <div class="widget"><img src="img/clay-face-medium.png?v=6" alt="Clay widget face"></div>
+  <div class="widget"><img src="img/clay-face-medium.png?v=7" alt="Clay widget face"></div>
 </div>
 </div>
 
@@ -69,10 +75,15 @@
   <div class="label">In-app reader</div>
   <div class="reader">
     <div class="clay">
-      <div class="r-eyebrow">Design Desk</div>
-      <div class="r-title">Serif Type is a Trust Signal</div>
+      <div class="r-head">
+        <div>
+          <div class="r-eyebrow">Design Desk</div>
+          <div class="r-title">Serif Type is a Trust Signal</div>
+        </div>
+        <div class="pearl r-pearl"></div>
+      </div>
       <div class="r-meta">№ 2 of 6 &middot; 1 min read</div>
-      <div class="strip" style="margin:0 0 20px"><i></i><i></i></div>
+      <div class="slot" style="margin:0 0 20px"></div>
       <figure class="r-plate"><img src="img/2026-10-18-2.jpg" alt=""></figure>
       <p class="r-deck">Newspapers still set headlines in serif faces for a reason. The modern twist is not the serif itself, it is what you pair it with.</p>
       <p class="r-body">A serif headline carries history: it reads as considered, editorial, finished. But the move in contemporary editorial design is contrast. One loud display face for the voice of the page, one quiet reading face for the story. Two typefaces, never three. Give the display face the emotional jobs, headlines and stamps. Give the reading face everything a reader settles into.</p>
@@ -82,7 +93,7 @@
         <a class="r-tick" href="#"><span class="r-box"></span>Mark as read</a>
         <span class="r-folio">№ <b>2</b> / 6</span>
       </div>
-      <div class="strip" style="margin:24px 0 0"><i></i><i></i></div>
+      <div class="track" style="margin-top:22px"><i style="width:33%"></i></div>
     </div>
   </div>
 </div>
