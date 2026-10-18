@@ -12,7 +12,7 @@
 const FEED = "https://ptlrudra0.github.io/daily/content.json";
 const PAGE = "https://ptlrudra0.github.io/daily/";
 
-const PAPER = new Color("#F9F9F6");
+const PAPER = new Color("#FAFAFA");
 const INK   = new Color("#17140F");
 const SOFT  = new Color("#6B6255");
 const RED   = new Color("#E8480C");
@@ -161,11 +161,11 @@ function pageCSS() {
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Newsreader:ital,opsz,wght@0,6..72,400..800;1,6..72,400..800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
   *{margin:0;padding:0;box-sizing:border-box}
-  body{background:#F9F9F6;color:#17140F;font-family:"Newsreader",Georgia,serif;padding:22px 20px 48px}
+  body{background:#FAFAFA;color:#17140F;font-family:"Newsreader",Georgia,serif;padding:22px 20px 48px}
   .mast{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#6B6255;border-bottom:1px solid #17140F;padding-bottom:8px;display:flex;justify-content:space-between}
-  .band{background:#E8480C;color:#F9F9F6;font-family:"Bebas Neue",sans-serif;font-size:34px;letter-spacing:1px;text-align:center;margin-top:12px;padding:6px 0 2px}
+  .band{background:#E8480C;color:#FAFAFA;font-family:"Bebas Neue",sans-serif;font-size:34px;letter-spacing:1px;text-align:center;margin-top:12px;padding:6px 0 2px}
   .story{padding-top:22px}
-  .chip{display:inline-block;font-family:"Bebas Neue",sans-serif;font-size:15px;letter-spacing:3.5px;color:#F9F9F6;padding:4px 9px 2px 10px;transform:rotate(-1.2deg)}
+  .chip{display:inline-block;font-family:"Bebas Neue",sans-serif;font-size:15px;letter-spacing:3.5px;color:#FAFAFA;padding:4px 9px 2px 10px;transform:rotate(-1.2deg)}
   .redrule{width:64px;height:4px;background:#E8480C;margin:14px 0 10px}
   h1{font-family:"Bebas Neue",sans-serif;font-weight:400;text-transform:uppercase;font-size:42px;line-height:.96;margin:0 0 10px}
   .deck{font-style:italic;font-size:18px;line-height:1.45;color:#6B6255;margin-bottom:16px}
@@ -183,7 +183,7 @@ function pageCSS() {
   .source a{color:#17140F;text-decoration-color:#E8480C;text-underline-offset:3px}
   .tickrow{margin-top:30px;border-top:4px double #17140F;padding-top:16px;display:flex;justify-content:space-between;align-items:center}
   .tick{display:flex;align-items:center;gap:12px;text-decoration:none;color:#17140F}
-  .tick .box{width:26px;height:26px;border:2px solid #17140F;background:#F9F9F6;display:inline-block}
+  .tick .box{width:26px;height:26px;border:2px solid #17140F;background:#FAFAFA;display:inline-block}
   .tick .lbl{font-family:"Bebas Neue",sans-serif;font-size:18px;letter-spacing:2.5px}
   .folio{font-family:"Space Mono",monospace;font-size:12px;color:#6B6255}
   .folio b{color:#E8480C;font-weight:400}

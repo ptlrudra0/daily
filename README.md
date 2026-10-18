@@ -65,12 +65,27 @@ Every morning (~7 AM IST), a new issue is added:
 
 ## Look
 
-Clean white newsprint (#F9F9F6), never beige, with two subtle static
-textures: a real paper-fibre photograph under the content plus a fine SVG
-grain over it. The fibre is Texturelabs Paper 234
+Clean NEUTRAL white newsprint (#FAFAFA, equal RGB - never beige, cream,
+or warm grey; check sampled means after any texture change), with subtle
+static textures: a real paper-fibre photograph under the content plus a
+fine SVG grain and a sparse speckle/dropout layer over it.
+
+Print imperfections (Rudy, 18 Oct): the page should read like a real
+press run, not a screen. Static and subtle; headlines and body stay
+readable, ink never obscures text.
+- Plates: baked into each JPEG at generation time - red channel shifted
+  +1px and blue -1px horizontally (misregistration fringe), low-frequency
+  plasma noise multiplied at [0.90,1.0] (uneven ink density), ~0.2% dark
+  speckle (multiply) and ~0.15% white dropouts (screen), recompressed q82.
+  Recipe lives in the morning agent's wake prompt.
+- Display type: CSS text-shadow ghosts (vermilion + cobalt offsets) and an
+  SVG feTurbulence/feDisplacementMap ink-bleed filter (scale 1.5) on the
+  masthead and headlines only, never body text.
+- Layout: masthead plate rotated -0.35deg, each art figure rotated
+  deterministically per plate number (+/-0.25-0.45deg). The fibre is Texturelabs Paper 234
 (https://texturelabs.org/textures/paper_234/, free for commercial use, no
 credit needed, websites OK) - shipped ONLY as a processed derivative
-(img/paper.jpg: greyscaled, levels-lifted, multiplied onto #F9F9F6,
+(img/paper.jpg: greyscaled, levels-lifted, multiplied onto #FAFAFA (neutral),
 recompressed ~55KB). Never commit pristine Texturelabs originals;
 redistributing the raw resources is prohibited. Every story gets a
 bordered art plate with a coloured top bar matching its desk. Solid

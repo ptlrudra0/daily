@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#FAF5EA">
+<meta name="theme-color" content="#FAFAFA">
 <title>The Daily Draft — AI, art & design, every morning</title>
 <meta name="description" content="A one-reader morning paper: sharper AI habits, art and graphic design lessons, and the news worth knowing.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,16 +11,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Newsreader:ital,opsz,wght@0,6..72,400..800;1,6..72,400..800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#F9F9F6;
-  --paper-deep:#EFEFE8;
-  --ink:#17140F;
-  --ink-soft:#6B6255;
+  --paper:#FAFAFA;
+  --paper-deep:#F0F0F0;
+  --ink:#161616;
+  --ink-soft:#5D5D5D;
   --red:#E8480C;
   --cobalt:#2B4BE0;
   --amber:#B87A00;
   --rose:#CE3A6B;
   --yellow:#F2C200;
-  --rule:1px solid #17140F;
+  --rule:1px solid #161616;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{font-size:17px}
@@ -32,6 +32,11 @@ body{
 body::after{
   content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.05;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+html::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:61;opacity:.08;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='110'%3E%3Ccircle cx='14' cy='22' r='1.1' fill='%23161616'/%3E%3Ccircle cx='86' cy='40' r='.9' fill='%23161616'/%3E%3Ccircle cx='52' cy='92' r='1.2' fill='%23161616'/%3E%3Ccircle cx='33' cy='64' r='.8' fill='%23161616'/%3E%3Ccircle cx='70' cy='12' r='.9' fill='%23ffffff'/%3E%3Ccircle cx='100' cy='78' r='1' fill='%23ffffff'/%3E%3C/svg%3E");
+  background-size:110px 110px;
 }
 body::before{
   content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
@@ -54,6 +59,8 @@ body::before{
   font-size:clamp(3.3rem,15vw,6.2rem);line-height:.94;letter-spacing:.015em;
   padding:16px 6px 14px;border-bottom:var(--rule);text-align:center;
   background:var(--red);color:var(--paper);
+  transform:rotate(-.35deg);filter:url(#bleed);
+  text-shadow:.8px .7px 0 rgba(250,250,250,.35), -.7px -.5px 0 rgba(22,22,22,.22);
 }
 .mast-name .hl{
   color:transparent;-webkit-text-stroke:2px var(--paper);text-stroke:2px var(--paper);
@@ -91,14 +98,15 @@ body::before{
 .headline{
   font-family:"Bebas Neue",sans-serif;font-weight:400;text-transform:uppercase;
   font-size:clamp(2.5rem,11.5vw,4.1rem);line-height:.96;letter-spacing:.012em;
-  margin:0 0 12px;
+  margin:0 0 12px;filter:url(#bleed);
+  text-shadow:.7px .5px 0 rgba(232,72,12,.30), -.6px -.4px 0 rgba(43,75,224,.22);
 }
 .deck{
   font-style:italic;font-size:1.08rem;line-height:1.45;color:var(--ink-soft);margin-bottom:16px;
 }
 .art{
   margin:18px 0 20px;border:2px solid var(--ink);background:#fff;
-  box-shadow:4px 4px 0 rgba(23,20,15,.9);
+  box-shadow:4px 4px 0 rgba(22,22,22,.9);
 }
 .art img{display:block;width:100%;height:auto}
 .art figcaption{
@@ -119,7 +127,7 @@ body::before{
 }
 .byline b{color:var(--ink)}
 .columns{column-gap:30px}
-@media(min-width:760px){.columns{column-count:2;column-rule:1px solid rgba(23,20,15,.25)}}
+@media(min-width:760px){.columns{column-count:2;column-rule:1px solid rgba(22,22,22,.25)}}
 .body-text{
   font-size:1.0rem;line-height:1.62;text-align:justify;hyphens:auto;
 }
@@ -128,8 +136,8 @@ body::before{
   font-size:3.3em;float:left;line-height:.78;padding:.08em .12em 0 0;color:var(--red);
 }
 .why{
-  margin-top:20px;padding:12px 14px;border:1.5px dashed rgba(23,20,15,.55);
-  font-size:.9rem;line-height:1.55;break-inside:avoid;background:rgba(242,194,0,.13);
+  margin-top:20px;padding:12px 14px;border:1.5px dashed rgba(43,75,224,.7);
+  font-size:.9rem;line-height:1.55;break-inside:avoid;background:#E8EDFC;
 }
 .why .why-label{display:block;font-size:.58rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--red);margin-bottom:4px}
 .source-line{margin-top:16px;font-size:.72rem;color:var(--ink-soft);letter-spacing:.03em}
@@ -187,7 +195,7 @@ body::before{
 .archive h3{font-family:"Space Mono",monospace;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px}
 .archive a{
   display:flex;justify-content:space-between;align-items:baseline;gap:12px;
-  padding:10px 0;border-bottom:1px solid rgba(23,20,15,.14);
+  padding:10px 0;border-bottom:1px solid rgba(22,22,22,.14);
   color:var(--ink);text-decoration:none;font-size:.9rem;
 }
 .archive a .a-date{font-style:italic}
@@ -203,6 +211,9 @@ body::before{
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="bleed"><feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.5"/></filter>
+</svg>
 <div class="sheet">
 
   <header class="masthead">
@@ -245,12 +256,14 @@ function fmtDate(iso){
 
 function itemHTML(it, plateNo){
   const kc = KIND_CLASS[it.kind]||"news";
+  const ROT = [-0.45, 0.35, -0.3, 0.4, -0.25, 0.3];
+  const rot = ROT[(plateNo-1) % ROT.length];
   return `
     <span class="chip ${kc}">${it.kind}</span>
     <div class="redrule"></div>
     <h2 class="headline">${it.headline}</h2>
     <p class="deck">${it.deck}</p>
-    ${it.image ? `<figure class="art"><div class="art-top ${kc}"></div><img src="${it.image}" alt="${it.image_alt||it.headline}" loading="lazy"><figcaption><span>Illustration &middot; The Daily Draft</span><span class="plate-no">Plate № ${plateNo}</span></figcaption></figure>` : ""}
+    ${it.image ? `<figure class="art" style="transform:rotate(${rot}deg)"><div class="art-top ${kc}"></div><img src="${it.image}" alt="${it.image_alt||it.headline}" loading="lazy"><figcaption><span>Illustration &middot; The Daily Draft</span><span class="plate-no">Plate № ${plateNo}</span></figcaption></figure>` : ""}
     <div class="byline"><b>${KIND_VERB[it.kind]||"News wire"}</b><span>·</span><span>${it.reading_time||"1 min read"}</span></div>
     <div class="columns">
       <p class="body-text">${it.body}</p>
