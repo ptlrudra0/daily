@@ -8,212 +8,171 @@
 <meta name="description" content="A one-reader morning paper: sharper AI habits, art and graphic design lessons, and the news worth knowing.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Newsreader:ital,opsz,wght@0,6..72,400..800;1,6..72,400..800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400..700;1,400..700&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --paper:#FAFAFA;
-  --paper-deep:#F0F0F0;
-  --ink:#161616;
-  --ink-soft:#5D5D5D;
+  --ink:#141414;
+  --ink-soft:#6B6B66;
+  --hair:#E4E4DF;
   --red:#E8480C;
   --cobalt:#2B4BE0;
   --amber:#B87A00;
   --rose:#CE3A6B;
   --yellow:#F2C200;
-  --rule:1px solid #161616;
+  --rule:1px solid #141414;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{font-size:17px}
 body{
   background:var(--paper);color:var(--ink);
-  font-family:"Newsreader",Georgia,serif;
-  min-height:100vh;position:relative;overflow-x:hidden;
+  font-family:"Figtree",-apple-system,"Segoe UI",sans-serif;
+  min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;
 }
-body::after{
-  content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.05;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-html::after{
-  content:"";position:fixed;inset:0;pointer-events:none;z-index:61;opacity:.08;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='110'%3E%3Ccircle cx='14' cy='22' r='1.1' fill='%23161616'/%3E%3Ccircle cx='86' cy='40' r='.9' fill='%23161616'/%3E%3Ccircle cx='52' cy='92' r='1.2' fill='%23161616'/%3E%3Ccircle cx='33' cy='64' r='.8' fill='%23161616'/%3E%3Ccircle cx='70' cy='12' r='.9' fill='%23ffffff'/%3E%3Ccircle cx='100' cy='78' r='1' fill='%23ffffff'/%3E%3C/svg%3E");
-  background-size:110px 110px;
-}
-body::before{
-  content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
-  background:var(--paper) url("img/paper.jpg") repeat;
-}
-.sheet{max-width:720px;margin:0 auto;padding:0 20px calc(48px + env(safe-area-inset-bottom));position:relative}
-@media(min-width:760px){
-  .sheet{border-left:var(--rule);border-right:var(--rule);padding:0 42px 64px}
-}
+.sheet{max-width:720px;margin:0 auto;padding:0 22px calc(48px + env(safe-area-inset-bottom))}
+@media(min-width:760px){.sheet{padding:0 32px 72px}}
 
 /* ---------- masthead ---------- */
-.masthead{padding-top:24px}
+.masthead{padding-top:26px}
 .mast-top,.mast-date{
   display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;
-  font-family:"Space Mono",monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);
+  font-family:"Inter",sans-serif;font-weight:500;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);
 }
-.mast-top{padding-bottom:8px;border-bottom:var(--rule)}
+.mast-top{padding-bottom:10px;border-bottom:var(--rule)}
 .mast-name{
-  font-family:"Bebas Neue",sans-serif;font-weight:400;
-  font-size:clamp(3.3rem,15vw,6.2rem);line-height:.94;letter-spacing:.015em;
-  padding:16px 6px 14px;border-bottom:var(--rule);text-align:center;
-  background:var(--red);color:var(--paper);
-  transform:rotate(-.35deg);filter:url(#bleed);
-  text-shadow:.8px .7px 0 rgba(250,250,250,.35), -.7px -.5px 0 rgba(22,22,22,.22);
+  font-family:"Fraunces",serif;font-weight:480;
+  font-size:clamp(3.1rem,13.5vw,5.8rem);line-height:1;letter-spacing:-.015em;text-align:center;
+  padding:30px 0 24px;border-bottom:3px solid var(--ink);
 }
-.mast-name .hl{
-  color:transparent;-webkit-text-stroke:2px var(--paper);text-stroke:2px var(--paper);
-  padding:0 .06em;display:inline-block;transform:rotate(-1.4deg) translateY(.03em);
-}
-.mast-date{padding:8px 0;border-bottom:4px double var(--ink)}
-.mast-date .dot{color:var(--red)}
+.mast-name .hl{font-style:italic;color:var(--red)}
+.mast-date{padding:10px 0;border-bottom:1px solid var(--hair)}
+.mast-date .dot{color:var(--red);font-size:.5rem}
 .kicker-strip{
-  margin:14px auto 0;display:flex;align-items:center;justify-content:center;gap:10px;
-  font-family:"Space Mono",monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);text-align:center;
+  margin:12px auto 0;display:flex;align-items:center;justify-content:center;gap:10px;
+  font-family:"Inter",sans-serif;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);text-align:center;
 }
-.checker{
-  height:10px;margin:16px 0 0;
-  background:repeating-conic-gradient(var(--ink) 0% 25%, transparent 0% 50%);
-  background-size:20px 20px;
-}
-.kicker-strip::before,.kicker-strip::after{content:"";width:32px;height:1px;background:var(--ink-soft);flex:none}
+.kicker-strip::before,.kicker-strip::after{content:"";width:32px;height:1px;background:var(--hair);flex:none}
+.checker{display:none}
 
 /* ---------- story ---------- */
-.story{padding-top:24px;position:relative;transition:opacity .3s,transform .3s}
-.story.turn{opacity:0;transform:translateX(-24px) rotate(-1.5deg)}
+.story{padding-top:30px;position:relative;transition:opacity .3s,transform .3s}
+.story.turn{opacity:0;transform:translateX(-18px)}
 .story.enter{animation:enter .45s cubic-bezier(.2,.9,.3,1)}
-@keyframes enter{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes enter{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
 .chip{
-  display:inline-block;font-family:"Bebas Neue",sans-serif;font-size:.85rem;letter-spacing:.22em;
-  color:var(--paper);padding:.28em .55em .14em .62em;transform:rotate(-1.2deg);
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:"Inter",sans-serif;font-weight:600;font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink);
 }
-.chip.ai{background:var(--cobalt)}
-.chip.design{background:var(--red)}
-.chip.news{background:var(--amber)}
-.chip.try{background:var(--yellow);color:var(--ink)}
-.chip.onscreen{background:var(--rose)}
-.redrule{width:64px;height:4px;background:var(--red);margin:16px 0 10px}
+.chip::before{content:"";width:7px;height:7px;background:var(--accent,var(--ink));flex:none}
+.chip.ai{--accent:var(--cobalt)}
+.chip.design{--accent:var(--red)}
+.chip.news{--accent:var(--amber)}
+.chip.try{--accent:var(--yellow)}
+.chip.onscreen{--accent:var(--rose)}
+.redrule{width:44px;height:3px;background:var(--red);margin:14px 0}
 .headline{
-  font-family:"Bebas Neue",sans-serif;font-weight:400;text-transform:uppercase;
-  font-size:clamp(2.5rem,11.5vw,4.1rem);line-height:.96;letter-spacing:.012em;
-  margin:0 0 12px;filter:url(#bleed);
-  text-shadow:.7px .5px 0 rgba(232,72,12,.30), -.6px -.4px 0 rgba(43,75,224,.22);
+  font-family:"Fraunces",serif;font-weight:560;
+  font-size:clamp(2.1rem,8.2vw,3.3rem);line-height:1.05;letter-spacing:-.01em;
+  margin:0 0 12px;
 }
-.deck{
-  font-style:italic;font-size:1.08rem;line-height:1.45;color:var(--ink-soft);margin-bottom:16px;
-}
-.art{
-  margin:18px 0 20px;border:2px solid var(--ink);background:#fff;
-  box-shadow:4px 4px 0 rgba(22,22,22,.9);
-}
+.deck{font-style:italic;font-size:1.12rem;line-height:1.5;color:#54544F;margin-bottom:18px}
+.art{margin:22px 0 26px}
 .art img{display:block;width:100%;height:auto}
 .art figcaption{
   display:flex;justify-content:space-between;align-items:center;gap:10px;
-  font-family:"Space Mono",monospace;font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--ink-soft);border-top:var(--rule);padding:5px 9px;
+  font-family:"Inter",sans-serif;font-weight:500;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft);border-top:1px solid var(--hair);padding-top:8px;margin-top:10px;
 }
 .art figcaption .plate-no{color:var(--red)}
-.art-top{height:4px}
-.art-top.ai{background:var(--cobalt)}
-.art-top.design{background:var(--red)}
-.art-top.news{background:var(--amber)}
-.art-top.try{background:var(--yellow)}
-.art-top.onscreen{background:var(--rose)}
 .byline{
-  display:flex;align-items:center;gap:8px;font-family:"Space Mono",monospace;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--ink-soft);border-top:var(--rule);border-bottom:var(--rule);padding:7px 0;margin-bottom:18px;
+  display:flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-weight:500;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-soft);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);padding:8px 0;margin-bottom:20px;
 }
-.byline b{color:var(--ink)}
-.columns{column-gap:30px}
-@media(min-width:760px){.columns{column-count:2;column-rule:1px solid rgba(22,22,22,.25)}}
-.body-text{
-  font-size:1.0rem;line-height:1.62;text-align:justify;hyphens:auto;
-}
+.byline b{color:var(--ink);font-weight:600}
+.columns{column-gap:32px}
+@media(min-width:760px){.columns{column-count:2;column-rule:1px solid var(--hair)}}
+.body-text{font-size:1.0rem;line-height:1.66;text-align:justify;hyphens:auto}
 .body-text::first-letter{
-  font-family:"Bebas Neue",sans-serif;
-  font-size:3.3em;float:left;line-height:.78;padding:.08em .12em 0 0;color:var(--red);
+  font-family:"Fraunces",serif;font-weight:600;
+  font-size:3.2em;float:left;line-height:.8;padding:.06em .14em 0 0;color:var(--ink);
 }
 .why{
-  margin-top:20px;padding:12px 14px;border:1.5px dashed rgba(43,75,224,.7);
-  font-size:.9rem;line-height:1.55;break-inside:avoid;background:#E8EDFC;
+  margin-top:22px;padding:2px 0 2px 16px;border-left:2px solid var(--cobalt);
+  font-size:.95rem;line-height:1.6;break-inside:avoid;
 }
-.why .why-label{display:block;font-size:.58rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--red);margin-bottom:4px}
-.source-line{margin-top:16px;font-size:.72rem;color:var(--ink-soft);letter-spacing:.03em}
+.why .why-label{display:block;font-family:"Inter",sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--cobalt);margin-bottom:5px}
+.source-line{margin-top:18px;font-family:"Inter",sans-serif;font-size:.68rem;letter-spacing:.02em;color:var(--ink-soft)}
 .source-line a{color:var(--ink);text-decoration-color:var(--red);text-underline-offset:3px}
 
 /* ---------- the checkbox ---------- */
 .checkrow{
-  margin-top:32px;border-top:4px double var(--ink);padding-top:18px;
+  margin-top:34px;border-top:3px solid var(--ink);padding-top:18px;
   display:flex;align-items:center;justify-content:space-between;gap:14px;
 }
-.folio{font-family:"Space Mono",monospace;font-size:.78rem;letter-spacing:.1em;color:var(--ink-soft);white-space:nowrap}
-.folio b{color:var(--red);font-weight:400}
+.folio{font-family:"Inter",sans-serif;font-size:.72rem;letter-spacing:.12em;color:var(--ink-soft);white-space:nowrap}
+.folio b{color:var(--red);font-weight:600}
 .tick{
   display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;
   background:none;border:none;font-family:inherit;padding:6px 0;color:var(--ink);
 }
 .tick .box{
-  width:26px;height:26px;border:2px solid var(--ink);position:relative;flex:none;
-  background:var(--paper);transition:background .18s,transform .18s;
+  width:24px;height:24px;border:1.5px solid var(--ink);position:relative;flex:none;
+  background:var(--paper);transition:background .18s;
 }
-.tick .box svg{position:absolute;inset:-4px;width:32px;height:32px;opacity:0;transform:scale(.4) rotate(-14deg);transition:opacity .18s,transform .22s cubic-bezier(.34,1.56,.64,1)}
-.tick.done .box{background:var(--red);border-color:var(--red);transform:rotate(3deg)}
-.tick.done .box svg{opacity:1;transform:scale(1) rotate(-6deg)}
-.tick .tick-label{font-family:"Bebas Neue",sans-serif;font-size:1.05rem;letter-spacing:.16em}
+.tick .box svg{position:absolute;inset:-3px;width:30px;height:30px;opacity:0;transform:scale(.5);transition:opacity .18s,transform .22s cubic-bezier(.34,1.56,.64,1)}
+.tick.done .box{background:var(--red);border-color:var(--red)}
+.tick.done .box svg{opacity:1;transform:scale(1)}
+.tick .tick-label{font-family:"Inter",sans-serif;font-weight:600;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase}
 .tick:active .box{transform:scale(.9)}
 
 /* READ stamp */
 .stamp{
   position:absolute;top:36%;left:50%;z-index:5;pointer-events:none;
-  transform:translate(-50%,-50%) rotate(-14deg) scale(2.4);opacity:0;
-  border:4px solid var(--red);color:var(--red);border-radius:6px;
-  font-family:"Bebas Neue",sans-serif;font-size:2.2rem;letter-spacing:.3em;
-  padding:.15em .4em 0 .65em;mix-blend-mode:multiply;
+  transform:translate(-50%,-50%) rotate(-8deg) scale(2.4);opacity:0;
+  border:3px solid var(--red);color:var(--red);
+  font-family:"Fraunces",serif;font-style:italic;font-weight:600;font-size:2rem;letter-spacing:.14em;
+  padding:.2em .5em;mix-blend-mode:multiply;
 }
 .stamp.slam{animation:slam .55s cubic-bezier(.2,1.4,.4,1) forwards}
 @keyframes slam{
-  0%{opacity:0;transform:translate(-50%,-50%) rotate(-14deg) scale(2.4)}
-  55%{opacity:1;transform:translate(-50%,-50%) rotate(-14deg) scale(.96)}
-  100%{opacity:1;transform:translate(-50%,-50%) rotate(-14deg) scale(1)}
+  0%{opacity:0;transform:translate(-50%,-50%) rotate(-8deg) scale(2.4)}
+  55%{opacity:1;transform:translate(-50%,-50%) rotate(-8deg) scale(.96)}
+  100%{opacity:1;transform:translate(-50%,-50%) rotate(-8deg) scale(1)}
 }
 
 /* ---------- caught up ---------- */
 .done-page{text-align:center;padding:52px 0 30px}
 .done-stamp{
-  display:inline-block;border:4px solid var(--red);color:var(--red);border-radius:50%;
-  width:150px;height:150px;transform:rotate(-10deg);
-  font-family:"Bebas Neue",sans-serif;font-size:1.9rem;letter-spacing:.1em;line-height:1;
-  padding-top:52px;margin-bottom:28px;mix-blend-mode:multiply;
+  display:inline-block;border:3px solid var(--red);color:var(--red);border-radius:50%;
+  width:140px;height:140px;transform:rotate(-8deg);
+  font-family:"Fraunces",serif;font-style:italic;font-weight:600;font-size:1.5rem;line-height:1.1;
+  padding-top:50px;margin-bottom:26px;mix-blend-mode:multiply;
 }
-.done-page h2{font-family:"Bebas Neue",sans-serif;font-weight:400;font-size:2.4rem;letter-spacing:.03em;margin-bottom:8px;text-transform:uppercase}
-.done-page p{color:var(--ink-soft);font-size:.92rem;line-height:1.6;max-width:340px;margin:0 auto;font-style:italic}
+.done-page h2{font-family:"Fraunces",serif;font-weight:560;font-size:2rem;letter-spacing:-.01em;margin-bottom:10px}
+.done-page p{color:var(--ink-soft);font-size:.95rem;line-height:1.6;max-width:340px;margin:0 auto;font-style:italic}
 
 /* ---------- archive ---------- */
-.archive{margin-top:42px;border-top:var(--rule);padding-top:14px}
-.archive h3{font-family:"Space Mono",monospace;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px}
+.archive{margin-top:44px;border-top:var(--rule);padding-top:16px}
+.archive h3{font-family:"Inter",sans-serif;font-size:.6rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px}
 .archive a{
   display:flex;justify-content:space-between;align-items:baseline;gap:12px;
-  padding:10px 0;border-bottom:1px solid rgba(22,22,22,.14);
-  color:var(--ink);text-decoration:none;font-size:.9rem;
+  padding:12px 0;border-bottom:1px solid var(--hair);
+  color:var(--ink);text-decoration:none;font-size:.95rem;
 }
 .archive a .a-date{font-style:italic}
-.archive a .a-count{font-family:"Bebas Neue",sans-serif;font-size:.9rem;letter-spacing:.14em;color:var(--ink-soft);white-space:nowrap}
+.archive a .a-count{font-family:"Inter",sans-serif;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap}
 
 /* ---------- colophon ---------- */
 .colophon{
-  margin-top:44px;padding-top:12px;border-top:4px double var(--ink);
+  margin-top:46px;padding-top:14px;border-top:var(--rule);
   display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
-  font-family:"Space Mono",monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);
+  font-family:"Inter",sans-serif;font-weight:500;font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);
 }
 .mark{display:inline-block;width:9px;height:9px;background:var(--red);vertical-align:baseline}
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <filter id="bleed"><feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.5"/></filter>
-</svg>
 <div class="sheet">
 
   <header class="masthead">
@@ -227,7 +186,6 @@ body::before{
       <span id="mast-count">— stories</span>
     </div>
     <div class="kicker-strip">Sharper AI habits · Art &amp; design · News worth knowing</div>
-    <div class="checker"></div>
   </header>
 
   <main id="main" class="story" aria-live="polite"></main>
@@ -235,7 +193,7 @@ body::before{
   <div id="archive-slot"></div>
 
   <footer class="colophon">
-    <span>Set in Bebas Neue &amp; Newsreader</span>
+    <span>Set in Fraunces &amp; Newsreader</span>
     <span><span class="mark"></span>&nbsp;Prints daily, 7 AM IST</span>
     <span>One reader. No noise.</span>
   </footer>
@@ -249,6 +207,17 @@ const store = {
   set(v){ localStorage.setItem("tdr-read", JSON.stringify(v)); }
 };
 
+function titleCase(s){
+  const small = new Set(["a","an","and","as","at","but","by","for","in","is","it","of","on","or","the","to","vs","with"]);
+  const keep = new Set(["ai","api","css","ui","ux","llm","gpt"]);
+  return s.toLowerCase().split(" ").map((w,i)=>{
+    const bare = w.replace(/[^a-z0-9]/gi,"");
+    if(keep.has(bare)) return w.toUpperCase();
+    if(i>0 && small.has(bare)) return w;
+    return w.replace(/(^|[^a-z0-9'])([a-z])/g, (m,p,c)=>p+c.toUpperCase());
+  }).join(" ");
+}
+
 function fmtDate(iso){
   const d = new Date(iso + "T12:00:00");
   return d.toLocaleDateString("en-GB",{weekday:"long", day:"numeric", month:"long", year:"numeric"});
@@ -256,14 +225,12 @@ function fmtDate(iso){
 
 function itemHTML(it, plateNo){
   const kc = KIND_CLASS[it.kind]||"news";
-  const ROT = [-0.45, 0.35, -0.3, 0.4, -0.25, 0.3];
-  const rot = ROT[(plateNo-1) % ROT.length];
   return `
     <span class="chip ${kc}">${it.kind}</span>
     <div class="redrule"></div>
-    <h2 class="headline">${it.headline}</h2>
+    <h2 class="headline">${titleCase(it.headline)}</h2>
     <p class="deck">${it.deck}</p>
-    ${it.image ? `<figure class="art" style="transform:rotate(${rot}deg)"><div class="art-top ${kc}"></div><img src="${it.image}" alt="${it.image_alt||it.headline}" loading="lazy"><figcaption><span>Illustration &middot; The Daily Draft</span><span class="plate-no">Plate № ${plateNo}</span></figcaption></figure>` : ""}
+    ${it.image ? `<figure class="art"><img src="${it.image}" alt="${it.image_alt||it.headline}" loading="lazy"><figcaption><span>Illustration &middot; The Daily Draft</span><span class="plate-no">Plate № ${plateNo}</span></figcaption></figure>` : ""}
     <div class="byline"><b>${KIND_VERB[it.kind]||"News wire"}</b><span>·</span><span>${it.reading_time||"1 min read"}</span></div>
     <div class="columns">
       <p class="body-text">${it.body}</p>
@@ -293,7 +260,7 @@ function render(issue, idx){
   main.innerHTML = itemHTML(it, idx+1) + `
     <div class="checkrow">
       <button class="tick" id="tick" aria-pressed="false" aria-label="Mark story as read">
-        <span class="box"><svg viewBox="0 0 32 32" fill="none"><path d="M7 17.5 L13.5 23.5 L25 9" stroke="#FAF5EA" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="box"><svg viewBox="0 0 32 32" fill="none"><path d="M7 17.5 L13.5 23.5 L25 9" stroke="#FAFAFA" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         <span class="tick-label">Mark as read</span>
       </button>
       <span class="folio">№ <b>${idx+1}</b> — of ${total}</span>

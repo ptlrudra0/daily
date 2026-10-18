@@ -50,7 +50,6 @@ function markRead(issue, id) {
 async function buildWidget(issue, state) {
   const w = new ListWidget();
   w.backgroundColor = PAPER;
-  try { w.backgroundImage = await new Request(PAGE + "img/paper.jpg").loadImage(); } catch (e0) {}
   w.setPadding(16, 16, 14, 16);
   w.refreshAfterDate = new Date(Date.now() + 15 * 60 * 1000);
 
@@ -152,46 +151,58 @@ const KIND_HEX = {
   "AI TIP": "#2B4BE0", "DESIGN": "#E8480C", "AI NEWS": "#B87A00",
   "TRY THIS": "#F2C200", "ON SCREEN": "#CE3A6B"
 };
+function titleCase(s) {
+  const small = new Set(["a","an","and","as","at","but","by","for","in","is","it","of","on","or","the","to","vs","with"]);
+  const keep = new Set(["ai","api","css","ui","ux","llm","gpt"]);
+  return String(s || "").toLowerCase().split(" ").map((w, i) => {
+    const bare = w.replace(/[^a-z0-9]/gi, "");
+    if (keep.has(bare)) return w.toUpperCase();
+    if (i > 0 && small.has(bare)) return w;
+    return w.replace(/(^|[^a-z0-9'])([a-z])/g, (m, p, c) => p + c.toUpperCase());
+  }).join(" ");
+}
 function esc(s) { return String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
 
 function pageCSS() {
   return `
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Newsreader:ital,opsz,wght@0,6..72,400..800;1,6..72,400..800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400..700;1,400..700&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
   *{margin:0;padding:0;box-sizing:border-box}
-  body{background:#FAFAFA;color:#17140F;font-family:"Newsreader",Georgia,serif;padding:22px 20px 48px}
-  .mast{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#6B6255;border-bottom:1px solid #17140F;padding-bottom:8px;display:flex;justify-content:space-between}
-  .band{background:#E8480C;color:#FAFAFA;font-family:"Bebas Neue",sans-serif;font-size:34px;letter-spacing:1px;text-align:center;margin-top:12px;padding:6px 0 2px}
-  .story{padding-top:22px}
-  .chip{display:inline-block;font-family:"Bebas Neue",sans-serif;font-size:15px;letter-spacing:3.5px;color:#FAFAFA;padding:4px 9px 2px 10px;transform:rotate(-1.2deg)}
-  .redrule{width:64px;height:4px;background:#E8480C;margin:14px 0 10px}
-  h1{font-family:"Bebas Neue",sans-serif;font-weight:400;text-transform:uppercase;font-size:42px;line-height:.96;margin:0 0 10px}
-  .deck{font-style:italic;font-size:18px;line-height:1.45;color:#6B6255;margin-bottom:16px}
-  .art{margin:16px 0 18px;border:2px solid #17140F;background:#fff;box-shadow:4px 4px 0 rgba(23,20,15,.9)}
+  body{background:#FAFAFA;color:#141414;font-family:"Figtree",-apple-system,"Segoe UI",sans-serif;padding:22px 20px 48px;-webkit-font-smoothing:antialiased}
+  .mast{font-family:"Inter",sans-serif;font-weight:500;font-size:10px;letter-spacing:2.2px;text-transform:uppercase;color:#6B6B66;border-bottom:1px solid #141414;padding-bottom:9px;display:flex;justify-content:space-between}
+  .paper{font-family:"Fraunces",serif;font-weight:480;font-size:34px;letter-spacing:-.01em;text-align:center;padding:16px 0 12px;border-bottom:3px solid #141414;margin:0}
+  .paper em{font-style:italic;color:#E8480C}
+  .story{padding-top:24px}
+  .chip{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-weight:600;font-size:11px;letter-spacing:2.6px;text-transform:uppercase;color:#141414}
+  .chip i{width:7px;height:7px;flex:none}
+  .redrule{width:44px;height:3px;background:#E8480C;margin:14px 0}
+  h1{font-family:"Fraunces",serif;font-weight:560;font-size:34px;line-height:1.05;letter-spacing:-.01em;margin:0 0 12px}
+  .deck{font-style:italic;font-size:18px;line-height:1.5;color:#54544F;margin-bottom:18px}
+  .art{margin:20px 0 22px}
   .art img{display:block;width:100%;height:auto}
-  .art figcaption{display:flex;justify-content:space-between;font-family:"Space Mono",monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#6B6255;border-top:1px solid #17140F;padding:5px 9px}
+  .art figcaption{display:flex;justify-content:space-between;font-family:"Inter",sans-serif;font-weight:500;font-size:9px;letter-spacing:1.8px;text-transform:uppercase;color:#6B6B66;border-top:1px solid #E4E4DF;padding-top:8px;margin-top:10px}
   .art figcaption .no{color:#E8480C}
-  .byline{display:flex;gap:8px;font-family:"Space Mono",monospace;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#6B6255;border-top:1px solid #17140F;border-bottom:1px solid #17140F;padding:7px 0;margin-bottom:16px}
-  .byline b{color:#17140F}
-  .body{font-size:16.5px;line-height:1.62;text-align:justify}
-  .body::first-letter{font-family:"Bebas Neue",sans-serif;font-size:54px;float:left;line-height:.78;padding:4px 8px 0 0;color:#E8480C}
-  .why{margin-top:18px;padding:12px 14px;border:1.5px dashed rgba(23,20,15,.55);background:rgba(242,194,0,.13);font-size:15px;line-height:1.55}
-  .why span{display:block;font-family:"Space Mono",monospace;font-size:9px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:#E8480C;margin-bottom:4px}
-  .source{margin-top:14px;font-size:12px;color:#6B6255}
-  .source a{color:#17140F;text-decoration-color:#E8480C;text-underline-offset:3px}
-  .tickrow{margin-top:30px;border-top:4px double #17140F;padding-top:16px;display:flex;justify-content:space-between;align-items:center}
-  .tick{display:flex;align-items:center;gap:12px;text-decoration:none;color:#17140F}
-  .tick .box{width:26px;height:26px;border:2px solid #17140F;background:#FAFAFA;display:inline-block}
-  .tick .lbl{font-family:"Bebas Neue",sans-serif;font-size:18px;letter-spacing:2.5px}
-  .folio{font-family:"Space Mono",monospace;font-size:12px;color:#6B6255}
-  .folio b{color:#E8480C;font-weight:400}
-  .paper-link{display:block;text-align:center;margin-top:26px;font-family:"Space Mono",monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#6B6255;text-decoration-color:#E8480C}
+  .byline{display:flex;gap:8px;font-family:"Inter",sans-serif;font-weight:500;font-size:10px;letter-spacing:2.2px;text-transform:uppercase;color:#6B6B66;border-top:1px solid #E4E4DF;border-bottom:1px solid #E4E4DF;padding:8px 0;margin-bottom:18px}
+  .byline b{color:#141414;font-weight:600}
+  .body{font-size:16.5px;line-height:1.66;text-align:justify;hyphens:auto}
+  .body::first-letter{font-family:"Fraunces",serif;font-weight:600;font-size:52px;float:left;line-height:.8;padding:3px 9px 0 0;color:#141414}
+  .why{margin-top:20px;padding:2px 0 2px 14px;border-left:2px solid #2B4BE0;font-size:15px;line-height:1.6}
+  .why span{display:block;font-family:"Inter",sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#2B4BE0;margin-bottom:5px}
+  .source{margin-top:16px;font-family:"Inter",sans-serif;font-size:12px;color:#6B6B66}
+  .source a{color:#141414;text-decoration-color:#E8480C;text-underline-offset:3px}
+  .tickrow{margin-top:30px;border-top:3px solid #141414;padding-top:16px;display:flex;justify-content:space-between;align-items:center}
+  .tick{display:flex;align-items:center;gap:12px;text-decoration:none;color:#141414}
+  .tick .box{width:24px;height:24px;border:1.5px solid #141414;background:#FAFAFA;display:inline-block}
+  .tick .lbl{font-family:"Inter",sans-serif;font-weight:600;font-size:13px;letter-spacing:2.2px;text-transform:uppercase}
+  .folio{font-family:"Inter",sans-serif;font-size:12px;letter-spacing:1.5px;color:#6B6B66}
+  .folio b{color:#E8480C;font-weight:600}
+  .paper-link{display:block;text-align:center;margin-top:26px;font-family:"Inter",sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#6B6B66;text-decoration-color:#E8480C}
   .done{text-align:center;padding:44px 0 20px}
-  .done .stamp{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;border:4px solid #E8480C;color:#E8480C;border-radius:50%;width:140px;height:140px;font-family:"Bebas Neue",sans-serif;font-size:30px;letter-spacing:2px;line-height:1.05;transform:rotate(-10deg);margin-bottom:24px}
-  .done h1{font-size:34px;margin-bottom:8px}
-  .done p{color:#6B6255;font-style:italic;font-size:15px;line-height:1.6;max-width:320px;margin:0 auto}
+  .done .stamp{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;border:3px solid #E8480C;color:#E8480C;border-radius:50%;width:140px;height:140px;font-family:"Fraunces",serif;font-style:italic;font-weight:600;font-size:24px;line-height:1.1;transform:rotate(-8deg);margin-bottom:24px}
+  .done h1{font-size:30px;margin-bottom:10px}
+  .done p{color:#6B6B66;font-style:italic;font-size:15px;line-height:1.6;max-width:320px;margin:0 auto}
   </style>`;
 }
 
@@ -202,12 +213,12 @@ function storyHTML(issue, it, idx) {
   const dayStr = d.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
   return `<!DOCTYPE html><html><head>${pageCSS()}</head><body>
   <div class="mast"><span>Morning edition</span><span>Vol. I</span></div>
-  <div class="band">THE DAILY DRAFT</div>
-  <div class="mast" style="border-bottom:4px double #17140F;padding:6px 0"><span>${esc(dayStr)}</span><span>Issue № ${issue.number}</span></div>
+  <h1 class="paper">The Daily <em>Draft</em></h1>
+  <div class="mast" style="border-bottom:1px solid #E4E4DF;padding:8px 0"><span>${esc(dayStr)}</span><span>Issue № ${issue.number}</span></div>
   <div class="story">
-    <span class="chip" style="background:${hex};${it.kind === "TRY THIS" ? "color:#17140F" : ""}">${esc(it.kind)}</span>
+    <span class="chip"><i style="background:${hex}"></i>${esc(it.kind)}</span>
     <div class="redrule"></div>
-    <h1>${esc(it.headline)}</h1>
+    <h1>${esc(titleCase(it.headline))}</h1>
     <p class="deck">${esc(it.deck)}</p>
     ${it.image ? `<figure class="art"><img src="${PAGE + esc(it.image)}" alt=""><figcaption><span>Illustration · The Daily Draft</span><span class="no">Plate № ${idx + 1}</span></figcaption></figure>` : ""}
     <div class="byline"><b>${esc(KIND_VERB[it.kind] || "News wire")}</b><span>·</span><span>${esc(it.reading_time || "1 min read")}</span></div>
@@ -225,7 +236,7 @@ function storyHTML(issue, it, idx) {
 function allReadHTML(issue) {
   return `<!DOCTYPE html><html><head>${pageCSS()}</head><body>
   <div class="mast"><span>Morning edition</span><span>Vol. I</span></div>
-  <div class="band">THE DAILY DRAFT</div>
+  <h1 class="paper">The Daily <em>Draft</em></h1>
   <div class="done">
     <div class="stamp">ALL<br>READ</div>
     <h1>That's the paper.</h1>

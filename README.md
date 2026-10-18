@@ -8,7 +8,7 @@ Live at **https://ptlrudra0.github.io/daily/**
 
 ## How it works
 
-- `index.html` — the paper. Mobile-first, Fraunces + Space Grotesk, ivory paper.
+- `index.html` — the paper. Mobile-first, Fraunces + Figtree + Inter, plain premium white.
 - `content.json` — every issue. Newest issue first in the `issues` array.
 - Each story has a **Mark as read** checkbox. Ticking it stamps the story READ
   and turns to the next one. Read state is remembered on the device
@@ -51,10 +51,10 @@ Every morning (~7 AM IST), a new issue is added:
    he says he is brainstorming a specific project, tailor to it until he
    stops. Do not force any of this; variety comes first.
 2. Make one original illustration per story: flat risograph-print style,
-   white newsprint background (#F9F9F6), palette limited to ink #17140F,
+   white background (#FAFAFA), palette limited to ink #141414,
    vermilion #E8480C, cobalt #2B4BE0, amber #F2C200. No people, no text,
-   no logos, no third-party imagery or IP. Export ~1200px-wide JPEGs into
-   `img/<date>-<n>.jpg`.
+   no logos, no third-party imagery or IP. Export 1200x800 JPEG q82 into
+   `img/<date>-<n>.jpg`, shipped as generated - no post-processing.
 3. Prepend a new issue object to `issues` in `content.json` (newest first),
    incrementing `number`. 4-6 items per issue. Keep bodies short; this is a
    paper, not a blog. Each item carries `image` + `image_alt` pointing at
@@ -65,28 +65,14 @@ Every morning (~7 AM IST), a new issue is added:
 
 ## Look
 
-Clean NEUTRAL white newsprint (#FAFAFA, equal RGB - never beige, cream,
-or warm grey; check sampled means after any texture change), with subtle
-static textures: a real paper-fibre photograph under the content plus a
-fine SVG grain and a sparse speckle/dropout layer over it.
-
-Print imperfections (Rudy, 18 Oct): the page should read like a real
-press run, not a screen. Static and subtle; headlines and body stay
-readable, ink never obscures text.
-- Plates: baked into each JPEG at generation time - red channel shifted
-  +1px and blue -1px horizontally (misregistration fringe), low-frequency
-  plasma noise multiplied at [0.90,1.0] (uneven ink density), ~0.2% dark
-  speckle (multiply) and ~0.15% white dropouts (screen), recompressed q82.
-  Recipe lives in the morning agent's wake prompt.
-- Display type: CSS text-shadow ghosts (vermilion + cobalt offsets) and an
-  SVG feTurbulence/feDisplacementMap ink-bleed filter (scale 1.5) on the
-  masthead and headlines only, never body text.
-- Layout: masthead plate rotated -0.35deg, each art figure rotated
-  deterministically per plate number (+/-0.25-0.45deg). The fibre is Texturelabs Paper 234
-(https://texturelabs.org/textures/paper_234/, free for commercial use, no
-credit needed, websites OK) - shipped ONLY as a processed derivative
-(img/paper.jpg: greyscaled, levels-lifted, multiplied onto #FAFAFA (neutral),
-recompressed ~55KB). Never commit pristine Texturelabs originals;
-redistributing the raw resources is prohibited. Every story gets a
-bordered art plate with a coloured top bar matching its desk. Solid
-colours, hard shadows, print grain.
+Premium editorial (Rudy, 18 Oct): plain paper, no textures, no print
+effects. Page is flat neutral white #FAFAFA. Type system: Fraunces
+(optical-size display serif) for the masthead, headlines, drop caps and
+stamps; Figtree for body text (nearest free match to the Matter font
+used by Sarvam's Indus, which is commercial); Inter for eyebrows, bylines
+and meta labels. Masthead is black type with an italic vermilion "Draft".
+Headlines render title-case (JS converts the stored uppercase). Eyebrow
+labels are a small accent square + letterspaced Inter; rules are hairlines
+(#E4E4DF) with one heavy rule under the masthead. Art plates are
+borderless with a small caption; WHY IT MATTERS is a cobalt left-border
+note. Keep it quiet and confident: whitespace and type do the work.
