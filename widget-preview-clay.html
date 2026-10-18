@@ -20,6 +20,11 @@
   .w-title{font:800 23px/1.18 -apple-system,"SF Pro Text",Figtree,sans-serif;color:#141414}
   .w-meta{font:700 11px Inter;letter-spacing:.14em;text-transform:uppercase;color:#6B6B66;margin-top:3px}
 
+  /* pressed-in (debossed) groove strips, like the reference's letterpress rules */
+  .strip{display:flex;flex-direction:column;gap:6px}
+  .strip i{display:block;height:2px;border-radius:2px;background:rgba(23,32,44,.16);
+    box-shadow:inset 0 1px 1.5px rgba(23,32,44,.38), 0 1.5px 0 rgba(255,255,255,.95)}
+
   /* ---------- READER ---------- */
   .reader{width:390px}
   .clay{
@@ -74,6 +79,7 @@
       <div class="r-eyebrow">Design Desk</div>
       <div class="r-title">Serif Type is a Trust Signal</div>
       <div class="r-meta">№ 2 of 6 &middot; 1 min read</div>
+      <div class="strip" style="margin:0 0 20px"><i></i><i></i></div>
       <figure class="r-plate"><img src="img/2026-10-18-2.jpg" alt=""></figure>
       <p class="r-deck">Newspapers still set headlines in serif faces for a reason. The modern twist is not the serif itself, it is what you pair it with.</p>
       <p class="r-body">A serif headline carries history: it reads as considered, editorial, finished. But the move in contemporary editorial design is contrast. One loud display face for the voice of the page, one quiet reading face for the story. Two typefaces, never three. Give the display face the emotional jobs, headlines and stamps. Give the reading face everything a reader settles into.</p>
@@ -83,6 +89,7 @@
         <a class="r-tick" href="#"><span class="r-box"></span>Mark as read</a>
         <span class="r-folio">№ <b>2</b> / 6</span>
       </div>
+      <div class="strip" style="margin:24px 0 0"><i></i><i></i></div>
     </div>
   </div>
 </div>
