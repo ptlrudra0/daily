@@ -2,6 +2,88 @@
   "paper": "The Daily Draft",
   "issues": [
     {
+      "date": "2026-10-19",
+      "number": 2,
+      "items": [
+        {
+          "id": "2026-10-19-1",
+          "kind": "AI TIP",
+          "headline": "Give it the whole book, not the blurb",
+          "deck": "Million-token context windows are normal now. The habit that unlocks them is stopping summarising for the model.",
+          "body": "Gemini 4 Argon takes a million tokens in one go, and most frontier models are close behind. That changes how you should prompt. The old habit was compressing first: paste an excerpt, describe the rest, hope. The new habit is dropping the whole thing in - the full assignment brief, the entire repo, all 40 pages of the paper - and then asking your question. Summaries lose the exact detail the model would have caught. Your job shifts from shrinking the input to asking a sharper question about it.",
+          "why": "You study and build at the same time. Whole-repo questions beat excerpt questions for debugging, and whole-brief answers beat partial ones for college work.",
+          "source_name": "AI Review Rating",
+          "source_url": "https://aireviewrating.com/articles/ai-news-week-of-2026-10-19",
+          "reading_time": "1 min read",
+          "image": "img/2026-10-19-1.jpg",
+          "image_alt": "Illustration: a giant open book pouring its pages down into a small glowing laptop."
+        },
+        {
+          "id": "2026-10-19-2",
+          "kind": "DESIGN",
+          "headline": "One accent colour is a budget",
+          "deck": "The fastest way to look designed is to spend colour like money: mostly neutral, one loud note.",
+          "body": "Amateur layouts spend colour everywhere: red headings, blue buttons, yellow highlights, and nothing stands out. The fix is a ratio, roughly 60-30-10. Most of the surface stays neutral - white, ink, grey. A supporting colour carries structure. Then one accent, used in about ten percent of the layout, marks the single thing that matters: the button, the price, the punchline. Restraint is what makes the accent loud. If everything shouts, the eye hears nothing.",
+          "why": "Your reels and posters compete in a feed of maximum colour. The thumbnail with one red circle on white wins the scroll more often than the rainbow does.",
+          "source_name": "Refactoring UI, Adam Wathan & Steve Schoger",
+          "source_url": "https://www.refactoringui.com/",
+          "reading_time": "1 min read",
+          "image": "img/2026-10-19-2.jpg",
+          "image_alt": "Illustration: a grid of black circles with a single larger red circle standing out."
+        },
+        {
+          "id": "2026-10-19-3",
+          "kind": "ON SCREEN",
+          "headline": "Spider-Verse draws on twos",
+          "deck": "Into the Spider-Verse holds each drawing for two frames instead of one. That stutter is the style.",
+          "body": "Film runs at 24 frames a second, and smooth animation draws a new pose for every one. Spider-Verse often draws every other frame - \"on twos\" - so motion steps instead of gliding, like a comic flipping fast. The trick goes further: Miles moves on twos while experienced Spider-people move on ones, so his clumsiness is literally animated at a lower frame rate until he grows into the suit. Texture does the rest: Ben-Day halftone dots, offset print lines, hand-drawn speed marks. The lesson for your own motion work: frame rate is a voice. Stepping, holding and glitching are choices, not errors.",
+          "why": "Your reels default to buttery 60fps everything. Dropping a section to stepped motion or a freeze is a free effect that reads as intentional, comic-book energy.",
+          "source_name": "Spider-Man: Into the Spider-Verse - The Art of the Movie, Ramin Zahed",
+          "source_url": "https://titanbooks.com/9653-spider-man-into-the-spider-verse-the-art-of-the-movie/",
+          "reading_time": "1 min read",
+          "image": "img/2026-10-19-3.jpg",
+          "image_alt": "Illustration: a film strip showing a bouncing ball in stepped poses across its frames, halftone dots behind."
+        },
+        {
+          "id": "2026-10-19-4",
+          "kind": "AI NEWS",
+          "headline": "Google ships Gemini 4 Argon",
+          "deck": "Google's new frontier model is out with a million-token context and half-price API access until November 30.",
+          "body": "Gemini 4 Argon launched on October 13 across the Gemini app, AI Mode in Search, and the API. It sits at the top of Google's line, with a one-million-token unified context and a companion safety writeup plus a robotics variant. The grab for share is the pricing: $2 per million input tokens and $10 per million output until November 30, then it doubles. The Gemini app also now plugs into more than 40 apps and can flip from chat to running tasks.",
+          "why": "Half-price frontier tokens for six weeks is a cheap lab. If you want to prototype anything - a TechBlast research bot, an agency tool - this is the window to test on the big model.",
+          "source_name": "AI Review Rating",
+          "source_url": "https://aireviewrating.com/articles/ai-news-week-of-2026-10-19",
+          "reading_time": "1 min read",
+          "image": "img/2026-10-19-4.jpg",
+          "image_alt": "Illustration: a cobalt faceted gem with orbiting rings and small coloured satellite dots."
+        },
+        {
+          "id": "2026-10-19-5",
+          "kind": "AI NEWS",
+          "headline": "ChatGPT now answers with interfaces",
+          "deck": "GPT-6 is rolling out to everyone with Intelligent UI: responses come back as working panels, not paragraphs.",
+          "body": "OpenAI's GPT-6 finished rolling out to all ChatGPT users this week, and the headline feature is Intelligent UI. Ask for a comparison and you get an interactive table; ask for a plan and you get sliders and toggles you can actually move. The chat box stops being a typewriter and starts being a generator of small, usable tools. Text still matters - but the default answer is becoming a thing you operate, not a thing you read.",
+          "why": "This is your medium shifting under you. If AI generates interfaces on demand, the designer's job moves up a level: systems, taste, and the ten percent a model won't attempt.",
+          "source_name": "The Frontier, Fruition",
+          "source_url": "https://fruition.net/frontier/10-19-2026/",
+          "reading_time": "1 min read",
+          "image": "img/2026-10-19-5.jpg",
+          "image_alt": "Illustration: a speech bubble fanning open into small interface panels with sliders, charts and dials."
+        },
+        {
+          "id": "2026-10-19-6",
+          "kind": "TRY THIS",
+          "headline": "Steal a palette, not a layout",
+          "deck": "A ten-minute exercise: borrow the colours from a film still you love and rebuild something of yours with them.",
+          "body": "Pick one frame from a film or series you keep coming back to - a Spider-Verse alley, a Severance corridor, anything. Screenshot it. Pull out its four main colours with any colour picker. Now take a thumbnail or poster you already made and recolour it using only those four. Do not copy the composition, just the palette. Compare the two versions side by side. Nine times out of ten the recoloured one looks more designed, because film palettes are already art-directed to hold together.",
+          "why": "Palette theft trains your eye faster than palette generators. You are borrowing decisions a colourist already got paid to make.",
+          "reading_time": "10 min exercise",
+          "image": "img/2026-10-19-6.jpg",
+          "image_alt": "Illustration: colour swatch cards being peeled out of a small framed landscape painting."
+        }
+      ]
+    },
+    {
       "date": "2026-10-18",
       "number": 1,
       "items": [
