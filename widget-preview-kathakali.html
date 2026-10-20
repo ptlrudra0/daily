@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Widget preview - kathakali</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{--crimson:#B41F26;--deep:#7E1418;--ink:#141414;--gold:#D4A017;--paper:#FBF7EE}
+  body{background:var(--deep);font-family:"Space Mono",monospace;margin:0;padding:30px 16px;display:flex;flex-direction:column;align-items:center;gap:44px}
+  .label{font:700 10px "Space Mono";letter-spacing:.2em;color:#FBF7EEaa;text-transform:uppercase;margin-bottom:10px;align-self:flex-start}
+  .wrap{display:flex;flex-direction:column;max-width:720px;width:100%}
+  .frieze{display:block;width:100%;height:18px}
+  .tear{display:block;width:100%;height:16px}
+  .duo{position:relative;overflow:hidden}
+  .duo img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.18) brightness(1.04)}
+  .duo:after{content:"";position:absolute;inset:0;background:var(--crimson);mix-blend-mode:multiply;pointer-events:none}
+
+  /* ---------- WIDGET (658x310) ---------- */
+  .widget{width:658px;max-width:100%;aspect-ratio:658/310;background:var(--ink);box-sizing:border-box;border:2px solid var(--gold);display:flex;flex-direction:column}
+  .w-main{flex:1;display:flex;gap:16px;padding:14px 18px;min-height:0}
+  .w-left{flex:1.15;display:flex;flex-direction:column;justify-content:space-between;min-width:0}
+  .w-title{font:400 62px/.9 Anton;color:var(--paper);text-transform:uppercase}
+  .w-title em{font-style:normal;color:var(--crimson);background:var(--paper);padding:0 8px}
+  .w-issue{display:inline-block;background:var(--crimson);color:var(--paper);font:700 11px "Space Mono";letter-spacing:.14em;padding:5px 10px;width:max-content;text-transform:uppercase}
+  .w-meta{font:700 10px/1.8 "Space Mono";letter-spacing:.12em;color:var(--gold);text-transform:uppercase}
+  .w-right{flex:0 0 42%;border:2px solid var(--gold);position:relative}
+  .w-right b{position:absolute;left:8px;bottom:6px;font:700 9px "Space Mono";background:var(--ink);color:var(--gold);padding:3px 7px;letter-spacing:.14em;z-index:2}
+
+  /* ---------- READER ---------- */
+  .reader{width:390px;max-width:100%;background:var(--ink);border:2px solid var(--gold)}
+  .r-band{padding:14px 18px;display:flex;justify-content:space-between;align-items:baseline}
+  .r-band .mast{font:400 22px Anton;color:var(--paper);text-transform:uppercase;letter-spacing:.04em}
+  .r-band .hindi{font:700 9px "Space Mono";letter-spacing:.22em;color:var(--gold);text-transform:uppercase}
+  .page{background:var(--paper);padding:24px 20px 28px}
+  .r-eyebrow{display:flex;align-items:center;gap:8px;font:700 10px "Space Mono";letter-spacing:.2em;text-transform:uppercase;color:var(--crimson);margin-bottom:12px}
+  .r-eyebrow:before{content:"";width:14px;height:14px;background:radial-gradient(circle at 50% 100%,transparent 5px,var(--gold) 5px);border-radius:50% 50% 0 0}
+  .r-title{font:400 38px/.98 Anton;color:var(--crimson);text-transform:uppercase;margin-bottom:12px}
+  .r-meta{display:flex;align-items:center;gap:12px;font:700 10px "Space Mono";letter-spacing:.1em;color:var(--ink);text-transform:uppercase;margin-bottom:18px}
+  .r-plate{border:2px solid var(--gold);margin:0 0 20px;aspect-ratio:3/2}
+  .r-deck{font:700 13px/1.55 "Space Mono";color:var(--ink);margin-bottom:14px}
+  .r-deck:first-letter{font:400 44px/0.8 Anton;color:var(--crimson);float:left;padding:4px 8px 0 0}
+  .r-body{font:400 15px/1.7 Georgia,serif;color:var(--ink);text-align:justify;hyphens:auto}
+  .r-why{margin-top:22px;background:var(--ink);border:2px solid var(--gold);padding:14px 16px}
+  .r-why span{display:block;font:700 9px "Space Mono";letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
+  .r-why p{margin:0;font:700 13px/1.55 "Space Mono";color:var(--paper)}
+  .r-src{margin:18px 2px 0;font:400 11px "Space Mono";color:var(--ink)}
+  .r-src a{color:var(--ink);text-decoration-color:var(--crimson);text-underline-offset:3px}
+  .r-foot{margin-top:24px;display:flex;justify-content:space-between;align-items:center}
+  .r-btn{background:var(--crimson);border:2px solid var(--ink);cursor:pointer;font:400 15px Anton;color:var(--paper);padding:10px 18px;text-transform:uppercase;letter-spacing:.04em}
+  .r-folio{font:700 12px "Space Mono";letter-spacing:.18em;color:var(--ink)}
+  .r-folio b{background:var(--crimson);color:var(--paper);padding:2px 6px}
+
+  /* ---------- MOTIF ATLAS ---------- */
+  .atlasbox{background:var(--ink);border:2px solid var(--gold);padding:16px 14px 14px}
+  .atlas{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px}
+  .tile{flex:0 0 96px;background:var(--paper);border:2px solid var(--gold);padding:8px 6px 6px;text-align:center}
+  .tile svg{display:block;width:82px;height:82px;margin:0 auto}
+  .tile span{display:block;margin-top:6px;font:700 7.5px/1.5 "Space Mono";letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+  .a-note{font:400 9px/1.6 "Space Mono";color:#FBF7EE99;margin:12px 4px 0}
+
+  /* ---------- TRY IT ---------- */
+  .t-field{position:relative;margin:18px 0 16px;border:2px solid var(--ink);background:var(--paper)}
+  .t-field input{width:100%;box-sizing:border-box;border:0;outline:0;background:transparent;font:700 14px "Space Mono";color:var(--ink);padding:13px 14px}
+  .t-field span{position:absolute;left:10px;top:-12px;font:700 9px "Space Mono";letter-spacing:.18em;text-transform:uppercase;color:var(--paper);background:var(--crimson);padding:2px 8px}
+  .seg{display:flex;gap:8px;margin-bottom:18px}
+  .seg button{flex:1;border:2px solid var(--ink);background:var(--paper);cursor:pointer;padding:10px 0;font:700 10px "Space Mono";letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
+  .seg button.on{background:var(--crimson);color:var(--paper);border-color:var(--crimson)}
+  .stage{border:2px solid var(--gold);min-height:190px;display:flex;align-items:center;justify-content:center;padding:26px 20px;overflow:hidden;background:var(--paper)}
+  .stage .v-rasa{font:400 40px/.95 Anton;color:var(--crimson);text-transform:uppercase;text-align:left;align-self:flex-start;word-break:break-word}
+  .stage .v-mudra{font:700 16px/1.8 "Space Mono";color:var(--gold);background:var(--ink);letter-spacing:.14em;text-transform:uppercase;text-align:center;padding:16px 18px;border:1px solid var(--gold)}
+  .stage .v-tala{font:400 26px/1 Anton;color:var(--paper);background:var(--crimson);border:2px solid var(--gold);padding:14px 18px;transform:rotate(-1.5deg);text-transform:uppercase;text-align:center}
+  .t-row{display:flex;justify-content:space-between;align-items:center;margin:16px 2px 0}
+  .t-side{font:700 10px "Space Mono";letter-spacing:.12em;text-transform:uppercase;color:var(--ink);cursor:pointer;border:2px solid var(--ink);background:var(--paper);padding:9px 12px}
+  .t-side.on{background:var(--crimson);color:var(--paper);border-color:var(--crimson)}
+  .t-hint{font:400 10px "Space Mono";color:#14141499}
+  .t-grid{display:grid;grid-template-columns:1fr;gap:12px;width:100%}
+  .t-cell{border:2px solid var(--gold);min-height:100px;display:flex;align-items:center;justify-content:center;padding:14px 12px;overflow:hidden;background:var(--paper)}
+  .t-cell span{display:block;word-break:break-word}
+  .t-cell .v-rasa{font:400 20px/1 Anton;color:var(--crimson);text-transform:uppercase}
+  .t-cell .v-mudra{font:700 11px/1.6 "Space Mono";color:var(--gold);background:var(--ink);letter-spacing:.1em;text-transform:uppercase;padding:10px 12px}
+  .t-cell .v-tala{font:400 15px/1 Anton;color:var(--paper);background:var(--crimson);border:2px solid var(--gold);padding:10px 12px;transform:rotate(-1.5deg);text-transform:uppercase}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <pattern id="muralPatt" width="24" height="18" patternUnits="userSpaceOnUse">
+      <path d="M0 18 Q6 4 12 18" stroke="#D4A017" fill="none" stroke-width="1.6"/>
+      <path d="M12 18 Q18 4 24 18" stroke="#D4A017" fill="none" stroke-width="1.6"/>
+      <circle cx="12" cy="9" r="1.6" fill="#D4A017"/>
+      <circle cx="0" cy="9" r="1.6" fill="#D4A017"/>
+    </pattern>
+  </defs>
+</svg>
+
+<div class="wrap">
+  <div class="label">Home-screen widget (medium)</div>
+  <div class="widget">
+    <svg class="frieze" preserveAspectRatio="none"><rect width="100%" height="100%" fill="url(#muralPatt)"/></svg>
+    <div class="w-main">
+      <div class="w-left">
+        <div class="w-title">Daily<br><em>Draft</em></div>
+        <div class="w-issue">Issue 004 / out now</div>
+        <div class="w-meta">dainik masauda<br>Wed 21 Oct 2026<br>6 stories &middot; 1 unread</div>
+      </div>
+      <div class="w-right duo"><img src="img/2026-10-21-4.jpg" alt=""><b>N&deg;004</b></div>
+    </div>
+    <svg class="frieze" preserveAspectRatio="none" style="transform:scaleY(-1)"><rect width="100%" height="100%" fill="url(#muralPatt)"/></svg>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="label">In-app reader</div>
+  <div class="reader">
+    <div class="r-band"><span class="mast">The Daily Draft</span><span class="hindi">dainik masauda</span></div>
+    <svg class="tear" preserveAspectRatio="none" viewBox="0 0 100 16"><polygon fill="#FBF7EE" points="0,16 0,7 4,11 8,4 12,10 16,3 20,9 24,5 28,11 32,4 36,9 40,3 44,10 48,5 52,11 56,4 60,9 64,3 68,10 72,5 76,11 80,4 84,9 88,3 92,10 96,5 100,8 100,16"/></svg>
+    <div class="page">
+      <div class="r-eyebrow">Design desk &middot; Rasa 02</div>
+      <div class="r-title">Flat Forgot The Handle</div>
+      <div class="r-meta">&#8470;2 of 6 &middot; 2 min read</div>
+      <div class="r-plate duo"><img src="img/2026-10-21-2.jpg" alt=""></div>
+      <p class="r-deck">Nielsen Norman Group tracked what a decade of ultra-flat design did to users: they hesitate before every click.</p>
+      <p class="r-body">Interfaces that stripped away clickability cues made users measurably slower - they hovered and tapped experimentally across pages because nothing told them what was interactive. Removing decoration is fine. Removing information is not.</p>
+      <div class="r-why"><span>Why it matters</span><p>Polish that hides the button taxes every single viewer, silently.</p></div>
+      <p class="r-src">Filed from <a href="#">Nielsen Norman Group</a> &#8599;</p>
+      <div class="r-foot">
+        <button class="r-btn">Mark as read</button>
+        <span class="r-folio"><b>02</b>/06</span>
+      </div>
+    </div>
+    <svg class="tear" preserveAspectRatio="none" viewBox="0 0 100 16" style="transform:scaleY(-1)"><polygon fill="#FBF7EE" points="0,16 0,7 4,11 8,4 12,10 16,3 20,9 24,5 28,11 32,4 36,9 40,3 44,10 48,5 52,11 56,4 60,9 64,3 68,10 72,5 76,11 80,4 84,9 88,3 92,10 96,5 100,8 100,16"/></svg>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="label">Motif atlas - one India, many hands</div>
+  <div class="reader" style="width:390px">
+    <div class="atlasbox">
+      <div class="atlas">
+        <div class="tile"><svg viewBox="0 0 100 100"><rect x="4" y="4" width="92" height="92" fill="none" stroke="#B41F26" stroke-width="3"/><rect x="12" y="12" width="76" height="76" fill="none" stroke="#141414" stroke-width="1.5"/><path d="M25 50 Q50 28 75 50 Q50 72 25 50 Z" fill="none" stroke="#B41F26" stroke-width="3"/><circle cx="36" cy="50" r="3" fill="#141414"/><path d="M55 38 Q60 50 55 62 M63 40 Q68 50 63 60" stroke="#141414" stroke-width="2" fill="none"/><path d="M75 50 L84 42 L84 58 Z" fill="none" stroke="#B41F26" stroke-width="2.5"/></svg><span>Madhubani &middot; Bihar</span></div>
+        <div class="tile"><svg viewBox="0 0 100 100"><circle cx="76" cy="22" r="10" fill="none" stroke="#D4A017" stroke-width="2.5"/><path d="M30 62 L42 34 L54 62 Z" fill="none" stroke="#141414" stroke-width="2.5"/><path d="M42 34 L42 22 M54 62 L60 74 M30 62 L24 74" stroke="#141414" stroke-width="2.5"/><path d="M52 68 L62 44 L72 68 Z" fill="none" stroke="#B41F26" stroke-width="2.5"/><path d="M62 44 L62 34 M72 68 L78 78 M52 68 L46 78" stroke="#B41F26" stroke-width="2.5"/><path d="M14 84 H86" stroke="#141414" stroke-width="2" stroke-dasharray="4 4"/></svg><span>Warli &middot; Maharashtra</span></div>
+        <div class="tile"><svg viewBox="0 0 100 100"><path d="M50 78 Q38 62 38 48 Q38 30 50 24 Q62 30 62 48 Q62 62 50 78 Z" fill="none" stroke="#B41F26" stroke-width="2.5"/><path d="M50 66 Q44 56 44 47 Q44 37 50 33 Q56 37 56 47 Q56 56 50 66 Z" fill="none" stroke="#141414" stroke-width="1.8"/><path d="M26 80 Q38 72 50 80 Q62 88 74 80" fill="none" stroke="#D4A017" stroke-width="2.5"/><path d="M20 20 Q28 14 36 20 Q44 26 52 20 Q60 14 68 20 Q76 26 84 20" fill="none" stroke="#141414" stroke-width="2"/></svg><span>Pattachitra &middot; Odisha</span></div>
+        <div class="tile"><svg viewBox="0 0 100 100"><path d="M50 88 L50 60 M50 66 Q36 60 30 44 M50 58 Q64 52 70 36 M50 50 Q42 44 40 34 M50 46 Q58 40 60 30" stroke="#141414" stroke-width="2.5" fill="none"/><g fill="#B41F26"><circle cx="30" cy="42" r="2.4"/><circle cx="36" cy="36" r="2.4"/><circle cx="70" cy="34" r="2.4"/><circle cx="64" cy="28" r="2.4"/><circle cx="40" cy="30" r="2.4"/><circle cx="60" cy="26" r="2.4"/><circle cx="50" cy="22" r="2.4"/><circle cx="46" cy="38" r="2.4"/><circle cx="55" cy="33" r="2.4"/></g><path d="M34 88 H66" stroke="#D4A017" stroke-width="3"/></svg><span>Gond &middot; Madhya Pradesh</span></div>
+        <div class="tile"><svg viewBox="0 0 100 100"><rect x="28" y="28" width="44" height="44" transform="rotate(45 50 50)" fill="none" stroke="#B41F26" stroke-width="3"/><rect x="38" y="38" width="24" height="24" transform="rotate(45 50 50)" fill="none" stroke="#D4A017" stroke-width="2.5"/><rect x="46" y="46" width="8" height="8" transform="rotate(45 50 50)" fill="#141414"/><path d="M50 8 L54 14 L50 20 L46 14 Z M50 80 L54 86 L50 92 L46 86 Z M8 50 L14 54 L20 50 L14 46 Z M80 50 L86 54 L92 50 L86 46 Z" fill="#B41F26"/></svg><span>Phulkari &middot; Punjab</span></div>
+        <div class="tile"><svg viewBox="0 0 100 100"><path d="M20 84 Q24 60 44 54 Q68 47 72 26" fill="none" stroke="#141414" stroke-width="2.5"/><path d="M38 62 Q34 52 42 46 Q50 52 44 62 Z M56 54 Q54 44 62 40 Q68 46 62 54 Z M28 74 Q24 66 30 60 Q38 64 34 72 Z" fill="none" stroke="#B41F26" stroke-width="2.2"/><circle cx="74" cy="22" r="6" fill="none" stroke="#D4A017" stroke-width="2.5"/><circle cx="74" cy="22" r="2" fill="#B41F26"/></svg><span>Kalamkari &middot; Andhra Pradesh</span></div>
+        <div class="tile"><svg viewBox="0 0 100 100"><path d="M22 74 A28 28 0 0 1 78 74" fill="none" stroke="#D4A017" stroke-width="3"/><path d="M32 74 A18 18 0 0 1 68 74" fill="none" stroke="#B41F26" stroke-width="2.5"/><path d="M42 74 A8 8 0 0 1 58 74" fill="none" stroke="#141414" stroke-width="2.5"/><circle cx="50" cy="42" r="4" fill="#B41F26"/><path d="M50 30 L50 22 M40 34 L35 27 M60 34 L65 27" stroke="#141414" stroke-width="2.5"/><path d="M22 82 H78" stroke="#D4A017" stroke-width="2.5"/></svg><span>Mural &middot; Kerala</span></div>
+        <div class="tile"><svg viewBox="0 0 100 100"><path d="M30 84 V44 H36 V36 H42 V28 H50 V20 H58 V28 H64 V36 H70 V44 H76 V84 Z" fill="none" stroke="#D4A017" stroke-width="3"/><circle cx="53" cy="52" r="6" fill="none" stroke="#B41F26" stroke-width="2.5"/><path d="M24 84 H82" stroke="#141414" stroke-width="3"/></svg><span>Tanjore &middot; Tamil Nadu</span></div>
+        <div class="tile"><svg viewBox="0 0 100 100"><g fill="none" stroke="#B41F26" stroke-width="2.5"><path d="M26 76 Q18 60 26 48 Q34 60 26 76 Z"/><path d="M50 76 Q42 56 50 40 Q58 56 50 76 Z"/><path d="M74 76 Q66 60 74 48 Q82 60 74 76 Z"/></g><path d="M26 76 V84 M50 76 V84 M74 76 V84" stroke="#141414" stroke-width="2.5"/><path d="M16 88 H84" stroke="#D4A017" stroke-width="3"/></svg><span>Pichwai &middot; Rajasthan</span></div>
+        <div class="tile"><svg viewBox="0 0 100 100"><rect x="22" y="22" width="56" height="56" fill="none" stroke="#141414" stroke-width="2.5"/><rect x="22" y="22" width="56" height="56" transform="rotate(45 50 50)" fill="none" stroke="#B41F26" stroke-width="2.5"/><circle cx="50" cy="50" r="9" fill="none" stroke="#D4A017" stroke-width="2.5"/><circle cx="50" cy="50" r="2.5" fill="#141414"/><path d="M50 8 V16 M50 84 V92 M8 50 H16 M84 50 H92" stroke="#B41F26" stroke-width="2.5"/></svg><span>Aipan &middot; Uttarakhand</span></div>
+      </div>
+      <p class="a-note">Every motif is an original vector drawn for this draft, inspired by living traditions across India&rsquo;s states and regions. No specific artist&rsquo;s work is reproduced or imitated.</p>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="label">Try it - interactive exercise</div>
+  <div class="reader">
+    <svg class="tear" preserveAspectRatio="none" viewBox="0 0 100 16"><polygon fill="#FBF7EE" points="0,16 0,7 4,11 8,4 12,10 16,3 20,9 24,5 28,11 32,4 36,9 40,3 44,10 48,5 52,11 56,4 60,9 64,3 68,10 72,5 76,11 80,4 84,9 88,3 92,10 96,5 100,8 100,16"/></svg>
+    <div class="page">
+      <div class="r-eyebrow">Try This</div>
+      <div class="r-title">One Headline, Three Voices</div>
+      <div class="r-meta">10 min exercise &middot; interactive</div>
+      <p class="r-deck">Set the same headline three ways and feel typography change its meaning. Do it right here.</p>
+      <div class="t-field"><span>Your headline</span><input id="tIn" type="text" value="Google hands developers a one-line exit" maxlength="90"></div>
+      <div class="seg" id="tSeg">
+        <button class="on" data-v="rasa">Rasa</button>
+        <button data-v="mudra">Mudra</button>
+        <button data-v="tala">Tala</button>
+      </div>
+      <div class="stage" id="tStage"></div>
+      <div class="t-row">
+        <button class="t-side" id="tAll">Side by side</button>
+        <span class="t-hint">Same words, three stories.</span>
+      </div>
+    </div>
+    <svg class="tear" preserveAspectRatio="none" viewBox="0 0 100 16" style="transform:scaleY(-1)"><polygon fill="#FBF7EE" points="0,16 0,7 4,11 8,4 12,10 16,3 20,9 24,5 28,11 32,4 36,9 40,3 44,10 48,5 52,11 56,4 60,9 64,3 68,10 72,5 76,11 80,4 84,9 88,3 92,10 96,5 100,8 100,16"/></svg>
+  </div>
+</div>
+
+<script>
+(function(){
+  var inp=document.getElementById('tIn'), stage=document.getElementById('tStage'),
+      seg=document.getElementById('tSeg'), tog=document.getElementById('tAll'), voice='rasa', all=false;
+  function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
+  function render(){
+    var t=inp.value.trim()||'Google hands developers a one-line exit';
+    if(all){
+      stage.innerHTML='<div class="t-grid">'
+        +'<div class="t-cell"><span class="v-rasa">'+esc(t)+'</span></div>'
+        +'<div class="t-cell"><span class="v-mudra">'+esc(t)+'</span></div>'
+        +'<div class="t-cell"><span class="v-tala">'+esc(t)+'</span></div></div>';
+    } else {
+      stage.innerHTML='<div class="v-'+voice+'">'+esc(t)+'</div>';
+    }
+  }
+  inp.addEventListener('input',render);
+  seg.addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b)return;
+    seg.querySelectorAll('button').forEach(function(x){x.classList.remove('on')});
+    b.classList.add('on'); voice=b.dataset.v; render();
+  });
+  tog.addEventListener('click',function(){ all=!all; tog.classList.toggle('on',all); render(); });
+  render();
+})();
+</script>
+</body>
+</html>
