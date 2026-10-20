@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Widget preview - nogood</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{--red:#EE4326;--ink:#161513;--paper:#EFEDE6}
+  body{background:#DAD7CE;font-family:"Space Mono",monospace;margin:0;padding:30px 16px;display:flex;flex-direction:column;align-items:center;gap:44px;
+    background-image:radial-gradient(#16151312 1px,transparent 1.4px);background-size:9px 9px}
+  .label{font:700 10px "Space Mono";letter-spacing:.2em;color:#16151399;text-transform:uppercase;margin-bottom:10px;align-self:flex-start}
+  .wrap{display:flex;flex-direction:column;max-width:720px;width:100%}
+  .barcode{height:30px;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 4px,var(--ink) 4px 8px,transparent 8px 10px,var(--ink) 10px 11px,transparent 11px 15px,var(--ink) 15px 18px,transparent 18px 20px)}
+  .halftone{background-image:radial-gradient(#16151314 1px,transparent 1.4px);background-size:8px 8px}
+
+  /* ---------- WIDGET (658x310) ---------- */
+  .widget{width:658px;max-width:100%;aspect-ratio:658/310;background:var(--red);border:5px solid var(--ink);display:flex;box-sizing:border-box;padding:16px 18px;gap:16px}
+  .w-left{flex:1.15;display:flex;flex-direction:column;justify-content:space-between}
+  .w-title{font:400 66px/.9 Anton;color:var(--ink);text-transform:uppercase}
+  .w-meta{font:700 10px/1.8 "Space Mono";letter-spacing:.12em;color:var(--ink);text-transform:uppercase}
+  .w-bar{width:150px}
+  .w-right{flex:0 0 42%;border:4px solid var(--ink);background:var(--paper);transform:rotate(-2deg);overflow:hidden;position:relative}
+  .w-right img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1) contrast(1.25)}
+  .w-right b{position:absolute;left:8px;bottom:6px;font:700 9px "Space Mono";background:var(--ink);color:var(--paper);padding:3px 7px;letter-spacing:.14em}
+  .w-issue{display:inline-block;background:var(--ink);color:var(--red);font:700 11px "Space Mono";letter-spacing:.14em;padding:5px 10px;width:max-content;text-transform:uppercase}
+
+  /* ---------- READER ---------- */
+  .reader{width:390px;max-width:100%}
+  .page{background:var(--paper);border:5px solid var(--ink);padding:24px 20px 28px}
+  .r-eyebrow{display:flex;align-items:center;gap:8px;font:700 10px "Space Mono";letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:12px}
+  .r-eyebrow:before{content:"★";color:var(--ink)}
+  .r-title{font:400 38px/.98 Anton;color:var(--ink);text-transform:uppercase;margin-bottom:12px}
+  .r-meta{display:flex;align-items:center;gap:12px;font:700 10px "Space Mono";letter-spacing:.1em;color:var(--ink);text-transform:uppercase;margin-bottom:18px}
+  .r-meta .barcode{width:86px;height:20px}
+  .r-plate{border:4px solid var(--ink);transform:rotate(-1.4deg);margin:0 4px 20px;background:var(--paper)}
+  .r-plate img{display:block;width:100%;height:auto;filter:grayscale(1) contrast(1.25)}
+  .r-deck{font:700 13px/1.55 "Space Mono";color:var(--ink);margin-bottom:14px}
+  .r-body{font:400 15px/1.7 Georgia,serif;color:var(--ink);text-align:justify;hyphens:auto}
+  .r-why{margin-top:22px;background:var(--red);border:4px solid var(--ink);padding:14px 16px}
+  .r-why span{display:block;font:700 9px "Space Mono";letter-spacing:.22em;text-transform:uppercase;color:var(--ink);margin-bottom:5px}
+  .r-why p{margin:0;font:700 13px/1.55 "Space Mono";color:var(--paper)}
+  .r-src{margin:18px 2px 0;font:400 11px "Space Mono";color:var(--ink)}
+  .r-src a{color:var(--ink);text-decoration-color:var(--red);text-underline-offset:3px}
+  .r-foot{margin-top:24px;display:flex;justify-content:space-between;align-items:center}
+  .r-btn{background:var(--red);border:4px solid var(--ink);cursor:pointer;font:400 15px Anton;color:var(--ink);padding:10px 18px;text-transform:uppercase;letter-spacing:.04em;transform:rotate(-1deg)}
+  .r-folio{font:700 12px "Space Mono";letter-spacing:.18em;color:var(--ink)}
+  .r-folio b{background:var(--ink);color:var(--paper);padding:2px 6px}
+
+  /* ---------- TRY IT ---------- */
+  .t-field{position:relative;margin:18px 0 16px;border:4px solid var(--ink);background:var(--paper)}
+  .t-field input{width:100%;box-sizing:border-box;border:0;outline:0;background:transparent;font:700 14px "Space Mono";color:var(--ink);padding:13px 14px}
+  .t-field span{position:absolute;left:10px;top:-12px;font:700 9px "Space Mono";letter-spacing:.18em;text-transform:uppercase;color:var(--paper);background:var(--ink);padding:2px 8px}
+  .seg{display:flex;gap:8px;margin-bottom:18px}
+  .seg button{flex:1;border:4px solid var(--ink);background:var(--paper);cursor:pointer;padding:10px 0;font:700 10px "Space Mono";letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
+  .seg button.on{background:var(--ink);color:var(--red)}
+  .stage{border:4px solid var(--ink);min-height:190px;display:flex;align-items:center;justify-content:center;padding:26px 20px;overflow:hidden;background:var(--paper)}
+  .stage .v-cover{font:400 40px/.95 Anton;color:var(--red);text-transform:uppercase;text-align:left;align-self:flex-start;word-break:break-word}
+  .stage .v-mono{font:700 17px/1.7 "Space Mono";color:var(--ink);letter-spacing:.06em;text-transform:uppercase;text-align:center}
+  .stage .v-sticker{font:400 26px/1 Anton;color:var(--paper);background:var(--ink);border:4px solid var(--ink);box-shadow:6px 6px 0 var(--red);padding:14px 18px;transform:rotate(-2deg);text-transform:uppercase;text-align:center}
+  .t-row{display:flex;justify-content:space-between;align-items:center;margin:16px 2px 0}
+  .t-side{font:700 10px "Space Mono";letter-spacing:.12em;text-transform:uppercase;color:var(--ink);cursor:pointer;border:4px solid var(--ink);background:var(--paper);padding:9px 12px}
+  .t-side.on{background:var(--red)}
+  .t-hint{font:400 10px "Space Mono";color:#16151399}
+  .t-grid{display:grid;grid-template-columns:1fr;gap:12px;width:100%}
+  .t-cell{border:4px solid var(--ink);min-height:100px;display:flex;align-items:center;justify-content:center;padding:14px 12px;overflow:hidden;background:var(--paper)}
+  .t-cell span{display:block;word-break:break-word}
+  .t-cell .v-cover{font:400 20px/1 Anton;color:var(--red);text-transform:uppercase}
+  .t-cell .v-mono{font:700 11px/1.6 "Space Mono";color:var(--ink);text-transform:uppercase}
+  .t-cell .v-sticker{font:400 15px/1 Anton;color:var(--paper);background:var(--ink);box-shadow:4px 4px 0 var(--red);padding:10px 12px;transform:rotate(-2deg);text-transform:uppercase}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="label">Home-screen widget (medium)</div>
+  <div class="widget">
+    <div class="w-left">
+      <div class="w-title">Daily<br>Draft</div>
+      <div class="w-issue">Issue 004 / out now</div>
+      <div>
+        <div class="w-meta">Wed 21 Oct 2026<br>6 stories &middot; 1 unread</div>
+        <div class="barcode w-bar"></div>
+      </div>
+    </div>
+    <div class="w-right"><img src="img/2026-10-21-4.jpg" alt=""><b>N°004</b></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="label">In-app reader</div>
+  <div class="reader">
+    <div class="page halftone">
+      <div class="r-eyebrow">Daily Draft &mdash; Design Desk</div>
+      <div class="r-title">Flat Forgot The Handle</div>
+      <div class="r-meta">№2 of 6 &middot; 2 min <span class="barcode"></span></div>
+      <div class="r-plate"><img src="img/2026-10-21-2.jpg" alt=""></div>
+      <p class="r-deck">Nielsen Norman Group tracked what a decade of ultra-flat design did to users: they hesitate before every click.</p>
+      <p class="r-body">Interfaces that stripped away clickability cues made users measurably slower - they hovered and tapped experimentally across pages because nothing told them what was interactive. Removing decoration is fine. Removing information is not.</p>
+      <div class="r-why"><span>Why it matters</span><p>Polish that hides the button taxes every single viewer, silently.</p></div>
+      <p class="r-src">Filed from <a href="#">Nielsen Norman Group</a> ↗</p>
+      <div class="r-foot">
+        <button class="r-btn">Mark as read</button>
+        <span class="r-folio"><b>02</b>/06</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="label">Try it - interactive exercise</div>
+  <div class="reader">
+    <div class="page">
+      <div class="r-eyebrow">Try This</div>
+      <div class="r-title">One Headline, Three Voices</div>
+      <div class="r-meta">10 min exercise &middot; interactive <span class="barcode" style="width:70px;height:16px"></span></div>
+      <p class="r-deck">Set the same headline three ways and feel typography change its meaning. Do it right here.</p>
+      <div class="t-field"><span>Your headline</span><input id="tIn" type="text" value="Google hands developers a one-line exit" maxlength="90"></div>
+      <div class="seg" id="tSeg">
+        <button class="on" data-v="cover">Cover</button>
+        <button data-v="mono">Dot-matrix</button>
+        <button data-v="sticker">Sticker</button>
+      </div>
+      <div class="stage halftone" id="tStage"></div>
+      <div class="t-row">
+        <button class="t-side" id="tAll">Side by side</button>
+        <span class="t-hint">Same words, three stories.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var inp=document.getElementById('tIn'), stage=document.getElementById('tStage'),
+      seg=document.getElementById('tSeg'), tog=document.getElementById('tAll'), voice='cover', all=false;
+  function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
+  function render(){
+    var t=inp.value.trim()||'Google hands developers a one-line exit';
+    if(all){
+      stage.innerHTML='<div class="t-grid">'
+        +'<div class="t-cell"><span class="v-cover">'+esc(t)+'</span></div>'
+        +'<div class="t-cell"><span class="v-mono">'+esc(t)+'</span></div>'
+        +'<div class="t-cell"><span class="v-sticker">'+esc(t)+'</span></div></div>';
+    } else {
+      stage.innerHTML='<div class="v-'+voice+'">'+esc(t)+'</div>';
+    }
+  }
+  inp.addEventListener('input',render);
+  seg.addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b)return;
+    seg.querySelectorAll('button').forEach(function(x){x.classList.remove('on')});
+    b.classList.add('on'); voice=b.dataset.v; render();
+  });
+  tog.addEventListener('click',function(){ all=!all; tog.classList.toggle('on',all); render(); });
+  render();
+})();
+</script>
+</body>
+</html>
