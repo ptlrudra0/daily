@@ -2,6 +2,88 @@
   "paper": "The Daily Draft",
   "issues": [
     {
+      "date": "2026-10-20",
+      "number": 3,
+      "items": [
+        {
+          "id": "2026-10-20-1",
+          "kind": "AI TIP",
+          "headline": "Write the test before the prompt",
+          "deck": "Coding agents iterate brilliantly when they can check themselves. Give them the finish line first.",
+          "body": "The strongest agent habit right now is test-first prompting. Before you ask for the feature, write or paste the acceptance test: the input, the exact output you expect, the error case. Then say \"make this pass.\" The agent now has a way to grade its own work, so it loops until the test goes green instead of stopping at the first plausible answer. No test means the model guesses what done looks like - and it will guess confidently. This works beyond code: a rubric for an essay, a checklist for a summary. Define the pass condition, then prompt.",
+          "why": "You are building with agents in college and for clients one day. The difference between a toy demo and reliable work is almost always a checkable finish line.",
+          "source_name": "TLDR AI",
+          "source_url": "https://ai.tldr.tech/p/2026-10-19-tldr-ai",
+          "reading_time": "1 min read",
+          "image": "img/2026-10-20-1.jpg",
+          "image_alt": "Illustration: a blue key being cut to match a padlock before entering it."
+        },
+        {
+          "id": "2026-10-20-2",
+          "kind": "DESIGN",
+          "headline": "Padding is the cheapest luxury",
+          "deck": "Nothing says premium like empty space. Nothing says made-in-a-hurry like things touching.",
+          "body": "Look at any design that feels expensive - a fashion label's site, a good book cover, Apple's packaging. The common move is not the font or the colour, it is the air. Elements sit far apart, margins are wide, and the few things on the page get room to be seen. Crowding reads as desperation: the designer did not trust the content, so they filled the gap with more stuff. The rule of thumb from classic layout teaching: when in doubt, double the space. Then double it again. Proximity is a design decision, and so is distance.",
+          "why": "For thumbnails and posters, padding is free and instant. A cramped reel cover screams amateur; the same elements with breathing room look like a brand.",
+          "source_name": "The Non-Designer's Design Book, Robin Williams",
+          "source_url": "https://www.peachpit.com/store/non-designers-design-book-9780133966152",
+          "reading_time": "1 min read",
+          "image": "img/2026-10-20-2.jpg",
+          "image_alt": "Illustration: one small amber square alone in a huge white field with crop marks at the edges."
+        },
+        {
+          "id": "2026-10-20-3",
+          "kind": "ON SCREEN",
+          "headline": "Severance deletes the branding",
+          "deck": "No logos, no era, no exits. The Lumon office is scary because every familiar anchor was removed on purpose.",
+          "body": "Production designer Jeremy Hindle built Severance's office as a place with no time stamp: computers that belong to no decade, keyboards with no brand, corridors too symmetrical and too long. The trick is subtraction. Real offices are full of anchors - a Coke logo, a date on a calendar, a window. Remove them all and the brain keeps searching for a foothold that never comes. That unease is designed, not accidental. The lesson for your own work: what you leave out sets the mood as much as what you put in. An interface, a poster, a set - each becomes stranger and more deliberate for every reference point you delete.",
+          "why": "You already collect references. The next level is noticing what a world refuses to show. Try designing one frame with every logo and date stripped out and feel it go quiet.",
+          "source_name": "GQ, Jeremy Hindle interview",
+          "source_url": "https://www.gq.com/story/severance-season-two-finale-set-designer-interview",
+          "reading_time": "1 min read",
+          "image": "img/2026-10-20-3.jpg",
+          "image_alt": "Illustration: a lone retro office desk with an old computer terminal in a huge empty carpeted room, long shadows."
+        },
+        {
+          "id": "2026-10-20-4",
+          "kind": "AI NEWS",
+          "headline": "Anthropic is hiring fewer juniors",
+          "deck": "Junior technical hires at Anthropic fell from 27% to 9% since early 2025. The bottom rung is moving.",
+          "body": "Anthropic's own employment data shows junior employees dropping from 21% to 14% of technical departments, and junior technical hires falling from 27% to 9% of new technical hires since early 2025. The company is still growing overall - this is a shift in mix, not a freeze. Internally, agent runtime now exceeds employee work hours six to one, and more of the human job is supervising fleets of agents. Anthropic made no forecast about juniors disappearing entirely; the trend is real, the extrapolation to zero is internet maths.",
+          "why": "You are the junior this chart is about. The hedge is being the person who can direct and verify agents, not the person doing what agents now do.",
+          "source_name": "The Neuron",
+          "source_url": "https://www.theneuron.ai/digest/everything-that-happened-in-ai-today-monday-october-19-2026/",
+          "reading_time": "1 min read",
+          "image": "img/2026-10-20-4.jpg",
+          "image_alt": "Illustration: a ladder with its lowest rungs missing, floating above the ground."
+        },
+        {
+          "id": "2026-10-20-5",
+          "kind": "AI NEWS",
+          "headline": "DeepSeek opens a faster, leaner model",
+          "deck": "DeepSeek-V4.1-Flash landed with open weights and a memory footprint an eighth of its predecessor.",
+          "body": "DeepSeek released V4.1-Flash-1017 with open weights, claiming big jumps in reasoning, coding, and agentic benchmarks while cutting both response length and execution time. The engineering headline is efficiency: through cross-layer KV cache reuse and FP4 caching, the model's persistent KV cache footprint is about one-eighth of the previous V4-Flash. Smaller memory means cheaper serving, which means the gap between free-to-use open models and paid frontier APIs keeps narrowing.",
+          "why": "Open, cheap, strong models are your prototyping budget. Anything you sketch for TechBlast or a future agency tool can run on weights like these for almost nothing.",
+          "source_name": "TLDR AI",
+          "source_url": "https://ai.tldr.tech/p/2026-10-19-tldr-ai",
+          "reading_time": "1 min read",
+          "image": "img/2026-10-20-5.jpg",
+          "image_alt": "Illustration: a glowing amber lightning bolt rising out of an open box."
+        },
+        {
+          "id": "2026-10-20-6",
+          "kind": "TRY THIS",
+          "headline": "The padding pass",
+          "deck": "A ten-minute exercise: take one crowded thing you made and give it air.",
+          "body": "Open the most cramped design you have - a thumbnail, a poster, a slide. Duplicate it. On the copy, do nothing except add space: double the margin on every side, move every element away from its neighbours, delete one thing entirely if two still touch. No new fonts, no new colours. Put the two versions side by side and ask which one looks like it cost money. Save both. The distance you just added is a tool you will use on every project from now on.",
+          "why": "You cannot unsee this once you have done it once. Ten minutes today changes every thumbnail you make this year.",
+          "reading_time": "10 min exercise",
+          "image": "img/2026-10-20-6.jpg",
+          "image_alt": "Illustration: two poster cards side by side, one crammed with shapes, one with the same shapes spread out in open space."
+        }
+      ]
+    },
+    {
       "date": "2026-10-19",
       "number": 2,
       "items": [
