@@ -51,7 +51,7 @@ async function buildWidget(issue, state) {
   const w = new ListWidget();
   w.backgroundColor = PAPER;
   w.setPadding(16, 16, 14, 16);
-  w.refreshAfterDate = new Date(Date.now() + 15 * 60 * 1000);
+  w.refreshAfterDate = new Date(Date.now() + 5 * 60 * 1000);
 
   const d = new Date(issue.date + "T12:00:00");
   const dayStr = d.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
@@ -270,7 +270,8 @@ async function presentReader(issue) {
 
 // ---------- main ----------
 try {
-  const data = await new Request(FEED).loadJSON();
+  // cache-busted: GitHub Pages serves a 10-min cache header and iOS caches too
+  const data = await new Request(FEED + "?t=" + Date.now()).loadJSON();
   const issue = data.issues[0];
   if (config.runsInWidget) {
     Script.setWidget(await buildWidget(issue, loadState()));
@@ -291,7 +292,7 @@ try {
     const s = w.addText("Could not load today's edition. Tap to retry.");
     s.font = Font.systemFont(11);
     s.textColor = SOFT;
-    w.refreshAfterDate = new Date(Date.now() + 15 * 60 * 1000);
+    w.refreshAfterDate = new Date(Date.now() + 5 * 60 * 1000);
     Script.setWidget(w);
   } else {
     const a = new Alert();
