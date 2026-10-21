@@ -1,9 +1,9 @@
-import {Button, Color, HStack, Image, Link, RoundedRectangle, Text, VStack, ZStack} from 'await';
+import {Button, HStack, Image, Link, Text, VStack, ZStack} from 'await';
 
 // PHOTO DARE - daily weird-face challenge widget
 // Tap the face (or TAKE PHOTO) -> opens the PhotoDare shortcut
 // which runs the selfie camera, previews the shot and saves it to Drive > Arcade.
-// The widget shows your latest shot once the Drive sync is on.
+// Photos stay private in Drive; the widget never loads them.
 
 const BASE = 'https://ptlrudra0.github.io/daily/photo-dare/';
 const SHORTCUT_URL = 'shortcuts://run-shortcut?name=PhotoDare';
@@ -37,30 +37,6 @@ function today() {
 	AwaitStore.set('skip', 0);
 }
 
-type EntryData = {
-	photo: string;
-	taken: string;
-};
-
-async function widgetTimeline(): Promise<Timeline<EntryData>> {
-	let photo = '';
-	let taken = '';
-	try {
-		const res = await AwaitNetwork.request(BASE + 'latest.json?ts=' + Date.now());
-		if (res.code === 200) {
-			const data = JSON.parse(res.data);
-			if (data && data.photo) {
-				photo = BASE + data.photo + '?ts=' + Date.now();
-				taken = data.taken || '';
-			}
-		}
-	} catch (e) {}
-	return {
-		entries: [{date: new Date(), photo, taken}],
-		update: 'rapid',
-	};
-}
-
 function faceCard(img: string, w: number, h: number) {
 	return (
 		<Link url={SHORTCUT_URL}>
@@ -69,7 +45,7 @@ function faceCard(img: string, w: number, h: number) {
 	);
 }
 
-function widget(entry: WidgetEntry<EntryData>) {
+function widget(entry: WidgetEntry) {
 	const face = FACES[dayIndex()];
 
 	if (entry.family === 'small') {
@@ -101,14 +77,7 @@ function widget(entry: WidgetEntry<EntryData>) {
 						<Text value='SKIP' fontSize={10} fontWeight={700} foreground='#B9B9C7'/>
 					</Button>
 				</HStack>
-				{entry.photo ? (
-					<HStack spacing={6} padding={{top: 3}}>
-						<Image url={entry.photo} resizable aspectRatio='fill' frame={{width: 30, height: 30}} cornerRadius={8}/>
-						<Text value={'LAST SHOT' + (entry.taken ? ' · ' + entry.taken : '')} fontSize={8} fontWeight={600} foreground='#7C7C8C'/>
-					</HStack>
-				) : (
-					<Text value='Tap the face to shoot it' fontSize={8} foreground='#5A5A6A' padding={{top: 3}}/>
-				)}
+				<Text value='Photos save privately to Drive > Arcade' fontSize={8} foreground='#5A5A6A' padding={{top: 3}}/>
 			</VStack>
 		</HStack>
 	);
@@ -116,7 +85,6 @@ function widget(entry: WidgetEntry<EntryData>) {
 
 const app = Await.define({
 	widget,
-	widgetTimeline,
 	widgetFamilies: ['small', 'medium'],
 	widgetIntents: {skip, today},
 });
