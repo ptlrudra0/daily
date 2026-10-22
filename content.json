@@ -2,6 +2,90 @@
   "paper": "The Daily Draft",
   "issues": [
     {
+      "number": 5,
+      "date": "2026-10-22",
+      "items": [
+        {
+          "id": "2026-10-22-1",
+          "kind": "AI TIP",
+          "headline": "Split the job into shifts",
+          "deck": "One giant prompt makes a model wing it. Three small ones make it deliver.",
+          "body": "OpenAI's own prompting guide has a move most people skip: split complex tasks into simpler subtasks. Bro, listen. You do not walk into an exam and freestyle the whole paper in one breath - you answer question one, then question two. Same play here. Instead of \"build me the whole app\", run shift one: \"list the steps\". Shift two: \"write step one only\". Shift three: \"check your own work\". Each hand-off is small enough for the model to actually nail, and you catch fumbles at the door instead of on the dance floor. One prompt, one job. Challenge accepted? Already done.",
+          "why": "Your ML assignments and any client build get ten times easier when you chain small prompts instead of hero-prompting. This is also exactly how the agent pipelines you will study are structured.",
+          "source_name": "OpenAI Prompt Engineering Guide",
+          "source_url": "https://platform.openai.com/docs/guides/prompt-engineering",
+          "image": "img/2026-10-22-1.jpg",
+          "image_alt": "A large square block splitting into a descending staircase of smaller blocks",
+          "reading_time": "2 min read"
+        },
+        {
+          "id": "2026-10-22-2",
+          "kind": "DESIGN",
+          "headline": "Your eyes beat the math",
+          "deck": "A perfectly centred play button looks off-centre. Designers nudge it on purpose.",
+          "body": "Marvel's design blog lays out optical adjustment: the math says one thing, your eyes say another, and your eyes win. A triangle centred by coordinates looks like it is drifting left, so designers shift it right until it FEELS centred. Round letters like O dip below the baseline, because a mathematically aligned O looks like it floats. The greats do not measure, bro - they adjust. The ruler is for the first draft; the eye is for the final. Next time the tool says it is aligned and it still looks wrong, trust the tux, not the tape measure. Nudge it till it looks right, then never speak of the numbers again.",
+          "why": "This is the difference between thumbnails that look student-made and ones that look pro. One nudge on your TechBlast covers and the whole grid levels up.",
+          "source_name": "Marvel Blog",
+          "source_url": "https://marvelapp.com/blog/optical-adjustment-logic-vs-designers/",
+          "image": "img/2026-10-22-2.jpg",
+          "image_alt": "A triangle, circle and square on a baseline, the triangle nudged right of its ghost outline",
+          "reading_time": "2 min read"
+        },
+        {
+          "id": "2026-10-22-3",
+          "kind": "ON SCREEN",
+          "headline": "Arcane paints the motion",
+          "deck": "Fortiche builds 3D scenes, then hand-paints over them so every frame survives a pause.",
+          "body": "Netflix's behind-the-scenes deep dive on Arcane season two shows Fortiche's trick: scenes are built in 3D for camera freedom, then painters texture every surface by hand - faces, walls, smoke - so the frame looks painted even when nothing moves. Most animation is designed to look good IN motion. Arcane is designed to look good in a screenshot. That is the whole lesson, bro: style is not what happens when things move, it is what survives when they stop. Paint your stills. If a random frame of your work could hang on a wall, the motion takes care of itself.",
+          "why": "Freeze any frame of your next reel before posting. If the still is boring, the video is borrowing energy from motion alone. Fix the still, win the scroll-stop.",
+          "source_name": "Netflix Tudum",
+          "source_url": "https://www.netflix.com/tudum/features/arcane-season-two-behind-the-scenes",
+          "image": "img/2026-10-22-3.jpg",
+          "image_alt": "Thick painterly brush strokes sweeping over a fine geometric wireframe mesh",
+          "reading_time": "2 min read"
+        },
+        {
+          "id": "2026-10-22-4",
+          "kind": "AI NEWS",
+          "headline": "OpenAI moves into Google's house",
+          "deck": "GPT 6.1 models land on Google Cloud, and Google now hosts all three rival AI labs.",
+          "body": "Ars Technica reports OpenAI's GPT 6 and 6.1 models - Astra, Sol and Luna - are rolling out on Google Cloud's Model Garden, and into Antigravity, Google's coding tool. Read that again, bro: Google is renting rooms to its biggest rival, and bragging that it is now the only major cloud hosting all three leading closed models - Gemini, Claude AND GPT. Microsoft stays OpenAI's main partner, but the exclusivity era is done. Translation: companies will stop picking one AI and start mixing them, and the model becomes a part you swap like a phone charger. The suit stays pressed; the loyalty is dead.",
+          "why": "The skill stops being \"know one model\" and becomes \"route between models\". Learn one API pattern and you can swap backends for price or speed - that is an agency service, not a hobby.",
+          "source_name": "Ars Technica",
+          "source_url": "https://arstechnica.com/ai/2026/10/openais-latest-ai-models-are-coming-to-google-cloud-and-antigravity/",
+          "image": "img/2026-10-22-4.jpg",
+          "image_alt": "Two towers joined by a bridge, a glowing parcel crossing from one to the other",
+          "reading_time": "2 min read"
+        },
+        {
+          "id": "2026-10-22-5",
+          "kind": "AI NEWS",
+          "headline": "Anthropic's next model reads between your lines",
+          "deck": "A model in testing infers what you actually want from vague instructions, and fixes the bug behind your bug.",
+          "body": "The Information reports Anthropic is readying a model built to infer your underlying goal from limited instructions. One tester says it spotted the broader problem behind an individual software bug and proposed the bigger fix - not just the patch, the diagnosis. Google is prepping Gemini 4 Carbon and OpenAI has a cheaper Terra-family model in the chamber, per the same report. Bro, the race has moved: it is not about who is smartest anymore, it is about who needs the least explaining. The bro who gets you with one look beats the bro who needs a slide deck. Models are becoming that first bro.",
+          "why": "Less explaining means rough, half-formed prompts will keep working better. But clear thinking is the moat: a model that reads intent still needs someone with intent worth reading.",
+          "source_name": "Yahoo Tech (The Information)",
+          "source_url": "https://tech.yahoo.com/ai/articles/anthropic-google-openai-prepare-ai-144034892.html",
+          "image": "img/2026-10-22-5.jpg",
+          "image_alt": "A large speech bubble with a smaller hidden bubble nested inside, scanned by a thin arc",
+          "reading_time": "2 min read"
+        },
+        {
+          "id": "2026-10-22-6",
+          "kind": "TRY THIS",
+          "headline": "The squint-and-nudge",
+          "deck": "Ten minutes, one screen, zero measuring.",
+          "body": "Take one thing you made this week - a thumbnail, a slide, a poster. Duplicate it. On the copy, do NOT touch the align tools. Squint until the screen blurs, then nudge ONE element a few pixels at a time until it feels right. Un-squint. Put the two versions side by side and just look. Repeat tomorrow with a different piece. Three days of this and your eye calibration goes from freshman to freelancer. That is the whole exercise. High five.",
+          "why": "Direct rep from today's design story - optical adjustment is a skill, and reps are the only way in.",
+          "source_name": null,
+          "source_url": null,
+          "image": "img/2026-10-22-6.jpg",
+          "image_alt": "Two panels side by side, one with crisp shapes and one with the same shapes blurred",
+          "reading_time": "1 min read"
+        }
+      ]
+    },
+    {
       "number": 4,
       "date": "2026-10-21",
       "items": [
