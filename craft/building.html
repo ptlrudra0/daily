@@ -16,7 +16,7 @@
 <nav class="side"><ol><li><a href="foundations.html">01 Foundations</a></li><li><a href="styles.html">02 Styles & Aesthetics</a></li><li><a href="motion.html">03 Motion Craft</a></li><li><a href="texture.html">04 Texture & Print</a></li><li><a href="case-studies.html">05 Case Studies</a></li><li><a href="people.html">06 People, Studios & Sources</a></li><li><a href="reading.html">07 Psychology & UX Reading</a></li><li><a href="building.html" class="on">08 Building & Architecture</a></li><li><a href="tools.html">09 Tools & Assets</a></li><li><a href="anti-slop.html">10 Anti-Slop</a></li><li><a href="craft-pack.html">11 The Craft Pack</a></li></ol></nav>
 <main>
 <p class="kicker">Section 08 of 11</p>
-<h1>Building & Architecture</h1><p class="lede">Information architecture, navigation, layout primitives, design tokens, performance and shipping checklists.</p><h1>System design basics (started Oct 7)</h1>
+<h1>Building & Architecture</h1><p class="lede">Information architecture, navigation, layout primitives, design tokens, performance and shipping checklists.</p><h2>System design basics (started Oct 7)</h2>
 <h2>1. Frontend / static-site architecture</h2>
 <ul>
 <li>Astro project structure (https://docs.astro.build/en/basics/project-structure/): src/ holds pages, layouts, components, styles, images; Astro builds/optimises it. public/ holds unprocessed assets (fonts, icons, robots.txt, favicon, PDFs) copied as-is. Convention folders: src/components, src/layouts, src/pages, src/styles, src/images (names are convention except pages).</li>
@@ -250,7 +250,7 @@ Keep originals, optimise a copy, then inspect output. Test scaling, contrast, cl
  https://github.com/dequelabs/axe-core flags uncertain checks as incomplete and says manual review remains necessary. Check keyboard access, modal focus, reading order and motion outside the automated report.
  https://github.com/GoogleChrome/lighthouse-ci/blob/main/docs/ supports CI audits/assertions; use them to catch regressions, not to claim every real user has the same experience.</p>
 <h2>QA checklist addition: texture protocol</h2>
-<h1>Website structure, IA and navigation</h1>
+<h2>Website structure, IA and navigation</h2>
 <h2>IA vs sitemap</h2>
 <ul>
 <li>IA = structuring and organising content (labels, hierarchy, relationships); a sitemap is one planning visual of it (hierarchy of boxes, tiers). Sitemaps are internal working documents; a footer HTML sitemap for users is optional. (<a href="https://www.nngroup.com/articles/information-architecture-sitemaps">source</a>)</li>
@@ -449,7 +449,7 @@ Keep originals, optimise a copy, then inspect output. Test scaling, contrast, cl
 - HTML APIS (395): DOM is the full node tree API; AOM (accessibility tree) is built FROM the DOM and is what SRs consume - semantic markup is how you program the AOM. Every element is an object: HTML interfaces expose attributes as JS properties (imageInstance.alt) plus layout info (offsetHeight etc.). Invalid markup still parses - browsers fix it silently, sometimes into a different tree than you wrote.
 - CONCLUSION (396): series done. The companion series queued: Learn Forms (already have Learn CSS complete). Full Learn HTML coverage now: 381-396 = 20 modules.
 - Vein note: the focus/visual-order rule is the single most design-relevant takeaway - CSS layout freedom (the thing we exploit for craft) is exactly what breaks keyboard users if unconsidered. Add to craft QA: "tab the page; the tab path must match the eye path."</p>
-<h1>Storytelling, scrollytelling, brand through interaction. = read Oct 6 2026</h1>
+<h2>Storytelling, scrollytelling, brand through interaction. = read Oct 6 2026</h2>
 <h2>Scroll narrative structures</h2>
 <p>Three layers: narrative structure (how much control the reader has), display mechanism (what scroll drives), trigger (how a step begins). Structures: author-driven (linear), reader-driven (explore), hybrids: martini glass (guided stem then free exploration; most common in interactive visualisations), interactive slideshow (scroll replaces "next"), drill-down (poor fit for linear scroll).</p>
 <h2>Six patterns and their failure modes</h2>
