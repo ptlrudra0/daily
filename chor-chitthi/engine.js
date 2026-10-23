@@ -13,19 +13,31 @@
     wazir:   { name: 'Wazir',         title: 'The Decision-Maker', text: 'Listen, then name the Chor. You get one accusation.' },
     sipahi:  { name: 'Sipahi',        title: 'The Guard',       text: 'No special power. Keep a straight face. Points are set in Settings.' },
   };
-  // ---- Scoring configuration. Only raja.base = 100 and the 15-point theft are given rules.
-  // Every other value is a placeholder the host can change in Settings. ----
+  // ---- Scoring configuration ----
+  // KNOWN rules (fixed): Raja starts every round with 100 points; Rani's Brother steals exactly 15 from the Raja
+  // after a correct accusation. Every other value is UNKNOWN (null) and must be set by the host before scored play.
+  const FIXED_THEFT = 15;
   const DEFAULT_SCORING = {
-    theft: 15,
     points: {
-      raja:    { base: 100, correct: 20, wrong: 0 },
-      rani:    { base: 0,   correct: 0,  wrong: 0 },
-      brother: { base: 0,   correct: 0,  wrong: 0 },
-      chor:    { base: 0,   correct: 0,  wrong: 20 },
-      wazir:   { base: 0,   correct: 0,  wrong: 0 },
-      sipahi:  { base: 0,   correct: 0,  wrong: 0 },
+      raja:    { base: 100,  correct: null, wrong: null },
+      rani:    { base: null, correct: null, wrong: null },
+      brother: { base: null, correct: null, wrong: null },
+      chor:    { base: null, correct: null, wrong: null },
+      wazir:   { base: null, correct: null, wrong: null },
+      sipahi:  { base: null, correct: null, wrong: null },
     },
   };
+  // Lists every unset value for the roles used in a mode.
+  function missingPoints(scoring, count) {
+    const out = [];
+    (ROLE_CONFIG[count] || []).forEach(function (r) {
+      ['base', 'correct', 'wrong'].forEach(function (f) {
+        const v = scoring.points[r] && scoring.points[r][f];
+        if (typeof v !== 'number' || !isFinite(v)) out.push({ role: r, field: f });
+      });
+    });
+    return out;
+  }
 
   function mulberry32(seed) {
     let a = seed >>> 0;
@@ -69,7 +81,8 @@
   }
   // Pure: resolves a round without mutating anything.
   function resolveRound(roles, accusedIdx, scoring) {
-    const cfg = scoring || DEFAULT_SCORING;
+    const cfg = scoring;
+    if (!cfg || missingPoints(cfg, roles.length).length) throw new Error('Scoring is not fully set');
     const chorIdx = roles.indexOf('chor');
     const wazirIdx = roles.indexOf('wazir');
     if (accusedIdx === wazirIdx || accusedIdx < 0 || accusedIdx >= roles.length) throw new Error('Invalid accusation');
@@ -78,7 +91,7 @@
     const log = [];
     function add(i, amt, why) { if (!amt) return; deltas[i] += amt; log.push({ player: i, amount: amt, why: why }); }
     roles.forEach(function (r, i) {
-      const p = cfg.points[r] || { base: 0, correct: 0, wrong: 0 };
+      const p = cfg.points[r];
       add(i, p.base, r === 'raja' ? 'Raja starting score' : 'Starting score');
       add(i, correct ? p.correct : p.wrong, correct ? 'Wazir caught the Chor' : 'Wazir missed the Chor');
     });
@@ -86,9 +99,9 @@
     const rajaIdx = roles.indexOf('raja');
     const brotherIdx = roles.indexOf('brother');
     if (correct && brotherIdx >= 0 && rajaIdx >= 0) {
-      add(rajaIdx, -cfg.theft, 'Stolen by Rani\'s Brother');
-      add(brotherIdx, cfg.theft, 'Stole from the Raja');
-      theft = { from: rajaIdx, to: brotherIdx, amount: cfg.theft };
+      add(rajaIdx, -FIXED_THEFT, 'Stolen by Rani\'s Brother');
+      add(brotherIdx, FIXED_THEFT, 'Stole from the Raja');
+      theft = { from: rajaIdx, to: brotherIdx, amount: FIXED_THEFT };
     }
     const max = Math.max.apply(null, deltas);
     const winners = deltas.map(function (d, i) { return d === max ? i : -1; }).filter(function (i) { return i >= 0; });
@@ -100,7 +113,7 @@
     const totals = match.totals.map(function (t, i) { return t + result.deltas[i]; });
     return Object.assign({}, match, { totals: totals });
   }
-  const api = { ROLE_CONFIG: ROLE_CONFIG, ROLES: ROLES, DEFAULT_SCORING: DEFAULT_SCORING, mulberry32: mulberry32, secureRng: secureRng,
+  const api = { ROLE_CONFIG: ROLE_CONFIG, ROLES: ROLES, DEFAULT_SCORING: DEFAULT_SCORING, FIXED_THEFT: FIXED_THEFT, missingPoints: missingPoints, mulberry32: mulberry32, secureRng: secureRng,
     shuffle: shuffle, assignRoles: assignRoles, validateNames: validateNames, resolveRound: resolveRound, applyRound: applyRound };
   if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.CCEngine = api;
 })(typeof self !== 'undefined' ? self : globalThis);

@@ -1,11 +1,11 @@
 (function(){
-const E=window.CCEngine,R=E.ROLES,KEY='chor-chitthi-v1';
+const E=window.CCEngine,R=E.ROLES,KEY='chor-chitthi-v2';
 const $=document.getElementById('app');
 const clone=o=>JSON.parse(JSON.stringify(o));
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let S=load();let ui={mode:6,names:['','','','','',''],err:'',sel:null,confirm:null,sheet:null,revealStage:0};
 function fresh(){return{v:1,screen:'home',scoring:clone(E.DEFAULT_SCORING),sound:true,haptics:true,match:null,round:null,history:[]}}
-function load(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.v===1){
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.v===1&&s.scoring&&s.scoring.points){
   // Privacy on restart: never reopen a face-up role card.
   if(s.round&&s.round.dealStep==='shown')s.round.dealStep='handoff';return s}}catch(e){}return fresh()}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
@@ -49,7 +49,20 @@ V.setup=()=>{const n=ui.mode;let inputs='';for(let i=0;i<n;i++)inputs+=`<input c
  <div class="seg"><button data-m="4" class="${n===4?'on':''}">4 players</button><button data-m="6" class="${n===6?'on':''}">6 players</button></div>
  <p class="dim" style="margin:10px 0">${n===4?'Raja, Rani, Wazir, Chor.':"Raja, Rani, Rani's Brother, Chor, Wazir, Sipahi."}</p>
  <div class="grow scroll col" style="padding-bottom:8px">${inputs}</div>
- <div class="err">${esc(ui.err)}</div><button class="btn" data-a="start">Start game</button></div>`};
+ <div class="err">${esc(ui.err)}</div>
+ <button class="btn ghost small" style="width:100%;margin-bottom:10px" data-a="points">${E.missingPoints(S.scoring,n).length?`Points: ${E.missingPoints(S.scoring,n).length} values not set · set now`:'Points set · review'}</button>
+ <button class="btn" data-a="start">Start game</button></div>`};
+V.points=()=>{const P=S.scoring.points,n=ui.ptMode,roles=n?E.ROLE_CONFIG[n]:Object.keys(P),miss=n?E.missingPoints(S.scoring,n).length:Object.keys(P).reduce((a,k)=>a+['base','correct','wrong'].filter(f=>P[k][f]===null).length,0);
+ const inp=(k,f)=>k==='raja'&&f==='base'?`<div class="dim" style="text-align:center">100 🔒</div>`:`<input type="number" data-k="${k}" data-f="${f}" placeholder="set" value="${P[k][f]===null?'':P[k][f]}">`;
+ return `<div class="screen">${topbar(`<button class="icon" data-a="${n?'setupback':'settings'}" aria-label="Back">←</button>`,'')}
+ <h2 style="margin:6px 0 8px">Set the points</h2>
+ <p class="dim" style="margin-bottom:8px">Fixed rules: the Raja starts each round with 100. Rani's Brother steals exactly 15 from the Raja after a correct accusation.</p>
+ <p class="dim" style="margin-bottom:10px">Everything else is up to your house rules, including the Sipahi. Enter every value (0 is fine). Nothing is assumed.</p>
+ <div class="grow scroll col"><div class="set dim"><div></div><div>Start</div><div>Caught</div><div>Escaped</div></div>
+ ${roles.map(k=>`<div class="set"><div>${R[k].name}${k==='sipahi'?'<div class="dim" style="font-size:11px">value uncertain</div>':''}</div>${['base','correct','wrong'].map(f=>inp(k,f)).join('')}</div>`).join('')}
+ <button class="btn ghost small" style="width:100%" data-a="zero">Set all empty values to 0</button></div>
+ <div class="err">${miss?miss+' value'+(miss===1?'':'s')+' still empty':''}</div>
+ <button class="btn" data-a="savepts" ${miss?'disabled':''}>${ui.pendingStart?'Save & start game':'Save points'}</button></div>`};
 V.deal=()=>{const r=S.round,i=r.dealIdx,name=N(i);
  if(r.dealStep==='handoff')return `<div class="screen neutral"><div class="eyebrow">Chitthi ${i+1} of ${r.roles.length}</div>
   <h2>Pass the phone to<br>${name}</h2><div class="cardwrap" style="flex:0 0 auto"><div class="card" style="width:200px"><div class="face front" style="transform:none;display:none"></div>${back}</div></div>
@@ -95,22 +108,19 @@ V.rules=()=>`<div class="screen">${topbar(`<button class="icon" data-a="home" ar
  <p>The Wazir names one player as the Chor, then confirms. The roles are revealed.</p>
  <p><b>Caught:</b> the Raja is rewarded. In six-player games Rani's Brother steals 15 points from the Raja.</p>
  <p><b>Escaped:</b> the Chor is rewarded. No theft.</p>
- <p class="dim">The Raja starts every round with 100 points. Other point values are set in Settings. No hints, no clues, no extra powers.</p></div></div>`;
+ <p class="dim">The Raja starts every round with 100 points. Other point values are set by the host before the first round. No hints, no clues, no extra powers.</p></div></div>`;
 V.scores=()=>{const m=S.match;let body='<p class="dim">No match yet. Start a game to keep score.</p>';
  if(m){const order=m.players.map((p,i)=>i).sort((a,b)=>m.totals[b]-m.totals[a]);
   body=`<p class="dim" style="margin-bottom:8px">Match total after ${m.history.length} round${m.history.length===1?'':'s'}</p>`+order.map(i=>`<div class="row"><div class="n">${N(i)}</div><div class="num">${m.totals[i]}</div></div>`).join('')+
   (m.history.length?`<h3 style="margin:18px 0 6px;font-size:18px">Rounds</h3>`+m.history.slice().reverse().map(h=>`<div class="dim" style="padding:4px 0">Round ${h.no} · ${h.correct?'Chor caught':'Chor escaped'} · winner ${esc(h.winners)}</div>`).join(''):'')}
  return `<div class="screen">${topbar(`<button class="icon" data-a="home" aria-label="Back">←</button>`,m?`<button class="btn small ghost" data-a="resetask">Reset match</button>`:'')}<h2 style="margin:6px 0 10px">Scoreboard</h2><div class="grow scroll">${body}</div>
  ${ui.sheet==='reset'?sheet(`<h3>Reset this match?</h3><p>All scores and round history will be erased. This cannot be undone.</p><button class="btn red" data-a="resetgo">Erase scores</button><button class="btn ghost" data-a="resetno">Keep playing</button>`):''}</div>`};
-V.settings=()=>{const P=S.scoring.points,rows=Object.keys(P).map(k=>`<div class="set"><div>${R[k].name}</div>${['base','correct','wrong'].map(f=>`<input type="number" inputmode="numeric" data-k="${k}" data-f="${f}" value="${P[k][f]}">`).join('')}</div>`).join('');
- return `<div class="screen">${topbar(`<button class="icon" data-a="home" aria-label="Back">←</button>`,'')}<h2 style="margin:6px 0 8px">Settings</h2><div class="grow scroll col">
+V.settings=()=>{ return `<div class="screen">${topbar(`<button class="icon" data-a="home" aria-label="Back">←</button>`,'')}<h2 style="margin:6px 0 8px">Settings</h2><div class="grow scroll col">
  <div class="tog"><span>Sound</span><button class="btn small ${S.sound?'':'ghost'}" data-a="tsound">${S.sound?'On':'Muted'}</button></div>
  <div class="tog"><span>Haptics</span><button class="btn small ${S.haptics?'':'ghost'}" data-a="thaptic">${S.haptics?'On':'Off'}</button></div>
  <div class="rule"></div><h3 style="font-size:19px">Scoring</h3>
- <p class="dim">Known rules: the Raja starts at 100 and the Brother steals 15 after a correct accusation. All other values are placeholders you can change. Changes apply from the next round.</p>
- <div class="set dim"><div></div><div>Start</div><div>Caught</div><div>Escaped</div></div>${rows}
- <div class="set"><div>Brother's theft</div><input type="number" inputmode="numeric" data-t="1" value="${S.scoring.theft}"><div></div><div></div></div>
- <button class="btn ghost" data-a="defaults" style="margin-top:6px">Restore defaults</button></div></div>`};
+ <p class="dim">Raja 100 and the 15-point theft are fixed rules. Other values are yours to set.</p>
+ <button class="btn ghost" data-a="editpts">Edit points</button></div></div>`};
 // ---- render ----
 function render(){const s=S.screen;const html=(V[s]||V.home)();$.innerHTML=html;
  if(s==='deal'&&S.round.dealStep==='shown'){const c=document.getElementById('card');requestAnimationFrame(()=>requestAnimationFrame(()=>{c&&c.classList.add('flip')}))}}
@@ -125,7 +135,11 @@ play(){ui.err='';if(S.match&&S.round&&S.round.applied){newRound();go('deal');ret
   if(S.match&&S.round&&!S.round.applied){ui.sheet='newm';render();return}
   go('setup')},
 newgo(){ui.sheet=null;go('setup')},newno(){ui.sheet=null;render()},
+points(){ui.ptMode=ui.mode;ui.pendingStart=false;go('points')},editpts(){ui.ptMode=0;ui.pendingStart=false;go('points')},setupback(){go('setup')},
+zero(){const P=S.scoring.points,roles=ui.ptMode?E.ROLE_CONFIG[ui.ptMode]:Object.keys(P);roles.forEach(k=>['base','correct','wrong'].forEach(f=>{if(P[k][f]===null)P[k][f]=0}));save();render()},
+savepts(){if(ui.pendingStart){ui.pendingStart=false;ui.ptMode=0;A.start();return}go(ui.ptMode?'setup':'settings');ui.ptMode=0},
 start(){const n=ui.mode,names=ui.names.slice(0,n).map(x=>x.trim());const e=E.validateNames(names,n);if(e){ui.err=e;render();return}
+  if(E.missingPoints(S.scoring,n).length){ui.ptMode=n;ui.pendingStart=true;go('points');return}
   ui.err='';S.match={players:names,totals:names.map(()=>0),history:[],roundNo:0};newRound();tone(330,.2);go('deal')},
 draw(){S.round.dealStep='shown';tone(260,.15);buzz(15);save();render()},
 hide(){const r=S.round;r.dealStep='handoff';r.dealIdx++;save();
@@ -152,11 +166,12 @@ $.addEventListener('click',e=>{const t=e.target.closest('[data-a],[data-m],[data
  const f=A[t.dataset.a];if(f)f()});
 $.addEventListener('input',e=>{const t=e.target;
  if(t.dataset.i!==undefined){ui.names[+t.dataset.i]=t.value;ui.err='';const e=$.querySelector('.err');if(e)e.textContent='';return}
- if(t.dataset.t){S.scoring.theft=Math.max(0,parseInt(t.value)||0);save();return}
- if(t.dataset.k){S.scoring.points[t.dataset.k][t.dataset.f]=parseInt(t.value)||0;save()}});
+ if(t.dataset.k){const v=t.value.trim()===''?null:parseInt(t.value);S.scoring.points[t.dataset.k][t.dataset.f]=(v===null||isNaN(v))?null:v;save();
+  const miss=ui.ptMode?E.missingPoints(S.scoring,ui.ptMode).length:Object.keys(S.scoring.points).reduce((a,k)=>a+['base','correct','wrong'].filter(f=>S.scoring.points[k][f]===null).length,0);
+  const b=$.querySelector('[data-a=savepts]');if(b)b.disabled=!!miss;const er=$.querySelector('.err');if(er)er.textContent=miss?miss+' value'+(miss===1?'':'s')+' still empty':''}});
 // resume position
 if(S.match&&S.round&&!S.round.applied&&S.screen==='home'){}
-if(S.screen==='setup')S.screen='home';
+if(S.screen==='setup'||S.screen==='points')S.screen='home';
 if(S.round&&S.round.phase==='reveal'&&S.screen==='reveal')ui.revealStage=0;
 if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 render();
