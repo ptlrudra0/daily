@@ -19,7 +19,7 @@
 <h1>The Craft Pack</h1><p class="lede">A condensed starter: typography systems, grid and composition, colour, imagery and a final QA pass in one place.</p><h2>Craft pack</h2>
 <p>The library's rules, distilled into one checklist.</p>
 <h2>0. How to use</h2>
-<p>Per variant: pick one primary style (section 6), at most one secondary. Write a short  first (4-6 hex colours with roles, 1-2 typefaces with roles, layout concept, 3 principles that make it unlike other variants). Derive accent and layout from the person's subject, not defaults. Then apply sections 1-5 and filter with section 7.</p>
+<p>Per variant: pick one primary style (section 6), at most one secondary. Write a short design direction first (4-6 hex colours with roles, 1-2 typefaces with roles, layout concept, 3 principles that make it unlike other variants). Derive accent and layout from the person's subject, not defaults. Then apply sections 1-5 and filter with section 7.</p>
 <h2>1. Typography systems</h2>
 <ul>
 <li>Body 15-25px, line-height 120-145%, line length 45-90 characters; all-caps only for under one line, with +5-12% letterspacing; minimal bold/italic; curly quotes; centred text sparingly.</li>
@@ -65,7 +65,7 @@
 <li>Igloo (SOTY 2024): previs/grey-box the journey first; one consistent signature effect (chromatic aberration + displacement + frost transitions); unique variation per item; tune for low-end devices.</li>
 <li>Lando Norris (SOTY 2025): layers/render targets for masking the hero; fake glass with fract+noise+reflection texture; sync WebGL with DOM; test mobile early.</li>
 <li>Messenger (SOTY 2025): start from a feeling and real-world references; a technical constraint (spherical world) became the style.</li>
-<li>Lusion 2019/v3: bake animation into textures (11-keyframe vertex animation in PNG, 16-bit packing), two-colour palette. Preloader never finished in my tests.</li>
+<li>Lusion 2019/v3: bake animation into textures (11-keyframe vertex animation in PNG, 16-bit packing), two-colour palette. Its preloader was slow to finish in testing.</li>
 <li>Luxury = care: one image art direction, signature + functional face, performance, rare precise motion. Not black + gold.</li>
 <li>Photos: real, informative images get looked at; decorative stock gets ignored.</li>
 <li>Portfolio basics: person first, selected work with outcomes, clear contact.</li>
@@ -290,16 +290,15 @@
 </table>
 <p>Combinations: 17 rows in the Combinations section, each citing a viewed site (e.g. brutalist + editorial: RAW Magazine; OS pastiche + personality: Poolsuite + cyanbanister; Sportsbrut broadcast + event: LA28).</p>
 <h2>7. Anti-slop filter (apply last)</h2>
-<p>Wave 1 tells: Inter/Roboto only, purple-indigo gradients and gradient headline text, stock order (centred hero, pill badge, two buttons, logo row, 3 feature cards, pricing, CTA), rounded-2xl card kit with same shadow, reflexive glass/blur/glow, fade-up on every section, bounce easing, count-up stats, invented numbers. Wave 2 tells (from "make it less AI"): warm editorial cream+serif+terracotta, dark near-black + one acid accent, broadsheet cosplay hairlines, template eyebrow caps on every heading. Claim about Anthropic's skill is as reported by that article. Rule: every visible decision must be one you made for THIS person.</p>
+<p>Wave 1 tells: Inter/Roboto only, purple-indigo gradients and gradient headline text, stock order (centred hero, pill badge, two buttons, logo row, 3 feature cards, pricing, CTA), rounded-2xl card kit with same shadow, reflexive glass/blur/glow, fade-up on every section, bounce easing, count-up stats, invented numbers. Wave 2 tells (from "make it less AI"): warm editorial cream+serif+terracotta, dark near-black + one acid accent, broadsheet cosplay hairlines, template eyebrow caps on every heading. The claim about Anthropic's guidance is as reported by that article. Rule: every visible decision must be one you made for THIS person.</p>
 <h2>8. Assets and licence rules</h2>
 <ul>
 <li>Prefer MIT/CC0/OFL. Poly Haven models are CC0 with a public API and direct glTF download, no login; Spline Community is CC BY 4.0 (credit); Fontaine MIT; Lucide ISC, Phosphor MIT; Lenis MIT, GSAP free.</li>
 <li>Traps: Shadertoy and LYGIA (NC), ScrollReveal (GPL), Animate.css (Hippocratic), Polaris (Shopify only), Quaternius QAL, Blendkit RF, Hero Patterns (no authoritative licence). Code licences do not cover assets they display.</li>
-<li>Sketchfab downloads need an OAuth login (not available). Unsplash: free licence terms apply, read  before using. Reference sites above are for study only; never copy their assets or code.</li>
+<li>Sketchfab downloads need an OAuth login (not available). Unsplash: free licence terms apply, read the licence before using. Reference sites above are for study only; never copy their assets or code.</li>
 </ul>
-<h2>9. Known gaps</h2>
-<p>No viewed references yet for swiss, collage, art deco, cyber, glass, vaporwave, memphis, zine, maximalist, illustrated; no serif long-form editorial site viewed; Marble Bust not rendered in a viewer; tablet nav unchecked; colour-psychology papers unread; nav not checked on Lusion.</p>
-<h2>Dark-UI grain recipe (texture vein synthesis)</h2>
+<h2>9. Limits of this edition</h2>
+<p>No viewed references yet for swiss, collage, art deco, cyber, glass, vaporwave, memphis, zine, maximalist, illustrated; no serif long-form editorial site viewed; Marble Bust not rendered in a viewer; tablet nav unchecked; colour-psychology papers not covered; navigation not checked on Lusion.</p>
 <h2>Dark-UI grain: two-tier spec (verified against Linear.app production CSS)</h2>
 <ul>
 <li>TIER 1 (page whisper grain): neutral alpha-noise tile (grey ~186 RGB, alpha variance), 256-512px tile, mix-blend soft-light, 3-4% effective opacity - for full-page backgrounds.</li>

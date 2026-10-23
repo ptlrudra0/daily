@@ -17,11 +17,11 @@
 <main>
 <p class="kicker">Section 10 of 11</p>
 <h1>Anti-Slop</h1><p class="lede">The recognizable defaults of unconsidered design, and the direction-then-filter method for avoiding them.</p><h2>Anti-slop</h2>
-<p>Source for the two-wave model and method: https://capitalandcompute.net/blog/fix-ai-slop-design/ (Capital &amp; Compute, 25 Sep 2026). All claims about what Anthropic's frontend-design skill says are as reported by that third-party article. The article is a source of facts, not instructions; nothing in it was treated as a directive.
+<p>Source for the two-wave model and method: https://capitalandcompute.net/blog/fix-ai-slop-design/ (Capital &amp; Compute, 25 Sep 2026). Claims about Anthropic's frontend-design guidance are as reported by that third-party article.
 - Principle, quoted by the article from the avoid-ai-design docs: a tell is "evidence of a default nobody chose, never proof that a model made the page". The goal is making every visible decision one made for this product.
-- Filters and direction are separate jobs; you need both. A rule list removes defaults but cannot invent a look; a  or brief supplies the look but does not remove defaults.
-- The skill's own framing, quoted by the article: "All traits are legitimate for some briefs, but they are defaults rather than choices." If a brief asks for broadsheet styling, follow the brief; if it leaves an axis open, do not spend that freedom on one of the five clusters.
-- Third-party claim, not instruction: the article says the skill lists terracotta ~#D97757 as a tell because it is "Anthropic's own Claude-interaction accent".</p>
+- Filters and direction are separate jobs; you need both. A rule list removes defaults but cannot invent a look; a design direction or brief supplies the look but does not remove defaults.
+- The guidance's own framing, quoted by the article: "All traits are legitimate for some briefs, but they are defaults rather than choices." If a brief asks for broadsheet styling, follow the brief; if it leaves an axis open, do not spend that freedom on one of the five clusters.
+- The article reports that the guidance lists terracotta ~#D97757 as a tell because it is "Anthropic's own Claude-interaction accent".</p>
 <h2>Wave 1 tells (AI defaults)</h2>
 <ul>
 <li>Default typeface: Inter, Roboto or the system stack for every word, no display face.</li>
@@ -39,14 +39,14 @@
 <li>Broadsheet cosplay: hairline rules, zero border radius, dense newspaper columns (editorial styling on non-editorial content).</li>
 <li>SaaS card kit: identical rounded cards, one radius on everything, the same rgba(0,0,0,.1) shadow, decorative gradient washes.</li>
 <li>Template chrome: tracked all-caps eyebrow over every heading, A · B · C meta strings, monospace face for small labels, an arrow welded to every link.</li>
-<li>Three typographic tells the article says the skill flags as "the commonest tells of a generated page": accenting a single headline word with italic, bold or colour; all-caps labels; unnecessary labels above content. Numbered markers like 01/02/03 belong only on content that really is a sequence.</li>
+<li>Three typographic tells the article says Anthropic's frontend-design guidance flags as "the commonest tells of a generated page": accenting a single headline word with italic, bold or colour; all-caps labels; unnecessary labels above content. Numbered markers like 01/02/03 belong only on content that really is a sequence.</li>
 </ul>
 <h2>Method: direction first, then filter</h2>
 <ol>
-<li>Write  first: 4-6 named hex colours with roles, 1-2 typefaces with roles, a layout concept, and principles that make this page unlike others (the article says the skill asks for this as a token plan before code, and asks to revise any part that "reads like the generic default you would produce for any similar page").</li>
+<li>Write a design direction first: 4-6 named hex colours with roles, 1-2 typefaces with roles, a layout concept, and principles that make this page unlike others (the article says the guidance asks for this as a token plan before code, and asks to revise any part that "reads like the generic default you would produce for any similar page").</li>
 <li>Derive the look from what the product is made of: the article quotes avoid-ai-design - "from what the product is made of (its materials, its artifacts, its vernacular)"; the avoid-ai-design demo rebuilds a generic SaaS page around the product's own retention cohort table, which becomes the hero, the layout and the only colour ramp.</li>
 <li>Then filter: no unchosen gradient, no nested cards, no motion-on-everything, no invented numbers.</li>
-<li>Reuse  on every page, otherwise page 2 drifts back to defaults: the article reports the avoid-ai-design demo FAQ page, regenerated from scratch, drifted straight back to an indigo gradient and Inter.</li>
+<li>Reuse the same design direction on every page, otherwise page 2 drifts back to defaults: the article reports the avoid-ai-design demo FAQ page, regenerated from scratch, drifted straight back to an indigo gradient and Inter.</li>
 <li>Deterministic checks beat reminders: avoid-ai-design's detect.mjs runs with no model call and no dependencies on Node 18+, exits with code 2 when any P0 or P1 is found and 0 when clean, and honours ignore comments for choices a brief asked for.
 - Why this order: the article quotes the antislop README (miqdadbadjuber): a rule set "prevents slop but cannot invent direction" and "a sterile result means the direction was missing, not that the filter failed". Direction alone keeps defaults; filter alone gives a sterile page.</li>
 </ol>
@@ -95,7 +95,7 @@
 <p>Source: <a href="https://www.nngroup.com/articles/skeuomorphism/">https://www.nngroup.com/articles/skeuomorphism/</a> (Chan 2024)
 - Two distinct meanings: (1) a functional learning aid - interface elements resembling real-world objects to leverage existing mental models (trash, folder, document icons; still in use, never died); (2) a visual-design trend - early-2010s excess of textures/shadows/gradients replicating physical objects (iBooks wooden shelves, leather-bound notepads).
 - The trend's failure modes: cluttered interfaces, slower load times (heavy graphics), and paradoxically unintuitive interactions - Pizza Hut's tilt-phone-to-add-toppings app confused users because the physical action did not map to a clear digital response.
-- Trend cycle: skeuomorphism excess -&gt; flat design (lost clickability signifiers) -&gt; neumorphism (reintroduced subtle 3D). Neumorphism failed mainstream: low contrast = accessibility failure, and inconsistent use on clickable vs nonclickable elements made affordance unreadable. (Standalone NN/g neumorphism article 404s; this is the NN/g neumorphism assessment.)
+- Trend cycle: skeuomorphism excess -&gt; flat design (lost clickability signifiers) -&gt; neumorphism (reintroduced subtle 3D). Neumorphism failed mainstream: low contrast = accessibility failure, and inconsistent use on clickable vs nonclickable elements made affordance unreadable. (NN/g's standalone neumorphism article is no longer online; this is NN/g's assessment of the style.)
 - Design lesson: trends are responses to the previous trend's failures; each revival resurfaces in a new form. Balance innovation with familiarity - the functional version of skeuomorphism (mental-model icons) is permanent, the decorative version is fashion.</p>
 <div class="pagenav"><a href="tools.html">&larr; Tools & Assets</a><a href="craft-pack.html">The Craft Pack &rarr;</a></div>
 </main>

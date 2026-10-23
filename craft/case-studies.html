@@ -53,7 +53,7 @@ Lesson: pick a concept strong enough to dictate structure; derive visuals from r
 <li>Stack: three.js, tweenlite, webpack, node static-site generator, purely static hosting.</li>
 <li>They chose a playful, technical design over trendy minimalism to leave room for technical showing-off (match design to what the site must prove).
 Lesson: bake heavy effects into compact assets, keep the site static, tailor assets to the effect.
-Not yet read: Lusion v3 and Noomo and Mana case studies (links in  / search: awwwards.com/sites/lusion-v3, awwwards.com/sites/mana-yerba-mate).
+Not yet read: Lusion v3 and Noomo and Mana case studies (search: awwwards.com/sites/lusion-v3, awwwards.com/sites/mana-yerba-mate).
 Mana Yerba Mate (SOTD, Louis Paquet): Awwwards page lists only highlights ("3D scrolling animation" element, 8.03/10); no making-of text found. Not used.</li>
 </ul>
 <h2>Lusion v3 (Awwwards SOTD Oct 2 2023, score 8.25/10) (<a href="https://www.awwwards.com/sites/lusion-v3">source</a>)</h2>
@@ -65,7 +65,7 @@ Mana Yerba Mate (SOTD, Louis Paquet): Awwwards page lists only highlights ("3D s
 <li>Engagement claim (theirs, unverified): a user colour/texture customiser raised average visit to almost two minutes.</li>
 <li>Sound: subtle effects plus calm background music, not overwhelming.</li>
 </ul>
-<h2>Awwwards breakdown queue cleared (Igloo, Messenger, Gubrica)</h2>
+<h2>Awwwards breakdowns: Igloo, Messenger, Gubrica</h2>
 <h3>Igloo Inc (abeto × Bureaux, Awwwards SOTY 2024)</h3>
 <ul>
 <li>Process: grey mockups to map journey → "previs" untextured animations for sections static mocks can't communicate → code + 3D art simultaneously IN the browser with custom real-time shader/texture/model tools; continuous perf measurement for low-end devices.</li>
@@ -90,12 +90,12 @@ Mana Yerba Mate (SOTD, Louis Paquet): Awwwards page lists only highlights ("3D s
 <li>Toolbox shift: ogl.js over Three.js on commercial work (smaller bundles, multi-render-target performance) + gltf-transform CLI for precise GLB optimisation.</li>
 <li>Philosophy: keep the designer mindset, don't become "the grumpy dev"; cross-train in VFX (attention-directing, believable illusions) and animation (elemental principles); understand tools deeply to stay in control (Hawking quote).</li>
 </ul>
-<h3>three.js discourse Igloo thread: low yield — community praise only, no technical content; noted that particles drew Lusion comparisons. Queue item closed.</h3>
+<h3>three.js discourse Igloo thread: low yield — community praise only, no technical content; noted that particles drew Lusion comparisons.</h3>
 <h2>Lando Norris hero reverse-engineered + Messenger counterpoint</h2>
 <h3>The Lando hero effect is a FLUID SOLVER, not a brush mask</h3>
 <ul>
 <li>Alexandru Pavelescu tried to copy the landonorris.com hero (drag across the face, helmet tears open with a wet ragged edge, heals back) as a brush-trail mask and failed on two behaviours: the reveal keeps spreading ~1s after the pointer stops, and it has HOLES — islands of original image inside uncovered area. He read OFF+BRAND's public CDN shader: the cut thresholds the VELOCITY FIELD of a fluid solver. Momentum explains the outliving wave; vortex cores have no velocity at centre, which explains the holes. Method note: reading the shipping shader on a public CDN is a legit reverse-engineering route.</li>
-<li>His MIT reproduction <code>revealed</code> (github.com/idleCyrex/revealed, 19.2 kB gz, zero deps, WebGL1, no float textures): RGBA8 mask, red channel = reveal, velocity in the two spare channels — the fluid character without shipping a solver. One heal-rate number drives modes: persist (0), spotlight (infinity), trail (between), plus scroll-driven progress. Fails safe: the front plate is a real DOM img, so no-WebGL/reduced-motion/lost-context all degrade to the plain image. See [[repos]].</li>
+<li>His MIT reproduction <code>revealed</code> (github.com/idleCyrex/revealed, 19.2 kB gz, zero deps, WebGL1, no float textures): RGBA8 mask, red channel = reveal, velocity in the two spare channels — the fluid character without shipping a solver. One heal-rate number drives modes: persist (0), spotlight (infinity), trail (between), plus scroll-driven progress. Fails safe: the front plate is a real DOM img, so no-WebGL/reduced-motion/lost-context all degrade to the plain image.</li>
 </ul>
 <h3>OFF+BRAND Lando case study</h3>
 <ul>
@@ -103,13 +103,13 @@ Mana Yerba Mate (SOTD, Louis Paquet): Awwwards page lists only highlights ("3D s
 </ul>
 <h3>Messenger counterpoint — CommArts interview with Vicente Lucendo (abeto)</h3>
 <ul>
-<li>Corrects/extends: team was TWO people; almost everything custom (shaders, controls, camera, networking, backend) on three.js; the small-planet layout existed to kill invisible walls (walk straight, circle the world); outlines + colour committed early for the "indie touch". REGRET: "we'd probably think about the story first instead of leaving it for the end" — so "story written LAST" is what happened, NOT their recommended process. Logged as a nuance, not a rule. 10-player cap came from testing (more broke the calm); hundreds still online months later.</li>
+<li>Note: team was TWO people; almost everything custom (shaders, controls, camera, networking, backend) on three.js; the small-planet layout existed to kill invisible walls (walk straight, circle the world); outlines + colour committed early for the "indie touch". REGRET: "we'd probably think about the story first instead of leaving it for the end" — so "story written LAST" is what happened, NOT their recommended process. Logged as a nuance, not a rule. 10-player cap came from testing (more broke the calm); hundreds still online months later.</li>
 </ul>
 <h2>Tekprivacy rebrand - Another Collective</h2>
 <p>Source: <a href="https://www.anothercollective.pt/projects/tekprivacy">https://www.anothercollective.pt/projects/tekprivacy</a> (Behance gallery behance.net/gallery/242173443/Tekprivacy blocks fetchers)
 - Data-protection rebrand built on one metaphor: focus and blur - information that exists but is deliberately kept out of reach. Backgrounds, gradients, imagery and digital applications all play with layers of visibility and distortion (reveal/conceal/direct attention).
 - Custom logotype + symbol drawn from a squared grid, from structured digital systems. Goal: technological without predictable tech codes; restrained but distinctive; keeps trust/authority.
-- Lesson: a single strong conceptual metaphor applied across every surface beats a bag of tech tropes. For security/privacy products, blur/focus is an ownable mechanic that doubles as UI behaviour (scan = focus). Applied to the Void redesign brief Oct 16.</p>
+- Lesson: a single strong conceptual metaphor applied across every surface beats a bag of tech tropes. For security/privacy products, blur/focus is an ownable mechanic that doubles as UI behaviour (scan = focus).</p>
 <h2>Codrops case studies: Heron + Chasing the Moment</h2>
 <p>Sources: tympanus.net/codrops/2026/10/12/heron-ai/, tympanus.net/codrops/2026/10/12/chasing-the-moment/.
 - HERON by Bearplus (AI agent for architects): DESIGNING AI WITHOUT THE "AI" LOOK. Midway, the team stripped the word "AI" from the brief: "if you stripped the word AI out entirely, what would a tool that helps architects catch and fix problems actually look like?" Answer: the visual language the audience already trusts - floor plans, dimension lines, redline markup, Revit-style information layout. Base stays calm (off-white, near-black, drawing grid); the AI only shows itself when the system notices or acts. RED AS SEMANTIC, NOT DECORATION: in drawing/inspection workflows red means attention needed, so red appears almost exclusively on violations/alerts - "the less color noise there is, the more weight a warning carries." Homepage rebuilt around the product's real workflow (Observe -&gt; Advise -&gt; Act -&gt; Learn) as the scroll's narrative spine instead of a feature list. Grid follows a DRAWING SHEET not a landing page: metadata/labels run to viewport edges like a drawing mid-annotation; one focal point per section to avoid text-left/image-right rut. First direction (architectural editorial/brutalist) was beautiful but wrong: "it made Heron look like a studio or a publication, not software doing something." Craft-standards note: "The client liked it. We didn't. So we held off on sign-off." Hero interaction: drag across an ordinary drawing to reveal buried violations - pointer-to-reveal mapping near 1:1 because "too much easing and it feels like an effect; direct enough and it feels like a tool." Plain DOM + coordinate math over WebGL when the visual language is 2D (and object-fit letterboxing means you must measure the image as displayed and remap markers).
