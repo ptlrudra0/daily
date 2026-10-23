@@ -12,6 +12,8 @@ import {
 // face-down slip to see their role alone, then hides it and passes on.
 // No names, no scoring. The rest of the game happens in the room.
 // State lives in AwaitStore, so the deal survives widget refreshes.
+// Every state read is fully validated; anything inconsistent is repaired
+// to a neutral screen that shows no role.
 
 type Phase = 'choose' | 'pass' | 'reveal' | 'done';
 type GameState = {
@@ -65,21 +67,67 @@ function freshState(): GameState {
 	return {mode: 4, seats: [], current: 0, phase: 'choose'};
 }
 
-function getState(): GameState {
-	const stored = AwaitStore.get<GameState>(STORE_KEY);
-	if (
-		stored
-		&& (stored.mode === 4 || stored.mode === 6)
-		&& Array.isArray(stored.seats)
-		&& typeof stored.current === 'number'
-		&& ['choose', 'pass', 'reveal', 'done'].includes(stored.phase)
-	) {
-		return stored;
+function isExactDeal(mode: number, seats: unknown): seats is number[] {
+	if (!Array.isArray(seats) || seats.length !== mode) {
+		return false;
 	}
 
-	const fresh = freshState();
-	AwaitStore.set(STORE_KEY, fresh);
-	return fresh;
+	const seen = new Set<number>();
+	for (const seat of seats) {
+		if (!Number.isInteger(seat) || seat < 0 || seat >= mode || seen.has(seat)) {
+			return false;
+		}
+
+		seen.add(seat);
+	}
+
+	return true;
+}
+
+// Turns anything (stored or timeline-archived) into a safe state.
+// A valid deal with inconsistent progress restarts at seat 1 (roles stay
+// hidden, so nothing leaks); anything worse falls back to the choose screen.
+function repair(raw: unknown): GameState {
+	if (!raw || typeof raw !== 'object') {
+		return freshState();
+	}
+
+	const state = raw as Partial<GameState>;
+	if (state.mode !== 4 && state.mode !== 6) {
+		return freshState();
+	}
+
+	const mode = state.mode;
+	if (state.phase === 'choose') {
+		return {mode, seats: [], current: 0, phase: 'choose'};
+	}
+
+	if (!isExactDeal(mode, state.seats)) {
+		return freshState();
+	}
+
+	const current = state.current;
+	if (
+		(state.phase === 'pass' || state.phase === 'reveal')
+		&& Number.isInteger(current)
+		&& current !== undefined
+		&& current >= 0
+		&& current < mode
+	) {
+		return {mode, seats: state.seats, current, phase: state.phase};
+	}
+
+	if (state.phase === 'done' && current === mode) {
+		return {mode, seats: state.seats, current, phase: 'done'};
+	}
+
+	return {mode, seats: state.seats, current: 0, phase: 'pass'};
+}
+
+function getState(): GameState {
+	const state = repair(AwaitStore.get<GameState>(STORE_KEY));
+	AwaitStore.set(STORE_KEY, state);
+	return state;
 }
 
 function save(state: GameState) {
@@ -204,7 +252,15 @@ function PassScreen({state, scale, w, h}: {state: GameState; scale: number; w: n
 }
 
 function RevealScreen({state, scale}: {state: GameState; scale: number}) {
-	const role = ROLES[state.mode][state.seats[state.current]] ?? {name: 'CHOR', blurb: ''};
+	const roleIndex = state.seats[state.current];
+	const role = Number.isInteger(roleIndex) && roleIndex >= 0 && roleIndex < state.mode
+		? ROLES[state.mode][roleIndex]
+		: undefined;
+	if (!role) {
+		// Never invent a role. State validation makes this unreachable.
+		return undefined;
+	}
+
 	return (
 		<VStack spacing={7 * scale} alignment='center'>
 			<Text value='YOUR CHITTHI' fontSize={9 * scale} fontWeight={700} kerning={3} foreground={colors.gold}/>
@@ -238,7 +294,9 @@ function DoneScreen({state, scale}: {state: GameState; scale: number}) {
 }
 
 function widget(entry: WidgetEntry<EntryData>) {
-	const state = entry;
+	// The entry is archived timeline data; repair it before trusting it,
+	// and fall back to the store when it carries nothing usable.
+	const state = repair(entry);
 	const w = entry.size.width;
 	const h = entry.size.height;
 	const scale = Math.max(0.8, Math.min(w, h) / 170);
