@@ -1,18 +1,18 @@
 (function(){
-const E=window.CCEngine,R=E.ROLES,KEY='chor-chitthi-v2';
+const E=window.CCEngine,R=E.ROLES,KEY='chor-chitthi-v3';
+try{localStorage.removeItem('chor-chitthi-v1');localStorage.removeItem('chor-chitthi-v2')}catch(e){}
 const $=document.getElementById('app');
-const clone=o=>JSON.parse(JSON.stringify(o));
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let S=load();let ui={mode:6,names:['','','','','',''],err:'',sel:null,confirm:null,sheet:null,revealStage:0};
-function fresh(){return{v:1,screen:'home',scoring:clone(E.DEFAULT_SCORING),sound:true,haptics:true,match:null,round:null,history:[]}}
-function load(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.v===1&&s.scoring&&s.scoring.points){
-  // Privacy on restart: never reopen a face-up role card.
-  if(s.round&&s.round.dealStep==='shown')s.round.dealStep='handoff';return s}}catch(e){}return fresh()}
+const HAPTIC_OK=!!navigator.vibrate;
+let S=load();let ui={mode:6,names:['','','','','',''],err:''};
+function fresh(){return{v:3,screen:'home',sound:true,haptics:true,players:null,round:null}}
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.v===3){
+  if(s.round&&s.round.dealStep==='shown')s.round.dealStep='handoff'; // never reopen a face-up role after a restart
+  return s}}catch(e){}return fresh()}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 function go(screen){S.screen=screen;save();render()}
-// ---- feedback ----
 let ac;function tone(f,d,v){if(!S.sound)return;try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=f;g.gain.value=v||.04;g.gain.exponentialRampToValueAtTime(.0001,ac.currentTime+d);o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+d)}catch(e){}}
-function buzz(p){if(S.haptics&&navigator.vibrate)try{navigator.vibrate(p)}catch(e){}}
+function buzz(p){if(S.haptics&&HAPTIC_OK)try{navigator.vibrate(p)}catch(e){}}
 // ---- art ----
 const G='#b8924a',B='#4a0e1c';
 const ART={
@@ -25,154 +25,69 @@ sipahi:`<svg viewBox="0 0 100 100" fill="none" stroke="${G}" stroke-width="3" st
 const SEAL=`<svg class="seal" viewBox="0 0 100 100" fill="none" stroke="${G}" stroke-width="2.5"><circle cx="50" cy="50" r="40"/><circle cx="50" cy="50" r="33"/><path d="M50 26 54 42 70 42 57 52 62 68 50 58 38 68 43 52 30 42 46 42Z" fill="${G}" stroke="none"/></svg>`;
 const front=r=>`<div class="face front">${ART[r]}<div class="rtitle">${R[r].title}</div><div class="rname">${R[r].name}</div><p class="rtext">${R[r].text}</p></div>`;
 const back=`<div class="face back">${SEAL.replace('class="seal"','class="seal" style="width:110px;height:110px"')}</div>`;
-// ---- helpers ----
-const N=i=>esc(S.match.players[i]);
-const topbar=(left,right)=>`<div class="top"><div>${left||''}</div><div>${right||''}</div></div>`;
-function sheet(html){return `<div class="sheet"><div class="box">${html}</div></div>`}
-function newRound(){const rng=E.secureRng();const n=S.match.players.length;
-  S.match.roundNo=(S.match.roundNo||0)+1;
-  S.round={id:Date.now()+'-'+S.match.roundNo,roles:E.assignRoles(n,rng),dealIdx:0,dealStep:'handoff',accused:null,applied:false,result:null};
-  ui.sel=null;ui.confirm=null;ui.revealStage=0;save()}
-// ---- screens ----
+const N=i=>esc(S.players[i]);
+const topbar=(l,r)=>`<div class="top"><div>${l||''}</div><div>${r||''}</div></div>`;
+function sheet(h){return `<div class="sheet"><div class="box">${h}</div></div>`}
+function deal(){const n=S.players.length,rng=E.secureRng(),prev=S.round&&S.round.roles.length===n?S.round.roles.join():null;
+  let roles=E.assignRoles(n,rng),k=0;while(prev&&roles.join()===prev&&k++<20)roles=E.assignRoles(n,rng);
+  S.round={roles:roles,dealIdx:0,dealStep:'handoff',no:(S.round&&S.round.no||0)+1};save()}
 const V={};
-V.home=()=>{const m=S.match,rd=S.round,active=m&&rd&&!rd.applied||(m&&rd&&rd.applied&&S.screen==='home');
- const inRound=m&&rd&&!rd.applied;
+V.home=()=>{const inRound=S.players&&S.round&&S.round.dealIdx<S.round.roles.length;
  return `<div class="screen">${topbar('',`<button class="icon" data-a="settings" aria-label="Settings">⚙</button>`)}
  <div class="grow col" style="justify-content:center;gap:18px"><div class="eyebrow">A game of slips &amp; secrets</div>
  <h1 class="big">CHOR-<br>CHITTHI</h1><div class="rule"></div><p style="font-family:var(--serif);font-size:22px;color:var(--ivory)">Trust nobody. Catch the Chor.</p></div>
- <div class="col">${inRound?`<button class="btn" data-a="resume">Resume round ${m.roundNo}</button>`:''}
- <button class="btn ${inRound?'ghost':''}" data-a="play">${m&&!inRound?'Play · next round':'Play'}</button>
- <div class="seg" style="gap:10px"><button class="btn ghost" style="font-size:16px" data-a="rules">Rules</button><button class="btn ghost" style="font-size:16px" data-a="scores">Scoreboard</button></div></div>${ui.sheet==='newm'?sheet(`<h3>Start a new match?</h3><p>A round is in progress. A new match erases the current scores. Resume instead to keep them.</p><button class="btn red" data-a="newgo">New match, erase scores</button><button class="btn ghost" data-a="newno">Keep current match</button>`):''}</div>`};
+ <div class="col">${inRound?`<button class="btn" data-a="resume">Resume dealing</button>`:''}
+ <button class="btn ${inRound?'ghost':''}" data-a="play">${inRound?'New game':'Play'}</button>
+ <button class="btn ghost" data-a="rules">Rules</button></div>
+ ${ui.sheet==='newm'?sheet(`<h3>Start over?</h3><p>Dealing is in progress. Starting over discards the chitthis already handed out.</p><button class="btn red" data-a="newgo">Start over</button><button class="btn ghost" data-a="newno">Keep dealing</button>`):''}</div>`};
 V.setup=()=>{const n=ui.mode;let inputs='';for(let i=0;i<n;i++)inputs+=`<input class="name" data-i="${i}" maxlength="14" placeholder="Player ${i+1}" value="${esc(ui.names[i]||'')}" autocomplete="off" autocapitalize="words" enterkeyhint="next">`;
  return `<div class="screen">${topbar(`<button class="icon" data-a="home" aria-label="Back">←</button>`,'')}
  <h2 style="margin:6px 0 14px">Who is playing?</h2>
  <div class="seg"><button data-m="4" class="${n===4?'on':''}">4 players</button><button data-m="6" class="${n===6?'on':''}">6 players</button></div>
  <p class="dim" style="margin:10px 0">${n===4?'Raja, Rani, Wazir, Chor.':"Raja, Rani, Rani's Brother, Chor, Wazir, Sipahi."}</p>
  <div class="grow scroll col" style="padding-bottom:8px">${inputs}</div>
- <div class="err">${esc(ui.err)}</div>
- <button class="btn ghost small" style="width:100%;margin-bottom:10px" data-a="points">${E.missingPoints(S.scoring,n).length?`Points: ${E.missingPoints(S.scoring,n).length} values not set · set now`:'Points set · review'}</button>
- <button class="btn" data-a="start">Start game</button></div>`};
-V.points=()=>{const P=S.scoring.points,n=ui.ptMode,roles=n?E.ROLE_CONFIG[n]:Object.keys(P),miss=n?E.missingPoints(S.scoring,n).length:Object.keys(P).reduce((a,k)=>a+['base','correct','wrong'].filter(f=>P[k][f]===null).length,0);
- const inp=(k,f)=>k==='raja'&&f==='base'?`<div class="dim" style="text-align:center">100 🔒</div>`:`<input type="number" data-k="${k}" data-f="${f}" placeholder="set" value="${P[k][f]===null?'':P[k][f]}">`;
- return `<div class="screen">${topbar(`<button class="icon" data-a="${n?'setupback':'settings'}" aria-label="Back">←</button>`,'')}
- <h2 style="margin:6px 0 8px">Set the points</h2>
- <p class="dim" style="margin-bottom:8px">Fixed rules: the Raja starts each round with 100. Rani's Brother steals exactly 15 from the Raja after a correct accusation.</p>
- <p class="dim" style="margin-bottom:10px">Everything else is up to your house rules, including the Sipahi. Enter every value (0 is fine). Nothing is assumed.</p>
- <div class="grow scroll col"><div class="set dim"><div></div><div>Start</div><div>Caught</div><div>Escaped</div></div>
- ${roles.map(k=>`<div class="set"><div>${R[k].name}${k==='sipahi'?'<div class="dim" style="font-size:11px">value uncertain</div>':''}</div>${['base','correct','wrong'].map(f=>inp(k,f)).join('')}</div>`).join('')}
- <button class="btn ghost small" style="width:100%" data-a="zero">Set all empty values to 0</button></div>
- <div class="err">${miss?miss+' value'+(miss===1?'':'s')+' still empty':''}</div>
- <button class="btn" data-a="savepts" ${miss?'disabled':''}>${ui.pendingStart?'Save & start game':'Save points'}</button></div>`};
+ <div class="err">${esc(ui.err)}</div><button class="btn" data-a="start">Deal the chitthis</button></div>`};
 V.deal=()=>{const r=S.round,i=r.dealIdx,name=N(i);
  if(r.dealStep==='handoff')return `<div class="screen neutral"><div class="eyebrow">Chitthi ${i+1} of ${r.roles.length}</div>
-  <h2>Pass the phone to<br>${name}</h2><div class="cardwrap" style="flex:0 0 auto"><div class="card" style="width:200px"><div class="face front" style="transform:none;display:none"></div>${back}</div></div>
+  <h2>Pass the phone to<br>${name}</h2><div class="cardwrap" style="flex:0 0 auto"><div class="card" style="width:200px">${back}</div></div>
   <p class="dim">Keep the screen facing away from everyone else.</p><button class="btn" data-a="draw">I am ${name} · draw my chitthi</button></div>`;
  return `<div class="screen">${topbar(`<span class="pill">${name} · only you</span>`,'')}
   <div class="cardwrap"><div class="card" id="card">${back}${front(r.roles[i])}</div></div>
   <p class="dim" style="text-align:center;margin-bottom:12px">Remember it. Then hide it.</p>
   <button class="btn" data-a="hide">Hide &amp; pass phone</button></div>`};
-V.court=()=>`<div class="screen">${topbar('<span class="eyebrow">The royal court</span>','')}
- <h2 style="margin:8px 0 10px">Everyone has a chitthi.</h2>
- <p>Talk. Bluff. Rani, advise the Wazir out loud. The Wazir decides alone.</p>
- <div class="rule" style="margin:16px 0"></div>
- <div class="grow scroll">${S.match.players.map((p,i)=>`<div class="row"><div class="n">${N(i)}</div><div class="r">Role hidden</div></div>`).join('')}</div>
- <button class="btn" data-a="decide" style="margin-top:12px">Wazir, make your decision</button></div>`;
-V.accuse=()=>{const r=S.round;
- return `<div class="screen">${topbar('<span class="eyebrow">The accusation</span>','')}
- <h2 style="margin:8px 0 6px">Wazir, who is the Chor?</h2><p class="dim" style="margin-bottom:14px">One name. You cannot change it after you confirm.</p>
- <div class="plist grow scroll" style="align-content:start">${S.match.players.map((p,i)=>`<button class="pbtn ${ui.sel===i?'on':''}" data-p="${i}">${N(i)}</button>`).join('')}</div>
- <div class="err">${esc(ui.err)}</div><button class="btn" data-a="lock" ${ui.sel===null?'disabled':''}>${ui.sel===null?'Choose a player':'Accuse '+N(ui.sel)}</button>
- ${ui.confirm!==null?sheet(`<h3>Accuse ${N(ui.confirm)}?</h3><p>This locks your decision. The answer is revealed next.</p><button class="btn red" data-a="confirm">Yes, lock it in</button><button class="btn ghost" data-a="cancel">Not yet</button>`):''}</div>`};
-V.reveal=()=>{const r=S.round,res=r.result,st=ui.revealStage;
- if(st===0)return `<div class="screen neutral"><div class="eyebrow">The Wazir has spoken</div><h2>${N(res.accusedIdx)}<br><span class="dim" style="font-family:var(--sans);font-size:18px">is accused of being the Chor</span></h2>
-  <div class="stamp">?</div><button class="btn" data-a="unveil">Reveal the Chor</button></div>`;
- const cards=r.roles.map((ro,i)=>`<div class="row rise" style="animation-delay:${60+i*70}ms"><div class="n">${N(i)}</div><div class="r">${R[ro].name}</div></div>`).join('');
- return `<div class="screen"><div class="eyebrow rise">${N(res.chorIdx)} was the Chor</div>
-  <div class="verdict rise" style="margin:8px 0 4px;color:${res.correct?'var(--gold2)':'#ff9a8f'};animation-delay:80ms">${res.correct?'Caught.':'Escaped.'}</div>
-  <p class="rise" style="animation-delay:140ms">${res.correct?'The Wazir was right.':'The Wazir was wrong.'}${res.theft?` ${N(res.theft.to)} steals ${res.theft.amount} from ${N(res.theft.from)}.`:''}</p>
-  <div class="rule"></div><div class="grow scroll">${cards}</div>
-  <button class="btn" data-a="results" style="margin-top:12px">See the scores</button></div>`};
-V.results=()=>{const r=S.round,res=r.result,m=S.match;
- const order=m.players.map((p,i)=>i).sort((a,b)=>m.totals[b]-m.totals[a]);
- const win=res.winners.map(N).join(' & ');
- const log=res.log.map(l=>`<div class="dim" style="display:flex;justify-content:space-between;padding:3px 0"><span>${N(l.player)} · ${esc(l.why)}</span><span class="${l.amount>0?'pos':'neg'}">${l.amount>0?'+':''}${l.amount}</span></div>`).join('');
- return `<div class="screen">${topbar(`<span class="eyebrow">Round ${m.roundNo} · ${res.correct?'Correct':'Incorrect'} accusation</span>`,'')}
- <h2 style="margin:6px 0 2px">${win} ${res.winners.length>1?'win':'wins'} the round</h2>
- <div class="grow scroll" style="margin-top:8px">
- ${order.map(i=>`<div class="row"><div class="n">${N(i)}<div class="r" style="margin-top:2px">${R[r.roles[i]].name}</div></div><div class="delta ${res.deltas[i]>0?'pos':res.deltas[i]<0?'neg':'dim'}">${res.deltas[i]>0?'+':''}${res.deltas[i]}</div><div class="num" style="min-width:96px;text-align:right">${m.totals[i]}</div></div>`).join('')}
- <h3 style="margin:18px 0 6px;font-size:18px">Point changes</h3>${log||'<p class="dim">No points changed hands.</p>'}</div>
- <div class="col" style="margin-top:10px"><button class="btn" data-a="again">Play again · fresh chitthis</button><button class="btn ghost" data-a="home">Return home</button></div></div>`};
-V.rules=()=>`<div class="screen">${topbar(`<button class="icon" data-a="home" aria-label="Back">←</button>`,'')}<h2 style="margin:6px 0 12px">The rules</h2><div class="grow scroll col">
- <p>Each player secretly draws a chitthi. Pass one phone around. Only the holder sees it.</p>
- <p>Talk and bluff. Rani can advise the Wazir by talking. She cannot force a choice.</p>
- <p>The Wazir names one player as the Chor, then confirms. The roles are revealed.</p>
- <p><b>Caught:</b> the Raja is rewarded. In six-player games Rani's Brother steals 15 points from the Raja.</p>
- <p><b>Escaped:</b> the Chor is rewarded. No theft.</p>
- <p class="dim">The Raja starts every round with 100 points. Other point values are set by the host before the first round. No hints, no clues, no extra powers.</p></div></div>`;
-V.scores=()=>{const m=S.match;let body='<p class="dim">No match yet. Start a game to keep score.</p>';
- if(m){const order=m.players.map((p,i)=>i).sort((a,b)=>m.totals[b]-m.totals[a]);
-  body=`<p class="dim" style="margin-bottom:8px">Match total after ${m.history.length} round${m.history.length===1?'':'s'}</p>`+order.map(i=>`<div class="row"><div class="n">${N(i)}</div><div class="num">${m.totals[i]}</div></div>`).join('')+
-  (m.history.length?`<h3 style="margin:18px 0 6px;font-size:18px">Rounds</h3>`+m.history.slice().reverse().map(h=>`<div class="dim" style="padding:4px 0">Round ${h.no} · ${h.correct?'Chor caught':'Chor escaped'} · winner ${esc(h.winners)}</div>`).join(''):'')}
- return `<div class="screen">${topbar(`<button class="icon" data-a="home" aria-label="Back">←</button>`,m?`<button class="btn small ghost" data-a="resetask">Reset match</button>`:'')}<h2 style="margin:6px 0 10px">Scoreboard</h2><div class="grow scroll">${body}</div>
- ${ui.sheet==='reset'?sheet(`<h3>Reset this match?</h3><p>All scores and round history will be erased. This cannot be undone.</p><button class="btn red" data-a="resetgo">Erase scores</button><button class="btn ghost" data-a="resetno">Keep playing</button>`):''}</div>`};
-V.settings=()=>{ return `<div class="screen">${topbar(`<button class="icon" data-a="home" aria-label="Back">←</button>`,'')}<h2 style="margin:6px 0 8px">Settings</h2><div class="grow scroll col">
+V.done=()=>`<div class="screen neutral"><div class="eyebrow">All chitthis dealt</div>${SEAL.replace('class="seal"','class="seal" style="width:110px;height:110px"')}
+ <h2>Everyone has a role.</h2><p>Put the phone down. Talk, bluff, accuse and keep score in person.</p>
+ <div class="col" style="width:100%;margin-top:8px"><button class="btn" data-a="redeal">Deal again · fresh chitthis</button><button class="btn ghost" data-a="newplayers">Change players</button><button class="btn ghost" data-a="home">Home</button></div></div>`;
+V.rules=()=>`<div class="screen">${topbar(`<button class="icon" data-a="home" aria-label="Back">←</button>`,'')}<h2 style="margin:6px 0 12px">How it works</h2><div class="grow scroll col">
+ <p>Enter the players. The phone deals one secret chitthi to each, exactly one of every role.</p>
+ <p>Pass the phone round. Only the holder looks. Hide it before passing on.</p>
+ <p>4 players: Raja, Rani, Wazir, Chor. 6 players add Rani's Brother and Sipahi.</p>
+ <p>Then play in person. Rani advises, the Wazir names the Chor, and you settle the points among yourselves. The app keeps no score.</p></div></div>`;
+V.settings=()=>`<div class="screen">${topbar(`<button class="icon" data-a="home" aria-label="Back">←</button>`,'')}<h2 style="margin:6px 0 8px">Settings</h2><div class="grow scroll col">
  <div class="tog"><span>Sound</span><button class="btn small ${S.sound?'':'ghost'}" data-a="tsound">${S.sound?'On':'Muted'}</button></div>
- <div class="tog"><span>Haptics</span><button class="btn small ${S.haptics?'':'ghost'}" data-a="thaptic">${S.haptics?'On':'Off'}</button></div>
- <div class="rule"></div><h3 style="font-size:19px">Scoring</h3>
- <p class="dim">Raja 100 and the 15-point theft are fixed rules. Other values are yours to set.</p>
- <button class="btn ghost" data-a="editpts">Edit points</button></div></div>`};
-// ---- render ----
-function render(){const s=S.screen;const html=(V[s]||V.home)();$.innerHTML=html;
+ <div class="tog"><span>Haptics</span>${HAPTIC_OK?`<button class="btn small ${S.haptics?'':'ghost'}" data-a="thaptic">${S.haptics?'On':'Off'}</button>`:`<span class="dim">Not available on this device</span>`}</div></div></div>`;
+function render(){const s=S.screen;$.innerHTML=(V[s]||V.home)();
  if(s==='deal'&&S.round.dealStep==='shown'){const c=document.getElementById('card');requestAnimationFrame(()=>requestAnimationFrame(()=>{c&&c.classList.add('flip')}))}}
-// private-phase back-nav guard
 history.replaceState({cc:1},'');history.pushState({cc:2},'');
-addEventListener('popstate',()=>{history.pushState({cc:2},'');if(!['deal','accuse','reveal'].includes(S.screen)&&S.screen!=='home')go('home')});
-// ---- actions ----
+addEventListener('popstate',()=>{history.pushState({cc:2},'');if(!['deal','home'].includes(S.screen))go('home')});
 const A={
-home(){ui.sheet=null;go('home')},settings(){go('settings')},rules(){go('rules')},scores(){ui.sheet=null;go('scores')},
-resume(){const r=S.round;go(r.phase==='accuse'?'accuse':r.dealIdx>=r.roles.length?'court':'deal')},
-play(){ui.err='';if(S.match&&S.round&&S.round.applied){newRound();go('deal');return}
-  if(S.match&&S.round&&!S.round.applied){ui.sheet='newm';render();return}
-  go('setup')},
-newgo(){ui.sheet=null;go('setup')},newno(){ui.sheet=null;render()},
-points(){ui.ptMode=ui.mode;ui.pendingStart=false;go('points')},editpts(){ui.ptMode=0;ui.pendingStart=false;go('points')},setupback(){go('setup')},
-zero(){const P=S.scoring.points,roles=ui.ptMode?E.ROLE_CONFIG[ui.ptMode]:Object.keys(P);roles.forEach(k=>['base','correct','wrong'].forEach(f=>{if(P[k][f]===null)P[k][f]=0}));save();render()},
-savepts(){if(ui.pendingStart){ui.pendingStart=false;ui.ptMode=0;A.start();return}go(ui.ptMode?'setup':'settings');ui.ptMode=0},
+home(){ui.sheet=null;go('home')},settings(){go('settings')},rules(){go('rules')},
+resume(){go(S.round.dealIdx>=S.round.roles.length?'done':'deal')},
+play(){ui.err='';const inRound=S.players&&S.round&&S.round.dealIdx<S.round.roles.length;if(inRound){ui.sheet='newm';render();return}go('setup')},
+newgo(){ui.sheet=null;S.round=null;go('setup')},newno(){ui.sheet=null;render()},
+newplayers(){S.round=null;go('setup')},
 start(){const n=ui.mode,names=ui.names.slice(0,n).map(x=>x.trim());const e=E.validateNames(names,n);if(e){ui.err=e;render();return}
-  if(E.missingPoints(S.scoring,n).length){ui.ptMode=n;ui.pendingStart=true;go('points');return}
-  ui.err='';S.match={players:names,totals:names.map(()=>0),history:[],roundNo:0};newRound();tone(330,.2);go('deal')},
+  ui.err='';S.players=names;S.round=null;deal();tone(330,.2);go('deal')},
 draw(){S.round.dealStep='shown';tone(260,.15);buzz(15);save();render()},
-hide(){const r=S.round;r.dealStep='handoff';r.dealIdx++;save();
-  if(r.dealIdx>=r.roles.length){r.phase='court';go('court')}else render()},
-decide(){S.round.phase='accuse';ui.sel=null;ui.err='';go('accuse')},
-lock(){if(ui.sel===null)return;const r=S.round;if(r.roles[ui.sel]==='wazir'){ui.err='You hold the Wazir chitthi. Name someone else.';ui.sel=null;render();return}
-  ui.err='';ui.confirm=ui.sel;render()},
-cancel(){ui.confirm=null;render()},
-confirm(){const r=S.round;if(r.applied||ui.confirm===null)return;const idx=ui.confirm;ui.confirm=null;
-  const res=E.resolveRound(r.roles,idx,S.scoring);const m2=E.applyRound(S.match,r,res);
-  r.applied=true;r.accused=idx;r.result=res;r.phase='reveal';
-  m2.history=S.match.history.concat([{no:S.match.roundNo,correct:res.correct,winners:res.winners.map(i=>S.match.players[i]).join(' & ')}]);
-  S.match=m2;ui.revealStage=0;tone(200,.3,.05);buzz([20,40,20]);go('reveal')},
-unveil(){ui.revealStage=1;tone(S.round.result.correct?520:180,.4);buzz(40);render()},
-results(){S.round.phase='results';go('results')},
-again(){newRound();go('deal')},
-resetask(){ui.sheet='reset';render()},resetno(){ui.sheet=null;render()},
-resetgo(){S.match=null;S.round=null;ui.sheet=null;go('home')},
-tsound(){S.sound=!S.sound;save();render()},thaptic(){S.haptics=!S.haptics;save();render()},
-defaults(){S.scoring=clone(E.DEFAULT_SCORING);save();render()}};
-$.addEventListener('click',e=>{const t=e.target.closest('[data-a],[data-m],[data-p]');if(!t)return;
+hide(){const r=S.round;r.dealStep='handoff';r.dealIdx++;save();if(r.dealIdx>=r.roles.length)go('done');else render()},
+redeal(){deal();tone(330,.2);go('deal')},
+tsound(){S.sound=!S.sound;save();render()},thaptic(){S.haptics=!S.haptics;save();render()}};
+$.addEventListener('click',e=>{const t=e.target.closest('[data-a],[data-m]');if(!t)return;
  if(t.dataset.m){ui.mode=+t.dataset.m;ui.err='';render();return}
- if(t.dataset.p!==undefined){ui.sel=+t.dataset.p;ui.err='';tone(400,.08);render();return}
  const f=A[t.dataset.a];if(f)f()});
-$.addEventListener('input',e=>{const t=e.target;
- if(t.dataset.i!==undefined){ui.names[+t.dataset.i]=t.value;ui.err='';const e=$.querySelector('.err');if(e)e.textContent='';return}
- if(t.dataset.k){const v=t.value.trim()===''?null:parseInt(t.value);S.scoring.points[t.dataset.k][t.dataset.f]=(v===null||isNaN(v))?null:v;save();
-  const miss=ui.ptMode?E.missingPoints(S.scoring,ui.ptMode).length:Object.keys(S.scoring.points).reduce((a,k)=>a+['base','correct','wrong'].filter(f=>S.scoring.points[k][f]===null).length,0);
-  const b=$.querySelector('[data-a=savepts]');if(b)b.disabled=!!miss;const er=$.querySelector('.err');if(er)er.textContent=miss?miss+' value'+(miss===1?'':'s')+' still empty':''}});
-// resume position
-if(S.match&&S.round&&!S.round.applied&&S.screen==='home'){}
-if(S.screen==='setup'||S.screen==='points')S.screen='home';
-if(S.round&&S.round.phase==='reveal'&&S.screen==='reveal')ui.revealStage=0;
+$.addEventListener('input',e=>{const t=e.target;if(t.dataset.i!==undefined){ui.names[+t.dataset.i]=t.value;ui.err='';const x=$.querySelector('.err');if(x)x.textContent=''}});
+if(S.screen==='setup')S.screen='home';
+if(S.screen==='deal'&&!S.round)S.screen='home';
 if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 render();
 window.__cc={S:()=>S,A};
