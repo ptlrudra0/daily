@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Craft Pack - The Web Craft Library</title>
+<meta name="description" content="A research shelf on how great websites are made: principles, recipes, case-study lessons, tools and sources.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Instrument+Sans:wght@400;500;600&family=Azeret+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top"><a href="index.html">The Web Craft Library</a><a href="index.html">All sections</a></header>
+<div class="wrap">
+<nav class="side"><ol><li><a href="foundations.html">01 Foundations</a></li><li><a href="styles.html">02 Styles & Aesthetics</a></li><li><a href="motion.html">03 Motion Craft</a></li><li><a href="texture.html">04 Texture & Print</a></li><li><a href="case-studies.html">05 Case Studies</a></li><li><a href="people.html">06 People, Studios & Sources</a></li><li><a href="reading.html">07 Psychology & UX Reading</a></li><li><a href="building.html">08 Building & Architecture</a></li><li><a href="tools.html">09 Tools & Assets</a></li><li><a href="anti-slop.html">10 Anti-Slop</a></li><li><a href="craft-pack.html" class="on">11 The Craft Pack</a></li></ol></nav>
+<main>
+<p class="kicker">Section 11 of 11</p>
+<h1>The Craft Pack</h1><p class="lede">A condensed starter: typography systems, grid and composition, colour, imagery and a final QA pass in one place.</p><h1>Craft pack (distilled from the website-craft library, Oct 8 2026)</h1>
+<h2>0. How to use</h2>
+<p>Per variant: pick one primary style (section 6), at most one secondary. Write a short  first (4-6 hex colours with roles, 1-2 typefaces with roles, layout concept, 3 principles that make it unlike other variants). Derive accent and layout from the person's subject, not defaults. Then apply sections 1-5 and filter with section 7.</p>
+<h2>1. Typography systems</h2>
+<ul>
+<li>Body 15-25px, line-height 120-145%, line length 45-90 characters; all-caps only for under one line, with +5-12% letterspacing; minimal bold/italic; curly quotes; centred text sparingly.</li>
+<li>Scale: max ~3 sizes per view (one display, one body, one small); hierarchy by size AND weight, not colour alone; display 80-160px for a hero statement.</li>
+<li>Pair one expressive display face with one neutral functional sans; contrast in structure, harmony in mood. Default Inter/Poppins/Montserrat everywhere is an AI tell. Free Google Fonts options and pairing study: typewolf.com/google-fonts.</li>
+<li>Fluid type with clamp: utopia.fyi; utopia-core has an ISC declaration but no licence file, so copy the idea, not the package.</li>
+<li>Style-specific type: brutalist = oversized grotesque as the image or raw monospace defaults (Brutal Web, brutalistwebsites.com); retro 1998 = Times serif + hard blue underlined links (timetowarp.com); clay/soft-3D = monospace on cream (davesocozy.com); editorial = rule-led masthead with huge logotype and mono uppercase labels (The Verge); warm brand = soft display serif with an italic emphasis line (Mailchimp). All.</li>
+</ul>
+<h2>2. Grid and composition</h2>
+<ul>
+<li>Group by proximity: the gap between groups must clearly exceed the gap inside groups; this replaces boxes and lines.</li>
+<li>Focal object on a third-line intersection or the 0.618 line; asymmetry (5/7 text/image or 61.8/38.2) for energy, symmetry for calm/trust.</li>
+<li>12-column grid, few strong edges, break the grid deliberately (bleed, overlap, rotate).</li>
+<li>One hero object is the largest thing by a clear margin. Examples: Marble Bust 01 (Poly Haven CC0, 17,456 triangles, 1k set ~0.9 MB); davesocozy's glossy clay flower on a cream grid panel.</li>
+<li>Above the fold matters: 57% of viewing time above the fold, 74% in the first two screenfuls.</li>
+<li>Pacing: few sections, deep interaction (Igloo had 3 sections and won SOTY 2024).</li>
+<li>Navigation: reduce to logo + 1 CTA + menu on mobile (Figma, Linear, Apple seen at 1280 and mobile); mega-menu and progressive disclosure per NN/g; keep nav labels few (Hick, Miller). Touch targets 44px.</li>
+<li>Responsive: viewport meta; never disable zoom; width/height on images; flex/grid with fr; recompose for 390px, do not shrink.</li>
+</ul>
+<h2>3. Motion principles</h2>
+<ul>
+<li>Feedback 100-160ms; dropdown/tooltip 125-250ms; modal 200-500ms; most UI 100-400ms; 500ms+ feels like a drag; enter slightly longer than exit (300 in, 200-250 out).</li>
+<li>Easing: ease-out for enter/exit, ease-in-out for on-screen moves, linear only for marquees. Curves: cubic-bezier(0.23,1,0.32,1) out; (0.77,0,0.175,1) in-out; (0.32,0.72,0,1) drawer. Material standard (0.2,0,0,1); emphasized decelerate (0.05,0.7,0.1,1). Never ease-in on UI.</li>
+<li>Press scale 0.97; never animate from scale(0), start 0.9+; set transform-origin to the trigger.</li>
+<li>Scroll: Lenis (MIT) + GSAP ScrollTrigger (GSAP is now free). Recipe: <code>new Lenis({autoRaf:false}); lenis.on('scroll',ScrollTrigger.update); gsap.ticker.add(t=&gt;lenis.raf(t*1000)); gsap.ticker.lagSmoothing(0);</code>. CSS scroll-driven animations (animation-timeline: view) for simple reveals. No scroll-jacking that fights the wheel.</li>
+<li>Scroll reveals: 100-400ms, once, one element type at a time (Apple did best in NN/g's study).</li>
+<li>Choreography: stagger siblings 30-80ms, hero leads, one direction of travel, one orchestrated entrance per section, not the same fade-up everywhere.</li>
+<li>View Transitions API for page and thumbnail-to-detail morphs, with a plain fallback.</li>
+<li>Reduced motion: no parallax/zoom/autoplay loops, crossfade instead, do not init Lenis; autoplay over 5s needs a pause control (WCAG 2.2.2).</li>
+<li>Cinematic hero reveals of 600-1200ms are fine once. Reserve WebGL for the single hero; fake expensive materials with textures and math (Lando Norris site did, and ships small bundles via ogl.js, gltf-transform).</li>
+</ul>
+<h2>4. Palette strategies</h2>
+<ul>
+<li>Derive the accent from the subject (materials, artifacts), not from a default; keep saturation just below neon; build hover/border/focus/text steps from one 12-step scale (Radix gold/bronze for champagne accents).</li>
+<li>Dark UI: body text ~92% white not pure white, glow behind the accent instead of heavy shadows.</li>
+<li>Contrast: do not drop text below WCAG AA to de-emphasise.</li>
+<li>Palettes seen: black + one accent; cream (#EDE5D3-ish) + olive clay + dark brown (davesocozy); off-white + black outlines + flat pink (Gumroad); warm yellow on photo + soft serif (Mailchimp); royal blue + cream grotesque (Heist on Brutal Web); hot magenta + white caps (PSP Production); white + mint highlight + blue CTA (Notion).</li>
+<li>Colour psychology claims stay hypotheses; consistency beats meaning.</li>
+<li>Palette tools: Coolors (check export formats/prices); Radix colours (MIT).</li>
+</ul>
+<h2>5. Techniques and teardown takeaways</h2>
+<ul>
+<li>Igloo (SOTY 2024): previs/grey-box the journey first; one consistent signature effect (chromatic aberration + displacement + frost transitions); unique variation per item; tune for low-end devices.</li>
+<li>Lando Norris (SOTY 2025): layers/render targets for masking the hero; fake glass with fract+noise+reflection texture; sync WebGL with DOM; test mobile early.</li>
+<li>Messenger (SOTY 2025): start from a feeling and real-world references; a technical constraint (spherical world) became the style.</li>
+<li>Lusion 2019/v3: bake animation into textures (11-keyframe vertex animation in PNG, 16-bit packing), two-colour palette. Preloader never finished in my tests.</li>
+<li>Luxury = care: one image art direction, signature + functional face, performance, rare precise motion. Not black + gold.</li>
+<li>Photos: real, informative images get looked at; decorative stock gets ignored.</li>
+<li>Portfolio basics: person first, selected work with outcomes, clear contact.</li>
+<li>Signature microinteraction repeated consistently = interaction language.</li>
+</ul>
+<h2>6. Style menu : what each is, with a viewed reference</h2>
+<table>
+<thead>
+<tr>
+<th>Style</th>
+<th>Bundle</th>
+<th>Viewed reference</th>
+<th>Pitfall</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Black / restrained one-hero</td>
+<td>pure black, 92% white text, one accent, one object</td>
+<td>Linear; Lusion preloader only (site unreachable, GPU)</td>
+<td>drifts into "dark signal" AI default</td>
+</tr>
+<tr>
+<td>Neo-brutalist</td>
+<td>oversized grotesque as image, one clashing saturated colour, underlined links, no cards</td>
+<td>brutalweb.com: PSP Production, Heist, Yale School of Art; brutalistwebsites.com: RAW Magazine, Disslist</td>
+<td>dense small type kills legibility</td>
+</tr>
+<tr>
+<td>Clay / soft 3D warm</td>
+<td>cream, mono type, one glossy 3D object, tactile pill buttons</td>
+<td>davesocozy.com</td>
+<td>low contrast during fades</td>
+</tr>
+<tr>
+<td>Editorial</td>
+<td>rule-led masthead, huge logotype, mono uppercase labels, feed rhythm</td>
+<td>The Verge</td>
+<td>needs real content volume</td>
+</tr>
+<tr>
+<td>Playful flat colour</td>
+<td>off-white, 1px black outlines, flat sticker shapes, tilted crops</td>
+<td>Gumroad</td>
+<td>gimmick without type discipline</td>
+</tr>
+<tr>
+<td>Warm brand serif</td>
+<td>brand yellow, soft display serif, italic emphasis</td>
+<td>Mailchimp</td>
+<td>photo darkening needed for contrast</td>
+</tr>
+<tr>
+<td>Clean light SaaS</td>
+<td>white, huge black headline, one highlighted word, doodle</td>
+<td>Notion, Figma</td>
+<td>becomes the stock SaaS kit</td>
+</tr>
+<tr>
+<td>Retro 1998 / Y2K</td>
+<td>Times serif, navy boxes, bevelled grey widgets; Y2K = glossy pills, chrome gradients</td>
+<td>timetowarp.com (generator, pastiche); webdesignmuseum.org Y2K exhibition (listing only)</td>
+<td>period detail must be correct</td>
+</tr>
+<tr>
+<td>Pixel</td>
+<td>pixel type/icons as spot accent on a normal layout</td>
+<td>onepagelove.com/style/pixel-art (gallery top: NODECK etc.)</td>
+<td>small pixel fonts unreadable</td>
+</tr>
+<tr>
+<td>Swiss</td>
+<td>grid, grotesque, one flat colour, big numerals</td>
+<td>Porto Rocha, swissthemes examples (style-atlas)</td>
+<td>cold if no warmth accent</td>
+</tr>
+<tr>
+<td>Collage</td>
+<td>cut-out photos, paper textures, mixed type</td>
+<td>One Page Love collage gallery</td>
+<td>clutter without one anchor</td>
+</tr>
+<tr>
+<td>Art deco</td>
+<td>dark teal/navy, brass hairline frame, sunburst rays, tracked small caps</td>
+<td>GSAP Vault cocktail preview, Empourium case study</td>
+<td>gold gradients everywhere; paid template, rebuild pattern</td>
+</tr>
+<tr>
+<td>Memphis</td>
+<td>flat primary blocks, one 3D hero, oversize cropped caps, strict grid</td>
+<td>Memphis Milano, Awwwards</td>
+<td>squiggle confetti dates it</td>
+</tr>
+<tr>
+<td>Zine</td>
+<td>cream paper, heavy serif caps, stamps, tilted taped cards</td>
+<td>Firework Indie Zine guide (generated); So Young Magazine header</td>
+<td>keep legible; roughness must look designed</td>
+</tr>
+<tr>
+<td>Maximalist, synthwave, hand-drawn, glass, skeuomorphic</td>
+<td>viewed galleries</td>
+<td>style-atlas</td>
+<td>glass needs contrast; synthwave is cliche without restraint</td>
+</tr>
+<tr>
+<td>Illustrated, luxury, editorial, typographic, colourful, big-type</td>
+<td>Siteinspire category pages</td>
+<td></td>
+<td>thumbnails only</td>
+</tr>
+<tr>
+<td>Cyber/terminal</td>
+<td>mono, scanlines, command input</td>
+<td>cyber-terminal-portfolio repo (MIT)</td>
+<td>Matrix green cliche</td>
+</tr>
+<tr>
+<td>Y2K</td>
+<td>Flash splash, microtype, Aqua bevels, pinstripes</td>
+<td>2Advanced 2000, Apple 2001 via Wayback; CARI y2k-aesthetic entry</td>
+<td>plugin gate, splash page</td>
+</tr>
+<tr>
+<td>Cyberbougie</td>
+<td>mono data type, gradients, dark bg "sleekness"; 2026 variant: light canvas + one black hero object</td>
+<td>vercel.com (2026 light swing); CARI cyberbougie</td>
+<td>gratuitous gradients date it to 2020-23</td>
+</tr>
+<tr>
+<td>Austurbane (soft luxury DTC)</td>
+<td>serif flavour, beige/bronze muted palette, staged dramatic photography, editorial naming</td>
+<td>aesop.com; CARI austurbane</td>
+<td>sepia mush without one bright detail</td>
+</tr>
+<tr>
+<td>Sportsbrut</td>
+<td>coarse grid, high-impact condensed type, grunge; broadcast variant: hard-shadow display over action photo</td>
+<td>la28.org; CARI sportsbrut</td>
+<td>illegible type over busy photos</td>
+</tr>
+<tr>
+<td>Nu-brutalism (CARI sense)</td>
+<td>neo-Swiss grotesques, heavy contrast, typographic structure</td>
+<td>Disslist via brutalistwebsites.com; CARI nu-brutalism</td>
+<td>lazy execution = wave-2 slop tell</td>
+</tr>
+<tr>
+<td>Vaporwave / OS pastiche</td>
+<td>full-site OS skeuomorphism: window chrome, dithering, pixel icons, fake-era clock</td>
+<td>poolsuite.net Mac-OS, cyanbanister.com Win95-pixel</td>
+<td>all-or-nothing; single borrowed elements read clip-art</td>
+</tr>
+<tr>
+<td>Web 2.0 chrome</td>
+<td>stacked bands, pill filters, oversized friendly headline, live counters, sticker badges</td>
+<td>Digg 2008, Flickr 2008 + MySpace 2006 via Wayback</td>
+<td>captures can lose CSS - verify render</td>
+</tr>
+<tr>
+<td>Gen X Soft Club</td>
+<td>muted earth palette, natural textures, subway-sign helvetica, quiet 90s urban minimalism</td>
+<td>CARI entry + Are.na moodboard</td>
+<td>reads flat without strong photography</td>
+</tr>
+<tr>
+<td>Paperback Chic</td>
+<td>natural soft colours, didone/retro display, airy composition ("Chobanicore")</td>
+<td>CARI paperback-chic</td>
+<td>thin entry; moodboard first</td>
+</tr>
+<tr>
+<td>McBling / Bubblegum Bling</td>
+<td>2000s luxury maximalism; hyperpop revival = metallic pink gloss</td>
+<td>CARI mcbling + bubblegum-bling</td>
+<td>mislabeled "Y2K" - check the reference</td>
+</tr>
+<tr>
+<td>Indie Sleaze</td>
+<td>bloghaus/MySpace club culture, flash party photography, blocky hand-lettering</td>
+<td>CARI indie-sleaze</td>
+<td>needs period photography</td>
+</tr>
+<tr>
+<td>Whimsigothic</td>
+<td>dark field, ornate swash serif, spirals, Tim-Burton-era fantasy occultism</td>
+<td>CARI whimsigothic</td>
+<td>halloween kitsch without period illustration</td>
+</tr>
+<tr>
+<td>Frasurbane / Global Village Coffeehouse / Utopian Scholastic</td>
+<td>90s urbane serif classicism / mock-tribal corporate / edutainment collage</td>
+<td>CARI entries</td>
+<td>sincerity reads as parody</td>
+</tr>
+<tr>
+<td>Corporate Memphis (anti-reference)</td>
+<td>flat noodly-limb illustration, pastel, geometric sans</td>
+<td>CARI corporate-memphis</td>
+<td>this IS the slop default - avoid</td>
+</tr>
+<tr>
+<td>Boho-Chic / Live Laugh Love (anti-references)</td>
+<td>triangles+mandalas+washed photos; brush script + wood grain</td>
+<td>CARI boho-chic, live-laugh-love</td>
+<td>instant 2015 / suburban-decor date stamp</td>
+</tr>
+<tr>
+<td>Vector Minimalism (anti-reference)</td>
+<td>2012-18 flat SaaS: iOS 7 geometric sans + didone display</td>
+<td>CARI vector-minimalism</td>
+<td>the decade's default - use only deliberately</td>
+</tr>
+<tr>
+<td>Full taxonomy</td>
+<td>all 90 CARI aesthetics with dates, moodboards, cross-links</td>
+<td>+</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>Combinations: 17 rows in , each citing a viewed site (e.g. brutalist + editorial: RAW Magazine; OS pastiche + personality: Poolsuite + cyanbanister; Sportsbrut broadcast + event: LA28).</p>
+<h2>7. Anti-slop filter (apply last)</h2>
+<p>Wave 1 tells: Inter/Roboto only, purple-indigo gradients and gradient headline text, stock order (centred hero, pill badge, two buttons, logo row, 3 feature cards, pricing, CTA), rounded-2xl card kit with same shadow, reflexive glass/blur/glow, fade-up on every section, bounce easing, count-up stats, invented numbers. Wave 2 tells (from "make it less AI"): warm editorial cream+serif+terracotta, dark near-black + one acid accent, broadsheet cosplay hairlines, template eyebrow caps on every heading. Claim about Anthropic's skill is as reported by that article. Rule: every visible decision must be one you made for THIS person.</p>
+<h2>8. Assets and licence rules</h2>
+<ul>
+<li>Prefer MIT/CC0/OFL. Poly Haven models are CC0 with a public API and direct glTF download, no login; Spline Community is CC BY 4.0 (credit); Fontaine MIT; Lucide ISC, Phosphor MIT; Lenis MIT, GSAP free.</li>
+<li>Traps: Shadertoy and LYGIA (NC), ScrollReveal (GPL), Animate.css (Hippocratic), Polaris (Shopify only), Quaternius QAL, Blendkit RF, Hero Patterns (no authoritative licence). Code licences do not cover assets they display.</li>
+<li>Sketchfab downloads need an OAuth login (not available). Unsplash: free licence terms apply, read  before using. Reference sites above are for study only; never copy their assets or code.</li>
+</ul>
+<h2>9. Known gaps</h2>
+<p>No viewed references yet for swiss, collage, art deco, cyber, glass, vaporwave, memphis, zine, maximalist, illustrated; no serif long-form editorial site viewed; Marble Bust not rendered in a viewer; tablet nav unchecked; colour-psychology papers unread; nav not checked on Lusion.</p>
+<h2>Dark-UI grain recipe (texture vein synthesis)</h2>
+<h2>Dark-UI grain: two-tier spec (verified against Linear.app production CSS)</h2>
+<ul>
+<li>TIER 1 (page whisper grain): neutral alpha-noise tile (grey ~186 RGB, alpha variance), 256-512px tile, mix-blend soft-light, 3-4% effective opacity - for full-page backgrounds.</li>
+<li>TIER 2 (feature panels, Linear-style): same tile at 256px background-size, mix-blend OVERLAY, absolute inset:0 (or 1px inside border), border-radius:inherit, pointer-events:none. Opacity tiers:.9 strong /.6 subtle /.25 over glows; strong tier gets a 6% white (#ffffff0f) wash layer on top.</li>
+<li>Tile spec: RGBA PNG, R=G=B (hue-neutral), texture encoded in ALPHA channel (range ~75-255) - hue-neutral tiles can't colour-shift any background.</li>
+<li>Universal rules unchanged: never animate, strip in print/forced-colors, contrast check text over grain, isolate in its own layer (nodlume negative-z rule).</li>
+</ul>
+<div class="pagenav"><a href="anti-slop.html">&larr; Anti-Slop</a><span></span></div>
+</main>
+</div>
+</body>
+</html>

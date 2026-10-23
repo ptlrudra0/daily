@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Psychology &amp; UX Reading - The Web Craft Library</title>
+<meta name="description" content="A research shelf on how great websites are made: principles, recipes, case-study lessons, tools and sources.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Instrument+Sans:wght@400;500;600&family=Azeret+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top"><a href="index.html">The Web Craft Library</a><a href="index.html">All sections</a></header>
+<div class="wrap">
+<nav class="side"><ol><li><a href="foundations.html">01 Foundations</a></li><li><a href="styles.html">02 Styles & Aesthetics</a></li><li><a href="motion.html">03 Motion Craft</a></li><li><a href="texture.html">04 Texture & Print</a></li><li><a href="case-studies.html">05 Case Studies</a></li><li><a href="people.html">06 People, Studios & Sources</a></li><li><a href="reading.html" class="on">07 Psychology & UX Reading</a></li><li><a href="building.html">08 Building & Architecture</a></li><li><a href="tools.html">09 Tools & Assets</a></li><li><a href="anti-slop.html">10 Anti-Slop</a></li><li><a href="craft-pack.html">11 The Craft Pack</a></li></ol></nav>
+<main>
+<p class="kicker">Section 07 of 11</p>
+<h1>Psychology & UX Reading</h1><p class="lede">Evidence-tagged UX research and book notes - what is known, what is claimed, and what is merely repeated.</p><h1>User psychology and research evidence for web design</h1>
+<h2>1. How people read: eye-tracking</h2>
+<ul>
+<li>F-pattern (<a href="https://www.nngroup.com/articles/f-shaped-pattern-reading-web-content-discovered/">source</a>): two horizontal bars then a vertical stripe down the left. Users do not read word by word. Later confirmed by NN/g 11 years on.</li>
+<li>Four text-scanning patterns (<a href="https://www.nngroup.com/articles/text-scanning-patterns-eyetracking/">source</a>): F-pattern (worst: no subheads/bullets, eyes cluster on line starts and the top); spotted (eyes jump to links, bold, bullets, numbers); layer-cake (fixations on headings and subheadings, then body once found; by far the most effective scanning); commitment (reads nearly every word; happens when users trust the source, are loyal, or are sure they are in the right place). Reversed F for right-to-left languages. Image-heavy pages produce zigzag and exhaustive-review patterns.</li>
+<li>Build rules that follow: meaningful headings every few lines, front-load keywords at line starts, bullets/bold only for real key terms, short paragraphs; the first two lines of any block carry the meaning. Matches the "one hero then quiet" layout: the eye reads the top-left first.</li>
+</ul>
+<h2>2. First impressions</h2>
+<ul>
+<li>Lindgaard et al. 2006, Behaviour &amp; Information Technology 25(2) 115-126: three studies, homepages shown for 500 ms then 50 ms; visual appeal was closely related to most rated design dimensions. Title claim: judgments form in about 50 ms. I read the abstract only; the exact consistency statistic is (full PDF: https://www.makinggood.ac.nz/media/1265/lindegaardetal_2006_attention.pdf).</li>
+<li>Build rule: the hero frame, type and colour must look intentional with no scroll and before any asset loads: set the background colour and text first (no flash of unstyled content), keep the LCP hero light.</li>
+</ul>
+<h2>3. Credibility and trust</h2>
+<ul>
+<li>Stanford Web Credibility Project, 10 guidelines from 3 years of research with 4,500+ people (<a href="https://credibility.stanford.edu/guidelines/index.html">source</a>): make it easy to verify information; show a real organisation (address); show expertise; show honest people; make contact easy; look professional/appropriate; be easy to use and useful; update or show review dates; restrain promotion/ads; avoid errors of any kind (typos and broken links hurt more than people think).</li>
+<li>Fogg et al. study, 2,684 people rating live sites (<a href="https://credibility.stanford.edu/pdf/How_Do_People_Evaluate_a_Web_Site%27s_Credibility_v37.pdf;">source</a>): comments mentioned "design look" most (46.1%), then information design/structure (28.5%), information focus (25.1%), company motive (15.5%), usefulness (14.8%), accuracy (14.3%), name recognition (14.1%), advertising (13.8%). Readability only 3.6%. Takeaway: visual design is the loudest trust signal; for a portfolio or luxury brand, craft IS credibility.</li>
+<li>Build rules: named person, real photo, contact in header/footer, dates on content, no placeholder copy or lorem, zero broken links, case-study evidence with numbers and client names.</li>
+</ul>
+<h2>4. Cognitive load</h2>
+<ul>
+<li>NN/g Minimize Cognitive Load (<a href="https://www.nngroup.com/articles/minimize-cognitive-load/">source</a>): intrinsic load (understanding the content) cannot be removed; extraneous load (processing that does not help understanding, e.g. font styles with no meaning) should be. Tips: avoid visual clutter (redundant links, irrelevant images, meaningless typographic flourishes); build on existing mental models; offload tasks (show a picture, re-display entered info, smart defaults).</li>
+<li>Build rules: one idea per screen, familiar nav labels, consistent patterns, fewer type styles (2 families, small scale), no decorative motion that carries no meaning (ties to  and the 'no boxes, no clutter' house style).</li>
+</ul>
+<h2>5. Visual hierarchy and attention</h2>
+<p>See  and : NN/g visual hierarchy, golden ratio, photos-as-content, scrolling attention (all). Laws of UX (Hick's law, Miller, Fitts, Jakob's law, Doherty threshold) (<a href="https://lawsofux.com">source</a>).</p>
+<h2>Queue</h2>
+<ul>
+<li>Baymard eye-tracking and form research (two fetch attempts returned empty, Oct 9 + Oct 11; needs a different route).</li>
+</ul>
+<h2>Added Oct 11</h2>
+<ul>
+<li>Sweller 1988, "Cognitive Load During Problem Solving: Effects on Learning", Cognitive Science 12: experts differ from novices by domain-specific SCHEMAS; conventional problem solving (means-ends analysis) consumes so much processing capacity that none remains for schema acquisition — some problem solving interferes with learning. Design transfer: every element that makes the user run means-ends search (unclear nav labels, hidden affordances, novel layouts for standard tasks) burns the capacity they came with; familiar structure frees capacity for the content. This is the cognitive root beneath the Google VC/PT finding and the "one hero + conventional skeleton" rule.</li>
+<li>Fogg 2002, Prominence-Interpretation Theory: credibility assessment = Prominence x Interpretation, iterated until satisfaction or a constraint (time). If an element is NOT noticed it has zero credibility impact (privacy-policy footer example). Five prominence factors in order: user involvement/motivation, site content type, user task, user experience, individual differences. Design transfer: trust elements must be PROMINENT where the decision happens (near prices, forms, claims), not just present somewhere on the page; interpretation is judged against the user's task, so the same element can help or hurt depending on context.</li>
+<li>Zajonc 1968, "Attitudinal Effects of Mere Exposure", JPSP Monograph 9(2): mere repeated exposure to a stimulus enhances attitude toward it — no interaction needed, perception alone. Evidence: word frequency vs affective connotation, manipulated exposure to nonsense words/symbols, exposure-attitude experiments. Design transfer: consistent repeated motifs (a mark, a colour, a shape language) build liking across a site and across visits — repetition is not just recognition, it is preference formation. Caveat pair: pairs with Reber fluency (repetition raises fluency) and semantic satiation (over-exposure of the same exact stimulus can reverse affect).</li>
+</ul>
+<h2>Added</h2>
+<ul>
+<li>Tractinsky, Katz, Ikar 2000, "What is beautiful is usable", Interacting with Computers: ATM-simulation experiment; perceptions were taken before and after use; pre-use perceived aesthetics correlated strongly with perceived usability. Takeaway: a beautiful interface is judged as easier to use. Caveat: perception, not measured performance; I read the abstract only.</li>
+<li>Reber, Schwarz, Winkielman 2004, "Processing Fluency and Aesthetic Pleasure", Personality and Social Psychology Review 8(4): the more fluently people process something, the more positive their aesthetic response. Variables that raise fluency: figural goodness, figure-ground contrast, repetition, symmetry, prototypicality. Build rules: high contrast (black/white), repeated grid and type, symmetry or clear balance, familiar structure behind the novel hero. This is the research reason restraint reads as premium.</li>
+</ul>
+<h2>Added</h2>
+<ul>
+<li>Tractinsky-adjacent: Google research, Thielsch/Moshagen et al. 2012 on visual complexity (VC) and prototypicality (PT). Findings: VC and PT affect aesthetics ratings within the first 50 ms (blog says 17-50 ms); high complexity lowers perceived beauty even when the design is familiar; users prefer simple AND familiar. Caution for experimental heroes: pair a novel hero with a conventional skeleton (header, nav, footer, reading order), else first impressions drop. This is the evidence for "one hero + familiar structure".</li>
+<li>Baymard eye-tracking page returned empty to my fetcher; still.</li>
+</ul>
+<h2>Added</h2>
+<ul>
+<li>Aesthetic-usability effect (<a href="https://www.nngroup.com/articles/aesthetic-usability-effect/">source</a>): people perceive attractive products as more usable and forgive minor problems, but not large ones; it can also mask usability problems in testing (positive comments about visuals are not proof the flow works). Example: a consultancy site with full-screen photos delighted a participant at first, then annoyed him once he could not find information (low information density). Builds on Tractinsky 2000 above. Build rule: spectacle earns patience once; the second visit must be fast. Give returning users quick paths (visible nav, skip intro, no forced long animations).</li>
+</ul>
+<h2>Baymard product-page research: public article read Oct 7 2026</h2>
+<p>https://baymard.com/blog/current-state-ecommerce-product-page-ux (updated Mar 18 2026) reports 30,000+ manually rated scores across 155+ benchmarked sites; 52% of desktop, 62% of mobile and 64% of app product-page experiences scored mediocre or worse. These are Baymard's benchmark classifications, not universal conversion percentages or a controlled causal effect. Its testing illustrates how uncertainty about size, availability, returns and total cost can cause abandonment of otherwise suitable products. Build checklist is in . This is not the previously queued eye-tracking page or full paid catalogue.</p>
+<h2>Sweller 1988 original (read Oct 7)</h2>
+<ul>
+<li>Source: Sweller, "Cognitive load during problem solving: Effects on learning", Cognitive Science 12(2), 257-285. Abstract and opening read from a PDF copy at andymatuschak.org/files/papers/ (copy host, rights unverified; publisher page https://www.sciencedirect.com/science/article/pii/0364021388900237 is paywalled, preview only). Full paper not read, only abstract and the expert-novice intro.</li>
+<li>Claim: expertise is schema knowledge; conventional problem solving (means-ends analysis) uses so much processing capacity that little is left for schema acquisition.</li>
+<li>Scope: this is about learning while solving problems, not web pages. [Inference, not from the paper] Applying it to sites: anything that makes a visitor work out how to proceed spends capacity they would use to take in the content; so one clear path per screen supports the one-hero rule. Don't cite Sweller as evidence about page layouts.</li>
+</ul>
+<h2>Colourfulness, complexity and audience differences (Oct 10)</h2>
+<ul>
+<li>Reinecke &amp; Gajos, CHI 2014, "Quantifying Visual Preferences Around the World". Method: ~2.4M appeal ratings from ~40k volunteers (179 countries, cleaned to 32,222 participants; country analysis 441,478 paired ratings, 43 countries, 18,448 participants) rating 430 website screenshots shown for 500ms on a 1-9 scale; colourfulnness and complexity computed by image-metric models; linear mixed-effects model.</li>
+<li>Appeal vs both visual complexity and colourfulnness follows an inverted U (Berlyne): moderate levels score highest; more is not better.</li>
+<li>Visual complexity is a stronger predictor of first-impression appeal than colourfulnness.</li>
+<li>The full model explains 47% of variance in first-impression appeal (conditional R2=.47; marginal.07, so individual/site differences dominate).</li>
+<li>Demographics significantly shift the peaks: females preferred more saturated/colourful sites than males; higher education lowers preferred colourfulnness (pre-high-school peak 6.9 of 9 vs PhD peak 5.0) and slightly lowers preferred complexity; Finland, Russia, France and Germany peak at low colourfulnness (3.6-4.4) vs the US peak 6.1; Macedonia, Malaysia and Chile highest (6.9-7.6); Russians and Finns are the most put off by high complexity.</li>
+<li>Design use: there is no universal "good design" even for a 500ms first impression; choose palette and complexity for the actual audience, not a generic ideal. This is the strongest evidence yet for treating "colour X means Y" claims as hypotheses (see #color). For a global English-speaking audience, moderate-high colour with restrained complexity is the statistical centre of mass; for a German/Russian/Finnish or highly educated audience, dial colour down.</li>
+</ul>
+<h2>Goal-gradient and endowed progress (Oct 12)</h2>
+<ul>
+<li>Kivetz, Urminsky &amp; Zheng 2006, "The Goal-Gradient Hypothesis Resurrected" (J Marketing Research). People accelerate effort as they approach a reward: cafe customers bought coffee more frequently as they neared a free one; song raters rated more and persisted longer near the goal. Illusionary progress works: a 12-stamp card with 2 pre-filled "bonus" stamps was completed faster than a plain 10-stamp card (same 10 real purchases). Acceleration tendency predicted retention and reengagement. Model: effort is a function of the proportion of distance remaining.</li>
+<li>Nunes &amp; Dreze 2006, "The Endowed Progress Effect" (J Consumer Research). Reframing an 8-step task as a 10-step task with 2 already complete increases completion likelihood and decreases completion time; the effect depends on perceiving the task as begun-and-incomplete, not on sunk cost of the endowment. Moderators: whether a reason for the endowment is given, and the currency progress is recorded in.</li>
+<li>Tracker application: the "n/15" header and stage progress work BECAUSE of goal-gradient — keep progress proportionally visible; seeding early wins (first item pre-checked or a fast first stage) uses endowed progress legitimately; completion time shortens when the remaining count is the salient number ("3 left" beats "12 done" near the end). Do NOT inflate fake progress — the effect depends on genuine task re-framing and a reason for any endowment.</li>
+</ul>
+<h2>F-pattern 2017 revisit deltas</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/f-shaped-pattern-reading-web-content/">https://www.nngroup.com/articles/f-shaped-pattern-reading-web-content/</a> (Pernice 2017, reviewed Aug 2026)
+- F-pattern confirmed alive on desktop AND mobile in recent eyetracking; RTL languages (Arabic) show a mirrored F.
+- F-pattern applies to the content area only, not to navigation inspection.
+- F-scanning happens when all three hold: wall of text with no web formatting, user wants efficiency, user is not committed enough to read everything.
+- Antidotes: key points in the first two paragraphs; headings that start with information-bearing words (first 2 words must carry the gist); visually group related content (border or background); bold key words; links with information-bearing text (also an accessibility win); bullets/numbers for lists; cut content.</p>
+<h2>Zigzag vs aligned layouts</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/zigzag-page-layout/">https://www.nngroup.com/articles/zigzag-page-layout/</a> (Flaherty 2017, eyetracking, ~30-35 per variation, 4 live sites)
+- Informational value beats alignment: images that teach the product get studied in either layout; decorative images get ignored (hot-potato / "images as obstacles" pattern).
+- Decorative images in a zigzag are harder to ignore than in an aligned column: the alternating layout is less predictable, and residual fixations (eye holds position while the page scrolls) land on the next row's image, causing redirect stumbling. Aligned layouts let users scan the text column cleanly.
+- Complex images (screenshots full of text) overwhelm early scanners; users check the first image to gauge value, then skip the rest.
+- Design takeaway: for storytelling rows, prefer vertically aligned image/text columns; if images carry real information, layout matters less; keep decorative imagery out of zigzag rows.</p>
+<h2>Banner blindness</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/banner-blindness-old-and-new-findings/">https://www.nngroup.com/articles/banner-blindness-old-and-new-findings/</a> (Pernice 2018; behavior documented 1997, reconfirmed in new eyetracking)
+- Three ad signals that get real content ignored: ad placement (top banner, right rail), ad-like visual treatment (animation, fancy box, coloured background, text embedded in image), proximity to actual ads.
+- Ads poison adjacent items: one irrelevant item makes users write off a whole section (Gestalt proximity + information scent). One participant: 0.8% of fixations in a right rail occupying 25% of the content area.
+- Hot potato: users glance at an uninteresting item, then avoid that area on this page, other pages, even other sites (availability bias).
+- Mobile: inline ads are proportionally huge and unmissable while swiping, so they catch gazes but not attention; faux ads - on small screens anything that stands out from immediate context can be mistaken for an ad and scrolled past (a Generac user skipped real installation info in a styled section).
+- Prevention: don't style content like ads (standing out backfires), test whether top/right-rail content gets seen, never mix content and ads in one visual section.</p>
+<h2>The fold manifesto</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/page-fold-manifesto/">https://www.nngroup.com/articles/page-fold-manifesto/</a> (Schade 2015)
+- The fold exists on every screen: it is interaction cost, not a pixel line. Visible-without-action is cheap; hidden-behind-action is expensive.
+- Users scroll only when what is above the fold promises more. Full-page image heroes with no content peeking create "false floors"; a scroll arrow is a band-aid, not a fix.
+- Evidence: 57,453 eyetracking fixations - the 100px just above the fold got 102% more viewing than the 100px just below; Google ad data: 73% viewable just above vs 44% below; combined estimate: the above/below difference is 66-102%, average 84%.
+- Encourage scrolling with a glimpse of the next content, a compelling intro, engaging imagery - not with arrows.</p>
+<h2>Nielsen's 10 usability heuristics</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/ten-usability-heuristics/">https://www.nngroup.com/articles/ten-usability-heuristics/</a> (Nielsen 1994, article updated 2020)
+1. Visibility of system status - feedback immediately; no action with consequences goes unannounced.
+2. Match between system and real world - user's language, not jargon; natural mapping (stovetop controls).
+3. User control and freedom - emergency exits, undo/redo, clearly labelled cancel.
+4. Consistency and standards - internal (within product) and external (industry conventions). Jakob's Law: users spend most of their time on other sites, so conventions carry.
+5. Error prevention - eliminate error-prone conditions before relying on error messages. Slips (inattention) vs mistakes (mental-model mismatch); fix with constraints, defaults, undo, warnings.
+6. Recognition rather than recall - visible options beat memorised commands.
+7. Flexibility and efficiency of use - accelerators for experts, personalization, customization.
+8. Aesthetic and minimalist design - every extra unit of information competes with the relevant ones; not a mandate for flat design.
+9. Help users recognize, diagnose, recover from errors - plain language, no codes, precise problem, suggested solution, noticeable visuals.
+10. Help and documentation - searchable, in context, concrete steps; best when not needed.
+- Developed with Molich 1990, refined 1994 from factor analysis of 249 usability problems; unchanged since.</p>
+<h2>Deceptive (dark) patterns</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/deceptive-patterns/">https://www.nngroup.com/articles/deceptive-patterns/</a> (Rosala 2023; term coined by Harry Brignull 2010)
+- Definition: a pattern that prompts actions benefiting the company by deceiving, misdirecting, shaming, or obstructing the user's other choices. Harms: financial loss, privacy loss; hits vulnerable users hardest (time-poor, lower literacy). Often illegal now (GDPR, FTC vs Amazon Prime case).
+- Prevalence: &gt;10% of 11k popular ecommerce sites (Princeton/UChicago 2019); 95% of 240 trending free Android apps, half averaging 7 patterns each (U Zurich 2019). Driven by A/B-test conversion pressure and copycat design.
+- Types: obstruction (high interaction cost to refuse/cancel), visual or wording tricks (double negatives, Close button moved outside modal), nagging (repeated permission prompts), emotional manipulation (confirmshaming: "No thanks, I don't like saving money" = a manipulink), sneaking/preselection (auto-added basket items).
+- Persuasive vs deceptive: accurate social proof, anchoring with a crossed-out price, genuine scarcity = persuasive; fabricated numbers or hidden choices = deceptive. The line is honesty + the user's ability to choose freely.
+- Related concept: sludge = friction that makes the welfare-improving choice harder (opposite of a nudge).
+- Audit questions: is the exchange fair? is info factually correct? could users miss or misread a choice? can they act on their choice quickly? are they rushed, pressured, or shamed? Evaluate against your most vulnerable user.</p>
+<h2>Mental models</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/mental-models/">https://www.nngroup.com/articles/mental-models/</a> (Chan 2024, updating Nielsen 2010)
+- A mental model = what the user BELIEVES about the system, built from past experience; users predict behavior from it. Jakob's law: users spend most of their time on OTHER sites, so conventions from elsewhere set expectations for yours.
+- Designer-user gap: designers hold rich models of their own creation; users' models are shallow. One wrong assumption can poison a whole session.
+- Web examples: shopping cart (auto-added insurance violates the model = sneaking); Back button (must act as undo - exiting an overlay, not jumping two pages back); multiple search boxes on one page confuse (users treat search as universal).
+- Mental-model inertia: people stick with what they know - argue for conservative interaction design; innovate only when clearly superior, and then explain the new model explicitly. Skeuomorphism is the deliberate use of familiar models.
+- On mismatch: either conform the system to users' models (card sorting finds them) or teach a better model (clear labels, short instructions - knowing users hate reading help).</p>
+<h2>Recognition over recall</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/recognition-and-recall/">https://www.nngroup.com/articles/recognition-and-recall/</a> (Budiu 2024)
+- Memory chunks retrieve by activation, driven by practice, recency, and context (associations spread activation - Proust's madeleine). Recognition has more cues than recall, so it's easier (multiple choice vs open question).
+- UI implications: menus beat command lines (visible commands get recognized, not recalled); login is the classic recall burden; search = recall of query terms then recognition of results - search SUGGESTIONS convert part of the query task to recognition; gestural interfaces lean on recall - prefer contextual tips over upfront tutorials (tutorials aren't rehearsed; users forget).
+- Help recognition: history/recently-viewed, favorites/wishlists, visible intuitive chrome, icon LABELS (Volvo app case: unlabeled icons defeat recognition).
+- Revisitation: people re-find sites by partial recall + SERP recognition (Adar/Teevan/Dumais).</p>
+<h2>Core UX laws from Laws of UX</h2>
+<h3>Hick's Law</h3>
+<p>Source: <a href="https://lawsofux.com/hicks-law/">https://lawsofux.com/hicks-law/</a> (Hick &amp; Hyman 1952)
+- Decision time increases with the number and complexity of choices. Minimize choices when response time matters; break complex tasks into steps; highlight recommended options; progressive onboarding (Slack's Slackbot case: hide everything but messaging first); don't oversimplify into abstraction. Google homepage = decisions minimized to one box.</p>
+<h3>Fitts's Law</h3>
+<p>Source: <a href="https://lawsofux.com/fittss-law/">https://lawsofux.com/fittss-law/</a> (Paul Fitts 1954)
+- Time to acquire a target is a function of distance and size; speed-accuracy tradeoff. Large targets, ample spacing, place controls near the attention/task area. (Cross-check touch sizes with  touch-target-size and WAI 1cm rules.)</p>
+<h3>Miller's Law</h3>
+<p>Source: <a href="https://lawsofux.com/millers-law/">https://lawsofux.com/millers-law/</a> (George Miller 1956)
+- Working memory ~7±2 chunks - but DON'T use the magic seven to justify arbitrary limits (e.g. nav-item counts); use it to chunk content. Capacity varies per person and context. (Ties to the 3-click-rule: the 7-item nav rule is the same myth species.)</p>
+<h3>Tesler's Law / conservation of complexity</h3>
+<p>Source: <a href="https://lawsofux.com/teslers-law/">https://lawsofux.com/teslers-law/</a> (Larry Tesler, Xerox PARC 1980s, via Dan Saffer)
+- Every system has irreducible complexity; either the system or the user carries it. Engineer effort should absorb complexity so users don't (Tesler: a week of engineering beats a minute each for millions of users). Tognazzini's counterpoint: simplified apps push users to attempt more complex tasks. Design for real, irrational users; make guidance contextual (tooltips).</p>
+<h3>Peak-End Rule</h3>
+<p>Source: <a href="https://lawsofux.com/peak-end-rule/">https://lawsofux.com/peak-end-rule/</a> (Kahneman)
+- People judge an experience by its peak moment and its end, not the average. Design the intense points and final moments deliberately; negative peaks are recalled more vividly (pairs with error-novelty advice: the error screen may BE the peak-end).</p>
+<h3>Von Restorff (isolation) effect</h3>
+<p>Source: <a href="https://lawsofux.com/von-restorff-effect/">https://lawsofux.com/von-restorff-effect/</a> (Hedwig von Restorff 1933)
+- Among similar items, the distinctive one is remembered. Make key actions/info visually distinctive; use emphasis with restraint (competing salience cancels out; over-salience reads as ads = banner blindness); never color-only (color-vision deficiency); mind motion sensitivity.</p>
+<h3>Serial position effect</h3>
+<p>Source: <a href="https://lawsofux.com/serial-position-effect/">https://lawsofux.com/serial-position-effect/</a> (Ebbinghaus; primacy + recency)
+- First and last items in a series are remembered best. Put least-important items mid-list; place key actions at the far left/right of nav bars.</p>
+<h3>Zeigarnik effect</h3>
+<p>Source: <a href="https://lawsofux.com/zeigarnik-effect/">https://lawsofux.com/zeigarnik-effect/</a> (Bluma Zeigarnik, 1920s)
+- Uncompleted/interrupted tasks are remembered better than completed ones. Clear signifiers of more content invite discovery; visible progress (and even artificial/endowed progress) motivates completion. Pairs with goal-gradient and progress indicators.</p>
+<h3>Doherty threshold</h3>
+<p>Source: <a href="https://lawsofux.com/doherty-threshold/">https://lawsofux.com/doherty-threshold/</a> (Doherty &amp; Thadani, IBM Systems Journal 1982)
+- &lt;400ms interaction pace keeps neither side waiting; such apps felt "addicting". Give feedback within 400ms; use perceived performance (animation, progress bars - tolerable even when inaccurate); a deliberate small delay can increase perceived value/trust. Refines 0.1/1/10s ladder.</p>
+<h3>Postel's Law / robustness principle</h3>
+<p>Source: <a href="https://lawsofux.com/postels-law/">https://lawsofux.com/postels-law/</a> (Jon Postel, TCP spec)
+- Be liberal in what you accept, conservative in what you send. Tolerate varied user input (formats, casing, whitespace) and normalize it; define input boundaries and give clear feedback; anticipate variable access and capability. (Design-system corollary: components accept loose content, output strict markup.)</p>
+<h3>Goal-gradient effect</h3>
+<p>Source: <a href="https://lawsofux.com/goal-gradient-effect/">https://lawsofux.com/goal-gradient-effect/</a> (Clark Hull 1932; Kivetz/Urminsky/Zheng 2006 revival)
+- Effort increases with proximity to the goal. Show clear progress; artificial/endowed progress (pre-stamped loyalty cards) boosts completion. Sibling of the Zeigarnik effect: one explains memory for the unfinished, the other acceleration near the finish.</p>
+<h3>Law of Prägnanz</h3>
+<p>Source: <a href="https://lawsofux.com/law-of-pr%C3%A4gnanz/">https://lawsofux.com/law-of-pr%C3%A4gnanz/</a> (Wertheimer 1910, gestalt root)
+- People perceive ambiguous/complex images as the simplest form possible - least cognitive effort. Simple figures are processed and remembered better; the eye unifies complex shapes into one. The umbrella principle under proximity/similarity/closure.</p>
+<h3>Occam's Razor</h3>
+<p>Source: <a href="https://lawsofux.com/occams-razor/">https://lawsofux.com/occams-razor/</a> (William of Ockham)
+- Among equally good options choose the fewest assumptions. Best way to reduce complexity is to never add it; remove elements until function would break; consider the design complete only when nothing more can be removed. (Tension with Tesler: irreducible complexity must live somewhere - Occam governs the UI surface, Tesler the system.)</p>
+<h3>Pareto principle</h3>
+<p>Source: <a href="https://lawsofux.com/pareto-principle/">https://lawsofux.com/pareto-principle/</a> (Vilfredo Pareto)
+- ~80% of effects come from ~20% of causes. A few features/screens carry most user value; focus effort where it benefits the most users (analytics + the 20% of pages with 80% of traffic get the deepest craft).</p>
+<h3>Law of similarity</h3>
+<p>Source: <a href="https://lawsofux.com/law-of-similarity/">https://lawsofux.com/law-of-similarity/</a> (gestalt grouping)
+- Visually similar elements are perceived as related even when separated; color, shape, size, orientation, movement all signal grouping. Corollary: links/nav must be visually differentiated from body text (ties to link rules) and interactive elements must share a consistent visual language.</p>
+<h2>NN/g: Information Foraging</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/information-foraging/">https://www.nngroup.com/articles/information-foraging/</a> (Budiu 2019; theory: Pirolli &amp; Card, PARC, late 1990s)
+- Users maximize rate of gain = information value / cost of obtaining it. Every navigation decision (click, scroll, leave, search-vs-browse) is this trade-off.
+- Terminology map: information=food, website=patch, scent=how promising a source smells from its cues (link labels, thumbnails, headlines). Weak scent = users skip your page or leave.
+- Two costs: extraction effort AND opportunity cost (foregoing other patches). Time and hassle are real costs even on free sites.
+- Between-patch vs within-patch time; user "enrichments" (keyword crafting, filters, Ctrl+F) are adaptations users build to forage faster. Good UX makes enrichments unnecessary.
+- Design consequences: link labels and headings are scent - vague clever labels (our anti-slop naming) starve the forager; strong scent gets the click AND the stay.</p>
+<h2>NN/g: Satisficing</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/satisficing/">https://www.nngroup.com/articles/satisficing/</a> (Whitenton 2014, reviewed 2024)
+- Most users satisfice: settle for the first good-enough option instead of finding the best (satisfy + suffice). Average page visit under a minute, many under 10 seconds. Only high-stakes topics get thorough reading.
+- Two levers to deepen engagement: lower interaction cost (classic usability) and raise the benefit of the first thing found (write for satisficers).
+- Writing for satisficers: descriptive titles, inverted pyramid, succinct summaries up front, scannable bullets, linked TOC (frontload the answer; if understanding requires reading to the end, most visitors never learn what you offer).
+- Sorting as satisficer aid: default to the order most users want (relevance), then offer alternate ordinal sorts (recency for repeat visitors, popularity for crowd-trusters).
+- Self-test: can a first-time visitor tell what the page is about at a glance? If not, no cleverness downstream will save it.</p>
+<h2>Text scanning patterns</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/text-scanning-patterns-eyetracking/">https://www.nngroup.com/articles/text-scanning-patterns-eyetracking/</a> (Pernice 2019; eyetracking)
+- Nobody reads walls of text: scanning delivers near-equal information for much less effort. Four text patterns, worst-to-best: F-pattern (no subheadings/bullets: fixate line starts + page top; mirrored in RTL), spotted (jump to styled words - links, bold, digits, capitalised words that match the task), layer-cake (fixate mostly headings/subheadings; most effective scanning), commitment (read nearly every word - high motivation: trusted source, exact task match, SERP title promise = "Google Gullibility").
+- Design response: chunk into sections with meaningful subheadings, bulleted lists, styled keywords. Even commitment readers comprehend better from chunked text.</p>
+<h2>Banner blindness revisited</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/banner-blindness-old-and-new-findings/">https://www.nngroup.com/articles/banner-blindness-old-and-new-findings/</a> (Pernice 2018; documented 1997/2007/2018 - three decades, robust)
+- Selective attention: users ignore anything perceived as an ad. Three ad signals: placement (top banner, right rail), ad-like treatment (animation, fancy formatting, coloured box, text-in-image), proximity to real ads.
+- Ads poison adjacent items (Gestalt proximity + scent): one irrelevant item in a section makes users abandon the whole section. Quantified: right rail got 0.8% of fixations in 25% of the content area (33x under its share).
+- Hot-potato: one bad encounter makes users avoid that AREA on later pages and even other sites (availability bias).
+- Mobile specifics: inline ads are proportionally huge so they catch gazes users resent; anything visually standing out from immediate context reads as an ad - big images get scrolled past unseen (a Generac user skipped real installation info styled too differently).
+- Rules: never style content like an ad (salience-by-contrast backfires); test content placed top/right-rail; never mix content and ads in one visual section.</p>
+<h2>Choice overload: simplicity vs abundance</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/simplicity-vs-choice/">https://www.nngroup.com/articles/simplicity-vs-choice/</a> (Loranger 2015)
+- Paradox: many options ATTRACT (the product looks more capable), but few options let people actually decide and use. More options = more fatigue, more errors, post-decision doubt ("missed something important"), abandonment.
+- Case: 100-flavor touchscreen soda fountains turned a 10-second task into 60+ seconds (500% time bloat) and built lines. Restaurant customers tolerate it because they already paid; web users just leave.
+- Every feature costs: things to consider, explanations/help text, error risk, and interaction complexity between features (harder mental models). The right level depends on context, expertise, commitment - but human mental capacity is the constant.</p>
+<h2>Compensatory vs noncompensatory decision strategies</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/compensatory-noncompensatory-decisions/">https://www.nngroup.com/articles/compensatory-noncompensatory-decisions/</a> (Harley 2020)
+- Noncompensatory: eliminate anything failing a non-negotiable criterion. Used with MANY options; fast but shallow. Support it with filters/facets whose attributes match what users actually care about (a rug site's only filter being "Collections" enraged a user), and by honoring multiword search as implicit filters ("wooden box" = boxes AND wood).
+- Compensatory: weigh pros/cons, let positives offset negatives. Loads working memory, so only feasible for ~5-7 options. Support it with comparison tools and comparison tables (consistent rows/columns, meaningful attributes, no long cell text) capped near 5 items.
+- Real journeys chain them: filter thousands down noncompensatorily, then compare the few compensatorily. Lowes and Wayfair PLPs support both.</p>
+<h2>Aesthetic-usability effect, NN/g deep dive</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/aesthetic-usability-effect/">https://www.nngroup.com/articles/aesthetic-usability-effect/</a> (Moran 2024; Kurosu &amp; Kashimura 1995 ATM study; Norman Emotional Design 2004)
+- Attractive interfaces make users tolerate MINOR usability issues. Original finding: perceived ease of use correlates more strongly with aesthetic appeal than with actual ease of use. Apple as the competitive-advantage case.
+- The limit: forgiveness covers minor problems only. Arcadis case: user initially loved the big photos, then turned on the site when low information density blocked his tasks. Form must serve function.
+- Research hazard: the effect MASKS problems in usability tests - a FitBit tester failed and struggled yet rated ease-of-use highly and commented only on the colour scheme. Read behaviour, not words.
+- When feedback is "pretty" despite visible struggle, three causes: pressure to say something (silence is part of the method), pressure to be nice (distance yourself from the design), or the effect itself (good sign for visuals; probe with vague non-leading questions about ease, then move on).</p>
+<h2>Peak-end rule, NN/g</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/peak-end-rule/">https://www.nngroup.com/articles/peak-end-rule/</a> (Kane 2018; Kahneman &amp; Frederickson 1993 cold-water study)
+- Memory stores snapshots, weighted toward the most intense moment and the END. 80% chose to repeat 90s of cold water ending slightly warmer over 60s flat - a small improvement at the end flipped the whole judgment.
+- Positive peaks: find where the product is most helpful/valuable and design that moment bigger (Duolingo's mascot affirmations). Negative peaks are remembered MORE vividly: one finicky 3-level hover menu had a user swearing off the brand entirely.
+- Last impressions: progress bars that accelerate at the end make the wait feel shorter; TurboTax's celebratory finish screen ends a painful flow on a high. "Please-don't-go" exit popups buy a click at the cost of the lasting memory.
+- Edge cases ARE peaks: outages, dead ends, cryptic errors (Spotify's nonsensical reset message during an outage) are unexpected and intense - design them.</p>
+<h2>Chunking for content</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/chunking/">https://www.nngroup.com/articles/chunking/</a> (Moran 2016)
+- Chunking = recoding related concepts into one unit; chunked strings (phone numbers, card numbers, license keys, dates) are easier to scan and remember. Use the CONVENTIONAL format per type and country; never make users type formatting characters - autoformat the input.
+- Text chunking toolkit: short paragraphs with whitespace, 50-75 char lines, visual hierarchy, contrasting subheadings, highlighted keywords, bulleted lists, a summary paragraph. BBC case: user predicted "easy read" from the chunking alone, then read the whole article.
+- Multimedia chunking = proximity law: related things close and aligned; background colours/rules/whitespace separate groups; video chunked into navigable chapters (TED transcript case: missed subheading/highlight opportunity).
+- Capacity varies per person (you are not the user - developers self-select for high capacity) and degrades with context and distraction.</p>
+<h2>Working memory and external memory</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/working-memory-external-memory/">https://www.nngroup.com/articles/working-memory-external-memory/</a> (Budiu 2018; Baddeley &amp; Hitch 1974)
+- Working memory = the task-oriented scratchpad (interface between perception, attention, memory); short-term memory = the storage process (Miller's chunks). Overload it and slots get dumped mid-task - errors and slowdowns follow (Baddeley/Hitch: more digits held, worse the second task went; the thrashing analogy).
+- Cognitive load = working-memory burden. Capacity varies by person (education/IQ up, age down); developers self-select for high capacity, so colleagues finding a flow easy proves nothing for the audience.
+- Design response: provide EXTERNAL memory - UI features that hold task info so users don't have to. Screen real estate itself is external memory: same comprehension costs MORE time on mobile because the previous paragraph scrolled away. Comparison tables, carts used as shortlists, saved items, users' own spreadsheets, millennial "page parking" (open-in-tabs) all offload memory.
+- Audit any task: what must the user remember from a previous step to finish? Put that on screen or in a UI store.</p>
+<h2>Minimize cognitive load</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/minimize-cognitive-load/">https://www.nngroup.com/articles/minimize-cognitive-load/</a> (Whitenton 2013)
+- Cognitive load = mental resources (working-memory slots) a UI demands. You cannot upgrade the user's brain; the design must accommodate the limit.
+- Intrinsic load (absorbing the new information the user CAME for) is necessary and desirable. Extraneous load (processing that doesn't help understanding - decorative fonts, redundant links, irrelevant images) is the enemy: eliminate it.
+- Three levers beyond chunking/speed: (1) avoid visual clutter - the qualifier matters, meaningful links/images/typography are valuable, only overuse backfires; (2) build on existing mental models (Jakob's Law mechanics - familiar labels and layouts cost zero learning); (3) offload tasks - for anything requiring reading/remembering/deciding ask: can a picture, re-displayed info, or a smart default do it?</p>
+<h1>Design books: principles that change real builds</h1>
+<p>Rule: no pirated full texts. Tags: [F] = free official text read; [S] = official sample/excerpt read; [T] = table of contents/titles or official site only (principle inferred from chapter title, NOT read); [SUM] = credible third-party summary read; = not read. "Web use" lines are my application, not the author's claim.</p>
+<h2>1. Laws of UX, Jon Yablonski (free online) [F] https://lawsofux.com/</h2>
+<p>30 laws listed on the home page (read). Four laws read in full today:
+- Jakob's Law (Nielsen): users spend most of their time on other sites, so they expect yours to work like those. Takeaway from site: leverage existing mental models; when changing, let users keep the familiar version for a while (YouTube 2017 redesign opt-in). Web use: experimental hero on a conventional skeleton (matches Google VC/PT study in ); logo top-left links home, nav at top, standard form controls.
+- Hick's Law (Hick and Hyman, 1952): decision time grows with number and complexity of choices. Takeaways: minimise choices when speed matters; break complex tasks into steps; highlight the recommended option; progressive onboarding; don't oversimplify to abstraction. Web use: 4-6 nav items, one primary CTA per screen, stepped forms.
+- Von Restorff / isolation effect (1933): the item that differs from similar items is remembered. Takeaways: make key actions distinctive, use restraint so emphasis does not compete (or look like an ad), never rely on colour alone, mind motion-sensitive users. Web use: ONE accent element in a monochrome field (his one-hero rule is this law).
+- Peak-End Rule: people judge experiences by the peak and the end. Design the most intense moment and the final moment; negative moments are remembered more vividly. Web use: the hero reveal and the contact/confirmation screen deserve the polish budget (Mailchimp's success screen example).
+- Fitts's Law (1954): time to hit a target depends on distance and size. Targets large enough, spaced, placed where easily reached. Web use: 44 px+ touch targets, primary actions in thumb zone, generous hit areas on minimal text links.
+Four more laws read in full [F]; also Cognitive Load and Miller's Law read: extraneous load is mental effort that does not help understanding (cut decoration); don't use "7 plus/minus 2" as a design rule, just chunk content (pages fetched):
+- Doherty Threshold (https://lawsofux.com/doherty-threshold/): give feedback within 400 ms (Doherty and Thadani, IBM Systems Journal, 1982); use perceived performance, animation and progress bars to make waits tolerable. Web use: instant press states, skeleton or preloader that moves, no silent heavy loads on 3D sites.
+- Serial Position Effect (https://lawsofux.com/serial-position-effect/): first and last items are remembered best; put key actions at the far left and right of navigation, least important in the middle.
+Other laws listed, not yet read: Miller, Chunking, Cognitive Load (also covered by NN/g), Doherty (&lt;400 ms responses), Proximity, Common Region, Similarity, Prägnanz, Uniform Connectedness, Goal-Gradient, Serial Position, Zeigarnik, Tesler, Postel, Pareto, Parkinson, Flow, Occam, Selective Attention, Paradox of the Active User, Choice Overload.</p>
+<p>Chapter map: 1 Don't make me think; 2 How we really use the Web; 3 Billboard Design 101; 4 Animal, Vegetable or Mineral; 5 Omit; 6 Street signs and breadcrumbs; 7 Big Bang Theory of Web design (home page); 8 The Farmer and the Cowman; 9 Usability testing on 10 cents a day; 10 Mobile; 11 Usability as common courtesy; 12 Accessibility; 13 Guide for the perplexed. Chapters 8, 11, 12, 13 skimmed only.
+Three laws: (1) "Don't make me think!" - the page should be self-evident; avoid creating questions in the user's head (is it clickable? what does this label mean?). (2) "It doesn't matter how many times I have to click, as long as each click is a mindless, unambiguous choice." (3) "Get rid of half the words on each page, then get rid of half of what's left."
+How people really use the web (ch.2): not reading, scanning ("billboard going by at 60 miles an hour"); satisficing (take the first reasonable option, as Herbert Simon coined and Gary Klein observed in firefighters); muddling through (people don't understand how things work and don't read instructions, yet still get things done). Guessing costs only a Back click, so users guess. Web use: design for a glance; put the clear first option where eyes land; don't assume users read your copy.
+Billboard design (ch.3): use conventions; create an effective visual hierarchy (more important = more prominent: larger, bolder, distinctive colour, more white space, nearer the top; related things look related; things are visually nested); break pages into clearly defined areas; make it obvious what's clickable; eliminate noise (shouting, busy-ness, clutter: "everything can't be important"); format text for scanning (headings, short paragraphs, bullets, highlighted key terms). Conventions: logo top-left, primary nav at top, shopping-cart metaphors, standard icons; innovate only when you know you have a better idea, or add enough value to cover the learning cost (his example: custom scrollbars almost always get worse). "Clarity trumps consistency": if something becomes significantly clearer by being slightly inconsistent, do it. Creative sites are fine as long as the experience stays understandable (Harlem.org photo-as-menu plus a conventional navigation backup). Link colour: one colour for all links, never the same colour for links and non-clickable headings.
+Choices (ch.4) and Omit (ch.5): see Second law; guidance should be brief, timely, unavoidable. Kill "happy talk" (welcome text that says "blah blah blah") and instructions nobody reads; shorter pages let users see more per screen.
+Navigation (ch.6): navigation is more than finding: it tells you what's here (reveals content), how to use the site, and gives confidence in the builders ("Do these guys know what they're doing?"). Persistent elements: Site ID, sections, utilities, home link, search; page names must match the link that led there; "you are here" indicators (highlight current section; breadcrumbs at the top, '&gt;' separators, last item bold, not a link); tabs are self-evident, hard to miss, and "slick" if the active tab visually connects to its panel. Trunk test: pick any page, squint, and find site ID, page name, sections, local navigation, "you are here", search. (Compare .)
+Home page (ch.7): the home page must answer quickly, in his words, what this site is, what I can do here, what they have here, and why I should be here and not elsewhere (paraphrased; the exact question list was not extracted cleanly). Needs a tagline or clear welcome blurb, "show me where to start", signs of life (fresh content), credibility; the stakeholder turf wars create clutter (xkcd "University Website" joke); every page, not just home, should orient people because many arrive from search. Most common failure: not making clear enough what the site is. Web use: hero headline plus one line must state what/who in under 5 seconds; test the tagline.
+Testing (ch.9): test early and often, simply: about three users in a morning, debrief over lunch, fix the worst problems before next month's round; $20-50k lab testing is not necessary (he cites the idea of discount testing, and his book Rocket Surgery Made Easy).
+Mobile (ch.10): no hover on touch screens, so hover-dependent tooltips, mouseover colour changes and drop-down menus fail; affordances must be visible (flat design removes cues, a tradeoff between clean and discoverable); small screens mean deeper navigation and more tapping/scrolling which is fine as long as each step feels clear; allow zoom; he reviews Mobile First and notes people use phones at home on couches, not just "on the move".
+Web use for his builds: scannable page (clear hierarchy, one primary action), obvious clickability (his minimal text links need a consistent cue), keep nav conventional, cut the words, test with three people before launch.</p>
+<p>Read closely: ch.1 (affordances, signifiers, mapping, feedback, conceptual models, discoverability), the seven-stage action cycle and seven principles (ch.2), slips vs mistakes (ch.5 opening), double-diamond/HCD (ch.6), featuritis (ch.7). Not read: most of ch.3-4 detail (memory, constraints cases), later ch.5-7 and ch.8.
+- Discoverability: "It is possible to determine what actions are possible and the current state of the device" comes from five concepts: affordances, signifiers, constraints, mappings, feedback; plus a sixth, the conceptual model, "perhaps most important of all".
+- Affordance is a relationship between an object's properties and the abilities of the user, not a property of the object. Anti-affordances block interaction (glass: birds and people walk into it because it's invisible). Signifier = any perceivable indicator that communicates where the action should happen ("Affordances determine what actions are possible. Signifiers communicate where the action should take place. We need both."). Designers who say "I put an affordance there" for a touch-target circle really mean a signifier. Web use: a flat black page with an invisible link is an anti-affordance; give each clickable thing a signifier (underline, arrow, hover, cursor change, label).
+- Mapping: spatial correspondence between controls and effects (light switches laid out like the lights; steering wheel). Web use: slider/scroll directions match motion direction; carousel arrows match slide direction; layout of nav matches page order.
+- Feedback: must be immediate ("even a delay of a tenth of a second can be disconcerting") and informative; poor feedback can be worse than none, too much feedback annoys (the "backseat driver"; a dishwasher beeping at 3 a.m.). Web use: press/loading/success states in under about 100 ms; one clear confirmation, not a stack of toasts and sounds.
+- Conceptual model: a simplified explanation of how something works that need not be complete or accurate, only useful (folders and files on a screen are a model); simplified models fail when assumptions break (cloud sync offline). Web use: show the user the model (e.g. "cart", "draft saved", offline state) and make errors fit it.
+- Seven stages of action: goal, plan, specify, perform, perceive, interpret, compare. Seven questions a user must be able to answer: What do I want to accomplish? What are the alternative action sequences? What action can I do now? How do I do it? What happened? What does it mean? Is this okay / have I accomplished my goal? Feedforward (answers "what can I do") comes from signifiers, constraints, mappings; feedback (answers "what happened") from explicit results. Seven design principles: discoverability, feedback, conceptual model, affordances, signifiers, mappings, constraints. Use as a checklist on each screen: at which of the seven stages does a user get lost?
+- Errors: slips (right goal, wrong execution, from subconscious action, often the lower stages) vs mistakes (wrong goal or plan, conscious, upper stages); memory lapses between stages. Web use: design to prevent slips (confirm destructive actions, undo, forgiving forms) and mistakes (clear labels, defaults).
+- Human-centered design: iterate observation, generation, prototyping, testing; "solve the right problem" first; the British Design Council's double diamond (discover/define the problem, then develop/deliver the solution; diverge then converge twice). Web use: spend the brand and moodboard phase on the right problem before picking the base site.
+- Featuritis / creeping featurism: each release adds features until usability dies (example: a Lego motorcycle that grew from 15 to 29 pieces and needed instructions). Matching every competitor feature makes products the same (Youngme Moon, "Different"). Web use: subtract; ship the smallest version; one hero.</p>
+<p>Notes in my own words (page text is largely captioned images; I read all the extracted text, not the visuals):
+Starting from scratch
+- Design a feature, not the app shell; nav/layout decisions come after features exist. Detail later: work in grayscale first so spacing, contrast and size carry hierarchy. Work in short design-build cycles, don't design every edge case up front. Design the smallest shippable version; don't imply functionality you can't build.
+- Choose a personality from concrete levers: typeface (serif = elegant/classic, rounded sans = playful, neutral sans = plain), colour (the book says gold can say "expensive" and "sophisticated"), border radius (none = serious/formal, large = playful; stay consistent), and wording tone. Look at sites your audience uses; don't copy direct competitors.
+- Limit choices: predefine systems (8-10 colour shades, a type scale, spacing scale, shadows, radii, border widths, opacity). Pick by elimination: guess a value, test neighbours, keep the middle if both outer ones look clearly worse.
+Hierarchy
+- Hierarchy is the biggest factor in feeling "designed"; de-emphasise secondary/tertiary info. Don't lean on size alone: use weight or colour (bold + moderate size beats huge; softer colour beats tiny text). Use 2-3 text colours (dark/grey/light grey) and 2 weights (400-500 and 600-700); avoid weights under 400 at small sizes.
+- No grey text on coloured backgrounds: hand-pick a same-hue colour with adjusted saturation/lightness instead of white-at-low-opacity (looks washed out, shows image through).
+- Emphasise by de-emphasising competing elements (e.g. mute the sidebar instead of boosting the content). Labels are a last resort: merge into values ("3 bedrooms"), else make labels secondary; emphasise labels only on spec-style pages.
+- Separate visual from document hierarchy (an h1 does not have to be big). Balance weight and contrast: heavy things (solid icons) get lower contrast; thin borders get a bit of width instead of a harsher colour.
+- Buttons by hierarchy not semantics: primary = solid high-contrast, secondary = outline/low contrast, tertiary = link style; a destructive action gets big red styling only on the confirmation step.
+Layout and spacing
+- Start with too much white space and remove until right; dense UIs are fine if deliberate. Spacing/size scale built from a 16px base, no two values closer than about 25%. Don't fill the screen: use only the width needed (e.g. 600px if 600px works), design small first (about 400px canvas then scale up), split into columns rather than stretching.
+- Grids are overrated: don't size everything by percentage columns; give sidebars fixed widths, cards max-widths. Relative sizing doesn't scale: headline-to-body ratio changes by breakpoint, and large elements should shrink faster than small ones; button padding shouldn't be a fixed ratio of font size.
+- Avoid ambiguous spacing: more space around a group than within it (labels near their inputs, list bullets, article headings near their sections).
+Text
+- Type scale chosen by hand (not a strict modular ratio, which gives fractional pixels and too few mid sizes); use px/rem, not em, so nested sizes stay on the scale. Fonts: neutral sans for UI; fonts with many weights (10+ styles) tend to be higher quality; headline faces have tighter spacing and short x-height, small-text faces looser and taller (don't use condensed short-x-height fonts for body); popularity is a quality signal; inspect favourite sites for font ideas.
+- Line length 45-75 characters even when other content is wider. Align mixed sizes by baseline, not centre. Line-height is inversely proportional to size and proportional to line length (about 1.5 for narrow text, up to 2 for wide; headlines near 1). Not every link needs colour (use weight/underline on hover). Letter-spacing: tighten for large headlines, widen for all-caps (the book covers this; details not recorded here).
+Colour
+- Accessible does not have to mean ugly: WCAG 4.5:1 normal text, 3:1 large; flip contrast (dark text on light tinted panel) when white-on-colour needs a heavy background; rotate hue for coloured-on-coloured text. Never rely on colour alone (add icons; use light vs dark for graph lines).
+Depth, images, finishing
+- Emulate a light source: raised elements have a lighter top edge and shadow below; inset the reverse; shadows convey elevation in a defined set of steps; two-part shadows (a tight dark one plus a soft large one); overlap elements to build layers, and use an "invisible border" in the background colour when overlapping images.
+- Use good photos; do not design with placeholders and swap later; hire a pro for specific shots, or use stock like Unsplash. Text on images: reduce image dynamics with an overlay, lower image contrast, colourise, or a soft text-shadow glow. Don't scale small icons up (chunky) or screenshots down (too much detail): redraw at the target size. User-uploaded images: fixed containers with cover crop; use an inner shadow rather than a border on images that blend with the UI.
+- Finishing touches: supercharge defaults (brand colour for selected states, custom bullets, thick overlapping underline), accent borders, decorated backgrounds (low contrast gradient or pattern), good empty states (image/illustration plus clear action), use fewer borders (shadow, background colour or spacing instead), think outside the box (dropdowns as multi-column panels, tables with images). Closing tip: when you like a design ask what the designer did that you would not have thought of.
+Web use for his builds: strong overlap with his rules (fewer borders, space, one primary action). Items to adopt: 2-3 text colours and 2 weights, predefined spacing/type scales, 45-75ch lines, text-on-hero contrast treatment, spacing ratios that group by proximity, empty-state/hover details. Items that conflict: coloured-on-grey advice assumes light UI; his black/no-box house style wins.</p>
+<ul>
+<li>Aesthetic-usability effect: people perceive more aesthetic designs as easier to use "whether they are or not"; such designs have a higher probability of being used, and first perceptions bias later interactions and resist change; a more usable but less aesthetic design may suffer a lack of acceptance (matches NN/g and Tractinsky in ).</li>
+<li>Rule of thirds: place key elements at the thirds lines; related to golden ratio (the book lists them together).</li>
+<li>Progressive disclosure: show only necessary or requested information, in layers; avoids overload; "More" buttons hide controls for those who don't need them (same as NN/g).</li>
+<li>Chunking: group information into units; short-term memory handles about four, plus or minus one, chunks efficiently (the book's figure; Miller's 7 plus/minus 2 is the older number). Web use: 3-5 items per group, groups per section.</li>
+<li>Gutenberg diagram: layout with headline top-left, image in middle, contact bottom-right; the authors say there is little empirical evidence it improves reading, and it predicts eye movement mainly for heavy, even, homogeneous text or blank pages; in other designs, visual weight and composition direct the eye. Web use: don't rely on a fixed Z/F pattern; make the hero the heaviest element.</li>
+<li>Alignment: edges line up on common rows, columns or centres; creates unity, cohesion and perceived stability; grids/tables lead the eye and show relatedness. Web use: one left edge; align by optical edge for round hero shapes.</li>
+<li>Figure-ground: the perceptual system separates focus (figure) from background (ground); make the figure clearly distinct in contrast, edge and size. Web use: the one hero object on black; ensure the ground is quiet.</li>
+<li>Common fate: elements that move together in the same direction at the same time and speed are perceived as a group; perceived relatedness weakens as timing, speed or direction differ. Web use: stagger and group animations deliberately; move related items together.</li>
+<li>Signal-to-noise ratio: maximise relevant information against irrelevant; example form redesign (constrain input with menus, allow stored info). Web use: remove decoration that carries no meaning.</li>
+<li>Flexibility-usability tradeoff: more flexible tools are more complex and less efficient at each task (Swiss Army knife); favour a specialised path for the main task. Web use: one primary journey, not a configurable everything.</li>
+<li>
+<p>Hierarchy of needs (design must meet functionality, reliability, usability before pleasure and creativity); Von Restorff, highlighting, iconic representation (labels + a common visual motif for icons), layering, mental model (people interact with systems via models built from experience; accurate when imagined and real outcomes match), cognitive dissonance, consistency, Fitts' law (target size and distance; screen edges make menus effectively infinite in height) were all present in the scan, but I only skimmed them; details match the Laws of UX entries above.
+Not read: the remaining ~100 principles (e.g. most of the persuasion, social, and engineering ones). The OCR is poor, so quotes are paraphrases of what I could decode.</p>
+</li>
+<li>
+<p>Scale: relative and physical; scale contrast is a main hierarchy tool (snippet from thinkingwithtype.xyz/letter/, see ). Web use: a few big jumps in size beat many small ones.</p>
+</li>
+<li>Line spacing (leading): the distance from one baseline to the next; the book says the software default is roughly 120% of type size and that opening it up makes a lighter, more open text colour. As spacing grows, lines become independent elements instead of parts of a block (the book's own point). Web use: body line-height about 1.4-1.6, headlines tighter; large display lines can sit at 1.0-1.1.</li>
+<li>Mixing families: "if you want to mix font families... adjust the sizes so that the x-heights align" (OCR-checked paraphrase of the caption). Typefaces with taller x-heights look bigger at the same size. Web use: when pairing, match x-height not point size; also test the face on screen, since weight and fat/thin impression change by medium ("Do I look fat in this paragraph?" is the book's joke caption).</li>
+<li>Ragged vs justified: justified text risks rivers and ugly gaps when lines are too short for the type size; ragged right keeps word spacing even. Web use: ragged right body, left aligned; avoid <code>text-align: justify</code> without hyphenation and a wide enough measure.</li>
+<li>Grids: the book walks single column, multi column, modular grid and a golden-section page; the golden section is shown as a web page frame built from squares in a golden rectangle. Swiss grids "generate variation and surprise" from a repeated structure. Web use: pick one root grid and vary only how images and text occupy it (matches Müller-Brockmann below).</li>
+<li>
+<p>Web accessibility (2003 era note): linearised pages for screen readers; real alt text; skip links before repeated navigation. Still true.
+Not read closely: the Letter chapter on anatomy, ligatures, kerning and the Text chapter detail (OCR too noisy to trust).</p>
+</li>
+<li>
+<p>Why a grid: the book says arranging text and pictures systematically makes "the priorities stand out more clearly", and that "orderliness... lends added credibility to the information and induces confidence" (matches the credibility research in ). Clear titles, subtitles, text and captions are read faster and remembered better (his claim, he calls it proven). Reduce pictures to a few formats; size them by importance. Web use: define the grid first as CSS variables (columns, gutter, margins), then let each section choose a few image spans only.</p>
+</li>
+<li>Line width: width must be proportioned to type size; overlong lines tire the eye and have "an adverse psychological effect", overshort lines break the reading flow; his rule of thumb is about 10 words per line; large type wants a wider column, small type a narrow one. Web use: set <code>max-width</code> in <code>ch</code> (45-75 characters, agrees with Refactoring UI), and use larger display type with wider measures only for short text.</li>
+<li>Leading: lines set too tight make the eye take in two lines at once; too loose and the reader loses the next line; good leading "can carry the eye optically from one line to the next". Web use: body line-height 1.4-1.6; test, don't copy a number.</li>
+<li>Letter spacing: he warns against photo-typesetting's too-tight default spacing and tells designers to insist on normal spacing. Web use: don't track body text tighter; only tighten large display type, by eye.
+Not read: the worked grid constructions (field counts, 8/16/20/32-field grids), baseline-grid examples, and the case studies later in the book.</li>
+</ul>
+<div class="pagenav"><a href="people.html">&larr; People, Studios & Sources</a><a href="building.html">Building & Architecture &rarr;</a></div>
+</main>
+</div>
+</body>
+</html>

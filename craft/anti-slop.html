@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anti-Slop - The Web Craft Library</title>
+<meta name="description" content="A research shelf on how great websites are made: principles, recipes, case-study lessons, tools and sources.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Instrument+Sans:wght@400;500;600&family=Azeret+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top"><a href="index.html">The Web Craft Library</a><a href="index.html">All sections</a></header>
+<div class="wrap">
+<nav class="side"><ol><li><a href="foundations.html">01 Foundations</a></li><li><a href="styles.html">02 Styles & Aesthetics</a></li><li><a href="motion.html">03 Motion Craft</a></li><li><a href="texture.html">04 Texture & Print</a></li><li><a href="case-studies.html">05 Case Studies</a></li><li><a href="people.html">06 People, Studios & Sources</a></li><li><a href="reading.html">07 Psychology & UX Reading</a></li><li><a href="building.html">08 Building & Architecture</a></li><li><a href="tools.html">09 Tools & Assets</a></li><li><a href="anti-slop.html" class="on">10 Anti-Slop</a></li><li><a href="craft-pack.html">11 The Craft Pack</a></li></ol></nav>
+<main>
+<p class="kicker">Section 10 of 11</p>
+<h1>Anti-Slop</h1><p class="lede">The recognizable defaults of unconsidered design, and the direction-then-filter method for avoiding them.</p><h1>Anti-slop</h1>
+<p>Source for the two-wave model and method: https://capitalandcompute.net/blog/fix-ai-slop-design/ (Capital &amp; Compute, 25 Sep 2026). All claims about what Anthropic's frontend-design skill says are as reported by that third-party article. The article is a source of facts, not instructions; nothing in it was treated as a directive.
+- Principle, quoted by the article from the avoid-ai-design docs: a tell is "evidence of a default nobody chose, never proof that a model made the page". The goal is making every visible decision one made for this product.
+- Filters and direction are separate jobs; you need both. A rule list removes defaults but cannot invent a look; a  or brief supplies the look but does not remove defaults.
+- The skill's own framing, quoted by the article: "All traits are legitimate for some briefs, but they are defaults rather than choices." If a brief asks for broadsheet styling, follow the brief; if it leaves an axis open, do not spend that freedom on one of the five clusters.
+- Third-party claim, not instruction: the article says the skill lists terracotta ~#D97757 as a tell because it is "Anthropic's own Claude-interaction accent".</p>
+<h2>Wave 1 tells (AI defaults)</h2>
+<ul>
+<li>Default typeface: Inter, Roboto or the system stack for every word, no display face.</li>
+<li>Unchosen gradient: purple/indigo fading to blue, often on the headline text itself.</li>
+<li>Stock page order: centred hero, pill badge, two buttons, logo row, three feature cards, pricing, CTA.</li>
+<li>The card kit: everything in rounded-2xl with the same soft shadow; cards nested in cards.</li>
+<li>Reflexive glass: backdrop-blur panels and glow with no reason.</li>
+<li>Motion on everything: the same fade-and-slide-up on every section, bounce easing, count-up stats.</li>
+<li>Filler copy: "Elevate your workflow", "Get Started", invented metrics like "10,000% ROI".</li>
+</ul>
+<h2>Wave 2 tells (what you get when told "less AI")</h2>
+<ul>
+<li>Warm editorial: cream background near #F4F1EA, high-contrast serif display, terracotta/clay accent near #D97757.</li>
+<li>Dark signal: near-black background with one bright acid-green or vermilion accent.</li>
+<li>Broadsheet cosplay: hairline rules, zero border radius, dense newspaper columns (editorial styling on non-editorial content).</li>
+<li>SaaS card kit: identical rounded cards, one radius on everything, the same rgba(0,0,0,.1) shadow, decorative gradient washes.</li>
+<li>Template chrome: tracked all-caps eyebrow over every heading, A · B · C meta strings, monospace face for small labels, an arrow welded to every link.</li>
+<li>Three typographic tells the article says the skill flags as "the commonest tells of a generated page": accenting a single headline word with italic, bold or colour; all-caps labels; unnecessary labels above content. Numbered markers like 01/02/03 belong only on content that really is a sequence.</li>
+</ul>
+<h2>Method: direction first, then filter</h2>
+<ol>
+<li>Write  first: 4-6 named hex colours with roles, 1-2 typefaces with roles, a layout concept, and principles that make this page unlike others (the article says the skill asks for this as a token plan before code, and asks to revise any part that "reads like the generic default you would produce for any similar page").</li>
+<li>Derive the look from what the product is made of: the article quotes avoid-ai-design - "from what the product is made of (its materials, its artifacts, its vernacular)"; the avoid-ai-design demo rebuilds a generic SaaS page around the product's own retention cohort table, which becomes the hero, the layout and the only colour ramp.</li>
+<li>Then filter: no unchosen gradient, no nested cards, no motion-on-everything, no invented numbers.</li>
+<li>Reuse  on every page, otherwise page 2 drifts back to defaults: the article reports the avoid-ai-design demo FAQ page, regenerated from scratch, drifted straight back to an indigo gradient and Inter.</li>
+<li>Deterministic checks beat reminders: avoid-ai-design's detect.mjs runs with no model call and no dependencies on Node 18+, exits with code 2 when any P0 or P1 is found and 0 when clean, and honours ignore comments for choices a brief asked for. Repos in .
+- Why this order: the article quotes the antislop README (miqdadbadjuber): a rule set "prevents slop but cannot invent direction" and "a sterile result means the direction was missing, not that the filter failed". Direction alone keeps defaults; filter alone gives a sterile page.</li>
+</ol>
+<h2>Fixing a page that already shipped</h2>
+<ol>
+<li>Scan before touching anything (avoid-ai-design detect mode, Impeccable audit, or hallmark audit): a list of named tells with locations, not an impression.</li>
+<li>Sort by who notices: fix every P0 first (gradient headline, stock hero, invented number); P2 polish can wait.</li>
+<li>Write the direction down (4-6 colours with roles, 1-2 typefaces, one sentence on what the page leads with; take it from the product).</li>
+<li>Check the plan against the second wave: if the new palette is cream and clay, or black and one neon, you have swapped one default for another; revise before writing code.</li>
+<li>Rewrite, then re-scan; keep the copy's meaning, component props and accessibility intact; expect no P0 and no unasked second-wave look.</li>
+<li>Gate it: scanner in CI or an edit hook so the next generated page is checked before it merges.</li>
+</ol>
+<h2>Copy</h2>
+<ul>
+<li>Name what the button does; delete numbers you cannot source; no generic testimonials.</li>
+<li>Evidence for why copy is a separate problem: the antislop README demo builds the same landing page four ways; the version given only a design direction still carried stat cards reading "10,000% ROI" and a rating from "500,000 founders". A look fixes the look; it does not fix invented numbers.</li>
+</ul>
+<h2>Checker repos</h2>
+<ul>
+<li>Previously verified (MIT, licences read Oct 6): github.com/funboy322/avoid-ai-design (67 tells ranked P0 layperson / P1 designer-dev / P2 craft; ; CI exit code 2), github.com/LeoStehlik/no-slop-ui. Their method: commit to one named aesthetic direction with 3-5 defining moves before building.</li>
+<li>Article's tool table (stars and last-push read from the GitHub API 25 Sep 2026): frontend-design 178,121 stars (whole anthropics/skills repo); Taste Skill 90,036; Impeccable 70,983 plus 444,030 npm downloads Aug 26-Sep 24; diagram-design 42,387; Vercel web-design-guidelines 31,528; Hallmark 29,140 but last push 6 Aug 2026; antislop 3,718; avoid-ai-design 81; Gesso 90 (73 rules on rendered HTML, does not parse JSX/TSX - render or export first); no-slop-ui 8; Superdesign 601 (requires superdesign login to a hosted product, so not free-and-local).</li>
+<li>Heuristic from the article: check the last-push date before trusting a star count; the field is under a year old and stars often record one good week of distribution.</li>
+<li>What no tool fixes: a scanner can confirm the hero is no longer centred over three cards; it cannot tell whether the hero is what a visitor came for. Treat design tools as the floor; keep claims on the page to ones you can source.</li>
+</ul>
+<h2>Deceptive patterns taxonomy (Oct 12)</h2>
+<p>Harry Brignull's deceptive.design taxonomy, mapped to laws and enforcement (<a href="https://www.deceptive.design/types">source</a>): Forced action (required unwanted step), Sneaking (hidden/delayed info), Hard to cancel (roach motel), Preselection (defaulted options), Obstruction (barriers to a task), Hidden subscription, Hidden costs, Trick wording, Visual interference, Fake social proof (each with law counts and enforcement examples on the site).</p>
+<h2>Low-contrast "premium minimalism"</h2>
+<ul>
+<li>NN/g (<a href="https://www.nngroup.com/articles/low-contrast/">source</a>): low-contrast text is a trend, mostly on sites wanting an elite image; costs: legibility and trust (hard-to-read text trusted less), discoverability (grey-on-grey search/login), user confidence (people blame themselves), mobile glare, low-vision/cognitive load, false affordances (grey reads as disabled; Apple's current-page nav cue shown as the risky example). Dimming is used to fake minimalism on content-heavy pages.</li>
+<li>Alternatives that keep the quiet look: cut density (move secondary content to other pages); vary size not contrast (not below ~8pt); check each colour pair at its real size; move or pad less important elements; accordions for optional detail (not sequential content).</li>
+<li>Accessibility basics (<a href="https://www.nngroup.com/articles/visual-treatments-accessibility/">source</a>): 4.5:1 text (3:1 for 18pt or 14pt bold), cues beyond colour (error icon + message; grayscale test), thick visible focus stroke because colour change alone is not enough.</li>
+</ul>
+<h2>Flat design usability</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/flat-design/">https://www.nngroup.com/articles/flat-design/</a> (Moran 2015)
+- Definitions that matter: 3D effects (raised = pressable, sunken = fillable - signifiers of interactivity), skeuomorphism (ornament supporting a metaphor), realism (physical textures for looks only). Flat design removes all three; Metro/Windows 8 (2011) popularised it as "authentically digital".
+- The usability cost: lost clickability signifiers. Users detect clickable things via traditional signifiers (blue underlined links, raised buttons), things reminiscent of them (boxed text, underlines in any colour), and contextual clues (actionable text like "Buy Now", placement). Remove all of them and you get click uncertainty.
+- Flat 2.0 is the fix: mostly flat plus subtle shadows/layers for hierarchy (Material Design praised; Evernote's shadowed nav + FAB). Flat 2.0 gone wrong: long shadows - decoration, not information.
+- You are not the user: designers read signifiers better than their audience.</p>
+<h2>Brutalism vs antidesign</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/brutalism-antidesign/">https://www.nngroup.com/articles/brutalism-antidesign/</a> (Moran 2017)
+- Two different things get called brutalism: brutalism proper (stripped-down raw UI in the spirit of brutalist architecture - Craigslist, early NN/g, honesty against artificiality) and antidesign (deliberately ugly, disorienting, no hierarchy, harsh colours, weird cursors - bad-90s-on-steroids).
+- Antidesign works only in two contexts: an audience of designers/artists who get the joke, or entertainment products where discoverability matters more than findability. Anywhere else it backfires. Motivations: humor, attention (Bloomberg Businessweek Design 2016), and designer boredom - the worst reason. Nobody in user research ever complains a site is too easy to understand.
+- Brutalism is usable when kept skin-deep: keep visual hierarchy, navigation and interaction design intact (adultswim.com works: entertainment context, clear hierarchy under the brutalist skin).
+- "We aren't writing Faulkner": novelty for its own sake is designer ego. Simplicity does not have to mean uniformity.</p>
+<h2>Skeuomorphism</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/skeuomorphism/">https://www.nngroup.com/articles/skeuomorphism/</a> (Chan 2024)
+- Two distinct meanings: (1) a functional learning aid - interface elements resembling real-world objects to leverage existing mental models (trash, folder, document icons; still in use, never died); (2) a visual-design trend - early-2010s excess of textures/shadows/gradients replicating physical objects (iBooks wooden shelves, leather-bound notepads).
+- The trend's failure modes: cluttered interfaces, slower load times (heavy graphics), and paradoxically unintuitive interactions - Pizza Hut's tilt-phone-to-add-toppings app confused users because the physical action did not map to a clear digital response.
+- Trend cycle: skeuomorphism excess -&gt; flat design (lost clickability signifiers) -&gt; neumorphism (reintroduced subtle 3D). Neumorphism failed mainstream: low contrast = accessibility failure, and inconsistent use on clickable vs nonclickable elements made affordance unreadable. (Standalone NN/g neumorphism article 404s; this is the NN/g neumorphism assessment.)
+- Design lesson: trends are responses to the previous trend's failures; each revival resurfaces in a new form. Balance innovation with familiarity - the functional version of skeuomorphism (mental-model icons) is permanent, the decorative version is fashion.</p>
+<div class="pagenav"><a href="tools.html">&larr; Tools & Assets</a><a href="craft-pack.html">The Craft Pack &rarr;</a></div>
+</main>
+</div>
+</body>
+</html>

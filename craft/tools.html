@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tools &amp; Assets - The Web Craft Library</title>
+<meta name="description" content="A research shelf on how great websites are made: principles, recipes, case-study lessons, tools and sources.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Instrument+Sans:wght@400;500;600&family=Azeret+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top"><a href="index.html">The Web Craft Library</a><a href="index.html">All sections</a></header>
+<div class="wrap">
+<nav class="side"><ol><li><a href="foundations.html">01 Foundations</a></li><li><a href="styles.html">02 Styles & Aesthetics</a></li><li><a href="motion.html">03 Motion Craft</a></li><li><a href="texture.html">04 Texture & Print</a></li><li><a href="case-studies.html">05 Case Studies</a></li><li><a href="people.html">06 People, Studios & Sources</a></li><li><a href="reading.html">07 Psychology & UX Reading</a></li><li><a href="building.html">08 Building & Architecture</a></li><li><a href="tools.html" class="on">09 Tools & Assets</a></li><li><a href="anti-slop.html">10 Anti-Slop</a></li><li><a href="craft-pack.html">11 The Craft Pack</a></li></ol></nav>
+<main>
+<p class="kicker">Section 09 of 11</p>
+<h1>Tools & Assets</h1><p class="lede">Licence-checked fonts, icons, 3D, textures, animation libraries and templates - with the licence terms that matter.</p><h1>Repos and libraries (licences checked from GitHub LICENSE pages Oct 6 2026)</h1>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>URL</th>
+<th>Licence</th>
+<th>Use / verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>three.js</td>
+<td>github.com/mrdoob/three.js</td>
+<td>MIT</td>
+<td>WebGL/3D heroes. 115k stars. Examples: threejs.org/examples</td>
+</tr>
+<tr>
+<td>react-three-fiber + drei</td>
+<td>github.com/pmndrs/react-three-fiber, /drei</td>
+<td>MIT</td>
+<td>React 3D.</td>
+</tr>
+<tr>
+<td>GSAP (all plugins)</td>
+<td>gsap.com, github.com/greensock/GSAP</td>
+<td>free for commercial use (GSAP licence; Webflow-owned, 3.13)</td>
+<td>scroll storytelling, SplitText, Flip. Not MIT, read gsap.com/standard-license if redistributing.</td>
+</tr>
+<tr>
+<td>Lenis</td>
+<td>github.com/darkroomengineering/lenis</td>
+<td>MIT</td>
+<td>smooth scroll, 15k stars.</td>
+</tr>
+<tr>
+<td>Anime.js v4</td>
+<td>github.com/juliangarnier/anime</td>
+<td>MIT</td>
+<td>his earlier named reference for smooth nav transitions.</td>
+</tr>
+<tr>
+<td>Motion (ex Framer Motion)</td>
+<td>github.com/motiondivision/motion</td>
+<td>MIT</td>
+<td>React animation, import from motion/react.</td>
+</tr>
+<tr>
+<td>shadcn/ui</td>
+<td>github.com/shadcn-ui/ui</td>
+<td>MIT</td>
+<td>accessible component base to restyle heavily (default look IS slop, restyle).</td>
+</tr>
+<tr>
+<td>Magic UI</td>
+<td>github.com/magicuidesign/magicui</td>
+<td>MIT</td>
+<td>animated copy-paste effects. Cherry-pick only.</td>
+</tr>
+<tr>
+<td>Motion Primitives</td>
+<td>github.com/ibelick/motion-primitives</td>
+<td>MIT</td>
+<td>motion components.</td>
+</tr>
+<tr>
+<td>React Bits</td>
+<td>github.com/DavidHDev/react-bits</td>
+<td>MIT + Commons Clause</td>
+<td>OK inside a site/product; cannot resell/redistribute the components. 110+ animated components.</td>
+</tr>
+<tr>
+<td>Utopia</td>
+<td>utopia.fyi</td>
+<td>tool</td>
+<td>fluid type + space scales with no breakpoints (clamp).</td>
+</tr>
+<tr>
+<td>Anti-slop checkers</td>
+<td>github.com/funboy322/avoid-ai-design, LeoStehlik/no-slop-ui, pbakaus/impeccable, Gesso-Build/skills</td>
+<td>ALL VERIFIED Oct 11 via GitHub API: avoid-ai-design MIT, no-slop-ui MIT, impeccable Apache-2.0 (79.8k stars), gesso MIT (92 stars, 73 deterministic slop guards)</td>
+<td>run before delivery as a scan.</td>
+</tr>
+<tr>
+<td>emilkowalski/skills</td>
+<td>github.com/emilkowalski/skills</td>
+<td>MIT (verified Oct 11 via GitHub API)</td>
+<td>44k-star skill family (animate, review-animations, apple-design, mobile-native, break-ui, pick-ui-library...).  distilled into .</td>
+</tr>
+<tr>
+<td>revealed</td>
+<td>github.com/idleCyrex/revealed</td>
+<td>MIT (stated in dev.to article)</td>
+<td>Lando-Norris-style fluid tear-reveal hero as a 19.2kB zero-dep WebGL1 lib; vanilla + React + CDN builds; fails safe to plain img.</td>
+</tr>
+<tr>
+<td>topolines</td>
+<td>same author (idleCyrex)</td>
+<td>not verified</td>
+<td>GPU topographic contour-line backgrounds for React; check licence before use.</td>
+</tr>
+<tr>
+<td>Awesome lists to mine: github.com/terkelg/awesome-creative-coding, zbryikt/awesome-webgl, tankvn/awesome-threejs, gsimone/awesome-react-three-fiber, bradtraversy/design-resources-for-developers, oscarotero/awesome-design, justinhartman/ui-ux-design-library. Awesome lists link to material under many licences, check each.</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Portfolio templates: bchiang7/v4 = MIT (verified Oct 11 via GitHub API), 8.3k stars, Gatsby — reputable structure reference, restyle completely if used. Others low-star, not worth cloning.</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Design tokens</h2>
+<p>W3C Design Tokens Community Group format, Final Community Group Report 28 Oct 2025 (not a W3C Standard, stable, intended for implementation). Tokens = indivisible design-system pieces (colour, spacing, type scale). Use a tokens JSON (or CSS variables) as the single source for  values so every page reuses them. Tools such as Style Dictionary transform tokens to CSS.</p>
+<h1>Free assets and their terms (checked Oct 6 2026)</h1>
+<ul>
+<li>Poly Haven (polyhaven.com): HDRIs, textures, 3D models, all CC0 (public domain), API at polyhaven.com/our-api. Site ToS still bars scraping/misuse of the website itself; download via their API/downloads.</li>
+<li>Fontshare (fontshare.com): all fonts free for personal and commercial use, ITF Free Font License (fontshare.com/licenses/itf-ffl). Some closed-source freeware, some open source. Good for distinctive display faces beyond Google Fonts.</li>
+<li>Photos: Pexels (pexels.com/license: free, no attribution needed), Unsplash, Pixabay all allow commercial use; read each licence, no resale of unaltered files, caution with identifiable people/trademarks (see freecreativeassets.com/guides/free-stock-photo-licenses).</li>
+<li>3D: Sketchfab has free models under mixed licences (CC-BY needs attribution), check each. Spline (spline.design) 3D embeds; web export watermark depends on plan (spline.design/pricing).</li>
+<li>
+<p>Animation: Lottie (LottieFiles free animations, per-animation licence), Rive (rive.app/marketplace, rive-app/rive-lottie). Rive vs Lottie: lottie-web ~250KB (60KB gz) per johnson.works/blog/lottie-vs-rive-animations; Rive runtime smaller. Prefer Rive/CSS/SVG for hero motion.
+Rule: log licence + URL next to every asset used in a build.</p>
+</li>
+<li>
+<p>Icons (verified licences Oct 6): Lucide (github.com/lucide-icons/lucide) ISC, free for commercial use; Phosphor (github.com/phosphor-icons/core) MIT, six weights as SVG.</p>
+</li>
+</ul>
+<h2>Unsplash</h2>
+<p>Licence (quoted from unsplash.com/terms section 5, which quotes the licence; unsplash.com/license itself returned HTTP 401 to my fetcher): "an irrevocable, nonexclusive, worldwide copyright license to download, copy, modify, distribute, perform, and use images from Unsplash for free, including for commercial purposes, without permission from or attributing the photographer or Unsplash, but this license does not include the right to compile images from Unsplash to replicate a similar or competing service."
+Not covered (terms s.5): trademarks, logos or brands visible in images; recognisable people (may need their permission); works of art or authorship shown in images. Check before using any photo with a face, a logo, a product brand, or artwork.
+Attribution: not required, appreciated. Good practice: credit in the site footer or an image-credits page.
+Reselling: redistributing, selling or printing and selling images downloaded from Unsplash violates the licence/ToS; API rules also bar selling unaltered photos (prints, products). "Compiling" means building a competing stock site or mass scraping. Using an unaltered photo as a hero on a client website is allowed; selling the file itself is not.
+Unsplash+ is a separate paid product with its own licence (unsplash.com/plus/license, not read). Free licence applies to the free library only.
+Practical rules: download from the site (not mass-scrape), keep a credits log (photographer, URL, date), re-check the licence page in a browser if the project is commercial since terms can change (terms page read Oct 6 2026).</p>
+<h3>Picking imagery that does not look like generic stock [analysis + NN/g photos-as-web-content + Della Mattia luxury article]</h3>
+<ul>
+<li>Evidence: users ignore decorative stock and examine real people, real products and information-carrying images (NN/g). Luxury readers recognise stock instantly (Della Mattia).</li>
+<li>Choose images that carry specific information or a single mood tied to the project's subject, not "people smiling at laptop", handshakes, generic skylines, or abstract gradients.</li>
+<li>Prefer: texture/material close-ups, architecture, landscape, still life, hands at work, odd crops, off-centre subjects with natural light. Avoid: posed models, centred subjects, over-saturated HDR, cliché hero concepts.</li>
+<li>Search with specific nouns and moods (e.g. "concrete stairwell shadow", "salt flat dusk") rather than category words ("business", "technology"); scroll past page 1-2 since the top results are the most reused.</li>
+<li>Make a set look like one shoot: same light direction, colour temperature and subject distance; apply one grade (black-and-white or a single tint) to unify mixed sources; crop deliberately to the composition (rule of thirds).</li>
+<li>Mix sources: his own stills, generated art, Poly Haven CC0 3D/HDRI, then Unsplash as the minority.</li>
+<li>Optimise: AVIF/WebP, sized to layout, explicit width/height, lazy-load below the fold, preload the hero.</li>
+</ul>
+<h2>Coolors palette generator (<a href="https://coolors.co/pricing">source</a>)</h2>
+<p>What it does: press spacebar to generate palettes, explore millions of user palettes, extract colours from an image, check accessibility contrast, preview palettes on real designs, organise into projects, export in several formats; works on web, mobile apps and plugins (home page text, via search result). Free plan: "always free", no time limit; limits on number of saved palettes/projects/collections (delete old ones to save new). Free includes ads. Pro adds: Coolors AI (credits), no ads, palettes up to 10 colours (free is 5), 10M+ ready schemes, unlimited saved palettes/colours/projects, pick colours from image, collages, pro profile, contrast check of palette variations, palette-visualizer layouts, advanced export (Web, UI, Print, Motion formats), custom logo on exported PDFs, private profile. Licence for palettes: colour values are not copyrightable material; check Terms if redistributing a collection.
+Use: seed from the brand's anchor colour, then check WCAG contrast (see , Radix 12-step scales for UI ramps); his champagne-gold accent can be tested here against pure black.</p>
+<h2>Slidesgo (<a href="https://slidesgo.com/faqs">source</a>)</h2>
+<p>Presentation templates for Google Slides, PowerPoint (and Keynote infographics). Licence: free for personal AND commercial use; you may not sublicense, sell, rent or redistribute Slidesgo content (or modified versions) without authorisation. Free users must attribute Slidesgo by keeping the credits slide; this also applies when using their infographics in a deck not built from a template. Premium lets you share without crediting Slidesgo and removes ads (15,000+ premium assets per their teacher page). Limits: unregistered users cannot download; registered free users get 3 template downloads and 3 AI-generated presentations per month; Premium unlimited, capped at 150 per month for security (pricing page). Re-downloads, the other app format and colour variants of an already-downloaded template do not count. Fonts: Google Slides pulls Google Fonts automatically; PowerPoint may need them installed. Terms page: https://slidesgo.com/terms-conditions (section 7.4 attribution; not read in full).
+For decks: pick one template, replace its fonts and palette with the brand's, edit the master slides (Slide &gt; Edit master / View &gt; Slide Master) rather than slides, remove template decoration, keep to one idea per slide. Free tier: leave the credits slide.</p>
+<h2>Freepik (now branded Magnific, https://www.freepik.com/)</h2>
+<p>Licence for Magnific Content (section 8.1): you may use content, modified or unmodified, in whole or part, combined with other content, provided you: no collective use; do not suggest endorsement by the company; do not put it into any database, archive, stock product or library for distribution; do not resell, assign or sublicense it or derivatives; do not use it as the main element of items made for resale (t-shirts, cups, cards, apps, NFTs, etc., unless your subscription terms allow); do not use it in a trademark (unless modified into something new and not confusingly similar); do not use it for machine-learning/AI purposes or person identification; no defamatory, obscene or offensive uses. Editorial-only content (logos, recognisable products, public buildings and events, recognisable people in the background) cannot be used commercially.
+Attribution (verbatim gist): "Unless otherwise indicated, authorization to use Magnific Content is free of charge and conditioned upon any use... being duly attributed to the Website/Company and, where applicable, to the Collaborator." To use it without attribution you must buy a Premium, Premium+ or Pro subscription and download the content while subscribed. Third parties may use content only in narrow client-service cases (you were professionally instructed and use a limited number of items).
+Other: Sponsored and Collaborators content can carry its own conditions; some content is under a separate "Specific License" shown on the page; licensed fonts allow website use under section 8.2 with restrictions (no embedding that exposes the font files, no modification). AI-generated "Originals" are view-only. Liability cap: EUR 100 on free or Essential plans, EUR 10,000 Premium, EUR 50,000 Premium+/Pro. Re-check the page before each commercial project; the product was renamed recently so terms may move.
+Practical: for a client site use the premium download (no credit needed) or credit it in the footer; prefer vectors that you recolour so they do not look like stock.</p>
+<h2>Video overlay sources (added Oct 9, for coding-lesson video overlays)</h2>
+<ul>
+<li>LottieFiles free animations: licence page read in full https://lottiefiles.com/page/license - "Lottie Simple License": download, modify, publish, commercial use allowed, attribution optional; modifications must carry the same licence; no compiling files to build a competing service. Note "Premium" items are separate and paid. Candidates (search excerpts only, items not opened): hand-drawn arrow https://lottiefiles.com/free-animation/arrow-01-ghOFwIFFMR, wiggle underline https://lottiefiles.com/free-animation/wiggle-line-highlight-aNgbQtCmF9 (check each item's own licence line before use).</li>
+<li>Remotion (React-to-video): licence page https://www.remotion.dev/docs/license and FAQ https://www.remotion.dev/docs/license-pricing-compliance/faq. Free License eligibility: an individual (personal or commercial), an organisation or team of up to 3 people, a non-profit, or evaluating without commercial use. Larger for-profit teams need the paid Company License (headings seen; prices not read). Correction: earlier line in this section was, now confirmed. See also: ,  section 3.</li>
+<li>Anti-pattern: licence of the Lottie player or Remotion code does not cover third-party animation files used in them (see  licence rule).</li>
+</ul>
+<h2>Pixel / arcade fonts and icons (verified Oct 10)</h2>
+<ul>
+<li>Press Start 2P: SIL OFL 1.1 (Reserved Font Name) https://raw.githubusercontent.com/google/fonts/main/ofl/pressstart2p/OFL.txt</li>
+<li>Silkscreen: OFL 1.1 https://raw.githubusercontent.com/google/fonts/main/ofl/silkscreen/OFL.txt</li>
+<li>VT323: OFL 1.1 https://raw.githubusercontent.com/google/fonts/main/ofl/vt323/OFL.txt</li>
+<li>Pixelify Sans: OFL 1.1 https://raw.githubusercontent.com/google/fonts/main/ofl/pixelifysans/OFL.txt</li>
+<li>pixelarticons (icon set): MIT, https://raw.githubusercontent.com/halfmage/pixelarticons/master/LICENSE</li>
+<li>Kenney game assets (UI sprites, sounds): CC0 per https://kenney.nl/support</li>
+<li>
+<p>Caveat: OFL fonts cannot be sold alone; check the exact asset pack licence on each Kenney page.</p>
+</li>
+<li>
+<p>Coolors verification (Oct 11): free tier exists; Pro adds "advanced export options" (optimized assets for Web, UI, Print, Motion), PDFs with custom logo, Coolors AI, 10-colour palettes, 10M+ scheme library, unlimited saves. Exact prices NOT visible to fetcher (JS-rendered) —. Contrast checker is listed on the free side.</p>
+</li>
+</ul>
+<h2>Interactive 3D/animation tools — pricing verified Oct 12</h2>
+<ul>
+<li>Spline: Free = web exports WITH watermark; Hobby $15/mo ($12 annual) removes watermark + higher-res images; Pro $30/mo ($25 annual) adds Apple/Android exports, video export, unlimited Variables/APIs/Webhooks; Max $70/mo ($60 annual) mainly more AI credits. Per-seat USD; yearly ~14-20% off.</li>
+<li>Rive: "Free to create, $9/mo to ship" — Free = 3 collaborative files in the editor; Cadet $9/mo (3 seats) ships to apps/products/games with unlimited files; Voyager $32/mo (25 seats, Libraries); Enterprise $120/mo ($10M+ revenue orgs, SOC2, dedicated support). Updates Oct 7 note: Cadet pricing confirmed current.</li>
+<li>Choice rule: Spline = 3D scenes/exports to web (watermark on free), Rive = interactive state-machine animation shipped to runtimes (free until you ship). See [[case-studies]] 2Advanced Rive rearchitecture.</li>
+</ul>
+<h3>Typewolf's curated Google Fonts 40 + serving/licensing notes (Oct 12)</h3>
+<p>(<a href="https://www.typewolf.com/google-fonts">source</a>):
+- The 40 (in page order): DM Sans, Inter, Space Mono, Space Grotesk, Work Sans, Syne, Libre Franklin, Cormorant, Fira Sans, Eczar, Alegreya Sans, Alegreya, Source Sans Pro, Source Serif Pro, Roboto, Fraunces, Inknut Antiqua, BioRhyme, Poppins, Archivo Narrow, Libre Baskerville, Playfair Display, Karla, Lora, Proza Libre, Spectral, IBM Plex Sans, Manrope, Montserrat, Lato, PT Sans, PT Serif, Cardo, Chivo, Neuton, Rubik, Open Sans, Inconsolata, Raleway, Merriweather.
+- Licences: every Google Font is OFL 1.1 or Apache 2.0 — commercial use and redistribution allowed with licence+copyright notice; still read the individual licence per font (some families differ).
+- Serving: Typewolf recommends the Google Fonts API over self-hosting because of cross-site caching (users likely have popular fonts cached already). Note tension: self-hosting wins on privacy/GDPR and single-connection performance on HTTP/2 — choose per project; both positions now sourced. See also: log (WOFF2/subsetting workflow).
+- Niche picks from the FAQ: condensed sans = Archivo Narrow, Barlow Condensed, Pathway Gothic One, Fjalla One, Oswald; chunky display serif = Abril Fatface, Rozha One, Ultra; blackletter = UnifrakturMaguntia, Pirata One, New Rocker; scripts = Tangerine, Dancing Script, Sacramento.
+- Typewolf's pairing guides are paid (Definitive Guide) — free pairing inspiration = the in-use examples on each font's page. The /top-10-google-font-combinations URL 404s.</p>
+<h2>Icon set licences</h2>
+<ul>
+<li>Tabler Icons: MIT https://github.com/tabler/tabler-icons</li>
+<li>Phosphor core: MIT https://github.com/phosphor-icons/core</li>
+<li>Lucide: ISC, with a block of Feather-derived icons under MIT (Cole Bemis); GitHub reports NOASSERTION because the file holds two licences https://github.com/lucide-icons/lucide. Keep both notices when shipping those icons.</li>
+</ul>
+<div class="pagenav"><a href="building.html">&larr; Building & Architecture</a><a href="anti-slop.html">Anti-Slop &rarr;</a></div>
+</main>
+</div>
+</body>
+</html>

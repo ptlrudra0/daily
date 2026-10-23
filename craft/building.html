@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building &amp; Architecture - The Web Craft Library</title>
+<meta name="description" content="A research shelf on how great websites are made: principles, recipes, case-study lessons, tools and sources.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Instrument+Sans:wght@400;500;600&family=Azeret+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top"><a href="index.html">The Web Craft Library</a><a href="index.html">All sections</a></header>
+<div class="wrap">
+<nav class="side"><ol><li><a href="foundations.html">01 Foundations</a></li><li><a href="styles.html">02 Styles & Aesthetics</a></li><li><a href="motion.html">03 Motion Craft</a></li><li><a href="texture.html">04 Texture & Print</a></li><li><a href="case-studies.html">05 Case Studies</a></li><li><a href="people.html">06 People, Studios & Sources</a></li><li><a href="reading.html">07 Psychology & UX Reading</a></li><li><a href="building.html" class="on">08 Building & Architecture</a></li><li><a href="tools.html">09 Tools & Assets</a></li><li><a href="anti-slop.html">10 Anti-Slop</a></li><li><a href="craft-pack.html">11 The Craft Pack</a></li></ol></nav>
+<main>
+<p class="kicker">Section 08 of 11</p>
+<h1>Building & Architecture</h1><p class="lede">Information architecture, navigation, layout primitives, design tokens, performance and shipping checklists.</p><h1>System design basics (started Oct 7)</h1>
+<h2>1. Frontend / static-site architecture</h2>
+<ul>
+<li>Astro project structure (https://docs.astro.build/en/basics/project-structure/): src/ holds pages, layouts, components, styles, images; Astro builds/optimises it. public/ holds unprocessed assets (fonts, icons, robots.txt, favicon, PDFs) copied as-is. Convention folders: src/components, src/layouts, src/pages, src/styles, src/images (names are convention except pages).</li>
+<li>Rule of thumb [from the above]: if it should be optimised/hashed, put it in src/; if the URL must stay fixed and untouched, put it in public/.</li>
+<li>Component reuse patterns, design tokens/CSS organisation, asset naming, scaling without rewrites (Next/Astro docs, Open Props already in ).</li>
+</ul>
+<h2>2. Backend fundamentals</h2>
+<h3>Caching (HTTP level)</h3>
+<ul>
+<li>MDN HTTP caching (https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Caching): a cache reuses stored responses, so the origin skips routing, session lookup, DB queries and templating. Private cache = per-user (browser); shared cache = CDN/proxy. Personalised responses need <code>Cache-Control: private</code> or they can leak to other users. <code>no-store</code> disables storing; avoid kitchen-sink header strings. Example <code>max-age=604800</code> = reuse for a week.</li>
+<li>web.dev HTTP cache article fetched but content not extracted (page body empty), not read. Content-hashed filenames + long max-age + short HTML cache:.</li>
+</ul>
+<h3>Databases</h3>
+<ul>
+<li>PostgreSQL indexes intro (https://www.postgresql.org/docs/current/indexes-intro.html): without an index a lookup like WHERE id = x scans the whole table row by row; an index on the column lets the DB find rows directly, like a book index. Docs also say the author/DBA must anticipate which columns get looked up.</li>
+<li>PostgreSQL transactions (https://www.postgresql.org/docs/current/tutorial-transactions.html): a transaction bundles steps into all-or-nothing; others don't see half-done changes; once acknowledged it survives a crash. Use for anything multi-step like payments/orders.</li>
+<li>Index costs on writes, SQL vs NoSQL choice, connection pooling, migrations, backups.</li>
+</ul>
+<h3>Load balancing</h3>
+<ul>
+<li>nginx HTTP load balancing (https://nginx.org/en/docs/http/load_balancing.html): spreads requests across several app instances for throughput, lower latency and fault tolerance. Methods: round-robin (default), least-connected, ip-hash (same client to same server). Config uses an <code>upstream</code> block listing servers. Page also lists session persistence, weights, health checks (headings read, not detailed).</li>
+<li>Student-level note [inference]: a single small site rarely needs this; a static site on a CDN gets the same effect free. Reach for it when one server can't keep up or must survive a failure.</li>
+<li>CDN primer, stateless app design (so any instance can serve a request), sessions, rate limiting.</li>
+</ul>
+<h2>Anti-patterns so far</h2>
+<ul>
+<li>Putting user-specific pages behind a shared cache without <code>private</code> (MDN).</li>
+</ul>
+<h2>Additions (Oct 8)</h2>
+<h3>Components (frontend)</h3>
+<ul>
+<li>Astro components (https://docs.astro.build/en/basics/astro-components/):.astro components are HTML-only templates rendered at build time or on demand; their frontmatter JS is stripped from the shipped page (zero JS by default). A component can be a snippet, a header/card, a whole layout, or a page (in src/pages). Interactivity is opt-in via client islands; personalised parts via server islands.</li>
+<li>Scaling rule [inference]: build small reusable pieces (Header, Button, Card), compose into layouts, keep one global stylesheet/tokens, add JS only where needed.</li>
+</ul>
+<h3>CDN</h3>
+<ul>
+<li>MDN CDN (https://developer.mozilla.org/en-US/docs/Glossary/CDN): servers in many locations hold copies, nearer to users, lower load on your server; whole static sites can be served from CDNs. Downsides: third-party dependency, extra attack vector (use Subresource Integrity), can be slower because of extra DNS/connections and no cross-site cache sharing. So don't assume a third-party CDN for libraries beats self-hosting.</li>
+</ul>
+<h3>Stateless apps</h3>
+<ul>
+<li>Twelve-Factor processes (https://12factor.net/processes): processes should be stateless and share-nothing; persist data in a database/backing service; never assume memory or disk survives to the next request; sticky sessions should not be relied on; keep session data in an expiring store like Memcached or Redis; compile assets at build time.</li>
+<li>Anti-pattern: storing uploads or sessions on one server's disk or memory, then adding a second server (12factor).</li>
+</ul>
+<h2>Additions (Oct 8)</h2>
+<ul>
+<li>web.dev HTTP cache (https://web.dev/articles/http-cache, now fetched, 50 KB): browser checks its cache first for every request; a hit removes network latency and data cost. Request headers: leave to the browser. Response headers set on the server matter most: Cache-Control (how long/who may cache), ETag (token the browser sends to revalidate an expired response), Last-Modified. Read through the response-header intro only; the versioned-URL section is.</li>
+<li>PostgreSQL index types (https://www.postgresql.org/docs/current/indexes-types.html): CREATE INDEX makes a B-tree by default, which fits most cases; others (Hash, GiST, SP-GiST, GIN, BRIN) are chosen with USING. Student default: B-tree.</li>
+<li>MDN CSS custom properties (https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/--*): <code>--name</code> variables used via var, scoped to the element, inherited, Baseline widely available since April 2017. Basis for design tokens declared once on:root.</li>
+<li>Still: versioned/hashed filenames, SQL vs NoSQL, migrations/backups.</li>
+</ul>
+<h2>Additions (Oct 8)</h2>
+<ul>
+<li>web.dev Love your cache (https://web.dev/articles/love-your-cache): sensible default is HTML/unversioned files with <code>Cache-Control: max-age=0,must-revalidate</code> (same as <code>no-cache</code>, which does NOT mean never cache). Content-hashed filenames (e.g. sitecode.af12de.js) can take <code>max-age=31536000,immutable</code> (a year, effectively forever). Don't hash by hand, use the bundler. Hash icons, CSS, data files too. Risk: lazy-loaded images with unhashed names can go stale or missing for users with cached HTML.</li>
+<li>Astro images (https://docs.astro.build/en/guides/images/): keep local images in src/ so Astro transforms, optimises and bundles them; public/ is copied as-is. Raw <img> is not processed. No native video support; use a hosted video service.</li>
+<li>MongoDB relational vs non-relational (https://www.mongodb.com/resources/compare/relational-vs-non-relational-databases): operational (OLTP) vs analytical (OLAP) data; most companies use both types of database. Vendor source, so treat the comparison as marketing-leaning; only the OLTP/OLAP framing used. a neutral SQL vs NoSQL source.</li>
+<li>Student default [inference]: start with Postgres/SQLite (relational); reach for NoSQL only for a clear reason.</li>
+</ul>
+<h2>Additions (Oct 8)</h2>
+<ul>
+<li>PostgreSQL constraints (https://www.postgresql.org/docs/current/ddl-constraints.html): constraints (CHECK, NOT NULL, UNIQUE, primary key, foreign key) make the DB reject bad data even if it comes from a default. Primary keys identify rows uniquely; foreign keys link tables. CHECK can't reliably reference other rows (use foreign keys).</li>
+<li>PostgreSQL backups (https://www.postgresql.org/docs/current/backup-dump.html): <code>pg_dump dbname &gt; dumpfile</code> writes SQL that recreates the database as of dump time; other formats allow parallelism. Student rule [inference]: schedule dumps and test a restore; a backup never restored is unproven.</li>
+<li>Still: neutral SQL vs NoSQL, migrations.</li>
+</ul>
+<h2>Additions (Oct 8)</h2>
+<ul>
+<li>SQLite "Appropriate uses" (https://sqlite.org/whentouse.html, written by the SQLite project, page example dated 2015): SQLite is local storage ("competes with fopen"), not a rival to client/server DBs. It works for most low-to-medium traffic sites; the project's conservative guide is under 100K hits/day, demonstrated at 10x that. Its own site ran ~400-500K requests/day on one shared VM. Client/server DBs fit better with many concurrent writers or data on a separate machine from the app (checklist section headings read, not the full text).</li>
+<li>Student default [inference from the above]: SQLite for a small real site, move to Postgres when writes are concurrent or the app spans several servers. This replaces the earlier "Postgres/SQLite" hedge, and is a neutral source for the SQL vs NoSQL gap only on the SQL side; NoSQL neutral source still.</li>
+<li>PostgreSQL modifying tables (https://www.postgresql.org/docs/current/ddl-alter.html): ALTER TABLE covers adding/removing columns and constraints, changing defaults/types, renaming. Headings only read; migration tooling.</li>
+<li>MDN server-side first steps URL returned a stub (140 bytes), not read.</li>
+</ul>
+<h2>Additions (Oct 8)</h2>
+<ul>
+<li>Prisma Migrate mental model (https://www.prisma.io/docs/orm/prisma-migrate/understanding-prisma-migrate/mental-model, vendor docs): a migration is a controlled change taking the schema from one state to another. Two patterns: model/entity-first (define schema in code, tool generates SQL) and database-first (write SQL, introspect). Keep migration SQL files in the repo under version control. Workflow: dev branch syncs local DB, CI applies <code>migrate deploy</code> to preview then production. Generic lesson holds for any tool (Prisma is just one example, not a recommendation).</li>
+<li>SQLite ALTER TABLE (https://www.sqlite.org/lang_altertable.html): headings read (rename table/column, add/drop column, no general ALTER COLUMN section content read). limits compared with Postgres.</li>
+<li>Martin Fowler "Schemaless Data Structures" (https://martinfowler.com/articles/schemaless/, 2013): page returned only the intro and contents (an interactive infodeck); body not read. Intro: schemaless is a main draw of NoSQL but has subtleties; schema exists implicitly in the code ("implicit schema"). Neutral NoSQL source still.</li>
+</ul>
+<h2>Additions (Oct 8)</h2>
+<ul>
+<li>PostgreSQL JSON types (https://www.postgresql.org/docs/current/datatype-json.html): Postgres stores JSON as <code>json</code> (exact text copy, reparsed each query) or <code>jsonb</code> (binary, slower to insert, much faster to query, supports indexing). Docs say most applications should prefer jsonb. Takeaway [inference]: a relational DB can hold flexible document-shaped fields, which removes much of the reason a beginner would pick NoSQL.</li>
+<li>MongoDB data modeling intro (https://www.mongodb.com/docs/manual/core/data-modeling-introduction/): documents in one collection need not share fields or types; example is a product catalogue whose items have different attributes; docs still say to plan the schema before production scale. Vendor source, so it states the case for NoSQL rather than comparing neutrally. Use it for what the model is, not for when to choose it.</li>
+<li>Redis quick start (https://redis.io/docs/latest/develop/get-started/data-store/): an in-memory data structure store; page returned mostly embedded JSON config, only title and contents read. Use as session/cache store is from 12-factor note above; Redis own caching docs.</li>
+<li>Neutral SQL vs NoSQL comparison still; the SQLite and Postgres jsonb pages give the practical default: start relational.</li>
+</ul>
+<h2>Additions (Oct 10): SQLite ALTER resolved, neutral SQL/NoSQL, Redis caching</h2>
+<ul>
+<li>SQLite ALTER TABLE full page (https://www.sqlite.org/lang_altertable.html): only four operations are directly supported - rename table, rename column, add column, drop column. SQLite stores the schema as plain text in sqlite_schema; every ALTER rewrites that text and reparses the whole schema, so a drop/rename fails if views, triggers or other tables still reference the column. Any other change (e.g. changing a column's type or constraints) needs the official 12-step procedure: foreign_keys=OFF, transaction, CREATE a new table in the desired shape, INSERT... SELECT the data across, DROP the old, RENAME the new, recreate indexes/triggers/views, foreign_key_check, commit, foreign_keys back on. PRAGMA writable_schema=ON (SQLite 3.38.0+) disables the parse error checking. Takeaway for a student: design SQLite tables carefully up front; real migrations mean copy-and-swap, so use a migration tool from day one (see Prisma note, Oct 8 07:33).</li>
+<li>Neutral-ish SQL vs NoSQL comparison: IBM Think, "SQL vs. NoSQL" (https://www.ibm.com/think/topics/sql-vs-nosql, by IBM Cloud Databases engineers; IBM sells both, so less biased than a one-product vendor). SQL: relational tables, predefined schema, scales vertically (horizontal sharding "not well-supported"), ACID transactions (atomicity, consistency, isolation, durability). NoSQL: "not only SQL", dynamic schema, four structures - column-oriented, key-value, document (JSON/BSON), graph; scales horizontally by adding nodes; trades via CAP theorem (consistency, availability, partition tolerance - pick two; e.g. MongoDB strongly consistent, Cassandra eventually consistent). This resolves the neutral-source gap [was Q since Oct 8]. Combined with the Postgres jsonb entry (Oct 8 14:36): a beginner default stays relational; NoSQL for a specific shape (cache/session key-value, document catalogue with wildly varying attributes, graph relationships).</li>
+<li>Redis caching patterns (https://redis.io/solutions/use-cases/caching/, vendor page, patterns are standard): cache-aside is the most common - the app talks to both cache and database, good for read-heavy loads where a miss is acceptable; query caching = cache-aside with no data transformation (speed up repeated SQL queries); write-behind - app writes only to the cache, the cache updates the DB asynchronously (write speed, complexity hidden); write-through - writes flow synchronously through the cache to the DB (favours consistency); cache prefetching - DB changes replicate into the cache before reads. In-memory caching = keeping hot data in RAM instead of disk for sub-millisecond reads. Enterprise claims on the page (200M ops/s, 99.999% SLA) are vendor marketing. This resolves the "Redis own caching docs" gap [was Q since Oct 8].</li>
+</ul>
+<h2>Design tokens: W3C DTCG format</h2>
+<ul>
+<li>Format Module 2025.10 read at https://www.designtokens.org/TR/2025.10/format/ (Community Group report, NOT a W3C Standard; the /tr/drafts/ page is a preview that says do not implement). Files use <code>.tokens</code> or <code>.tokens.json</code>, MIME <code>application/design-tokens+json</code>.</li>
+<li>A token is an object with <code>$value</code>; <code>$type</code> is mandatory (set directly, inherited from a parent group, or via alias); no type means invalid, tools must not guess.</li>
+<li>Types: color, dimension (object <code>{value, unit}</code>, unit px or rem only), fontFamily, fontWeight (1-1000 or names, 400=regular, 700=bold), duration (<code>ms</code>/<code>s</code>), plus composite types (typography, shadow, etc., section 9 - headings listed only).</li>
+<li>Use for the tracker/themes: define gunmetal/ivory/terracotta once as colour tokens, spacing and touch size (44, 48 from ) as dimension tokens, motion timings as duration tokens; alias semantic names ("surface", "accent") to the palette so a style swap changes one layer.</li>
+</ul>
+<h2>Spatial systems, grids, layouts</h2>
+<p>Source: <a href="https://www.designsystems.com/space-grids-and-layouts/">https://www.designsystems.com/space-grids-and-layouts/</a> (Elliot Dahl, designsystems.com)
+- Spatial system = rules for how you measure, size, and space UI elements. Predictable rhythm reads as trustworthy; no rhythm reads as cheap.
+- Base units in use: 4, 5, 6, 8, 10pt - no wrong answer. Dahl's pick: 8pt linear scale for elements, 4pt half-steps for icons/small text, 4pt baseline (line-heights divisible by 4). Smaller bases (4/5/6) offer too many near-identical choices (12 vs 16 hard to eyeball); odd bases (5pt) cause split pixels when centering and on 1.5x scaling.
+- When padding and strict height conflict: element-first sizing for predictable content (buttons, inputs), content-first strict padding for unpredictable content (tables).
+- Borders: Figma measures the element, not the border; the web mostly uses box-sizing: border-box. Agree on the source of truth with the team.
+- Grids: column grid (12 columns divide into halves/thirds/quarters; gutters follow the spatial system), modular grid (matrix, strict formats, can break for responsive), baseline grid (web uses line-heights, not baselines - cross-platform difference to watch).
+- Scaling logic, three concepts: adaptive (distinct per format, expensive), responsive (fluid, one build, but touch vs mouse differs), strict (fixed width, scrollable - data tables, graphs). Some products need all three.
+- Retrofitting: start small (buttons, then form fields), make balanced decisions, capture before/after wins, keep momentum with milestones.</p>
+<h2>Design systems 101</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/design-systems-101/">https://www.nngroup.com/articles/design-systems-101/</a> (Fessenden 2021, reviewed 2026)
+- Definition: a complete set of standards to manage design at scale using reusable components and patterns. Repository = style guide + component library + pattern library; plus the team that maintains it (min: 1 interaction designer, 1 visual designer, 1 developer).
+- Component library entry = unique name, description, attributes, states, code snippets, framework notes. Pattern library = groupings/layouts/templates (e.g. page-header pattern), a level above components.
+- Benefits: speed at scale, frees designers for harder problems, shared language across teams, visual consistency, onboarding tool. Costs: dedicated ongoing maintenance, teaching time; NOT worth it for one-off projects or early prototypes (ROI is in future replication).
+- Adoption: adopt / adapt / create, in rising order of control, cost and brand differentiation. More custom = more time and money; heavy customization of an existing system can exceed building your own.</p>
+<h2>Front-end style guides</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/front-end-style-guides/">https://www.nngroup.com/articles/front-end-style-guides/</a> (Laubheimer 2016)
+- Definition: modular collection of all UI elements with copy-paste code snippets; a living document (usually a web page, not PDF), not an editorial or branding style guide. Distinct from pattern libraries (broad design ideas vs implementation details).
+- Benefits: faster prototyping (quick sketch referencing named components replaces full mockups), enforced consistency (make the right thing the easy thing).
+- 8 requirements: TOC by category; responsive grid/layout rules; color palette in the right formats; type styles (name, size, weight, leading, tracking + contexts); per-component context-of-use description; code snippets (accordion); positioning/spacing specs; dos and don'ts. Include responsive behavior per component.
+- 25 starter components listed (buttons, breadcrumbs, cards, tables, dialogs, nav, pickers, progress...).</p>
+<h2>Design Tokens Format Module 2025.10</h2>
+<p>Source: <a href="https://tr.designtokens.org/format/">https://tr.designtokens.org/format/</a> (W3C Design Tokens Community Group, Draft Community Group Report Jul 2026 - PREVIEW, explicitly "do not implement as authoritative"; not a W3C standard)
+- A JSON interchange format so tokens flow between design tools, translation tools (Style Dictionary, Terrazzo) and docs without bespoke glue.
+- Anatomy: a token is any JSON object with a $value property ($value is reserved); optional $type, $description, $extensions (vendor-namespaced), $deprecated. $type is inheritable from the nearest parent group that sets it; a token with no $type anywhere up the chain is invalid.
+- Groups = objects WITHOUT $value (nest arbitrarily); an object with both $value and children is an error tools must report. $-prefixed properties are reserved everywhere.
+- Usage note: this replaces the earlier failed attempt to read designtokens.org/tr/drafts (logged in ). Cite the format as "draft" until the CG report stabilises.</p>
+<h2>Brad Frost: Atomic Design methodology</h2>
+<p>Source: <a href="https://atomicdesign.bradfrost.com/chapter-2/">https://atomicdesign.bradfrost.com/chapter-2/</a> (book is paid; this chapter is the free online core)
+- Five stages as a MENTAL MODEL, not a linear pipeline: atoms (indivisible UI elements: labels, inputs, buttons + their base properties), molecules (simple bonded units: label+input+button = search form; single-responsibility, testable, reusable), organisms (distinct interface sections: header = logo+nav+search; or the same molecule repeated = product grid), templates (page-level layout of components, content SKELETON, no real content), pages (templates + representative real content).
+- The template/page split is the load-bearing idea: pages exist to STRESS the system with real content - the 340-character headline, the empty state, the admin-only buttons. Variations found at page stage feed back into molecule/organism construction; that's how systems get resilient instead of demo-pretty.
+- Advantages: traverse part&lt;-&gt;whole (painter up close vs stepping back); clean separation of content structure (template) from content (page) while acknowledging they shape each other (a name wrapping to five lines is a molecule bug found at page stage).
+- Taxonomy is yours: the chemistry names encode hierarchy (unlike "components/modules"), but GE shipped "Principles/Basics/Components/Templates/Features/Applications" - the method matters, not the labels.
+- Pattern library role: atoms page = all base styles at a glance (the design-system inventory, cf. design-systems-101 front-end style guides).</p>
+<h2>Brad Frost: Maintaining design systems</h2>
+<p>Source: <a href="https://atomicdesign.bradfrost.com/chapter-5/">https://atomicdesign.bradfrost.com/chapter-5/</a>
+- A style guide is an artifact; a design system is alive. Static deliverables (PSD, PDF, one-off style guide) rot into the trash once the pattern library stops reflecting the products it serves.
+- Invert the diagram: the design system underpins the products, not the reverse. "Design system first" adds friendly friction: a fix found in one product (custom dropdown underperforming) gets evaluated as a SYSTEM change, so improvements propagate and one-offs don't erode the system.
+- It's a product, not a project (Nathan Curtis): no definition of done. Path to official: make a thing -&gt; show it's useful (show, don't tell) -&gt; get sanctioned with real budget/people; if refused, keep growing grassroots.
+- Makers vs users: not everyone contributes, but someone must own it. Makers govern (bird's-eye), users apply (on-the-ground); the relationship needs constant communication - Slack channel, office hours, regular state-of-the-union reviews. Baked-in best practices (a11y, perf, UX) let junior users ship senior-quality work.
+- Governance answers: what happens when a pattern doesn't fit, how requests/bugs/retirements are handled, who approves, how changes deploy and get communicated. Canonical's Vanilla team mapped the decision tree. Change types: modify, add (beware Wild West bloat - treat as one-off until a second team wants it), remove (Salesforce's Sass Deprecate flags + recommends replacements before chopping).
+- The holy grail: pattern library and production in lockstep - one change propagates everywhere (Lonely Planet's Rizzo exposed an API of UI patterns consumed by both). Requires centralised architecture + culture; spectrum from copy-paste to baked-in.
+- Also: make it cross-disciplinary, approachable (good-looking docs - Yelp's guide), visible (evangelism, training, communicating change), context-agnostic yet contextual.</p>
+<h2>Brad Frost: Designing Systems - ch1</h2>
+<p>Source: <a href="https://atomicdesign.bradfrost.com/chapter-1/">https://atomicdesign.bradfrost.com/chapter-1/</a>
+- Kill the page metaphor: a page is not a uniform, quantifiable unit ("a five-page website", "30,000-page university" = three content types, two layouts). Effort is measured in functionality and components, not page count.
+- Modularity is the answer to the device flood: interchangeable parts lineage (Ford assembly line, OOP single-responsibility) now across strategy (kill the 3-8yr New-And-Shiny redesign - Spool's Magic Escalator of Acquired Knowledge), content (NPR COPE: create once, publish everywhere), code (OOCSS/SMACSS/BEM), and visuals (style tiles, element collages, "design atmosphere" instead of full comps - Stephen Hay: comps are "the most effective way to show your clients what their website will never look like").
+- UI frameworks trade look-alike sameness + bloat + someone else's naming for speed; past a customization threshold the speed gain is gone. Dave Rupert's answer: not Bootstrap for every client - "tiny Bootstraps for every client." Build YOUR system.
+- Style guide taxonomy: brand identity (logos, palettes, collateral), design language (philosophy, e.g. Material), voice and tone (MailChimp shifts tone when your card is declined), writing, code style guides, and the pattern library (the main event).
+- Benefits: consistency (four interfaces in five clicks kills payment trust), shared vocabulary (Starbucks "Blocks Three-Up"), education (cures "special snowflake syndrome"), isolated testing, speed after the up-front cost, long-haul foundation that survives redesigns.
+- Challenges: the hard sell to short-term thinkers, time cost, auxiliary-project chopping block (like accessibility - bake it in), maintenance/governance (ch5), audience confusion (designers-only watering hole), lack of usage context, no clear methodology (hence atomic design).</p>
+<h2>Brad Frost: The Atomic Workflow - ch4</h2>
+<p>Source: <a href="https://atomicdesign.bradfrost.com/chapter-4/">https://atomicdesign.bradfrost.com/chapter-4/</a>
+- It's people: tools and talent fail without cross-discipline cooperation (Boulton). Best time to establish a system: now; piggyback on a redesign/replatform.
+- Pitch in time-and-money: consistency = faster mastery = conversions; reuse = velocity; shared vocabulary = fewer meetings; isolated testing = faster QA; a11y baked in scales and lowers lawsuit risk.
+- Interface inventory (the wrecking ball of truth): screenshot every UNIQUE pattern instance per category, whole team in a room, one shared tool (Google Slides), 30-90 min timed, dig deep (support pages, 404s, legal - users see one brand). Categories: global, nav, image types, icons, forms, buttons, headings, blocks, lists, interactive, media, third-party, ads, messaging, colors (CSS Stats/Stylify Me), animation (screen-record). Present per category, surface naming chaos ("utility bar"/"admin nav"), merge into an uber-document: anyone can see 37 button styles is wrong. Then decide keep/merge/kill, settle names, seed the pattern library.
+- Ask forgiveness, not permission: like a11y and performance, build the system by default; organize the Lego bricks before building (Nagel) and reveal the system after the on-time launch.
+- Reset expectations: design is not visual aesthetics alone - accessibility, flexibility, performance-as-design-principle, progressive enhancement, future-friendliness. Death to waterfall (the homepage_v9_FINAL.psd parable): development IS design - HTML/CSS build the UI, so front-end belongs inside the design process; static comps only let stakeholders sign off on pictures. Get into the browser fast to confront the real medium (network, motion, ergonomics, rendering, quirks). Process = subtractive sculpture: fidelity built up over passes.
+- Direction artifacts: content patterns + display patterns early; style tiles/element collages carry atmosphere (ch1) without fake layouts.</p>
+<h2>Brad Frost: Tools of the Trade - ch3</h2>
+<p>Source: <a href="https://atomicdesign.bradfrost.com/chapter-3/">https://atomicdesign.bradfrost.com/chapter-3/</a>
+- Pattern Lab = static-site generator for pattern libraries, NOT a UI framework (deliberately ugly default so nobody mistakes it for one), language-agnostic. The features are the point; any tool with them works.
+- Russian nesting dolls via includes ({{&gt; atoms-thumb}}): atoms inside molecules inside organisms inside templates. DRY: change a pattern once, every usage updates. The final interface is one instantiation of the system.
+- Structure/content separation: data.json defaults (placeholder text, FPO grayscale images), page-level JSON overrides pour in representative content. Benefits: resilient agnostic patterns, ad-hoc CMS, blueprint for back-end integration, non-developers can edit content safely.
+- Pseudo-patterns (dashboard~admin.json): inherit page data, flip one variable (isAdmin) to articulate the variations static comps never get designed for: no avatar, 87 cart items, 400-char titles, empty states, nested comments, admin vs user, urgent messages. Best case AND worst case, concurrently.
+- ish. viewport tool: small-ish/medium-ish/large-ish RANDOMIZED widths force thinking across the whole resolution spectrum instead of iPhone/iPad breakpoints; also a client education tool. (Container queries named as the dream; now real.)
+- Code view: expose the pattern's HTML (and CSS/JS; Salesforce Lightning shows HTML+SCSS). Lonely Planet Rizzo exposes the include call - single source of truth.
+- Living documentation: per-pattern Markdown descriptions + clickable annotations ON the living UI, replacing spec PDFs that end up in the trash.
+- Lineage: shows both what a pattern contains and where it is used - instant QA scope when changing a pattern, and spots redundant patterns before launch.
+- Selection checklist for any pattern-library tool: descriptions/annotations, code view, full-resolution-spectrum viewing, pattern variations, dynamic real content, lineage context.</p>
+<h2>patterns.dev vanilla: islands, loading sequence, PRPL, rendering patterns — new vein</h2>
+<p>Sources: patterns.dev/vanilla/{islands-architecture,loading-sequence,prpl,rendering-patterns}.
+- LOADING SEQUENCE (458): FCP occurs before LCP before FID/INP - so resources must be prioritized in metric order: what FCP needs first, then LCP, then interaction. The classic failure is the developer-expectation gap: devs think resources are prioritized as written, browsers see discovery order + scanner + hints. Sequence deliberately or the metrics fire late.
+- PRPL (459): 2016 Google pattern (Push, Render, Pre-cache, Lazy-load) for flaky mobile networks. Pillars survive, implementations moved on: HTTP/2 server push is DEAD (removed from Chrome) - replaced by link preload/modulepreload + HTTP 103 Early Hints; app shells absorbed into streaming SSR; lazy-load now native loading="lazy" + dynamic import + fetchpriority + content-visibility.
+- RENDERING PATTERNS (460): static (build-time HTML, CDN-cached: instant TTFB/FCP/LCP, zero layout shift) is the default winner for same-for-everyone content; variations add build-time data or client-fetched dynamic slots (skeleton + SWR). Chrome team guidance: prefer static or SSR over full client rehydration. Different pages on one site can use different patterns.</p>
+<h2>patterns.dev vanilla: import-on-interaction, import-on-visibility, third-party, tree-shaking</h2>
+<p>Sources: patterns.dev/vanilla/{import-on-interaction,import-on-visibility,third-party,tree-shaking}.
+- IMPORT-ON-INTERACTION (461): defer component code until first use (click/hover/focus). Verified example: Google Docs defers 500KB of share-feature script until the user clicks Share. Best for third-party widgets (chat, video players); for first-party code, PREFETCH-on-idle beats import-on-interaction when the interaction is predictable (no load delay at click time).
+- IMPORT-ON-VISIBILITY (462): same idea triggered by IntersectionObserver - component imports only when scrolled into view. Natural pair with loading="lazy" images: code below the fold arrives with the fold.
+- THIRD-PARTY (463): 94% of web pages use third-parties (Web Almanac 2021); images and JS dominate. Costs: extra origin round-trips, main-thread contention, unpredictable updates. Strategy ladder: audit impact first -&gt; defer to idle/interaction -&gt; facade pattern (static placeholder that swaps to the real widget on interaction - the YouTube-lite-embed trick) -&gt; Next.js Script-style scheduling -&gt; Partytown (experimental: runs 3P scripts in a worker).
+- TREE-SHAKING (464): bundler eliminates dead code before bundling; needs ES modules (statically analyzable), sideEffects:false in package.json for library authors. Reduces download + parse + execution. Verify the shake actually happened (bundle analyzer) - named imports don't guarantee it.</p>
+<h2>Creative / studio / film (e.g. Obsession-style)</h2>
+<p>Hero = one cinematic object (video loop, 3D, still with grade). Typographic statements, huge negative space, slow measured motion, one motif. Smooth scroll story with pinned chapters. Strong art direction on every image (his films/stills, grain/grade consistent). Sound optional and off by default.</p>
+<h2>Commercial / brand / luxury</h2>
+<p>Trust first: speed, clarity, original photography, real copy. Hero product or place. Clear primary action visible in first viewport. Few sections, long breathing space, subtle motion. Avoid stat cards without sources, generic testimonials.</p>
+<h2>Product / SaaS / app</h2>
+<p>Lead with the most characteristic thing in the product's world (its real UI/data) not a stock hero. Show the product doing the thing (actual screens, one hero shot). Pricing and CTA plain. Motion = feedback (press 0.97, origin-aware popovers), not decoration. Base components on shadcn/Radix then restyle heavily.</p>
+<h2>Resume / portfolio</h2>
+<p>One sentence on who + what you make above the fold, then 3-5 projects with outcome, role, stack, link; contact is one click. Fast, accessible, printable CV link. Guides: thecrit.co/resources/coding-portfolio-guide, figma.com/resource-library/portfolio-website-examples. Distinct feel from his own subject (his work as the hero), not a template.</p>
+<h2>QA before handing over</h2>
+<p>5-second test (what/why/action); "expensive" test (every gap reasoned); compare to references; slop scan against ; mobile recomposed not shrunk; Lighthouse/CWV; reduced-motion; screenshot every section at 1440 and 390 widths and look at them.</p>
+<h2>Resume/portfolio, verified additions</h2>
+<p>Decide what the portfolio must prove before coding (target role, strongest 3-5 projects, shared info per project, which interactions truly need code, who updates it and how often). Choose the lightest stack by maintenance, not status: static HTML/CSS is a real start; use Next.js only when repeated content earns it; do not make setup the project. Build the minimum useful version first. Model project content consistently (orientation facts + what the project proves). Verify: semantic landmarks/headings, meaningful source order, 320px reflow and 200% text, keyboard focus visible, reduced motion respected, essential info not dependent on animation.</p>
+<h2>Ecommerce product page: remove uncertainty before spectacle</h2>
+<p>Source read: Baymard, Edward Scott, updated Mar 18 2026, https://baymard.com/blog/current-state-ecommerce-product-page-ux. Public summary of testing/benchmark research, not the paid full guideline catalogue. Applies to ecommerce product pages, not universally to portfolio heroes.
+- Expose size choices as buttons, with unavailable options visible, rather than hiding stock in a dropdown.
+- Pair clean product shots with scale/context imagery. Wearables need a human model to communicate fit. One hero image alone cannot answer every product question.
+- Let guests save/wishlist without forcing account creation. Display unit pricing when quantities vary.
+- Put estimated shipping/total cost and understandable return information near the buying decision. Do not force adding to cart just to discover costs.
+- Where gifting matters, explain packaging, price concealment and delivery options on the product page.
+- Make staff replies distinguishable from customer reviews; allow manual navigation across reviewer-uploaded images without repeatedly opening separate reviews.
+House-style application: pure black and unboxed information can remain, but the purchase facts must be easy to scan and reach. Do not hide uncertainty-reducing information to keep a sparse composition. This is our synthesis, not a Baymard instruction about black backgrounds.</p>
+<h2>Token helpers without adopting a prefab visual style</h2>
+<p>Open Props usage reference: https://open-props.style/. Example npm CSS imports (requires a bundler that resolves package imports):</p>
+<pre><code class="language-css">@import &quot;open-props/sizes&quot;;
+@import &quot;open-props/easings&quot;;
+</code></pre>
+<p>Use these as raw ingredients, then map to your chosen brand spacing and motion scale. Normalize and buttons are optional, not a required reset or design system. https://utopia.fyi/ offers fluid type/spacing scales; choose endpoint sizes based on the actual composition, then test between them. https://cubic-bezier.com/ allows side-by-side easing comparison. These references verify tool capability, not the visual quality of a particular build.</p>
+<h2>GLB optimisation starting point</h2>
+<p>https://gltf-transform.dev/cli gives these commands:</p>
+<pre><code class="language-bash">gltf-transform inspect input.glb
+gltf-transform optimize input.glb output.glb --compress draco --texture-compress webp
+</code></pre>
+<p>The second line is a documented starting point, not a universal best setting. Choose after inspecting geometry, textures and draw calls; confirm renderer support and visually compare the output. Format-check with Khronos Validator, then measure in the real page on a representative low-power device. No model was rendered or benchmarked in this research pass.</p>
+<h2>Typography must survive loading</h2>
+<p>Sources: https://web.dev/articles/font-best-practices and https://developer.chrome.com/blog/font-fallbacks, read Oct 7 2026.
+- Use WOFF2 and the weights/styles/languages the site actually needs. Subsetting must preserve the full set of supported content, including names, currencies and local scripts, not only one screenshot's text. Check font modification rights first.
+- Load font declarations early; preload only truly critical files. A preload can compete with hero/LCP resources and bypass unicode-range selection.
+- Choose <code>font-display</code> knowingly. <code>swap</code> shows text promptly but can move layout when font metrics differ; <code>optional</code> can avoid a late swap but may leave the fallback on that visit. Neither is a universal design default.
+- Generate font-specific fallback metrics rather than borrow values from another family. Use size/vertical metric adjustments as needed, then test failed loading, slow loading, narrow screens, zoom and representative glyphs.
+- Treat fallback composition as part of the design: a premium hero that breaks before the font arrives is unfinished. No loading/CLS benchmark was run in this research pass.
+Tools: fontTools and Fontaine are listed in  with their own licences; those licences do not replace the font's licence.</p>
+<h2>Image art direction before compression</h2>
+<p>https://web.dev/learn/design/picture-element and https://web.dev/articles/responsive-images, read Oct 7 2026.
+- One composition at several resolutions: use <code>srcset</code> plus accurate <code>sizes</code> so the browser can choose.
+- Different compositions for different layouts: use <code>picture</code> and media-qualified sources, keeping an <code>img</code> fallback and meaningful alternative text.
+- Reserve layout space with dimensions/aspect ratio. Do not blindly copy a tutorial's lazy-loading attribute onto the main above-the-fold hero; prioritise the image that matters to first render.
+- Crop before encoding decisions. Compare mobile/desktop crops and compressed variants at intended size, including line art/alpha/grain. Sharp attention crops and Squoosh compression previews are helpers, not proof the result fits the brand.
+- Keep original files and licence provenance; generation of delivery derivatives does not remove attribution obligations. These are our build checks; no real-page image benchmark was run here.</p>
+<h2>SVGs: smaller is not enough</h2>
+<p>References read: https://svgo.dev/docs/plugins/removeViewBox/, https://svgo.dev/docs/plugins/cleanupIds/, https://react-svgr.com/docs/options/.
+Keep originals, optimise a copy, then inspect output. Test scaling, contrast, clipping, gradients/masks, repeated instances and accessible name. SVGO ID minification can collide across inlined documents; prefixing reduces risk, while repeated React instances can still require per-instance IDs. Do not remove viewBox merely to save bytes. Preserve or intentionally replace meaningful title/description text. These are checks for an implementation, not proof a tool makes every SVG safe automatically.</p>
+<h2>A baseline is a decision, not a screenshot folder</h2>
+<p>https://playwright.dev/docs/test-snapshots documents screenshot comparison and warns that browser/OS/hardware differences affect output. Generate and compare in a consistent environment. Inspect initial baselines and changed pixels before accepting updates; don't increase tolerances merely to silence a broken composition. Exercise important states: menu open, focus visible, narrow layout, failed font/image, reduced motion and long content. These state choices are our proposed coverage, not a claim that Playwright covers them automatically.
+ https://github.com/dequelabs/axe-core flags uncertain checks as incomplete and says manual review remains necessary. Check keyboard access, modal focus, reading order and motion outside the automated report.
+ https://github.com/GoogleChrome/lighthouse-ci/blob/main/docs/ supports CI audits/assertions; use them to catch regressions, not to claim every real user has the same experience.</p>
+<h2>QA checklist addition: texture protocol</h2>
+<h1>Website structure, IA and navigation</h1>
+<h2>IA vs sitemap</h2>
+<ul>
+<li>IA = structuring and organising content (labels, hierarchy, relationships); a sitemap is one planning visual of it (hierarchy of boxes, tiers). Sitemaps are internal working documents; a footer HTML sitemap for users is optional. (<a href="https://www.nngroup.com/articles/information-architecture-sitemaps">source</a>)</li>
+<li>Method: card sort to find users' mental models, tree test to check findability, then label. Card sort generates grouping ideas (early stage; gives options, not a final structure; individuals group differently); tree test evaluates an existing structure by having users find where things live. For a small personal/portfolio site: sketch the sitemap, then ask 3-5 people to find 5 things from a text-only tree (a cheap tree test). (<a href="https://www.nngroup.com/articles/card-sorting-tree-testing-differences">source</a>)</li>
+</ul>
+<h2>Menu rules</h2>
+<p>Source: NN/g menu-design checklist of 17 guidelines (<a href="https://www.nngroup.com/articles/menu-design/">source</a>)
+- Visible: show nav on large screens; expected locations; link colour with strong contrast; don't cover the screen on desktop. Location: indicate the current page in the menu; local nav for related content. Options: clear, specific, familiar wording; scannable labels; tiers for large sites; cues for long menus. Manipulation: big tap/click targets; caret on submenus; click-activated not hover-activated submenus; avoid multilevel cascading (use mega menus or landing pages); sticky or partially sticky for long pages; frequent commands within easy reach; avoid gimmicky nav patterns.
+- Hidden nav: hiding the main navigation cuts discoverability almost in half, lengthens tasks and raises perceived difficulty; worse on desktop than phone. So: show the nav on desktop; on mobile prefer a visible short bar or visible key links. (<a href="https://www.nngroup.com/articles/hamburger-menus">source</a>)
+- Mobile patterns: nav/tab bar (few options), hamburger (many options, less discoverable, fine for browse-mostly sites), navigation hub (task-oriented sites make the homepage the nav). Hybrid: show 3-4 key items plus a menu button. (<a href="https://www.nngroup.com/articles/mobile-navigation-patterns">source</a>)
+- Wayfinding: visitors don't use the front door; every page needs location signals (highlighted nav item, breadcrumbs on deep sites, page title). Test: show a page cold, ask "where are you on this site, how can you tell?". (<a href="https://www.nngroup.com/articles/navigation-you-are-here">source</a>)</p>
+<ul>
+<li>His rule (one universal nav on every page, grouped in one rounded bar, animated transitions) matches visible navigation. Keep few items, show current-page state (accent or underline-free fill), keep tap targets large, on mobile keep key links visible rather than only a hamburger, click-activated dropdowns not hover-only.</li>
+</ul>
+<h2>Structure by site type</h2>
+<ul>
+<li>Creative / film / studio: Home (hero) &gt; Work (grid or index) &gt; Project page (full-bleed story) &gt; About &gt; Contact. 4-5 nav items. Entry via one strong statement; work index is the core.</li>
+<li>Commercial / brand: Home &gt; Product/Collection &gt; Product detail &gt; Story/About &gt; Contact/Buy. Primary CTA persistent, trust signals early, minimal tiers.</li>
+<li>Product / SaaS: Home (what + proof + CTA) &gt; Features or How it works &gt; Pricing &gt; Docs/Resources &gt; Sign in/Get started. Flat IA, CTA in nav at right.</li>
+<li>Resume / portfolio: single page or 3 pages: Intro (who/what) &gt; Selected work (3-5, with outcome) &gt; About &gt; Contact; CV download. Anchor nav with scroll-spy.</li>
+<li>Flows: define the primary action per page and the path to it in &lt;=3 clicks; every page answers where am I, what is here, where next.</li>
+</ul>
+<h2>Checklist</h2>
+<ul>
+<li>5-second test; every page reachable from nav in &lt;=3 clicks; current-location visible; labels are nouns users use; focus order and skip link; 404 and footer links; internal links between related pages; readable URL structure.</li>
+</ul>
+<h2>Mega menus and progressive disclosure</h2>
+<ul>
+<li>Mega menus: big 2-D panels grouping many options, everything visible without scrolling; beat plain dropdowns on big sites because users can compare options without relying on memory; support grouping and richer typography/images. Rules: hover timing - wait 0.5s of stationary pointer before opening, show within 0.1s, keep open until the pointer has been outside item and panel 0.5s, then hide in under 0.1s; handle the "diagonal problem". Group by card-sort results, medium granularity, concise front-loaded labels, base-form verbs, distinct labels, order by importance (top-left first), show each choice once. Keep simple: no widgets or search box inside the menu. Accessibility: make each top-level item a real link to a page listing the same options in plain HTML; avoid tiny targets. For a luxury/portfolio site with 4-6 items, a full-screen overlay menu replaces this, but the same timing, grouping and "top-level is a real link" rules apply. (<a href="https://www.nngroup.com/articles/mega-menus-work-well/">source</a>)</li>
+<li>Progressive disclosure: show only the few most important options first, reveal the rest on request. Anything on the first screen signals importance; improves learnability, efficiency and error rate. Get the split right (frequent needs up front) and label the way in with strong information scent. Web use: hero then summary then case-study detail page; collapse secondary info behind a clear link; one primary CTA. (<a href="https://www.nngroup.com/articles/progressive-disclosure/">source</a>)</li>
+</ul>
+<h2>NN/g homepage design: 5 fundamental principles</h2>
+<p>(<a href="https://www.nngroup.com/articles/homepage-design-principles/">source</a>)
+1. Easy access to the homepage: logo link plus an explicit Home link on every page; predictable URL; homepage visually distinct from interior pages.
+2. Say who you are and what you do: logo top-left (centred or tiny logos were marked down), plus a plain tagline; "Welcome to..." greetings carry no information; avoid walls of text.
+3. Reveal content through examples: most important content above the fold, with a cue to lead users down; show specific examples of what the site offers.
+4. Prompt actions: clear descriptive link labels; visual hierarchy that emphasises high-priority tasks; primary navigation in a highly noticeable place.
+5. Keep it simple: standard homepage designs; "Minimize motion and animation"; immediate access to content; no popups or splash screens unless legally required.</p>
+<h2>Cognitive load</h2>
+<ul>
+<li>Intrinsic load = effort of absorbing the content and tracking goals; extraneous load = processing that does not help understanding, e.g. font styles that carry no meaning. Remove extraneous load; do not try to remove intrinsic load. Supports the one-hero, one-accent, few-type-styles rule. (<a href="https://www.nngroup.com/articles/minimize-cognitive-load/">source</a>)</li>
+</ul>
+<h2>WCAG contrast numbers</h2>
+<ul>
+<li>AA: 4.5:1 normal text, 3:1 large text (14pt bold / 18.66px bold, or 18pt / 24px) and 3:1 for UI components and graphics (WCAG 2.1). AAA: 7:1 normal, 4.5:1 large. Check grey-on-black body copy and low-opacity captions on the pure-black builds. (<a href="https://webaim.org/resources/contrastchecker/">source</a>)</li>
+</ul>
+<h2>Navigation semantics and overlay behaviour (Oct 7 2026)</h2>
+<ul>
+<li>Modal dialog pattern: a modal overlay makes background content inert, moves focus inside, contains Tab/Shift+Tab, closes on Escape and usually restores focus to its trigger. Include a visible close control and accessible title. Initial focus depends on content, not always the first button. Never mark an overlay <code>aria-modal</code> while leaving background interaction active. (<a href="https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/">source</a>)</li>
+<li>Build distinction: a small navigation disclosure should not trap focus like a modal. A genuinely modal full-screen navigation can use dialog behaviour; visual size alone does not establish semantics. Animating a menu does not remove keyboard/focus obligations.</li>
+</ul>
+<h2>Real-site desktop nav studies (screenshots viewed Oct 8 08:34-, 1280x720 and 390x844)</h2>
+<p>Viewed live homepages; desktop top fold only unless noted; content as of capture date. Screenshots were temporary (/downloads); claims rest on the viewings logged here.
+- Stripe (https://stripe.com): white page, nav with chevron dropdown links (Products, Solutions, Developers, Resources) plus Pricing; two buttons right (outlined "Sign in", filled "Contact sales"). Hero is a large gradient ribbon behind the headline. Lesson: dropdowns signalled by chevrons; ribbon acts as the single hero object; text sits over it, so check contrast.
+- Pattern across both: logo left, links right, one primary button, nav height roughly 70px.
+- Lusion (https://lusion.co): two loads, up to 20s each, stayed on the preloader (white bar plus a large scrolling number counter in the bottom-left corner, count passed 100). Never reached the nav, so no nav lesson. The preloader itself is a pattern: pure black, one bar, an oversized counter. Likely needs real GPU/WebGL.
+- Linear mobile (390x844): collapsed bar keeps logo, "Log in", the filled "Sign up" pill and a two-line hamburger right, so the CTA stays visible when closed. Tapped open: full-screen dark overlay, hamburger becomes an X in the same spot, three small grey group labels (System, Product, Resources) over large white single-column links (about 22px), generous spacing, no boxes or dividers, Log in/Sign up stay pinned in the bar. List scrolls. Lesson: grey label plus big tappable link is a clean pattern needing no lines; keep the CTA in the closed mobile bar.
+- Apple mobile (390x844): closed bar is logo left, search and bag icons, two-line hamburger right (no CTA; hero buttons carry that job). Tapped open: overlay covers the whole screen in flat near-black, hamburger swaps to a thin X top right, the same 10 desktop links stack as one left-aligned column of bold white ~24px text with even spacing, nothing else on screen. Lesson: the minimal case; the desktop list simply turns into a column. Works because labels are one word. Pair with Linear's grouped version when the site has more than about 10 links.
+- Not covered: keyboard/focus behaviour (see WAI notes above), open/close animation timing (static screenshots only).</p>
+<h3>Tablet studies (820x1180 iPad preset, screenshots viewed Oct 10)</h3>
+<ul>
+<li>Linear (https://linear.app) at 820px: the full desktop nav persists - logo left, all five text links (Product, Resources, Customers, Pricing, Contact), Log in text, Sign up pill. No hamburger. So Linear's collapse breakpoint is below 820px. (Page body below the nav had not rendered when captured; nav itself fully visible.)</li>
+<li>Apple (https://www.apple.com) at 820px: the nav collapses to the mobile pattern - logo left, search and bag icons, hamburger right; the 10 text links are gone. So Apple's collapse breakpoint is at or above 820px.</li>
+<li>Lesson: there is no standard tablet breakpoint; pick per link-count and label length. Many short links (Apple, 10+ items) collapse early; few short links (Linear, 5) can stay visible through tablet. Test at 820px explicitly - it is the width most responsive checklists skip.</li>
+</ul>
+<h2>Full-bleed hero images vs. task visibility</h2>
+<p>Source: https://www.nngroup.com/articles/image-focused-design/ (Whitenton, 2014). Homepage principles were already covered above.
+- Big image = visceral appeal but pulls attention from everything else. Southwest's redesign hid the flight search several inches down, shrank nav, made the CTA an outline button: users missed the main task. Their mobile version, with action buttons as heavy as the image, worked better.
+- Works when the image IS the content and nav is strong: Apple (new products shown, high-contrast nav bar); Bing (search box is the one big element). Balanced default: brand-supporting image plus strong nav and task starts (State Farm).
+- Six-step method: rank page goals (user + business + brand); map each element to a goal; give visual weight by goal importance; choose images tied to brand goals; only then pick striking ones; get "modern" through type, layout, colour rather than one giant image.
+- Detail deltas from re-read (<a href="https://www.nngroup.com/articles/mobile-navigation-patterns/">source</a>): tab bar differs from nav bar by being persistent (iOS bottom, Android top by OS guideline); more than 5 options breaks touch-target size , carousel tab bars hide unlike categories ("out of sight, out of mind"); judge nav against total chrome (logo, cart, search can crowd a 4-item nav); the word "Menu" may beat the hamburger icon (their cited third-party research, not NN/g's own); gesture-only menus (Sephora left-edge swipe) are undiscoverable and clash with iOS back-swipe; if hiding nav, add cross-links. Tracker: one-screen app needs no nav; a stage filter chip row is the only "navigation".</p>
+<h2>WAI fly-out menus</h2>
+<p>Sources: <a href="https://www.w3.org/WAI/tutorials/menus/">https://www.w3.org/WAI/tutorials/menus/</a>, https://www.w3.org/WAI/tutorials/menus/flyout/
+- Some users with tremors cannot operate fly-outs at all: always repeat submenu items elsewhere (on the parent item's page).
+- Mark submenus visually (icon) and in markup with aria-expanded true/false.
+- Mouse: CSS:hover to open, plus a scripted close delay (about 1 second) so imprecise mouse paths do not collapse the menu.
+- Keyboard: never auto-open submenus on tab focus - keyboard users would tab through every submenu item. Two patterns:
+ - Parent-as-toggle when the parent only summarizes (click/enter opens, focus-leaving closes, href as no-JS fallback).
+ - Button-as-toggle when the parent links to a page: separate button beside it, visually indicates the submenu, invisible label names it ("show Space Bears submenu").
+- WCAG hooks: 2.4.1 bypass blocks, 2.4.3 focus order, 2.4.7 focus visible, 4.1.2 name/role/value.</p>
+<h2>WAI headings and page regions</h2>
+<p>Sources: <a href="https://www.w3.org/WAI/tutorials/page-structure/headings/">https://www.w3.org/WAI/tutorials/page-structure/headings/</a>, https://www.w3.org/WAI/tutorials/page-structure/regions/
+- Nest headings by rank; do not skip ranks (h1 then h3) when opening sections. Skipping when closing is fine (h4 can be followed by h2).
+- Fixed regions (sidebar, footer) keep stable heading ranks across pages - consistency beats content-dependent rank.
+- Two valid h1 patterns: h1 as site name with nav/sidebar headings one rank lower, or h1 as the content heading with structural headings at rank 2. Pick one per site.
+- Headings are in-page navigation for assistive tech; visible headings can label page regions via aria-labelledby.
+- Landmark elements: header (banner role only when not inside article/section), footer (same caveat - contentinfo only at top level), nav, main, aside. HTML4 retrofit: add ARIA landmark roles to divs.
+- Responsive: keep component order consistent per view size; hidden-on-mobile components are fine, reordered ones are a problem (not a strict WCAG requirement but best practice).</p>
+<h2>Mega menu detail deltas</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/mega-menus-work-well/">https://www.nngroup.com/articles/mega-menus-work-well/</a> (Nielsen &amp; Li 2017)
+- Hover timing: wait 0.5s before opening, open within 0.1s, close only after 0.5s outside both navbar item and panel. Solve the diagonal problem: keep the panel open while the pointer travels from navbar item toward a panel target (otherwise it flickers across adjacent items).
+- Grouping: chunk by users' mental model (card sorts), medium granularity, concise descriptive group labels frontloaded with the information-carrying word, base verb forms ("shop" not "shopping"), differentiate labels ("Gift by Interest" vs "Gift by Occasion" fails), order by importance top-left, show each option once.
+- Keep it simple: no GUI widgets or complex interactions inside (that's dialog territory); never hide the search box in a mega menu (search must be continuously visible).
+- Labels must be frontloaded: "Pre-Owned" repeated at the start of every option made GameStop's menu unscannable.</p>
+<h2>Breadcrumbs</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/breadcrumbs/">https://www.nngroup.com/articles/breadcrumbs/</a> (Laubheimer 2018, reviewed Sep 2026)
+- Breadcrumbs supplement, never replace, global and local nav. Show hierarchy, not session history. Separator "&gt;" or "/", no functional difference.
+- Polyhierarchical sites: show one canonical path, never multiple trails or per-user personalised paths (mixed signals to users and search engines).
+- Current-page breadcrumb is not a link and must look different from the linked ones. Every other node must be a real page - skip IA categories that have no page.
+- Skip breadcrumbs for flat (1-2 level) or linear sites.
+- Start the trail with Home, unless Home is already in the global nav (one of the two, not both).
+- Mobile: never wrap to multiple lines, never shrink below 1cm x 1cm tap targets; consider showing only the last level (e.g. back to the product category) - mobile-only exception to the full-trail rule.</p>
+<h2>Search box and magnifying-glass icon</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/magnifying-glass-icon/">https://www.nngroup.com/articles/magnifying-glass-icon/</a> (Sherwin 2014)
+- Keep an open text field next to the icon on desktop and tablet; icon-only is acceptable only on small phone/watch screens. Icon-only on desktop makes search hard to find and raises interaction cost (extra clicks to reveal and focus).
+- The magnifying glass is one of the few icons understood without a label (home, print are the others -), so no "Search" label needed if the icon is clearly clickable; keep the button clickable anyway since many still click it, and submit on Enter too.
+- Place search top-right - users look there first, then scan the top of the page. Left placement works best with a large open field.
+- Icon style: schematic (few details), large with generous padding, high contrast. If icon-only, do not crowd it with other icons or isolate it, open the field next to the icon, and one click must focus the input (no double click).
+- Text field at least 27 characters wide; a growing search box that expands on click is a good space saver.
+- Hamburger and map-marker icons still need labels.</p>
+<h2>The 3-click rule is false</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/3-click-rule/">https://www.nngroup.com/articles/3-click-rule/</a> (Laubheimer 2019; debunks via Porter 2003 "Testing the Three-Click Rule")
+- The 3-click rule (no page more than 3 clicks away) has no data behind it; first print appearance is Zeldman's 2001 book, asserted without evidence. Porter's study: dropoff does not increase past 3 clicks, satisfaction does not decrease.
+- Click counting is a bad metric: task complexity varies, clicks are not equal (instant accordion expand vs full page load), and counting misses mistakes and confusion along the way.
+- The rule pushes designers toward overly broad IA: many top-level categories that are laborious to scan. Designers end up trading between two unsupported myths: max 3 clicks vs max 7 main-nav categories.
+- What matters instead: strong information scent on menu items; wayfinding (breadcrumbs, local subnav); mega menus over multilevel cascading dropdowns (compare pathways at a glance, easy error recovery); surfacing key tasks on the homepage; navigation-hub landing pages on multi-step paths; fast page loads (5 quick clicks beat 3 slow ones).</p>
+<h2>Sticky headers</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/sticky-headers/">https://www.nngroup.com/articles/sticky-headers/</a> (Laubheimer 2021)
+- Five rules: (1) maximise content-to-chrome ratio - keep it small (New Yorker 13:1 good, Lollar 2:1 bad; mobile tap targets still 1cm min, text ~16pt); (2) the header must be an OPAQUE colour different from the content background - translucent sticky headers produce low contrast and annoy (direct tension with glassmorphism headers); submenus need contrast and borders too; (3) minimal or no animation - shrink-to-small-header animations must be quick, smooth, immediate; avoid "stalker menus" that scoot in after a delay; (4) partially persistent headers (hide on scroll down, show on scroll up) work moderately well - trigger after a few px, slide-in ~300-400ms at natural scroll speed; (5) ask whether a sticky header is needed at all - will users actually need those elements mid-session (login on any page? cross-category jumps?).</p>
+<h2>Mobile-first is not mobile-only</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/mobile-first-not-mobile-only/">https://www.nngroup.com/articles/mobile-first-not-mobile-only/</a> (Budiu &amp; Pernice 2016; 179 users, 6 sites, WhatUsersDo)
+- Hidden navigation hurt BOTH platforms; the surprising stat: nav was used MORE on mobile than desktop because desktop UIs (ported from mobile-first designs) were worse. On navigation-required tasks: 54% nav use desktop vs 77% mobile.
+- Mobile patterns that failed when ported to desktop: hamburger/hidden nav (biggest offender), repeated footer nav, sticky nav, nav in top-right corner, search icon instead of a visible search box.
+- Root cause: mobile-first + responsive porting assumes simple-everywhere is better; each platform has different interaction capabilities and content-to-chrome ratios. Same content/features across devices, yes; same UI, no.
+- History lesson: porting UIs across platforms has failed every decade (DOS-&gt;Windows, Windows-&gt;Mac, print-&gt;web, desktop-&gt;mobile, mobile-&gt;desktop).</p>
+<h2>Back-to-top buttons</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/back-to-top/">https://www.nngroup.com/articles/back-to-top/</a> (Loranger 2017)
+- Use only for pages longer than ~4 screens; otherwise clutter.
+- Place persistent button lower-right (expected position); label it "Back to Top" in text, icon-only is ambiguous; ONE sticky button per page, not repeated links per section (they get ignored); small but tappable on touch; visually stand out; optionally appear only after user scrolls up a little; once visible, keep it stationary; never auto-scroll the page for the user.
+- Alternatives often better: footer nav for bottom-scrollers, sticky menus (removes the need), just-in-time features that appear on scroll-up (filters/sort/search).</p>
+<h2>Landmark regions (APG practice)</h2>
+<p>Source: <a href="https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/">https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/</a>
+- HTML sectioning elements with implied roles: header(in body)=banner, nav=navigation, main=main, aside=complementary, footer(in body)=contentinfo, section(only WHEN NAMED)=region, search=search. A section without an accessible name is NOT a landmark.
+- Rules: all perceivable content lives inside some landmark; banner/main/complementary/contentinfo are top-level; one banner + one main + one contentinfo per page; same role used twice needs unique labels; identical nav sets get the SAME label (e.g. two pagination navs both "Search Results"); don't put the role name in the label ("Site", not "Site Navigation" - else SR announces "Site Navigation Navigation"); label via aria-labelledby pointing at the region's heading.
+- Modals need no landmark wrapper. region is the catch-all and REQUIRES a label. form landmark only with a visible name; use search landmark for search forms.
+- Screen readers navigate by landmarks + skip links target them - this is the structural layer behind headings/regions guidance.</p>
+<h2>web.dev Learn Responsive Design: macro layouts</h2>
+<p>Source: <a href="https://web.dev/learn/design/macro-layouts">https://web.dev/learn/design/macro-layouts</a> (2021). Page-wide organization: header/main(article+aside)/footer.
+- Order first, layout second: make the single-column source order make sense on its own - that is what small screens get, and it is the content's logical flow (screen readers, no-CSS).
+- Grid beats flexbox for page macro layout: one rule on the container (<code>grid-template-columns: 2fr 1fr</code>) carries what flexbox spreads over per-child rules.
+- Logical-properties caveat: min-inline-size does not work in media queries yet - min-width still required there.
+- You might not need a media query: breakpoint-per-column-count (30/45/60em) is tedious and brittle. Let the browser do the math: <code>repeat(auto-fill, minmax(15em, 1fr))</code> for card grids, or flex-wrap with flex-basis 15em + flex-grow 1. Difference: grid keeps columns aligned (last row lines up), flexbox stretches the orphans to fill. Want aligned rows+columns = grid. Reference: 1linelayouts.com for media-query-free fluid layouts.</p>
+<h2>web.dev Learn Responsive Design: micro layouts</h2>
+<p>Source: <a href="https://web.dev/learn/design/micro-layouts">https://web.dev/learn/design/micro-layouts</a> (2021). Component-level self-contained layout.
+- Components must adjust to their CONTAINER, not the viewport - you never know if the same component lands in main or in the sidebar.
+- Grid inside components too: e.g. decorative heading lines via <code>grid-template-columns: 1fr auto 1fr</code> with::before/::after borders filling the flanks.
+- Flexbox = content-out sizing: declare min/max per element (image flex:1 capped at 200px, text flex:3) and let the browser solve the rest.
+- Container queries close the awareness gap: <code>container-type: inline-size</code> on the containing element, then <code>@container (min-width: 25em)</code> styles the component by ITS width. Media queries report the viewport; container queries report any container.
+- Combine both: media query for the page skeleton (body grid 3fr/1fr above 45em), container query for the components inside (media object flips vertical/horizontal at its own 25em). Game-changer for reusable components: fully independent of viewport.</p>
+<h2>web.dev Learn Responsive Design: responsive images</h2>
+<p>Source: <a href="https://web.dev/learn/design/responsive-images">https://web.dev/learn/design/responsive-images</a>.
+- Baseline rule for all embedded media: <code>img, video, iframe { max-inline-size: 100%; block-size: auto; }</code> - never overflow the container, aspect ratio preserved. (Images have intrinsic size; unlike text they do not wrap.)
+- Design ratio vs CMS ratio: aspect-ratio: 2/1 enforces the design's box, but alone it squashes/stretches; pair with object-fit: contain (letterbox, empty space) or cover (crop to fill); steer the crop with object-position so the subject stays in frame.</p>
+<h2>web.dev Learn HTML: navigation</h2>
+<p>Source: <a href="https://web.dev/learn/html/navigation">https://web.dev/learn/html/navigation</a> (updated 2024).
+- Taxonomy: local nav (same site), breadcrumb (hierarchy path), table of contents (this page), site map (every page), global nav (top-level pages, identical on every page). Footers repeat on every page but are not nav-critical - they hold corporate/legal/social links.
+- Skip link: first in focus order, href="#main" targeting main id; hiding it is fine ONLY in the non-focused state - <code>.visually-hidden:not(:focus):not(:active)</code> - it must appear when tabbed to.
+- nav landmark + accessible name: multiple navs per page are fine, so each needs a distinguishing name. Prefer aria-labelledby pointing at visible text over aria-label: visible text gets translated, attribute values may not. Never put the word "navigation" in the name - the role already says it.
+- Lists inside nav: optional but valuable - screen readers announce the item count. Add role="list" when CSS display changes might strip list semantics.
+- Breadcrumbs: ordered list (enumeration matters), aria-label="breadcrumbs", separators via CSS generated content (screen readers skip them - correct), "Home" beats site name as first crumb, current page optional; if included, plain text with aria-current="page" (not a link). Breadcrumbs show hierarchy, not history - a visited-path trail is not a breadcrumb.
+- aria-current="page" (plus visual styling via CSS) marks the current page in any nav; pair with aria-selected where the pattern uses tabs.
+- Responsive nav anti-pattern: duplicating two nav copies and showing one per breakpoint changes tab order across viewports - users expect position to reflow, not focus order to change.
+- Interactive-content nesting inside one control is inconsistently handled - keep nav links self-contained.</p>
+<h2>web.dev Learn HTML: images</h2>
+<p>Source: <a href="https://web.dev/learn/html/images">https://web.dev/learn/html/images</a> (2023). The alt-text craft module.
+- Decorative vs content: decoration belongs in CSS (background), content in HTML img. CSS backgrounds are inaccessible by design - that is the point.
+- alt = what the image CONVEYS in this context, not what it depicts. Read the page aloud to someone: if you would not say "image of", do not write it. Same photo, different alt per context: avatar next to a review = "Fluffy"; adoption page = hair/colors/toy details not already in the text; icon = its MEANING (magnifier = "search", not "magnifying glass"); screenshot/graph = what is learned, not how it looks.
+- If the image adds nothing beyond the surrounding text: alt="" (empty, still present) + role="none" for presentational SVGs. SVGs otherwise need role="img" (VoiceOver bugs).
+- srcset (width descriptors REQUIRE sizes with media conditions; srcset beats src on match) for resolution/size switching; picture+source for art direction and format switching (type attribute); browser picks first matching source, falls to img src; accessible name always from img's alt.
+- height+width attributes are back: they are sizing hints that let the browser reserve the aspect-ratio box before the image loads - kills CLS even though CSS overrides the actual rendered size. (Matches craft-pack width/height rule.)
+- loading="lazy" defers offscreen images (distance-based, updates on scroll); with JS disabled all images load eager.
+- figure/figcaption: semantic unit for image+caption; figcaption must be first or last child.</p>
+<h2>Learn HTML: document structure, semantic HTML, headings/sections, text basics</h2>
+<p>Sources: web.dev/learn/html/{document-structure,semantic-html,headings-and-sections,text-basics}.
+- DOCUMENT STRUCTURE (381): head must carry charset utf-8 (early - first 1024 bytes), <title> (tab/SEO/AT identity), viewport width=device-width (controls scale-to-fit; user-scalable=1 default - do NOT disable zoom). Metadata module queued for the rest.
+- SEMANTIC HTML (382): landmark roles come FREE with header/main/footer/nav - but header/footer only count as banner/contentinfo landmarks when NOT nested inside another landmark (a header inside main is just a section header). role attribute is global, from ARIA not WHATWG. HTML is accessible by default; the job is to not break it. Inspect the AOM (accessibility tree) in devtools to verify semantics landed.
+- HEADINGS AND SECTIONS (383): browsers NEVER implemented the HTML5 outline algorithm - multiple-h1-per-section does nothing; use one h1 and nest h2/h3 without skipping levels. Screen-reader users navigate by headings, so the heading tree IS the document map. article = standalone-complete content, section = thematic grouping; neither needs a footer. Headings are never a bold-text tool.
+- TEXT BASICS (384): <br> only where the break is meaningful (addresses, poetry, signatures) - it's nearly unstyleable; blockquote + cite for quotations; <p> is the paragraph, everything else has a specific job.
+- Library note: mostly beginner material; the durable nuggets are the landmark-nesting rule, the outline-algorithm reality check, and zoom-never-disabled (matches IC and HIG accessibility passes).</p>
+<h2>Learn HTML: attributes, inline text, lists, links</h2>
+<p>Sources: web.dev/learn/html/{attributes,inline-text,lists,links}.
+- ATTRIBUTES (385): boolean attributes - presence = true, value irrelevant (required, inert, checked, disabled, readonly, multiple...). Enumerated attributes - present-without-value has a default, ABSENT often defaults differently (contenteditable: present-empty = true, missing/invalid = inherit). Habit: omit values for booleans; never guess enumerated.
+- INLINE TEXT (386): abbr only on first use, and the full term goes in PLAIN TEXT - title attribute is "not necessary nor helpful" (touch/keyboard can't reach it). dfn marks the term being defined. bdi isolates unknown-direction user text (use it on any dynamically-inserted string); bdo overrides direction. ruby/rt/rp for pronunciation annotations. em nests for increasing stress; mark = relevance-highlight; ins/del take cite + datetime; s = no-longer-relevant, NOT removal.
+- LISTS (387): ol gains type, reversed (boolean), start - use these for legal/numbered content where the number is CONTENT (cross-referenced elsewhere); use CSS counters when number is style. dl = dt + dd pairs, and browsers now style dd with margin-inline-start only. Only li is a valid direct child of ul/ol.
+- LINKS (388): target="_blank" with no name opens a NEW tab per click (15 clicks = 15 tabs); give the target a name to reuse one tab. href="#top" or bare "#" scrolls to top (case-insensitive). mailto: needs no address - mailto:?subject=... is a valid share-link; query supports cc/bcc/subject/body, URL-encoded. tel: for calls. Relative URLs resolve against the current file.</p>
+<h2>Learn HTML: tables, forms, metadata, audio-video</h2>
+<p>Sources: web.dev/learn/html/{tables,forms,metadata,audio-video}.
+- TABLES (389): caption is the FIRST child of table - it is the programmatically associated table title. thead/tbody/tfoot split lets tbody scroll while headers pin; rows outside all three get an implicit tbody. th carries scope (col/row) so SRs announce headers per cell.
+- FORMS (390): submission model = name/value pairs; select without value submits the option's inner text; textarea's value is its inner text. Radios group by shared name (one selectable). Every control needs a label - explicit (for/id, gives a styling hook) or implicit (wrap control; equally accessible, no hook). Label is a HIT AREA - clicking it focuses the control - so never nest links/buttons inside a label. Groups get fieldset + legend. label-before-control except radios/checkboxes (common UX order, not required).
+- METADATA (391): include description (search snippet + bookmark default) and theme-color; skip keywords. theme-color in HTML beats the manifest on first paint. Multiple same-name meta: newer first, legacy after (agents read until a match). Open Graph uses property= (not name=) - intentional to avoid clashing with future name values: og:title/og:description/og:image/og:image:alt. link rel icon, canonical, manifest, apple-touch-startup-image (with media=!) all live in head.
+- AUDIO-VIDEO (392): single file -&gt; src attribute; multiple -&gt; source children each with type so the browser picks the first it supports; always include fallback content. controls attribute = user controls; poster = pre-load still for video; autoplay/loop/muted/preload available but muted is required for autoplay to work.</p>
+<h2>Learn HTML: template/slot/shadow, focus, HTML APIs, conclusion — SERIES COMPLETE</h2>
+<p>Sources: web.dev/learn/html/{template,focus,apis,conclusion}. ("card" module 404s - not a real URL in the series.)
+- TEMPLATE/SLOT/SHADOW (393): Web Components = HTML templates + custom elements + shadow DOM. <template> contents are NOT rendered and are NOT children of the template in the DOM - they're instantiated by JS (clone + insert). Only worth it for repeated components (star rating pattern), not one-offs.
+- FOCUS (394): tab order = source order BY DEFAULT - the rule is to never let visual order diverge from tab order. flex-flow: row-reverse, CSS order, grid placement, transforms, multi-col all reorder VISUALLY only; tabindex&gt;0 reorders the TAB sequence - both create keyboard/AT disconnect. contenteditable and tabindex are global: anything can be made focusable; inert makes interactive things inert. QA: tab through every page.
+- HTML APIS (395): DOM is the full node tree API; AOM (accessibility tree) is built FROM the DOM and is what SRs consume - semantic markup is how you program the AOM. Every element is an object: HTML interfaces expose attributes as JS properties (imageInstance.alt) plus layout info (offsetHeight etc.). Invalid markup still parses - browsers fix it silently, sometimes into a different tree than you wrote.
+- CONCLUSION (396): series done. The companion series queued: Learn Forms (already have Learn CSS complete). Full Learn HTML coverage now: 381-396 = 20 modules.
+- Vein note: the focus/visual-order rule is the single most design-relevant takeaway - CSS layout freedom (the thing we exploit for craft) is exactly what breaks keyboard users if unconsidered. Add to craft QA: "tab the page; the tab path must match the eye path."</p>
+<h1>Storytelling, scrollytelling, brand through interaction. = read Oct 6 2026</h1>
+<h2>Scroll narrative structures</h2>
+<p>Three layers: narrative structure (how much control the reader has), display mechanism (what scroll drives), trigger (how a step begins). Structures: author-driven (linear), reader-driven (explore), hybrids: martini glass (guided stem then free exploration; most common in interactive visualisations), interactive slideshow (scroll replaces "next"), drill-down (poor fit for linear scroll).</p>
+<h2>Six patterns and their failure modes</h2>
+<ol>
+<li>Sticky figure + stepped text: pin with position:sticky, steps change the figure. Failure: steps that do not earn their scroll (one step, one visible change).</li>
+<li>Scroll-scrubbed sequence: scroll maps to frame index; reversible. Use a pre-rendered image sequence on canvas, not video.currentTime (janky, esp. mobile). Failure: scrubbing something with no meaningful in-between (a rotating logo is a screensaver). Runway height sets perceived speed.</li>
+<li>Step triggers: use IntersectionObserver (or CSS scroll timelines), not scroll listeners. Every state needs an inverse for scroll-up.</li>
+<li>Staged reveals: sequence of attention, not decoration. Failure: fade-in on every element.</li>
+<li>Parallax: once, to establish place. Fights the scrollbar; off for reduced motion.</li>
+<li>3D/WebGL scene: right when the subject is spatial; most expensive (assets, shader budget on mid-range phones, designed loading state, fallback). Ask whether a scrubbed sequence from the same asset carries the same meaning. Failure: black screen before the scene appears.
+Wrong-choice and mobile-fallback sections exist on the page; re-read when building.</li>
+</ol>
+<h2>Native CSS scroll-driven animation guidance</h2>
+<p>Feature-detect with @supports ((animation-timeline: scroll) and (animation-range: 0% 100%)) and provide a fallback; respect prefers-reduced-motion; animate only compositor-friendly properties (transform, opacity); declare animation-timeline and animation-range AFTER the animation shorthand; use view-timeline-axis for horizontal; timeline-scope to hoist timeline names.</p>
+<h2>Brand through interaction</h2>
+<p>Visual design = how it looks, content design = how it sounds, interaction design = how it feels. Interaction attributes that shift brand perception: responsiveness, direct vs indirect manipulation, precision, pliability, continuous vs discrete transitions, clear labels, expected vs unexpected, consistent vs inconsistent. Brand-personality axes cited: sincerity, excitement, competence, sophistication, ruggedness. Rule: decide the motion personality as part of the brand (e.g. sophisticated = slow, continuous, precise, consistent; playful = springy, surprising).</p>
+<p>Hook (first viewport promise) -&gt; tension (the problem/mystery) -&gt; peak (hero object moment) -&gt; proof -&gt; end with one action (Peak-End rule). One idea per section, one visible change per scroll step, reversible, reduced-motion fallback.</p>
+<h2>Brand before moodboard: the pre-concept phase</h2>
+<ul>
+<li>Failure point is earlier than the logo: undefined adjectives ("modern", "premium", "disruptive"). "Premium" can mean refined-editorial, expensive-exclusive or clean-minimal: three different systems. Define each word in context (her examples: "disruptive" for government medical buyers = clarity and confidence; "bold" in fintech = bold that still reads trustworthy).</li>
+<li>Five perception questions: what should people believe after first sight; what makes it credible in this category; how would the brand speak as a person; what do customers misunderstand; where to fit the category and where to break from it.</li>
+<li>Exercise 1, competitor perception map: place competitor screenshots on two axes chosen for the brand's tension (traditional-progressive, corporate-human, understated-bold, accessible-exclusive); the disagreement is the useful output.</li>
+<li>Exercise 2, Visual Brand Driver: pick images for unrelated categories (transport, typeface, activity, furniture, mood, object, animal, architecture, drink) representing the company, not personal taste, then 4-5 adjectives each. Credited to GV's Three-Hour Brand Sprint idea (Jake Knapp quote in the article).</li>
+<li>Then three layers: look-and-feel board (perception, not taste), design code (brand idea -&gt; visual principle, e.g. "momentum" -&gt; lines/arrows/motion blur; "messy and magical" -&gt; soft gradients, irregularity), brand assets (type, colour, logo, photo, illustration choices).</li>
+<li>Checklist before concept one: what to communicate, defined character and what it is not, references tied to perception, ideas translated to principles.</li>
+</ul>
+<h2>Four-axis creative direction brief</h2>
+<p>Source: https://rampstack.co/framework/creative-direction (RampStack, May 2026). Complements the Smashing pre-concept entry above: that finds the perception, this fixes it into a brief.
+- Problem named: "competent and incoherent" - each surface passes review, together they do not feel like one brand; briefs get pinned then ignored.
+- Axes and positions: Tone register (professional / conversational / playful / provocative); Aesthetic philosophy (editorial restrained / polished standard / controlled maximalist / expressive maximalist); Audience relationship (authority / peer / companion / coach); Sensory ambition (functional / considered / resonant). Each has a "how to choose" question, e.g. dry category -&gt; conversational or playful differentiates; loud category -&gt; restraint differentiates.
+- Hard pairs flagged: Functional+Provocative, Authority+Functional (preachy), Light visuals+Provocative copy (works only if the provocation is the position). Default SaaS combo: Conversational + Polished Standard + Peer + Considered.
+- Output is a : header, four axis picks with one-line rationale, synthesis paragraph in present tense, reference URLs, and a REJECTION LIST (e.g. no testimonial walls, no stock photos, no three-icon feature row). The rejection list is the most useful part; update the brief only when direction truly changes.</p>
+<h2>Creatif brief-first process</h2>
+<p>Source: <a href="https://creatif.agency/before-the-first-visual-how-creatif-agency-approaches-a-new-brief/">https://creatif.agency/before-the-first-visual-how-creatif-agency-approaches-a-new-brief/</a> (Mar 2026)
+- Interrogate the brief, do not execute it: clients describe what they want, not what the business needs (a redesign brief is often a positioning problem).
+- Discovery covers four things: the offer (what closes deals, not what the site says), the audience, the competitive landscape, and the gap.
+- Positioning before pixels: a decision answering four questions - who it is for, what outcome it delivers, why credible, what is different in a way the audience cares about. Templates fail here because they have no positioning logic.
+- Messaging before layout: value proposition and messaging hierarchy (what is said first/second/deeper) drive structure; homepage layout is a communication decision, not a design decision. Above-the-fold content, primary CTA, social proof placement all follow messaging.
+- No moodboard in week one: strategy phase is one to two weeks for a startup; Figma opens only after positioning and messaging align.</p>
+<h2>Magnate: how to brief a branding agency</h2>
+<p>Source: <a href="https://www.magnatedesigns.com/insights/brief-branding-agency-founders-guide">https://www.magnatedesigns.com/insights/brief-branding-agency-founders-guide</a> (Magnate Designs, Mar 4 2026)
+- A brief is a filter, not a wishlist or creative direction: it defines the problem space for the agency and filters which agencies fit. Business case for the project, not creative direction for it.
+- Six sections only: business context (the triggering event), audience (real picture, honesty over fabricated personas), competitive landscape (claimed visual/verbal territory, not companies you admire), constraints (real ones, not preferences), timeline (what drives it), budget range (the most-omitted, most time-wasting when missing).
+- Leave to the agency: visual solutions, Pinterest boards as mandates, taglines, adjective lists ("bold, playful, sophisticated"). Describe outcomes instead: "an investor should immediately understand X".
+- "Describe the destination, not the route."
+- The agency's response is the best filter: they should push back, ask about the business before showing visuals, reference your constraints, and propose a process (discovery, positioning, concepts) not a deliverable list. Send one brief to three agencies and compare responses.
+- One-page version: The Project / The Customer /... (six sections, no moodboards).
+- Magnate process page: Discovery -&gt; Define -&gt; Design -&gt; Develop; thin, same brand-first pattern as Creatif. https://www.magnatedesigns.com/process</p>
+<h2>How users read on the web</h2>
+<p>Source: <a href="https://www.nngroup.com/articles/how-users-read-on-the-web/">https://www.nngroup.com/articles/how-users-read-on-the-web/</a> (Nielsen 1997)
+- 79% of test users always scanned any new page; only 16% read word by word.
+- Scannable text rules: highlighted keywords (links, typeface, colour), meaningful subheads (not clever ones), bulleted lists, one idea per paragraph (later ideas get skipped), inverted pyramid (conclusion first), half the word count of conventional writing.
+- Credibility: quality graphics, good writing, outbound links (show the homework). Users detest "marketese" - boastful subjective claims kill credibility.</p>
+<div class="pagenav"><a href="reading.html">&larr; Psychology & UX Reading</a><a href="tools.html">Tools & Assets &rarr;</a></div>
+</main>
+</div>
+</body>
+</html>

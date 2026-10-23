@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>People, Studios &amp; Sources - The Web Craft Library</title>
+<meta name="description" content="A research shelf on how great websites are made: principles, recipes, case-study lessons, tools and sources.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Instrument+Sans:wght@400;500;600&family=Azeret+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top"><a href="index.html">The Web Craft Library</a><a href="index.html">All sections</a></header>
+<div class="wrap">
+<nav class="side"><ol><li><a href="foundations.html">01 Foundations</a></li><li><a href="styles.html">02 Styles & Aesthetics</a></li><li><a href="motion.html">03 Motion Craft</a></li><li><a href="texture.html">04 Texture & Print</a></li><li><a href="case-studies.html">05 Case Studies</a></li><li><a href="people.html" class="on">06 People, Studios & Sources</a></li><li><a href="reading.html">07 Psychology & UX Reading</a></li><li><a href="building.html">08 Building & Architecture</a></li><li><a href="tools.html">09 Tools & Assets</a></li><li><a href="anti-slop.html">10 Anti-Slop</a></li><li><a href="craft-pack.html">11 The Craft Pack</a></li></ol></nav>
+<main>
+<p class="kicker">Section 06 of 11</p>
+<h1>People, Studios & Sources</h1><p class="lede">Studios, designers and developers worth following, galleries to mine, and curricula maps from public course outlines.</p><h1>Open elements and archives for real builds</h1>
+<p>Already covered elsewhere: three.js, R3F/drei, GSAP, Lenis, shadcn/ui, Magic UI, Radix scales ; Poly Haven, Fontshare, Google Fonts, Pexels/Unsplash, Lucide, Phosphor, Sketchfab .</p>
+<h2>BUILD-TIME QUICK LOOKUP (need X -&gt; go here first). Licence status in the sections below.</h2>
+<table>
+<thead>
+<tr>
+<th>Need</th>
+<th>First choice</th>
+<th>Backup</th>
+<th>Licence note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UI icons</td>
+<td>Lucide, Phosphor , Tabler</td>
+<td>Heroicons, Radix Icons, Material Symbols</td>
+<td>all MIT/ISC/Apache-2.0</td>
+</tr>
+<tr>
+<td>Brand logos</td>
+<td>SVGL</td>
+<td></td>
+<td>MIT repo; logos are their owners' trademarks</td>
+</tr>
+<tr>
+<td>3D hero model</td>
+<td>Sketchfab (CC0/CC-BY filter), Smithsonian 3D</td>
+<td>Kenney, ambientCG models</td>
+<td>check each model's licence; CC-BY needs credit</td>
+</tr>
+<tr>
+<td>Textures / PBR / HDRI</td>
+<td>Poly Haven, ambientCG</td>
+<td>Smithsonian/Met scans</td>
+<td>CC0</td>
+</tr>
+<tr>
+<td>Real imagery, non-stock</td>
+<td>Met Open Access, Smithsonian, Rijksmuseum, Internet Archive</td>
+<td>Openverse</td>
+<td>per-item licence check</td>
+</tr>
+<tr>
+<td>Free display fonts</td>
+<td>Fontshare, Google Fonts, Velvetyne, Collletttivo</td>
+<td>Open Font Library</td>
+<td>OFL</td>
+</tr>
+<tr>
+<td>Font self-hosting</td>
+<td>Fontsource (npm)</td>
+<td></td>
+<td>MIT tool</td>
+</tr>
+<tr>
+<td>Scroll/WebGL/hover snippets</td>
+<td>Codrops demos (MIT), Lenis + GSAP recipe</td>
+<td>React Bits (commons clause)</td>
+<td>check per demo</td>
+</tr>
+<tr>
+<td>Animation files</td>
+<td>Rive marketplace, LottieFiles</td>
+<td>Spline community for 3D scenes</td>
+<td>Rive CC BY 4.0; Lottie Simple License; Spline documentation says CC BY 4.0 but see terms caveat below</td>
+</tr>
+<tr>
+<td>CSS tokens / reset</td>
+<td>Open Props, Utopia</td>
+<td>Radix colour scales</td>
+<td>Open Props MIT</td>
+</tr>
+<tr>
+<td>Easing curves</td>
+<td>easings.net</td>
+<td>cubic-bezier.com</td>
+<td>cubic-bezier tool source MIT; compare curves before choosing</td>
+</tr>
+<tr>
+<td>Patterns / grain</td>
+<td>Original CSS/SVG noise; ambientCG where suitable</td>
+<td>Hero Patterns, Transparent Textures only after licence check</td>
+<td>unresolved or conflicting pattern terms; see below</td>
+</tr>
+<tr>
+<td>Accessibility/perf reference</td>
+<td>MDN, web.dev</td>
+<td>USWDS, WCAG docs</td>
+<td>see below</td>
+</tr>
+</tbody>
+</table>
+<h2>Icons</h2>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Licence</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tabler Icons github.com/tabler/tabler-icons</td>
+<td>MIT</td>
+<td>large SVG set, strokes adjustable</td>
+</tr>
+<tr>
+<td>Heroicons github.com/tailwindlabs/heroicons</td>
+<td>MIT</td>
+<td>by Tailwind Labs</td>
+</tr>
+<tr>
+<td>Radix Icons github.com/radix-ui/icons</td>
+<td>MIT</td>
+<td>15px grid, small set</td>
+</tr>
+<tr>
+<td>SVGL github.com/pheralb/svgl</td>
+<td>MIT for the repo</td>
+<td>brand logos as SVG; logos themselves remain their owners' trademarks, use only to refer to the brand</td>
+</tr>
+</tbody>
+</table>
+<h2>Illustration, patterns, textures</h2>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Licence</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Open Peeps openpeeps.com</td>
+<td>CC0</td>
+<td>hand-drawn people parts; reads "illustration library" style, so likely off-brand for premium black builds</td>
+</tr>
+<tr>
+<td>unDraw undraw.co/license</td>
+<td>free, no attribution, commercial OK but no redistributing packs, no building a competing unDraw, no machine-learning use</td>
+<td>very recognisable = generic; avoid for premium work</td>
+</tr>
+<tr>
+<td>Glaze (glazestock.com)</td>
+<td>DEAD / hijacked domain</td>
+<td>the original illustration library is gone: glazestock.com now serves gambling spam (Indonesian slot-site content). Historical model per secondary sources was free low-res with attribution, $20 full-res without. DO NOT use or link this domain; remove from any shortlist.</td>
+</tr>
+<tr>
+<td>Hero Patterns https://heropatterns.com/</td>
+<td>homepage says "always updating and always free"; no licence text on the page; exact licence still</td>
+<td>repeatable SVG backgrounds copied as CSS data-URI. Secondary sources claim CC BY 4.0 (usetools.design/tools/hero-patterns, index.chele.bi/r/hero-patterns/) but the source repos (steveschoger/hero-patterns, sschoger/hero-patterns) both 404, so there is no authoritative licence text anywhere. Do not mark commercial-ready; for a pattern you actually ship, redraw or use procedural noise instead.</td>
+</tr>
+<tr>
+<td>Transparent Textures https://www.transparenttextures.com/</td>
+<td>conflicting licence evidence</td>
+<td>subtle PNG patterns; its repo derives from Subtle Patterns, whose README says CC BY-SA 3.0. A forum account claims CC BY 3.0 instead. Keep attribution and resolve per-pattern terms before use; do not hotlink.</td>
+</tr>
+<tr>
+<td>ambientCG ambientcg.com/license</td>
+<td>CC0</td>
+<td>PBR materials, HDRIs, 3D models; credit optional</td>
+</tr>
+<tr>
+<td>Kenney kenney.nl (support page)</td>
+<td>CC0</td>
+<td>game assets: 2D/3D packs, UI sprites, sounds; logo not reusable</td>
+</tr>
+</tbody>
+</table>
+<h2>Museum and archive imagery (real, non-stock, often public domain)</h2>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Terms</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The Met Open Access metmuseum.org/about-the-met/policies-and-documents/open-access</td>
+<td>images and data of public-domain works under CC0; check each object's "Open Access" flag</td>
+<td>art/object photography for moodboards and textures</td>
+</tr>
+<tr>
+<td>Smithsonian Open Access si.edu/openaccess</td>
+<td>download, share, reuse "without asking" for Open Access items; 5.2M+ 2D/3D items; check item rights</td>
+<td>includes 3D models</td>
+</tr>
+<tr>
+<td>Rijksmuseum data rijksmuseum.nl/en/research/conduct-research/data</td>
+<td>"always open" data policy; image licence per item not read</td>
+<td>high-resolution art, API</td>
+</tr>
+<tr>
+<td>Internet Archive archive.org (web/, images)</td>
+<td>mixed per item: Wayback Machine for archived sites, collections incl. Met, Cleveland Museum of Art, NASA Images</td>
+<td>archived sites for studying old awwwards-era builds; respect each item's licence</td>
+</tr>
+<tr>
+<td>Openverse openverse.org</td>
+<td>aggregates 800M+ openly licensed/public-domain images and audio; licence differs per result, one-click attribution</td>
+<td>search across many sources; needs per-asset check</td>
+</tr>
+</tbody>
+</table>
+<h2>Type (free, open-licence foundries)</h2>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Terms</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Velvetyne velvetyne.fr</td>
+<td>OFL 1.1</td>
+<td>expressive display faces (Interlope, Sligoil, Lineal, Fungal, Grotesk, Gulax, Mourier...)</td>
+</tr>
+<tr>
+<td>Collletttivo collletttivo.it</td>
+<td>all fonts free under OFL: commercial OK, credit designer and foundry when publishing, no selling the font, no relicensing</td>
+<td>Italian collective (Borges, Ronzino, Coconat, Apfel Grotezk, Absans...)</td>
+</tr>
+<tr>
+<td>Open Font Library fontlibrary.org</td>
+<td>open fonts; per-font licence</td>
+<td></td>
+</tr>
+<tr>
+<td>Fontsource github.com/fontsource/fontsource</td>
+<td>MIT for the packaging; fonts keep their own licences</td>
+<td>self-host Google/other open fonts through npm, avoids third-party font requests</td>
+</tr>
+<tr>
+<td>Fontshare, Google Fonts</td>
+<td>see</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Public design systems (read as reference; check licence before copying code)</h2>
+<table>
+<thead>
+<tr>
+<th>System</th>
+<th>Licence</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IBM Carbon github.com/carbon-design-system/carbon</td>
+<td>Apache-2.0</td>
+<td>heavy, enterprise look; study tokens/motion, don't ship</td>
+</tr>
+<tr>
+<td>USWDS github.com/uswds/uswds</td>
+<td>mostly public domain as US federal work, but includes Material Icons (Apache-2.0), Source Sans, Merriweather, Font Awesome (OFL) with their own terms</td>
+<td>accessibility reference</td>
+</tr>
+<tr>
+<td>Shopify Polaris github.com/Shopify/polaris</td>
+<td>MIT-style text with a restriction: rights only for apps that integrate or interoperate with Shopify</td>
+<td>NOT free for general use; read only</td>
+</tr>
+<tr>
+<td>GOV.UK Frontend github.com/alphagov/govuk-frontend</td>
+<td>MIT, Crown Copyright (GDS); GOV.UK branding/crown logo not covered, do not reuse</td>
+<td>accessibility reference</td>
+</tr>
+</tbody>
+</table>
+<h2>Animation snippets and effects</h2>
+<ul>
+<li>Codrops demos (tympanus.net/codrops/licensing/): downloadable demos MIT unless a demo says otherwise. Their design freebies allow personal or commercial use but forbid redistributing, republishing or selling the item itself or edits. The Playground category (tympanus.net/codrops/category/playground/) is the live feed of current WebGL/Three.js/scroll experiments; each article links a GitHub repo under the codrops org, e.g. codrops/ScrollBasedLayoutAnimations LICENSE is MIT. Best free source of creative-coding scroll, WebGL and hover effect code; check each demo's note.</li>
+</ul>
+<h2>Tools, references, learning (build-time)</h2>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>What it gives</th>
+<th>Terms / quality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Open Props (github.com/argyleink/open-props)</td>
+<td>CSS custom properties: easings, shadows, sizes, colours</td>
+<td>MIT</td>
+</tr>
+<tr>
+<td>Material Symbols / Material Design Icons (github.com/google/material-design-icons)</td>
+<td>huge icon set, variable-font symbols</td>
+<td>Apache-2.0</td>
+</tr>
+<tr>
+<td>easings.net</td>
+<td>visual cheat sheet of easing functions with CSS curves</td>
+<td>reference</td>
+</tr>
+<tr>
+<td>MDN Web Docs (developer.mozilla.org)</td>
+<td>reference for HTML/CSS/JS/APIs</td>
+<td>"available under various open-source licenses"; use for facts, not copying text</td>
+</tr>
+<tr>
+<td>web.dev (web.dev/about)</td>
+<td>Chrome team guidance on fast, accessible sites; Learn courses</td>
+<td>Chrome DevRel; licence of text not read</td>
+</tr>
+<tr>
+<td>Open Source Design (opensourcedesign.net)</td>
+<td>community, job board, "openly licensed resources" for design</td>
+<td>directory of open design resources</td>
+</tr>
+<tr>
+<td>LottieFiles (lottiefiles.com/page/license)</td>
+<td>free animation files</td>
+<td>Lottie Simple License: free use incl. commercial, modifications must carry the same licence, no attribution required but encouraged, cannot be used to build a competing collection</td>
+</tr>
+</tbody>
+</table>
+<h2>Added pass</h2>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Terms</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CodePen public Pens (blog.codepen.io/documentation/licensing/)</td>
+<td>public Pens are MIT, private Pens have no implicit licence; the MIT notice should travel with copied code (credit original author) unless the Pen states another licence</td>
+<td>snippet source; always keep the Pen URL in the build log</td>
+</tr>
+<tr>
+<td>Shadertoy (shadertoy.com/terms)</td>
+<td>DEFAULT licence is CC BY-NC-SA 3.0: NON-COMMERCIAL, share-alike, unless the author put another licence (e.g. MIT) at the top of the code</td>
+<td>do not paste into a client or commercial site unless the shader states MIT/CC0</td>
+</tr>
+<tr>
+<td>Sketchfab licences (sketchfab.com/licenses)</td>
+<td>that page covers paid royalty-free store licences (editorial vs standard); free CC models' licence is per model page (CC0 does not require credit; CC BY does)</td>
+<td>check the model page, not the store terms</td>
+</tr>
+<tr>
+<td>Rijksmuseum data policy (rijksmuseum.nl/en/research/conduct-research/data/policy)</td>
+<td>material is marked Public Domain or CC0 when free of copyright; items with other licences are marked</td>
+<td>check per item flag</td>
+</tr>
+<tr>
+<td>Haikei https://haikei.app/pricing/</td>
+<td>generated designs allowed in personal, professional and client projects; no required credit; cannot use designs to provide a similar generator service</td>
+<td>Free Basic: 15 generators, SVG and medium-resolution PNG exports, unlimited downloads. Pro shown as "Coming soon", not currently priced on this page. Generated assets are usable, but this is not an open-source licence. Use sparingly; waves/blobs can look generic.</td>
+</tr>
+<tr>
+<td>Grainy gradients playground grainy-gradients.vercel.app</td>
+<td>demo of the SVG feTurbulence grain + CSS contrast/brightness trick; code snippet shown; licence not stated</td>
+<td>a way to get film grain with no image file</td>
+</tr>
+<tr>
+<td>Realtime Colors realtimecolors.com</td>
+<td>applies a palette and fonts to a real-looking site live</td>
+<td>quick palette/type check before building</td>
+</tr>
+<tr>
+<td>cubic-bezier.com</td>
+<td>compare easing curves, import/export; no licence stated</td>
+<td>easing tweak tool</td>
+</tr>
+<tr>
+<td>Godly godly.website</td>
+<td>inspiration gallery by category (3D, Motion, Typography,...)</td>
+<td>reference only, not assets</td>
+</tr>
+<tr>
+<td>Rive marketplace https://rive.app/docs/community/marketplace-overview</td>
+<td>CC BY; CC BY 4.0 confirmed in https://rive.app/docs/legal/terms-of-service section 6(c)</td>
+<td>remix into your account; keep creator/source credit, licence link and note changes when shipping. Permission for assets is separate from runtime/export plan access.</td>
+</tr>
+</tbody>
+</table>
+<h2>Added pass: video, audio, fonts delivery, 3D tool</h2>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Terms</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pexels (pexels.com/license)</td>
+<td>photos and video free, attribution not required, modify allowed; no selling unaltered copies, no implying endorsement, identifiable people not in a bad light, no use in a trademark/logo</td>
+<td>hero loops and photography</td>
+</tr>
+<tr>
+<td>Pixabay (pixabay.com/service/license-summary/)</td>
+<td>free, no attribution, modify OK; no standalone resale or distribution</td>
+<td>stock; full licence not read</td>
+</tr>
+<tr>
+<td>Coverr (coverr.co/license)</td>
+<td>free video and music for commercial use, but free downloads MUST credit Coverr or the creator (Coverr+ members don't); no AI training, no competing service, no model releases provided</td>
+<td>background video loops</td>
+</tr>
+<tr>
+<td>Mixkit (mixkit.co/license/)</td>
+<td>separate licence per item type (Stock Video Free, Stock Video Restricted, Music Free, Sound Effects Free, Video Templates, Art)</td>
+<td>check the specific licence linked from the item</td>
+</tr>
+<tr>
+<td>Freesound (freesound.org/help/faq/)</td>
+<td>each sound is CC0, CC-BY or CC-BY-NC (plus a retired Sampling+); NC sounds not for commercial sites; BY needs credit</td>
+<td>UI sound effects; filter to CC0</td>
+</tr>
+<tr>
+<td>Bunny Fonts (fonts.bunny.net/about)</td>
+<td>privacy-first, EU-hosted, no tracking, drop-in replacement for Google Fonts CSS API (swap hostname)</td>
+<td>GDPR-friendly delivery of the same open fonts; alternative: self-host with Fontsource</td>
+</tr>
+<tr>
+<td>Mixkit Sound Effects Free License: SFX usable free in commercial and non-commercial projects, explicitly including YouTube videos, social posts, online ads, games, film, TV/radio. You must build an End Product that incorporates the sound plus other things so it is larger in scope and different in nature; you cannot redistribute the sound on its own, as stock, in a tool or template, or with source files, claim it as your own, or register it on a rights-management service. The visible text does not mention attribution; further limits in the User Terms (https://mixkit.co/terms/, not read). Web use: UI sounds inside a site look like an End Product, but never ship the raw file in a downloadable template or repo.</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>UI components and templates (added) - all heavily restyle before use, defaults read as generic</h2>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Licence</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>daisyUI github.com/saadeghi/daisyui</td>
+<td>MIT</td>
+<td>Tailwind component classes and themes</td>
+</tr>
+<tr>
+<td>HeroUI (ex NextUI) github.com/heroui-inc/heroui</td>
+<td>MIT</td>
+<td>React components</td>
+</tr>
+<tr>
+<td>Base UI github.com/mui/base-ui</td>
+<td>MIT</td>
+<td>unstyled accessible primitives (good base for custom looks)</td>
+</tr>
+<tr>
+<td>Ark UI github.com/chakra-ui/ark</td>
+<td>MIT</td>
+<td>headless, multi-framework primitives</td>
+</tr>
+<tr>
+<td>Start Bootstrap (startbootstrap-creative)</td>
+<td>MIT</td>
+<td>classic free templates; dated look</td>
+</tr>
+<tr>
+<td>AstroWind github.com/onwidget/astrowind</td>
+<td>MIT</td>
+<td>Astro + Tailwind site template; structure reference</td>
+</tr>
+<tr>
+<td>HTML5 UP html5up.net/license</td>
+<td>CC BY 3.0: free personal and commercial, must credit HTML5 UP</td>
+<td>static templates; recognisable look</td>
+</tr>
+<tr>
+<td>Aceternity UI https://ui.aceternity.com/components</td>
+<td>free copy-paste React/Next.js components, Tailwind CSS + Motion; free pricing tier confirmed. https://ui.aceternity.com/licence is a custom licence headed "Pro", not MIT</td>
+<td>licence permits unlimited personal/client end products and modifications, bans stock/source redistribution and marketplace themes/templates; third-party terms still apply. exact applicability to each free component, since page heading and broad wording differ. Check downloaded component terms before packaging in a reusable template.</td>
+</tr>
+<tr>
+<td>Uiverse Galaxy https://github.com/uiverse-io/galaxy</td>
+<td>MIT: https://github.com/uiverse-io/galaxy/blob/main/LICENSE</td>
+<td>archive of CSS/Tailwind UI elements; MIT covers elements in this repo. Retain licence notice; optional visible creator credit is encouraged. Treat snippets as ingredients, not an automatic visual-quality pass.</td>
+</tr>
+</tbody>
+</table>
+<h2>Motion, 3D and shader tooling licences (added)</h2>
+<table>
+<thead>
+<tr>
+<th>Library</th>
+<th>Licence</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Theatre.js github.com/theatre-js/theatre</td>
+<td>Apache-2.0</td>
+<td>timeline/animation editor for three.js and DOM</td>
+</tr>
+<tr>
+<td>pmndrs/postprocessing</td>
+<td>zlib licence (permissive, keep notice)</td>
+<td>effect composer for three.js; heavier than needed for most heroes</td>
+</tr>
+<tr>
+<td>Leva (pmndrs)</td>
+<td>MIT</td>
+<td>GUI controls for tweaking values in R3F</td>
+</tr>
+<tr>
+<td>Tweakpane</td>
+<td>MIT</td>
+<td>tweak panel for any JS</td>
+</tr>
+<tr>
+<td>Rive runtime (rive-wasm)</td>
+<td>MIT</td>
+<td>runtime licence is separate from community content: marketplace CC BY 4.0</td>
+</tr>
+<tr>
+<td>Swup</td>
+<td>MIT</td>
+<td>page transitions</td>
+</tr>
+<tr>
+<td>Barba.js</td>
+<td>MIT</td>
+<td>page transitions</td>
+</tr>
+<tr>
+<td>Splitting.js</td>
+<td>MIT</td>
+<td>split text into words/chars with CSS variables (GSAP SplitText alternative)</td>
+</tr>
+<tr>
+<td>glTF-Transform</td>
+<td>MIT</td>
+<td>optimise/compress glTF models in a pipeline</td>
+</tr>
+<tr>
+<td>Draco (google/draco)</td>
+<td>Apache-2.0</td>
+<td>mesh compression for glTF</td>
+</tr>
+<tr>
+<td>LYGIA shader library github.com/patriciogonzalezvivo/lygia</td>
+<td>PROSPERITY PUBLIC LICENSE 3.0: free for NON-COMMERCIAL use, only a 30-day trial for commercial use</td>
+<td>do not ship in a commercial or client site without a licence from the author; a trap because it is often recommended</td>
+</tr>
+<tr>
+<td>OGL https://github.com/oframe/ogl</td>
+<td>Unlicense</td>
+<td>zero-dependency, minimal WebGL abstraction for custom shaders; fewer features than three.js, not a drop-in replacement. Standalone LICENSE URL failed, but full grant was readable in the repo.</td>
+</tr>
+</tbody>
+</table>
+<h2>Fonts: confirmed open licences for faces named in the library (added)</h2>
+<ul>
+<li>Fraunces (undercasetype/Fraunces), Instrument Serif (Instrument/instrument-serif), Inter (rsms/inter): all SIL OFL 1.1: free for commercial use and embedding; cannot sell the font on its own; reserved font names may apply to modified versions.</li>
+</ul>
+<h2>Inspiration and archive galleries (reference, not assets; do not copy sites)</h2>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>What</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Siteinspire siteinspire.com</td>
+<td>8,000+ curated sites by style, type, subject</td>
+<td>study structure and type</td>
+</tr>
+<tr>
+<td>Lapa Ninja lapa.ninja</td>
+<td>landing-page gallery since 2015</td>
+<td>landing page patterns</td>
+</tr>
+<tr>
+<td>CSS Design Awards cssdesignawards.com</td>
+<td>WOTD/awards listing</td>
+<td></td>
+</tr>
+<tr>
+<td>Awwwards Elements awwwards.com/elements/</td>
+<td>100s of examples of heroes, footers, transitions; the page also pushes a paid "Creative Pass" ($12/month courses)</td>
+<td>free to browse; courses are PAID, not needed</td>
+</tr>
+<tr>
+<td>Godly godly.website</td>
+<td>see above</td>
+<td></td>
+</tr>
+<tr>
+<td>Wayback Machine API archive.org/help/wayback_api.php</td>
+<td>JSON API to check/fetch archived captures of a URL</td>
+<td>study how a site looked before redesign; archived content stays the owner's copyright</td>
+</tr>
+<tr>
+<td>Land-book land-book.com</td>
+<td>reference only, never copy</td>
+<td>landing-page gallery with section-level galleries (land-book.com/sections) and heavy filters (industry/style/type/typography); screenshot downloads are gated behind paid PRO. Useful for studying structure, not for assets.</td>
+</tr>
+</tbody>
+</table>
+<h2>References and lists for build time (added)</h2>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>What</th>
+<th>Terms / notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>scroll-driven-animations.style</td>
+<td>demos and explanation of CSS scroll-driven animations (runs off main thread, loads a polyfill for unsupported browsers)</td>
+<td>by Bramus; native CSS replaces many JS scroll libraries for simple reveals; keep GSAP for complex timelines</td>
+</tr>
+<tr>
+<td>View Transition API docs (developer.chrome.com/docs/web-platform/view-transitions)</td>
+<td>native page/state transitions; same-document support from Chrome 111</td>
+<td>check current Safari/Firefox support on MDN before relying on it</td>
+</tr>
+<tr>
+<td>oklch.com</td>
+<td>OKLCH picker/converter with sRGB fallback hint</td>
+<td>build perceptual palettes (matches Radix-style scales)</td>
+</tr>
+<tr>
+<td>cssgradient.io</td>
+<td>free gradient generator by Designstripe</td>
+<td>licence of output not stated; gradients are not copyrightable code in practice, still note source</td>
+</tr>
+<tr>
+<td>Josh Comeau, Designing Beautiful Shadows in CSS (joshwcomeau.com/css/designing-shadows/)</td>
+<td>layered, colour-matched shadows for depth</td>
+<td>tutorial text copyrighted; use ideas only</td>
+</tr>
+<tr>
+<td>awesome-creative-coding (terkelg)</td>
+<td>15k-star list of creative-coding resources; list licence CC0</td>
+<td>mine for tools; each linked item has its own licence</td>
+</tr>
+<tr>
+<td>design-resources-for-developers (bradtraversy)</td>
+<td>66k-star list; MIT</td>
+<td>big index of free design resources for developers</td>
+</tr>
+<tr>
+<td>awesome-webgl (zbryikt)</td>
+<td>small list (34 stars)</td>
+<td>low value</td>
+</tr>
+</tbody>
+</table>
+<h2>Animation and effect libraries mined from design-resources-for-developers (added)</h2>
+<table>
+<thead>
+<tr>
+<th>Library</th>
+<th>Licence</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Locomotive Scroll</td>
+<td>MIT</td>
+<td>smooth/scroll detection; Lenis is the lighter default</td>
+</tr>
+<tr>
+<td>AOS (Animate On Scroll)</td>
+<td>MIT</td>
+<td>simple reveal-on-scroll; generic look, prefer CSS scroll-driven animations</td>
+</tr>
+<tr>
+<td>Swiper</td>
+<td>MIT</td>
+<td>sliders</td>
+</tr>
+<tr>
+<td>tsParticles, particles.js</td>
+<td>MIT</td>
+<td>particle backgrounds; overused, often reads as slop</td>
+</tr>
+<tr>
+<td>Rellax</td>
+<td>MIT</td>
+<td>simple parallax</td>
+</tr>
+<tr>
+<td>Animate.css</td>
+<td>HIPPOCRATIC LICENSE 2.1: permissive but with human-rights conditions, not OSI-approved open source; read it before using in client work</td>
+<td>prefer own keyframes</td>
+</tr>
+<tr>
+<td>ScrollReveal (jlmakes)</td>
+<td>GPLv3 for open projects; a paid Commercial Licence is required to keep source proprietary</td>
+<td>AVOID for client/closed-source sites; use AOS or CSS instead</td>
+</tr>
+<tr>
+<td>Atropos resolved: https://atroposjs.com/ (JavaScript/React/WebComponent, pointer-event parallax) and https://github.com/nolimits4web/atropos/blob/master/LICENSE (MIT full text). Demo artwork is not licensed by the code grant. Vivus previously resolved MIT.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Also seen in the list (not checked): Animista, Hover.css, Zdog, KUTE.js, Granim.js, Popmotion, Motion One, Roughnotation, Humaaans. Blush RESOLVED.</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Failed fetches (try twice rule)</h2>
+<h2>Pattern licensing evidence and build decision (Oct 7 2026)</h2>
+<ul>
+<li>https://github.com/mike-hearn/transparent-textures describes adding transparency to Subtle Patterns. https://github.com/subtlepatterns/SubtlePatterns explicitly says CC BY-SA 3.0 and credits original authors. https://news.ycombinator.com/item?id=41515968 contains a post by the account <code>mikehearn</code> claiming authorship and CC BY 3.0. That account claim is not independent proof of relicensing rights. The two licences disagree; do not silently choose the less restrictive one. Prefer original procedural noise or assets with clear CC0 terms.</li>
+<li>https://github.com/sschoger/hero-patterns read but supplies no licence in the fetched summary. https://news.ycombinator.com/item?id=13677828 contains historical CC BY-SA 4.0 claims; current authoritative terms remain. A guessed LICENSE path returned 404, which does not establish that the repo lacks a licence.</li>
+<li>Oct 7 2026 update: heropatterns.com homepage says "will always be free" but carries no licence text; both GitHub repos (steveschoger/hero-patterns, sschoger/hero-patterns) now 404; two independent secondary indexes claim CC BY 4.0. Verdict: treat patterns as attribution-required (credit Steve Schoger) if used at all, prefer procedural noise for anything commercial-critical.</li>
+<li>Build guidance: save local assets rather than hotlinking third-party PNGs; preserve the attribution record and any share-alike obligations attached to modified assets. This is a reliability and rights precaution, not a claim that the whole website must use an asset's licence.</li>
+</ul>
+<h2>Community motion and 3D assets: shipping checklist (Oct 7 2026)</h2>
+<ul>
+<li>Rive: https://rive.app/docs/community/marketplace-overview and https://rive.app/docs/legal/terms-of-service establish the community/marketplace CC BY 4.0 grant. It covers remixing and modification, unlike a licence for the runtime alone. Keep the file URL, creator, licence URL and modification record in the build's asset ledger.</li>
+<li>CC BY 4.0: https://creativecommons.org/licenses/by/4.0/ permits commercial sharing/adaptation with appropriate credit, licence link and indication of changes, without implying endorsement. Other rights (privacy, publicity, trademarks, etc.) can remain; a licence is not a guarantee that an uploader owns every included element.</li>
+<li>Spline community: https://docs.spline.design/basics/community-platform says all community files are CC BY 4.0.: https://spline.design/terms also has broad restrictions on commercial exploitation of content not owned by the user, with a short Standard Licensing paragraph that does not state CC BY.: treat documentation as useful asset-licence evidence, but do not treat this as blanket clearance of every scene or third-party component. Recheck the selected scene and terms for a client build. Asset credit and paid watermark removal are separate issues; price note above remains the relevant export caveat.</li>
+<li>Sketchfab: https://sketchfab.com/blogs/community/refine-downloadable-model-searches-with-new-license-filters/ explains CC0 (no conditions), CC BY (credit), NC (no commercial use), ND (no alteration), SA (same licence for derivatives) and editorial-only assets. Prefer CC0 for hero objects; reject NC for a client build and avoid ND when optimisation/changes are needed. Check actual item download availability and terms, not a collection title. This guide is historical and is not proof of today's search interface.</li>
+<li>Sketchfab: https://sketchfab.com/features/free-3d-models now links royalty-free discovery to Fab. https://sketchfab.com/developers/download-api/guidelines requires account authentication for API downloads and attribution that follows assets in integrations. No specific CC0 model collection has been vetted this pass; do not claim an individual model is ready to use.</li>
+</ul>
+<h2>Build-time tool recipes and export costs (Oct 7 2026)</h2>
+<ul>
+<li>Rive: https://rive.app/docs/editor/exporting/exporting-for-runtime states runtime <code>.riv</code> export is paid. https://rive.app/pricing currently advertises $9/month to ship; https://rive.app/blog/rive-s-new-9-mo-plan explains Cadet is $9/month billed annually or $17/month billed monthly, with unlimited exports and up to 3 seats. Recheck exact checkout total and billing term before any purchase. Free editor access and CC BY marketplace rights do not grant free custom export. The announcement explicitly allows running Marketplace/docs demos without exporting; existing exports do not require an active subscription. Paid unlock to consider only if we need new/modified <code>.riv</code> exports, not a requirement to keep learning.</li>
+<li>Open Props: https://open-props.style/ is MIT and gives npm/CSS imports plus individual packs (sizes, easings, animations). Import tokens selectively; normalize and styled buttons are optional. Our build guidance: use sizes/easing tokens behind brand-specific aliases, leave default cards, gradients and colours out unless they fit the brief. Pin the package/version for a real build rather than relying on an unversioned CDN. This avoids importing someone else's visual style along with useful primitives.</li>
+<li>cubic-bezier: https://cubic-bezier.com/ offers preview/compare, duration adjustment and curve library import/export. Source licence read: https://github.com/LeaVerou/cubic-bezier/blob/gh-pages/LICENSE, MIT, retain copyright/permission when copying tool code. Curve choice is a design decision, not a reason to include the whole tool in a website.</li>
+<li>Utopia: https://utopia.fyi/ describes interpolating type and spacing between small and large viewport scales, with free tools and no framework dependency. https://github.com/trys/utopia-core documents JS/TS <code>calculateTypeScale</code>, <code>calculateSpaceScale</code>, <code>calculateClamp</code> and container-relative options.: https://github.com/trys/utopia-core/blob/main/package.json declares ISC.: the attempted LICENSE path returned 404, so preserve/recheck the licence notice in the package before vendoring code. Generated CSS and source-package reuse are separate questions. Fluid typography does not remove the need for layout breakpoints or testing text zoom/wrapping; that is our implementation caution.</li>
+</ul>
+<h2>More 3D archives: choose by delivery mode (Oct 7 2026)</h2>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Rights read</th>
+<th>Build use and limits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Quaternius https://quaternius.com/</td>
+<td>https://quaternius.com/license.html, QAL v1.0, updated Aug 28 2026: free personal/educational/commercial use, copy/modify and incorporate in completed products, no required credit</td>
+<td>NOT blanket CC0. No standalone asset redistribution, including modified assets, packs, stock files or templates, free or paid. Do not put its models into reusable template/asset libraries for redistribution. Source catalog has nature, food and vehicle packs; visual fit not inspected this pass.</td>
+</tr>
+<tr>
+<td>Blendkit (formerly BlenderKit) https://www.blendkit.com/docs/licenses/</td>
+<td>offers CC0 and Royalty Free; both allow commercial higher-level derivative works, RF prohibits reselling the model/asset pack</td>
+<td>https://www.blendkit.com/docs/licenses/licensing-faq/ says RF assets should not be directly extractable in game distributions. Prefer CC0 for downloadable browser GLBs; an easily fetched GLB creates a rights question for RF assets. Rendered images/video are the clearer route under its FAQ. Specific model access/free-vs-paid status must be checked per item.</td>
+</tr>
+<tr>
+<td>NASA 3D Resources https://science.nasa.gov/3d-resources/</td>
+<td>free-download model/printable/texture hub; points to NASA media guidelines</td>
+<td>Mission/science reference objects, not generic commercial-brand clearance. The hub lists Apollo/Moon material, asteroid and telescope assets; individual files, polygon budgets and visual quality remain.</td>
+</tr>
+</tbody>
+</table>
+<p>NASA usage boundary: https://www.nasa.gov/nasa-brand-center/images-and-media/ says NASA-created model data and media are generally not subject to copyright in the US, asks acknowledgement as source, and excludes third-party copyrighted material from its grant. Commercial use must not imply NASA endorsement; logos/identifiers and identifiable people introduce separate restrictions or clearance needs. Use this as an informational/science archive, not a source of unqualified CC0 branding assets.</p>
+<p>Quaternius licence version caution: QAL states future changes do not apply retroactively to assets already obtained under an earlier version. Record the actual asset's licence and acquisition date. Older third-party directories calling all Quaternius assets CC0 are not proof of today's download terms.</p>
+<p>Our implementation guidance: browser-delivered 3D is normally retrievable by users, so an asset licence forbidding extractability is not a detail to hand-wave away. Choose clear CC0/CC BY assets for an interactive WebGL hero, or use your own assets; consider rendering restricted assets to 2D/video when the applicable licence explicitly permits that.</p>
+<h2>3D preparation and test assets (Oct 7 2026)</h2>
+<table>
+<thead>
+<tr>
+<th>Need</th>
+<th>Resource</th>
+<th>Rights and build notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inspect and optimise GLB</td>
+<td>https://gltf-transform.dev/cli</td>
+<td>CLI supports inspect, dedup/prune, resize, Draco/Meshopt, KTX/Basis and other transformations. MIT full SDK licence read: https://github.com/donmccurdy/glTF-Transform/blob/main/. Retain its copyright and permission notice when copying code. Inspect first; docs warn optimisation defaults are not ideal for every scene.</td>
+</tr>
+<tr>
+<td>Browser GLB inspection/editing</td>
+<td>https://gltf.report/ and https://github.com/donmccurdy/glTF-Report-Feedback</td>
+<td>free browser tool; official README says files stay on the computer, not uploaded, with possible anonymised analytics. Website is open core, NOT open source; underlying transform functionality is MIT. Do not assume UI source reuse rights.</td>
+</tr>
+<tr>
+<td>Format validation</td>
+<td>https://github.khronos.org/glTF-Validator/</td>
+<td>https://github.com/KhronosGroup/glTF-Validator documents browser-local validation, JSON/GLB structure, references, buffers and supported extensions. Apache-2.0 full licence read: https://github.com/KhronosGroup/glTF-Validator/blob/main/LICENSE. Valid format does not prove visual quality, licence clearance or runtime speed.</td>
+</tr>
+<tr>
+<td>Test model catalogue</td>
+<td>https://github.khronos.org/glTF-Assets/</td>
+<td>https://github.com/KhronosGroup/glTF-Sample-Assets/blob/main/ distinguishes showcase/testing/tutorial/issues tags; model licences are per-directory, not a blanket collection grant. Avoid assuming testing assets are finished hero art.</td>
+</tr>
+<tr>
+<td>Concrete CC0 test object</td>
+<td>https://github.com/KhronosGroup/glTF-Sample-Assets/blob/main/Models/Avocado/</td>
+<td>Microsoft Avocado model: CC0 1.0, hand-painted texture, core/testing tags. Rights and description verified; model pixels/performance NOT inspected. Good candidate for loader smoke tests, not a claimed visual recommendation.</td>
+</tr>
+</tbody>
+</table>
+<p>Our shipping checklist: inspect source model, keep original, optimise a copy, validate the result, then compare actual pixels and animation before/after in the target renderer. Confirm decoders and supported extensions match the chosen compression. Smaller transfer bytes alone do not prove faster rendering or lower GPU memory. This is implementation guidance drawn from the tools' different roles, not a measured benchmark.</p>
+<h2>Headless navigation and overlay ingredients (Oct 7 2026)</h2>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Verified rights</th>
+<th>Build use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Radix Navigation Menu https://www.radix-ui.com/primitives/docs/components/navigation-menu</td>
+<td>MIT package licence read: https://app.unpkg.com/@radix-ui/react-navigation-menu@1.2.22/files/LICENSE</td>
+<td>managed tab focus, keyboard support, animation CSS variables and client-router composition. NavigationMenu is deliberately not ARIA menubar. Use primitives with your own visual design; do not copy example styling by default.</td>
+</tr>
+<tr>
+<td>Headless UI Disclosure https://headlessui.com/react/disclosure</td>
+<td>MIT full licence read: https://github.com/tailwindlabs/headlessui/blob/HEAD/LICENSE</td>
+<td>unstyled Disclosure/DisclosureButton/DisclosurePanel for show/hide controls. Retain copyright/permission when copying code. Free library is separate from paid Tailwind templates.</td>
+</tr>
+<tr>
+<td>Headless UI Dialog https://headlessui.com/react/dialog</td>
+<td>same MIT library licence</td>
+<td>modal overlay primitive. Verify focus, accessible name, close behaviour and background inertness in the actual build, including reduced-motion paths.</td>
+</tr>
+<tr>
+<td>WAI APG navigation/dialog references</td>
+<td>https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/ and https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/</td>
+<td>behaviour reference, not a cleared production-code template. Distinguish disclosure vs modal semantics; see .</td>
+</tr>
+</tbody>
+</table>
+<h2>Google Fonts practical rights and loading checks (Oct 7 2026)</h2>
+<p>https://fonts.google.com/faq read in full. Fonts are free for commercial products and logos, but redistribution/modification follows the individual font licence (OFL commonly; some Apache or Ubuntu). Google Fonts supports downloading for self-hosting. Do not assume every font is OFL just because it appears in the collection.
+- Product Sans remains Google-only. Google Sans/Google Sans Flex are now available under OFL according to the FAQ; old blanket claims that all Google Sans is unavailable are stale. Recheck the actual family files before use.
+- Material Icons no longer receives updates; Google recommends Material Symbols. Font-ligature failures can come from wrong set, stale version, CSS disabling ligatures, missing <code>icon_names</code> subset entries or loading flashes. FAQ recommends <code>display=block</code> to avoid displaying raw ligature words during load. For essential controls, our build guidance is to use stable SVG icons or accessible text/fallbacks rather than leave a missing font as the only affordance.
+- Privacy section distinguishes API font requests from self-hosting; self-hosting avoids sending font fetches to Google. Read the current privacy requirements for the deployment jurisdiction rather than treating a free font licence as privacy compliance.</p>
+<p>Parallax/snippet quality guidance: reserve hover tilt for a chosen object, not every information block. Keep pointer effects nonessential and provide a reduced-motion/static path. Uiverse/Atropos code rights do not clear third-party images, game logos, or other demo content.</p>
+<h2>Historical illustration archives and procedural drawing (Oct 7 2026)</h2>
+<table>
+<thead>
+<tr>
+<th>Need</th>
+<th>Source</th>
+<th>Rights and quality notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Curated historical image search</td>
+<td>https://pdimagearchive.org/</td>
+<td>https://pdimagearchive.org/reusing-images/ and https://pdimagearchive.org/terms-and-conditions/: distinguish underlying work from digital copy; image rights vary by jurisdiction and source institution. Archive claims no extra rights on its edits. Per-item rights labels/source must be checked, not blanket CC0. Metadata is CC BY-NC 4.0, unlike images; do not copy the catalogue metadata into a commercial product.</td>
+</tr>
+<tr>
+<td>Victorian / French Romantic engravings</td>
+<td>https://www.oldbookillustrations.com/</td>
+<td>https://www.oldbookillustrations.com/about/ describes restored scans and unprocessed alternatives, navigation by artist/date/publisher. https://www.oldbookillustrations.com/terms-of-use/: no added limit on illustrations, but copyright status is a best-effort assessment and jurisdiction-dependent. Non-public-domain text/descriptions/translations are CC BY-NC-SA 4.0; structured data is CC BY. Do not copy their explanatory text into a commercial site along with an image.</td>
+</tr>
+<tr>
+<td>Pseudo-3D line/shape illustration</td>
+<td>https://zzz.dog/api</td>
+<td>API describes Canvas/SVG drawing with shapes, paths, transforms and illustration controls. https://github.com/metafizzy/zdog/blob/master/ states MIT. Keep the package licence notice when shipping code; this is a drawing tool, not a ready-made art asset grant.</td>
+</tr>
+</tbody>
+</table>
+<p>Build guidance: these archives can supply distinctive editorial motifs instead of stock blobs, but choose imagery from the brand story, not merely because it is antique. Read the chosen source item's rights and inspect actual resolution/crop before selecting it. No image was visually vetted this pass. Archive text, metadata and images can have different licences even on the same page.</p>
+<h2>Font production tools (Oct 7 2026)</h2>
+<table>
+<thead>
+<tr>
+<th>Need</th>
+<th>Resource</th>
+<th>Verified rights and usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Subset/convert fonts</td>
+<td>https://fonttools.readthedocs.io/en/latest/subset/index.html</td>
+<td>fontTools <code>pyftsubset</code> documentation; tool MIT full licence read: https://github.com/fonttools/fonttools/blob/main/LICENSE. The tool's licence does not grant permission to modify any font: check its own licence, naming and notice requirements.</td>
+</tr>
+<tr>
+<td>Generate metric-adjusted fallbacks</td>
+<td>https://github.com/unjs/fontaine</td>
+<td>README describes scanning <code>@font-face</code>, generating fallback metric rules and adding fallback family names, with Vite/Webpack/Rollup/esbuild support; README declares MIT. Standalone guessed LICENSE path 404, full notice remains. Inspect generated output for your font and platforms rather than copying example metrics.</td>
+</tr>
+<tr>
+<td>Loading/performance reference</td>
+<td>https://web.dev/articles/font-best-practices</td>
+<td>WOFF2, language subsetting, cautious preload and font-display tradeoffs. Self-hosting needs the optimisations that a hosted API might otherwise provide; not inherently faster.</td>
+</tr>
+<tr>
+<td>Fallback metric reference</td>
+<td>https://developer.chrome.com/blog/font-fallbacks</td>
+<td>explains size-adjust and ascent/descent/line-gap overrides to better align fallback fonts and reduce layout shift. Actual fallback availability and text wrapping still need testing.</td>
+</tr>
+</tbody>
+</table>
+<h2>Image preparation for real builds (Oct 7 2026)</h2>
+<table>
+<thead>
+<tr>
+<th>Need</th>
+<th>Tool/reference</th>
+<th>Licence and practical note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Compare compression interactively</td>
+<td>https://squoosh.app</td>
+<td>https://github.com/GoogleChromeLabs/squoosh/ says compression happens locally, images are not sent to a server, but analytics are collected. Apache-2.0 full licence read: https://github.com/GoogleChromeLabs/squoosh/blob/dev/LICENSE. Tool rights do not license the source image.</td>
+</tr>
+<tr>
+<td>Batch resize/convert in a build pipeline</td>
+<td>https://sharp.pixelplumbing.com/</td>
+<td>https://github.com/lovell/sharp and https://sharp.pixelplumbing.com/api-resize/ describe resizing, format conversion, auto-orientation and crop strategies. Apache-2.0 full licence read: https://github.com/lovell/sharp/blob/main/LICENSE. Automatic attention/entropy crop is a starting point, not art direction.</td>
+</tr>
+<tr>
+<td>Responsive image decisions</td>
+<td>https://web.dev/learn/design/picture-element and https://web.dev/articles/responsive-images</td>
+<td><code>srcset</code>/<code>sizes</code> offer same-image resolution choices; <code>picture</code> sources control format or art-direction alternatives. Keep required inner <code>img</code> and sensible fallback.</td>
+</tr>
+</tbody>
+</table>
+<p>Build guidance: make mobile and desktop crops intentionally, inspect their pixels, preserve subject/focal point, then generate delivery sizes. Do not assume a smaller file preserves the illustration's fine lines, grain, colour or transparency. Use source-image rights and the tools' code licences separately. No compression/crop was actually performed in this pass.</p>
+<h2>SVG preparation tools (Oct 7 2026)</h2>
+<table>
+<thead>
+<tr>
+<th>Need</th>
+<th>Tool</th>
+<th>Rights / shipping caveats</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Batch SVG optimisation</td>
+<td>https://github.com/svg/svgo</td>
+<td>MIT declared in repo; https://svgo.dev/docs/plugins/removeViewBox/ warns that removing viewBox prevents scaling or clips content. https://svgo.dev/docs/plugins/cleanupIds/ warns of ID collisions when separately optimised SVGs are inlined together. Preserve required IDs and references; configure rather than blindly shrink.</td>
+</tr>
+<tr>
+<td>Interactive optimiser UI</td>
+<td>https://github.com/jakearchibald/svgomg</td>
+<td>official README identifies web GUI for SVGO; full MIT licence: https://github.com/jakearchibald/svgomg/blob/main/. Treat preview as one check, then test at intended sizes/backgrounds in the build.</td>
+</tr>
+<tr>
+<td>Convert SVG to React component</td>
+<td>https://react-svgr.com/docs/options/</td>
+<td>https://github.com/gregberge/svgr declares MIT. Options support icon sizing, dimension removal, title/description props and SVG props. Uses SVGO and enables prefixIds to reduce collision risk; does not prove repeated component instances have unique IDs.</td>
+</tr>
+</tbody>
+</table>
+<p>Build guidance: keep viewBox for scalable icons, match IDs/references across masks/gradients/clip paths, and verify thin strokes at actual size. Removing title/desc can remove useful accessible content; decide meaningful versus decorative first and provide an appropriate label or hide decorative SVGs from assistive technology. Tool licences do not license logos or source art. No SVG was optimised or visually inspected this pass.</p>
+<h2>Build verification tools (Oct 7 2026)</h2>
+<table>
+<thead>
+<tr>
+<th>Need</th>
+<th>Tool</th>
+<th>Rights and what it does NOT prove</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Visual regression checks</td>
+<td>https://playwright.dev/docs/test-snapshots</td>
+<td>produces/compares screenshot baselines with <code>toHaveScreenshot</code>; environment differences affect pixels. Apache-2.0 full licence: https://github.com/microsoft/playwright/blob/main/LICENSE. An unchanged baseline can preserve a bad design; review actual images before approving baseline updates.</td>
+</tr>
+<tr>
+<td>Automated accessibility rules</td>
+<td>https://github.com/dequelabs/axe-core</td>
+<td>MPL-2.0 full licence: https://github.com/dequelabs/axe-core/blob/HEAD/LICENSE. README reports finding on average 57% of WCAG issues automatically and flags uncertain cases as incomplete. This is a vendor claim about average coverage, not an accessibility certification. Check current notices/obligations when modifying/distributing engine code.</td>
+</tr>
+<tr>
+<td>Repeated lab audits in CI</td>
+<td>https://github.com/GoogleChrome/lighthouse-ci/</td>
+<td>collecting/asserting Lighthouse results documented at https://github.com/GoogleChrome/lighthouse-ci/blob/main/docs/. Apache-2.0 full licence: https://github.com/GoogleChrome/lighthouse-ci/blob/main/LICENSE. A lab result is not proof of real-user performance or visual quality.</td>
+</tr>
+</tbody>
+</table>
+<p>Our build gate: reviewed responsive screenshots, keyboard/focus and screen-reader checks, automated rules, repeated performance measurements and asset-rights checks answer different questions. None substitutes for the others. No tests were run against a user site in this research pass.</p>
+<h2>Licence notice follow-up (Oct 7)</h2>
+<ul>
+<li>Fontaine: full MIT notice (Copyright 2022 Daniel Roe) at https://raw.githubusercontent.com/unjs/fontaine/main/LICENCE (file is spelled LICENCE, not LICENSE; GitHub API reports MIT).</li>
+<li>utopia-core: package.json declares ISC, author Trys Mudford (https://raw.githubusercontent.com/trys/utopia-core/main/package.json). Repo has no LICENSE file (root lists README, package.json, src only; GitHub licence API 404). So ISC is a declaration only; keep a copy of the package.json declaration if shipping, or just use the formula.</li>
+</ul>
+<h2>Sketchfab CC0 hero-object candidates (API read Oct 7)</h2>
+<p>Source: Sketchfab public search API (license=cc0, downloadable=true, sorted by likes, q=sculpture). metadata only: licence label, face count, likes. not opened in the viewer, no pixels inspected, no download test.
+- Bust of Róża Loewenfeld, Virtual Museums of Małopolska, 60,395 faces, 1405 likes: https://sketchfab.com/3d-models/none-fc6e731a0131471ba8e45511c7ea9996
+- Owl 'Zun' wine vessel, Minneapolis Institute of Art, 65,082 faces: https://sketchfab.com/3d-models/none-ca77ae1351ca4b1c9a7d403e09e1c4af
+- Tibetan Amoghasiddhi Buddha, Mia, 64,000 faces: https://sketchfab.com/3d-models/none-a2c46e73a9294f32ab12520c6b87a079
+- Water-Moon Guanyin (Mia, 201,796), Venus de Milo (SMK, 274,243), Figure of a Dancer (Smithsonian, 150,000), Löwe (noe-3d.at, 520,042) are heavier.
+Notes: these are museum scans, so raw meshes are far too heavy for a web hero; plan decimation/retopo plus texture baking (glTF Transform, see earlier section). CC0 is the uploader's per-model label on Sketchfab; check the model page before shipping. Subject matter (religious figures, Venus) needs a judgement call for brand fit. Lower face counts (60-65k) are the realistic starting point.</p>
+<h3>Visual check of Sketchfab thumbnails (Oct 8)</h3>
+<p>Looked at the Sketchfab-supplied preview thumbnails (720x405) of three candidates; this is the uploader's preview render, not the mesh in my own viewer, so geometry and texture at close range remain.
+- Bust of Róża Loewenfeld: pale plaster, warm tone, clean readable face; includes a plinth (crop or remove for a floating hero). Light object pops on black.
+- Water-Moon Guanyin (Mia): painted wood, rich colour and detail, but heavy mesh (about 200k faces) and a religious figure.</p>
+<h2>Spline community / Rive community recheck (Oct 8)</h2>
+<ul>
+<li>Spline Community (https://community.spline.design/): public library of editable Spline scenes, licensed CC BY 4.0, attribution required (keep the "Made with Spline" link, credit creator). A community scene has no runtime URL: remix it in Spline, then publish your copy to get one. Collections include Interactive Website, Brand and Marketing, 3D Logos, Immersive Experiences, 3D Mockups, Character Animation. Featured titles seen: Purple coin arch, Moeda Iron Coin, HOVER + SCROLL EFFECT, Drag and Drop landing page, Abstract Background (names are by Spline users, not vetted). Per-scene licence overrides, visual quality and performance not checked. Consistent with earlier note: free web export carries a watermark, so a remix still hits that paid unlock.</li>
+<li>Rive community page (https://rive.app/community/) returned an empty page to fetch (JS-rendered); earlier official-docs licence read (CC BY 4.0) stands, no individual file vetted.</li>
+</ul>
+<h3>Visual check: Spline Community and Rive Marketplace (screenshots viewed Oct 8)</h3>
+<ul>
+<li>Rive: https://rive.app/community/ now returns "Oops! We couldn't find the page" (404 page, with links to Discover, Learn, Marketplace). The live gallery is https://rive.app/marketplace/ (Featured / Latest / For Hire tabs, search, "Get Started"). Featured items are mostly character illustrations and animated posters by individual creators (Galactic Outlaws, Sobo, Character poses etc.), many tagged "For Hire", with like counts. Mostly cartoon characters: weak match for a premium black one-hero look. Per-file licence and export limits as before (CC BY 4.0, custom export paid); no individual file opened.</li>
+</ul>
+<h3>In-viewer check: Owl 'Zun' wine vessel (Oct 8)</h3>
+<ul>
+<li>Fit: strongest candidate so far for a black-bg one-hero build (dark object needs rim light). 65k triangles is workable but still heavy for mobile; decimate and bake.</li>
+<li>Download needs a Sketchfab login (button shown; not clicked, no account used); glTF size and texture resolution unseen; "animated version" note means check whether the file has animation baggage. CC0 label is the uploader's per page; museum CC0 policy not read.</li>
+</ul>
+<h3>Sketchfab download route (docs read Oct 8)</h3>
+<ul>
+<li>https://sketchfab.com/developers/download-api/downloading-models: downloading a model requires an authenticated Sketchfab account (OAuth 2.0). Flow: GET https://api.sketchfab.com/v3/models/{UID}/download with a Bearer token returns temporary links (glTF zip, USDZ if available; links expire in about 300 s, so don't cache); the archive itself then downloads with no auth. The glTF zip holds scene.gltf, scene.bin and textures. Sizes in the docs example are illustrative, not the Owl's.</li>
+</ul>
+<h2>Poly Haven 3D models: CC0, direct download, no login (Oct 8)</h2>
+<ul>
+<li>Licence page https://polyhaven.com/license: all HDRIs, textures and 3D models are CC0 (commercial use fine, no credit needed, can redistribute and bundle in products sold). Models are by Poly Haven staff or artists who donate/sell to them.</li>
+<li>Public JSON API https://api.polyhaven.com/assets?t=models lists 521 models (polycount, categories, authors, download counts); https://api.polyhaven.com/files/{id} gives direct file URLs, no account or token. glTF comes in 1k/2k/4k/8k texture sizes (separate.gltf +.bin + textures; also blend, fbx, usd).</li>
+<li>Marble Bust 01 (https://polyhaven.com/a/marble_bust_01, author Rico Cilliers): 17,456 triangles, max 8192 textures. Direct glTF: 1k set about 0.9 MB total, 2k about 2.0 MB, 4k about 5.8 MB, 8k about 17.6 MB (sizes summed from the API include list). Preview image viewed: polished off-white marble, sharp hair and face detail, sits on a round plinth. Stronger candidate than Sketchfab scans for web: light, CC0, and downloadable now.</li>
+<li>Other sculpture-ish picks in the API (names only, not viewed): bronze_ray_statue, brass_vase_01-03, antique_ceramic_vase_01, Chandelier_01.</li>
+<li>Not downloaded into a viewer; no mesh/texture inspection yet. The preview shows a light object, so on a black background it will read strongly; on a light site use a dark HDRI.</li>
+</ul>
+<h3>Marble Bust 01 downloaded and inspected (Oct 8)</h3>
+<p>Downloaded the 1k glTF set from the Poly Haven API (no login) and ran <code>npx @gltf-transform/cli inspect</code> locally. Real numbers: one mesh, one material, 17,456 triangles, 9,746 vertices, mesh data 416.6 KB (.bin, u16 indices, POSITION/NORMAL/TEXCOORD_0 only), glTF 2.0 from Khronos Blender exporter, no extensions, no animation. Material is PBR: baseColor, normal and metallicRoughness textures, each a 1024x1024 JPEG (125 + 160 + 194 KB), about 5.6 MB GPU memory each uncompressed (about 17 MB VRAM total). Opaque, double sided. Whole folder is 896 KB on disk.
+- Takeaway: a single-hero-ready asset that needs no decimation. Page weight about 0.9 MB at 1k; use 2k (2 MB) only if the bust fills the screen. Could drop the rough/ARM texture to a constant to save about 190 KB, and KTX2/Basis would cut VRAM further (not tested).
+- Note: the.bin path in the API's 1k list points into the 8k folder; the file is the same shared geometry (416,608 bytes).</p>
+<h2>Free inspiration archives, additions</h2>
+<ul>
+<li>Fonts In Use (<a href="https://fontsinuse.com/about">source</a>): free public archive of typography indexed by typeface, format, industry and period; launched as a blog Dec 2010, full Collection July 2012; open to public contributions (account + bookmarklet); homepage lists current uses with typefaces named per image. Use for: finding real-world pairings and seeing a font in context before choosing; each use names the typeface and designer. No login needed to browse; image copyright stays with the contributor/owner (their form asks for copyright info) - reference only, not asset source.</li>
+<li>Brutalist Websites (<a href="https://brutalistwebsites.com/">source</a>): single long page of about 600 site screenshots (Disslist, RAW Magazine, Nelson Heinemann, Middleplane, Utrecht...) under the tagline that brutalism is a younger generation's reaction to the "lightness, optimism and frivolity" of mainstream web design; submissions by email. Free, no login. Direct reference set for Nu-Brutalism/anti-polish work ( Nu-Brutalism, Disslist). Screenshots are thumbnails hotlinked from the site; I did not open individual sites this pass.</li>
+<li>One Page Love (<a href="https://onepagelove.com/about">source</a>): showcase of one-page sites, templates and resources since March 2008 (Rob Hope); as of July 2026 acquired by Some Studio (Piet Terheyden, also Minimalissimo and Minimal Gallery). Matches single-scroll story builds . Whether template downloads are free or paid not checked.</li>
+</ul>
+<h2>Galleries (Oct 13 2026)</h2>
+<ul>
+<li>Minimal Gallery (<a href="https://minimal.gallery/about">source</a>): curated website gallery since 2013, started by Piet Terheyden, acquired in 2026 (same group as One Page Love and Minimalissimo, see above). Free to browse; submissions open. Fits restrained/quiet-luxury references ( Austurbane, Zen-X).</li>
+<li>Minimalissimo (<a href="https://www.minimalissimo.com/about">source</a>): minimalism curation across design, architecture, fashion, culture; "principle-driven, not trend-led"; five-person team. Free editorial reading.</li>
+<li>Designspiration (<a href="https://www.designspiration.com/">source</a>): image-inspiration board site with a browser extension for saving; account/pricing not checked.</li>
+</ul>
+<h2>Icon resources additions</h2>
+<ul>
+<li>SVG Repo (https://www.svgrepo.com/): 500k+ icons/vectors, bot-indexed from open-licence sources. Default "SVG Repo License" (licensing page read): no attribution required (appreciated), commercial use OK as part of a project, but no redistribution as an icon catalogue and no reselling the vectors as-is. Individual icon pages may override (CC0, MIT, GPL) - check the per-icon licence line before use. https://www.svgrepo.com/page/licensing/</li>
+<li>Iconoir (https://iconoir.com/): free icon library, SVG/Font/React/React Native/Flutter/Figma/Framer; GitHub repo licence confirmed MIT (github.com/iconoir-icons/iconoir). Positioned as a free alternative to Noun Project/Flaticon.</li>
+<li>Iconify (https://iconify.design/): one framework over 200k+ icons from many open sets. Framework itself MIT (older packages Apache 2.0/GPL 2.0); the framework licence does NOT cover the icons - each icon set carries its own open licence, check per set. Same rule as Shadertoy/LYGIA: the tool licence never licenses the assets.</li>
+</ul>
+<h2>Illustration/tool resources additions</h2>
+<ul>
+<li>Open Doodles (https://www.opendoodles.com/about): CC0 confirmed on the about page - copy, edit, remix, share, redraw for any purpose without restriction. Source files available (layered). By Pablo Stanley.</li>
+<li>Absurd.design (https://absurd.design/): changed model - now membership-based (Monthly/Yearly, artist project by Diana Valeanu). PAID; not requested. Previously listed unchecked; now resolved as paid.</li>
+<li>fffuel (https://fffuel.co/): free SVG generators and colour tools (blobs, lines, noise, holographic/watercolor backgrounds, palette generator, curated palettes). Site free to use; licence for generated assets not stated on the homepage - treat as free for mockups, verify before shipping commercially.</li>
+</ul>
+<h2>Illustration licences resolved</h2>
+<ul>
+<li>Humaaans (https://www.humaaans.com/): CC0 stated on homepage - free for commercial and personal use, mix-and-match people library by Pablo Stanley.</li>
+<li>Blush (https://blush.design/license): all illustrations free for commercial and client work, modification allowed, no credit required (appreciated). Limits: no reselling/redistributing the illustrations, no merchandising basis (no printing straight onto T-shirts), no compiling a competing service, artist retains ownership. Customizable collections via their app/plugin.</li>
+</ul>
+<h2>Curated feed vein: Sidebar.io, Frontend Focus, CSS Weekly</h2>
+<p>Sources: sidebar.io, frontendfoc.us, css-weekly.com. (uxdesign.cc = Medium, Cloudflare-blocked to curl.)
+- SIDEBAR.IO (697): "The five best design links, every weekday" - the tightest curation format on the web: 5 links, domain + one-line summary + 3 tags, NO commentary. Current links show the editorial range: product philosophy ("Your product is not the center of the universe"), AI-era analysis (seangoedecke "AI is driving a boom in modestly successful software projects"), agent-era tooling (EditUI "Point at your UI. Tell your coding agent what to change."), craft guides ("A simple guide to calm UI"), data reports ("State of Ecommerce Accessibility 2026": 59,400 product pages audited, 64% had &gt;=1 critical a11y failure). Format lesson: curation = SELECTION, not summary.
+- FRONTEND FOCUS + CSS WEEKLY (698): the two durable newsletters: Frontend Focus = 763 issues since August 2011 (15 years of weekly hand-picking - longevity as trust); CSS Weekly = 40k+ subscribers, positioned on "In the age of AI, human touch means more than ever. Hand-curated" - curation explicitly framed against AI slop. Both monetize via sponsorships + side projects (courses, stickers, tools).</p>
+<h2>Fonts In Use deep mine</h2>
+<p>Source: fontsinuse.com + individual use pages.
+- TAXONOMY + CENSUS (713): the archive's own structure is a research instrument. Formats by volume: Branding/Identity (9245), Books (7087), Posters/Flyers (6197), Web (6097), Album Art (4570), Packaging (2647). Topics: Music (6849), Art (5121), Food/Beverage (3310), Literature (3255). MOST-USED TYPEFACES in the archive (a real-world usage census, not opinion): Futura (1246), Akzidenz-Grotesk (442), ITC Avant Garde Gothic (361), Gill Sans (343), Eurostile (319), Franklin Gothic (313), Cooper Black (291), Gotham (268), Arial (242), Alternate Gothic (179), GT America (177), Bodoni (173), Apoc (167), Founders Grotesk (156), TWK Everett (146), Folio (143), Compacta (139), FF DIN (135). The classics dominate by an order of magnitude - usage heritage is a safety signal when picking type.
+- ENTRY FORMAT + 1971 ALBUM ENTRY (714): each entry = contributor, publication date, artwork date, source, licence, a prose analysis naming the typefaces and the roles they play, tags, and cross-links ("More <typeface> in use", "More in Album Art", "More Fonts In Use"). Example verified: Jerry Reed "I'm Movin' On" (1971, Harmony Records) - artist name/title in Gothic (Nesbitt), track listing in all-caps Helvetica; tags include "reversed type", "stacked and justified" - the tag vocabulary itself is a browseable taxonomy of typographic MOVES (all caps 8430, reversed type 3790, track listings 1390, stacked and justified 697).
+- CONTEMPORARY IDENTITY ENTRY (715): Sonic Acts Biennial 2026 (Amsterdam, identity by Anja Kaiser + Knoth &amp; Renner) - the pairing doctrine in the wild: an expressive serif (JL Limpet Granite, Jung-Lee Type Foundry) + a fixed-width contrast grotesk (BST Bazaine Mono, British Standard Type); "expression and order", one voice for large display, the other for dense programme information. Modern confirmation of the library's pairing rule: one expressive face + one disciplined face, each with a clear job.</p>
+<h2>Codrops Webzibition + Ondo Collective</h2>
+<p>Sources: tympanus.net/codrops/webzibition/; ondocollective.jp.
+- WEBZIBITION (717): codrops' hand-picked gallery - 2420 sites, recency-ordered ("Added 1 minute ago"), submission-driven. A fresher, curator-filtered feed than the big galleries; good for current-state-of-the-web sampling. October 2026 picks with live links: Ondo Collective (ondocollective.jp), Achievable (achievable.info), Imogen (vsproject-imogen.vendredi-society.com), Mathias Adolfsson (mathiasadolfsson.dev), Mubien (mubien.com), Room &amp; Pillar (roomandpillar.com), PSP Production (productionportugal.com), Concrete (concretemanagement.ch), Matteron (matteron.com), 3D Discovery (3d-discovery.fr), pda.archi.</p>
+<h2>Webzibition picks deep-reads 1</h2>
+<p>Sources: roomandpillar.com, pda.archi, achievable.info.
+- ROOM &amp; PILLAR (family office, property insurance/real estate): proof that Webzibition curation covers corporate restraint, not only WebGL showcases. Copy craft in the trust register: credibility through specificity ("Over eight decades and a million investigations, we learned where the friction lives"), inversion lines ("Backing founders, not just companies is our DNA"), deliberate-bet framing ("This is not a diversified bet. It is a deliberate one."). Portfolio presented as a table with per-company "we backed them because..." rationales - every portfolio item carries its thesis. Bio pages double as domain-expertise proof.
+- PDA.ARCHI (Paris architecture agency): the NAME-A-DOCTRINE positioning pattern - "Réhabiliter plutôt que démolir" (rehabilitate rather than demolish) expanded into a paragraph and then branded: "C'est ce que nous appelons la Re-Architecture." Manifesto trio opening ("Transformer les usages, garder l'identité. / Construire là où la ville est déjà bâtie."). Also has a "Digital Lab" nav item (BIM, IA, conception paramétrique) - toolmaking as a public capability. Bilingual fr/en toggle.
+- ACHIEVABLE (Taipei/Shanghai studio): tagline "Aligning intention with execution." - the whole site's argument in five words. Bilingual En/Cn, dual-city footer with full addresses/phones (physical presence as trust). Thin extract because the site is JS-rendered - noted honestly.
+- Mubien (mubien.com) blocked to curl by an sgcaptcha meta-refresh wall; Mathias Adolfsson (mathiasadolfsson.dev) is a JS shell (counter-loader) - both logged, retry later.</p>
+<h2>Webzibition picks deep-reads 2</h2>
+<p>Sources: mubien.com, mathiasadolfsson.dev.
+- MUBIEN (Spain + California studio): tagline "Branding, Motion and Web for the AI era." - positioning statement as era claim. Details worth stealing: dual-city header with LIVE LOCAL TIMES ("Spain 12:15 / California 20:50") - distributed-team presence made concrete; numbered portfolio counter (01/06); "Slide to contact us" gesture instead of a contact link; "Play reel" as primary CTA. Client list spans AVATR (EV brand), YouTube Shopping, El Capricho de Gaudi - heritage + tech in one roster.
+- MATHIAS ADOLFSSON (Swedish freelance creative engineer): the solo-practitioner trust page. Career-length credibility through era references: "I have seen the rise and fall of Flash, applied clearfix" - one sentence proves 20 years. Capabilities as a flat list (UI &amp; Interaction, Frontend, Backend, Creative Dev, Animation, WebGL &amp; Three.js, E-commerce, Accessibility, SEO, Performance) - full-stack creative engineer positioning. Awards as a COUNT TABLE (D&amp;AD 1, Eurobest 2, Lovie 4, One Show 1, Webby 1). Community membership as trust signal ("trusted member of the OkayDev community"). Humanizing CTA: "elaborate on an idea with an actual human."</p>
+<h2>Webzibition picks deep-reads 3</h2>
+<p>Sources: concretemanagement.ch, matteron.com, vsproject-imogen.vendredi-society.com - all.
+- CONCRETE (Paris property management): a service business dressed in family-office codes - "selective, discrete, entirely personalized", a "restricted circle" of owners. DUAL-AUDIENCE SPLIT NAV as the first element: "Je suis un proprietaire / Je suis un locataire" - two sites in one, chosen by self-identification. NUMBERS-AS-PROOF HERO: 600M EUR under management, 4.8/5 on 500+ reviews, 90% 12-month occupancy, 100% in-house team. When the product is trust, the hero is the balance sheet.
+- MATTERON (deep-tech design &amp; strategy agency): niche-vertical positioning - "We build beauty around deep tech." Mission copy earns the niche: "The technologies the world needs most take it the longest time to understand. We sit between the science and the world it needs to convince." Client roster proves it (applied cryptography, thermal management for AI compute, Archetype AI). Scientific-instrument motif: live "X 0,000 Y 0,000" coordinates in the chrome, "2026 edition" as if the site were a journal issue.
+- IMOGEN (imagino's agentic-AI product site by Vendredi Society): THE SUSTAINED-METAPHOR PRODUCT SITE - every product property is mapped to an octopus fact. Three hearts -&gt; the Governance/Security/Adapt cores ("as soon as it starts to swim, one heart stops beating... by design"); blue copper blood -&gt; "native to your data environment"; adapting without a new nervous system -&gt; learning without retraining; eight arms -&gt; the 8 skills (Access, Understand, Strategize, Secure, Optimize, Personalize, Activate, Automate). The metaphor is not decoration, it IS the information architecture: each section is a biological claim followed by "In Practice". Also: "Enter with sound / Enter without sound" gate (sound as opt-in, never forced), wide letter-spaced display type, and the story ends in an ROI calculator - poetry hands off to arithmetic at the conversion point.</p>
+<h2>Webzibition picks deep-reads 4 + mount inc. spotlight</h2>
+<p>Sources: productionportugal.com, 3d-discovery.fr/en, tympanus.net/codrops/2026/10/14/mount-inc/.
+- PRODUCTION PORTUGAL (film production service, Portugal/Spain): the homepage IS the credit list - a long alphabetical index of produced spots (Volkswagen, Shakira, NewJeans, Porsche, Squarespace, Old Spice...). Proof-by-roster: for a service company whose product is executed productions, the archive is the pitch. No manifesto needed when the client list is the argument.
+- 3D DISCOVERY (French immersive-3D SaaS for real estate/hospitality/heritage): product copy built on "Seeing is understanding." CHOOSE-YOUR-FIELD section: 5 verticals (new-build real estate, hospitality, heritage &amp; culture, brands &amp; products, events), each with a one-line job-to-be-done ("Let guests discover your rooms... before the stay even begins"). Feature framing ties 3D to conversion: "Measurement &amp; conversion - engagement tracked end to end, from the first glance to the demo request." CTA pattern: "A live demo, on your own project" - demo as proof, not tour.
+- MOUNT INC. (Tokyo design practice, codrops Studio Spotlight): "Form Follows Understanding." Doctrines: (1) research-first - "everything that comes before the expression is what determines its quality" (research, interviews, intention, goal clarity); (2) developers join at the PLANNING stage, bringing "technical inspiration" into ideation, not just building what design hands over; (3) PERFORMANCE PRAGMATISM in the KOKUYO case: a page-turn built first as a 100-200-point physics sim was too heavy - replaced with Bezier surfaces from 16 control points, "natural while running light and stable"; (4) TOOL REPURPOSING: the custom WebGL tool built for Daimaru Matsuzakaya's Hyakuyozu identity was remade into a video-editing tool, extending the same system to TV commercials and station signage - build the tool, then let the tool outgrow the site; (5) cross-medium blending: ZOOM pen site motion-tracks shot footage, rebuilds the scene in Blender, renders WebGL objects into the video. Case-study format: each project names the feeling first, the build second.</p>
+<h2>Codrops Studio Spotlights vein</h2>
+<p>Sources: tympanus.net/codrops/2026/09/14/inside-resns-digital-experiences/, /2026/10/05/goodside/, /2026/09/21/gatzara-sharpening-brands-at-the-edge-of-digital/. Index: codrops/tag/studio-spotlight/ (29 stories).
+- RESN (founded 2004 NZ, global remote): the definitive specimen of STUDIO VOICE AS DIFFERENTIATOR. Humor-dense B2B writing: mission "to make the internet less shit"; name origin "we simply disem-vowelled it"; team intro "a few select human beings and hundreds of trillions of microorganisms"; awards line "aren't important to us right up until we win one, at which point there are tears and group hugs". Even case studies stay in voice (Savor butter: "Normal butter is made from cow udder secretions"). Doctrine embedded in the jokes: Squarespace Foundations turned a brand guideline into something "people would actually want to explore" - the style guide as destination. Client-selection criteria stated openly: "real trust, realistic budgets, willingness to collaborate." Longevity positioning: "still here, still independent" after two decades, framed with self-deprecation rather than chest-beating.
+- GOODSIDE (Austin, Jessica Strelioff, founded 2022): the find-the-one-thing brand process - "Maybe it's a unique point of view, a better way of doing something, the people behind it, or a tiny detail that turns out to be much more important than it first seemed. We find that thing and build from there." Structure doctrine: strategy and design happen together, clients inside the process, relationship leads are the makers. Intentionally small + network model ("stay close to the work, room to flex"). Case pattern: name the client's existing obsession, lean into it (The Mind Company - "this team was obsessed with the mind in the best way. So we leaned into that."; Kimball Modern - "Kate already had a strong point of view. Our job was to find a way to express it."). Hospitality rationale: "so many little things to make, and together those things can make a place feel like its own world" - identity as world-building through artifacts (menus, matchbooks, coasters).
+- GATZARA (Barcelona, Xavier Cusso, launched 2026): the one-person-practice-plus-network model stated as structure: founder's practice "amplified by a network of world-class collaborators", scales per brief, project basis or embedded with in-house teams. Credibility chain: founder's 20 years at B-Reel/Resn/JKR/Vasava + 10 years Awwwards jury. Client list spanning Google/adidas/Typeform/UN before the studio formally existed - the founder's history IS the studio's portfolio. Case notes name collaborators per project (Federico Valla, Llos&amp;) - credit as culture signal.</p>
+<h2>Codrops Studio Spotlights vein 2</h2>
+<p>Sources: OFF+BRAND /2026/08/17/creativity-at-enterprise-scale.../, Antinomy /2026/08/10/from-brand-systems-to-cultural-worlds.../, Bonhomme /2026/08/03/the-story-is-in-the-interaction.../.
+- OFF+BRAND (Glasgow, founded 2020, now 30 people): the TRUST FLYWHEEL case study. Breakthrough: Totem - a build that "cost us probably four times the budget to deliver" (a deliberate loss-leader), client jumped in a pool, won SOTD on Awwwards + FWA, "almost overnight, bigger clients handed over more creative control." The doctrine they distilled: "great client work starts with the reputation you build before the client ever calls. Without that trust, everyone ends up making safer decisions (aka bad decisions)." Enterprise doctrine: governance and change management are what ALLOW creativity at scale - trust formula = "being visibly in control of the project and timelines" + "helping the client SEE and BELIEVE you are in control." Then: give creative people space and authority; every concern you add makes the experience less special. Internal projects (Manifesto, Aether) treated as the upskilling pipeline that leads to bigger clients; "plenty of bad examples that don't see the light of day, but you learn from them too."
+- ANTINOMY + 27b (two connected studios): the rigor-expression balance as the recurring brief. Adyen: extend brand guidelines into "a more expressive and scalable digital language... without making the experience feel purely functional" - systems thinking and brand expression "as part of the same conversation". Vast (space stations): "balancing engineering credibility with a sense of wonder"; motion language supporting usability for astronaut-facing systems - "operational in one moment, expansive in the next." Two-studio structure: Antinomy = strategy/design/experience across industries, 27b = entertainment/fashion/culture wave - segmenting by culture, not capability.
+- BONHOMME (Paris, founded 2013, 125+ projects, TAG Heuer/Cartier/Lacoste): luxury digital doctrine. Founder-led structure as the product: "the same people who define the initial creative vision are responsible for validating the final result." Quote to keep: "We don't design interfaces - we translate what a brand truly is into digital experiences. Every interaction, every transition, every interface state should communicate something meaningful." Recognizability argument: great studios are known "not because every project follows the same visual formula, but because they all share the same level of care." Process: Design Sprint discovery (stakeholder interviews, empathy mapping) before any interface; e-commerce framed as "a natural continuation of the journey, not a transactional break" - conversion without compromising brand identity.</p>
+<h2>Codrops Studio Spotlights vein 3</h2>
+<p>Sources: Studio Freight /2026/07/29/studio-freight-moving-missions-forward/, Garden Eight /2026/07/24/...garden-eight.../, Unseen /2026/07/20/...unseen-studio/.
+- STUDIO FREIGHT (founded Columbus 2016; clients ElevenLabs, Perplexity): "we don't get interesting projects, we make projects interesting" - the no-advantage-origin doctrine (far from industry centers, said yes to everything, treated every project like the studio rode on it). They INCUBATED LENIS, the smooth-scroll library (now managed by Darkroom Engineering) - the studio behind the tool used across the craft web (see Atelier UI). Positioning: "great design is the baseline, not the goal. The work starts after that: understanding a mission well enough to move it forward." Psyop case: identity inspired by Scorsese/Tarantino TITLE SEQUENCES ("type treated as seriously as anything on screen"), portfolio turned into "a sales tool that never looks like one." ElevenLabs Store: a merch store you TALK to - conversational ordering, haggling with the shop.
+- GARDEN EIGHT (Tokyo, team of 7): "playful, yet humble." Structure note: most members work ACROSS both design and development - no handoff, visuals+motion+feasibility considered in parallel (compare mount inc.'s devs-at-planning,: two Japanese answers to the same handoff problem). CMS/architecture chosen per project by operational workload and maintainability, "improving the site even after launch" - maintenance as a design deliverable. Motion doctrine: "first priority is not to interfere with user actions or the flow of content; on that foundation, add expressions that contribute character" - restraint-first motion ordering.
+- UNSEEN STUDIO (independent, 14 years): the TRANSFORMATION portfolio - every case is "make the invisible visible": Solare typeface launch ("transforming a simple product launch into a memorable experience; even the smallest briefs can become opportunities"); Symphony of Vines (Bordeaux château: millions of years of geology as an immersive journey instead of the industry-norm explainer - "transforms an invisible process into something visitors can see"); Animal Futures (RSPCA report -&gt; five explorable 3D miniature worlds with game mechanics, "turning passive reading into active participation" - the report-as-world pattern); The Sea We Breathe (ocean connection made visceral).</p>
+<h2>Codrops Studio Spotlights vein 4</h2>
+<p>Sources: makemepulse /2026/07/13/.../, dashdigital /2026/06/22/.../, San Rita /2026/06/08/.../.
+- MAKEMEPULSE (Paris, founded 2008 by Gobelins classmates Antoine Ughetto + Nicolas Rajabaly, 35+ people): the complementary-founder pattern (one technology, one creative direction). FORMAT-AGNOSTIC doctrine: "the most interesting ideas rarely fit neatly into one category. Some projects need a platform. Others need a story, a world, a game mechanic, an installation, a gesture. Our role is to shape the right format for each ambition." Field intentionally broad: websites, e-commerce, phygital installations, VR/AR/WebXR, gaming. Longevity proof: FWA Hall of Fame after 98 FWAs over 18 years. Client range: UNESCO (Virtual Museum of Stolen Cultural Objects) to McDonald's to Cartier.
+- DASHDIGITAL (Cape Town, 8 people): the PIVOT-BORN-OF-NECESSITY origin told honestly: started as a product studio, built an Uber competitor, CTO left and took the whole Eastern-Europe dev setup with him ("he was the only one who could communicate with them"), stripped back to design, rebuilt properly years later. Doctrine: research-driven, "before anything gets made, we need to understand what we are solving and who we are solving it for." Cross-industry as deliberate strategy: "the way you solve one industry's problem has a habit of showing up in another - it keeps the thinking from getting comfortable." Goodman Gallery case: project pivoted mid-stream into art e-commerce after asking "what does selling art online actually need to look like, and why has nobody done it properly yet?" (answer: the problem is genuinely complex and most galleries avoided it).
+- SAN RITA (Montreal): the trail metaphor as studio philosophy - "every project is a different trail. Some are straight lines, some are steep climbs, some require building the path along the way." Range as comfort: "expressive and narrative-driven" AND "structured, conversion-focused, quietly efficient." Founded out of frustration with siloed strategy/design/development - one coherent flow. White-label backbone work named openly as a line of business. Anti-scale stance: "We're not trying to scale into something bigger for the sake of it."</p>
+<h2>Codrops Studio Spotlights vein 5 - VEIN COMPLETE</h2>
+<p>Sources: Beaucoup, Merlin, Lemma, Akaru, Rhumb spotlight articles. All 15 studio spotlights (Apr-Oct 2026) now mined.
+- BEAUCOUP (Lyon, founded 2021, 5 people): complementary-duo founding again (creative developer + art director - same shape as makemepulse). "Balance consistency with each brand's core identity and a constant drive to create memorable experiences."
+- MERLIN (Amsterdam "Code Boutique", founded 2018): three founders, and CREATIVE DEVELOPMENT SITS ACROSS ALL THREE leadership roles "because everyone still builds" - the makers-stay-makers org design. Growth anatomy told plainly: Maritime Museum first client, Covid-era 3D conference platforms, Eurovision Village as the portfolio tipping point ("the moment the portfolio started opening doors on its own"), then an external coach brought roles/OKRs/sales structure - "that chapter is when Merlin grew up." Name doctrine: "A figure of myth and magic, and the collective that now goes by it. Where one ends and the other begins is a line we have never drawn too sharply. We like the wonder that sits in that gap."
+- LEMMA STUDIO (Serbia + network, founded 2022, Awwwards Studio of the Year nominee within ONE year): the web-as-cinema medium position - "less like a production pipeline, more like a creative medium capable of atmosphere, rhythm, and emotional depth", influences named: cinema, music culture, editorial design, architecture, experimental digital art. Smallness as craft argument: 3-4 people per project, "ideas are discussed openly, challenged collectively, and refined together rather than protected behind hierarchy" - projects evolve into long-term creative relationships.
+- AKARU (Lyon, Hula Hoop Group, 80+ experts across 5 cities): the anti-template position in one mantra: "Designed to perform. Coded to seduce." Craft absolutism: "nothing is accidental. Every pixel is deliberate. Every interaction has meaning." Interesting tension held openly: group scale with "a deeply craft-driven culture... every project treated as a unique creation."
+- RHUMB STUDIO (two people, Bristol + Paris, launched end of 2024): the freshest origin story in the vein - a podcast (Webflail) conversation became a partnership; weekly problem-solving calls became a studio. Spatial ambition: "websites that feel like somewhere... atmosphere, light, a sense of space" - pages as places. Honesty as voice: "we're still figuring out what that means in practice." Experiments outside client work framed as both learning and love of building.
+- VEIN SYNTHESIS (the 15-studio pattern book): (1) Founding pairs beat solo starts - 8 of 15 are complementary duos/trios, usually one creative + one technical. (2) Smallness is the universal pitch, framed five ways: craft (Lemma), care (Bonhomme), flexibility (GATZARA/Goodside), seniority (GATZARA, Rhumb), anti-bureaucracy (San Rita). (3) Every studio names a loss-leader or pivot: OFF+BRAND's Totem, dashdigital's CTO collapse, Studio Freight's Columbus isolation, Merlin's Covid conference work - origin adversity is told as proof of character. (4) Internal projects/experiments are the stated pipeline to better clients (OFF+BRAND, Rhumb, Resn, Studio Freight/Lenis). (5) The sales tool that never looks like one: every studio site is itself the portfolio argument.</p>
+<h2>Designer/dev spotlights 3</h2>
+<p>Sources: codrops /2026/08/13/from-motion-to-meaning-denis-avramenkos.../, /2026/06/25/shaping-stories-into-experience-the-work-of-kevin-lam/, /2026/04/16/the-art-of-complex-motion-corentin-bernadous.../.
+- DENIS AVRAMENKO (Ukraine -&gt; NYC, IADAS member, Awwwards/Webby/Lovie juror): the BLACK-AND-WHITE SYSTEM case - 13 MAL furniture space kept "entirely black and white, shifting focus toward rhythm, density, repetition, spacing and pacing." When color is removed, the typographic/spatial variables carry everything - a direct proof of the restraint direction's mechanics. Image consistency as craft: "refining each image to fit the overall visual direction - levels, contrast and tones" until the set reads as one world. Also notes both poles: constraints shape strong ideas, but freedom on this project "led to unexpected solutions."
+- KEVIN LAM (Hong Kong -&gt; Brisbane, "urfd" = Ur Friend, Nightjar Studio): the LISTEN-FIRST positioning built into his name. "I like to listen first, understand the story, then find the small idea or feeling that makes a project memorable." Odyssée Clinic case: the sphere as "a quiet object in motion" suggesting the beginning of a guided journey - ONE restrained 3D object carrying the brand idea. The anti-cosmetic-clinic brief: "refined without becoming cold, clinical without feeling distant." Restraint as balance: "depth and atmosphere without making the identity feel too decorative."
+- CORENTIN BERNADOU (French freelancer): the wandering-path origin (philosophy -&gt; art history -&gt; communication -&gt; design degree -&gt; self-taught code), plateau-breaker move: when agency work plateaued, he set ONE challenge - complex animation/WebGL - and shared experiments on X "almost like a diary", which rebuilt the passion and the audience. Portfolio as career lever: his first portfolio won SOTD + Developer Award and "played a big part in landing my first job." Notebook doctrine again (sketches animation ideas before touching a keyboard - cf. Perrey). Stack honesty: Nuxt + headless (Prismic/Sanity), GSAP go-to, moved from OGL to Three.js, Cursor + Warp, Notion.</p>
+<h2>Dev spotlights 4: Kane + Chanh</h2>
+<p>Sources: codrops /2026/06/03/forging-her-own-path-houmahani-kanes.../, /2026/04/09/a-single-dm-a-first-sotd...chanh-m-hos.../.
+- HOUMAHANI KANE (Paris): the SOLE-SPECIALIST growth condition - as the only WebGL developer at her agency, "every technical problem was mine to solve, and some of them I'd never faced before." Renault Group case: a two-year internal platform visualizing the group's structure as a 3D planet, each continent a brand - org-chart-as-space ("made the structure immediately visible, gave users a spatial way to explore it"). Data-viz doctrine: the right spatial metaphor turns navigation into orientation.
+- CHANH M. HO (Ho Chi Minh City): the LEARN-AS-YOU-BUILD origin - first animation-heavy site built in plain HTML/CSS/JS with GSAP just discovered, "no bundler, no modern tooling", delivered ~80% of the designer's original idea, "still holds up and works well even today." Career opened by a single DM leading to a first SOTD. Proof that stack minimalism doesn't cap recognition (SOTD + Dev Awards + FOTD + WOTD on vanilla).</p>
+<h2>Spotlights 5: Norman + Papadopoulou</h2>
+<p>Sources: codrops /2026/02/27/gabriel-norman-from-gaming-culture.../, /2026/04/29/between-human-and-machine-sofia-papadopoulous.../.
+- GABRIEL NORMAN (Lake Como, now at Active Theory): the COMMUNITY-AS-SCHOOL origin - 2011 YouTube GFX banner scene around Call of Duty culture: contests, collabs, creative groups "like gaming clans"; then Daily 3D culture; self-taught frontend from 2018 as "a gradual pull" combining code curiosity with visual background. Career-growth method: moving across studios (MONOGRID, Media.Monks, Superhero Cheesecake) deliberately to "observe not only their strengths, but also their limitations, their vision, workflows, creative culture, and organizational systems" - absorbing a method by sampling many.
+- SOFIA PAPADOPOULOU (Design Director at VML Dubai, 18 years, painter -&gt; graphic design -&gt; immersive): the PERSONIFICATION BRIEF QUESTION: "If your brand were a person, what would they look and sound like? Assigning human qualities to a brand... People connect with people, not just logos." Personal brand as creative playground, redesigned as she evolves: "as you evolve, your brand should evolve with you." "Digital double" concept: "me. Augmented." - tech as amplifier, not substitute. Inspiration doctrine: "when we travel everything feels new, and when everything is new our brains work harder. I live by that." Path: 7 years advertising -&gt; freelance web/brand -&gt; immersive (Territory Studio, UNIT9, Superhero Cheesecake).</p>
+<h2>Spotlights 6: Tykhonova, Huy Nguyen, Gilroy</h2>
+<p>Sources: codrops /2026/03/19/yeva-tykhonova.../, /2026/03/12/what-happens-when-you-cant-stop-creating-huy-nguyens.../, /2026/02/12/jordan-gilroy-from-burnout.../.
+- YEVA TYKHONOVA (multidisciplinary designer with a code background): EMOTIONAL INTELLIGENCE AS THE DESIGNER'S CORE SKILL - "Design is the ability to evoke the right feelings in users, create emotional contact, and guide interaction, all while making it work for the business." Her crossing: started in development believing "I wasn't talented enough to become a designer"; building other designers' work showed her she wanted to express, not implement; learned design "almost as a challenge to myself" - within a year it was the passion. The dev-to-design direction (compare Tkachev design-&gt;dev, Gilroy design-&gt;build: the border-crossing vein).
+- HUY NGUYEN (MONOLOG studio, founder-led brands, 50k+ social audience): the AWWWARDS-MOMENT origin - stumbling on Active Theory's Prometheus Fuels site: "wait, you can build this on the web?" The 6-month gap before university as the whole career's opening. Path: Udemy frontend -&gt; dropped out -&gt; studio in his twenties -&gt; teaching the studio-building journey to 50k designers. Founder-led brands as niche: "digital experiences that move people and transform how they are perceived."
+- JORDAN GILROY (UK, design + Webflow build): the HANDOFF-BURNOUT diagnosis and cure. Burnout cause named precisely: "designing websites handed off to agencies or developers who would build the site to a low standard... What I was handing over in Figma wasn't what I was seeing in a browser. When that happens to every design you create, it starts to hurt." Cure: learn to build (Webflow). Honest middle stage: "learning Webflow actually had a negative impact on my designs - I'd question whether I'd be able to build it... stifling my creativity. The more I learned, the more I freed my designs from the burden of not knowing how to execute them." Now: "with AI... I don't think about dev at all when designing because I know I/Claude can figure out a solution. The shackles are off." The full arc: handoff pain -&gt; build skills -&gt; temporary constraint-thinking -&gt; fluency -&gt; freedom.</p>
+<h2>Spotlights 7 - VEIN COMPLETE: Buffa, Brouwer, Snijders, Vargas</h2>
+<p>Sources: codrops /2026/01/30/from-art-on-the-walls...daniele-buffas.../, /2026/01/22/from-design-first-to-motion-driven-dylan-brouwers.../, /2026/01/16/design-as-a-problem-solving-tool...victorine-snijders.../, /2026/03/25/from-web-ui-to-game-ui...maria-vargas.../. Both spotlight tags now fully mined (20+ people).
+- DANIELE BUFFA (Rome -&gt; London, 10+ yrs, Google/Sony/Headspace/Spotify): the ART-SATURATED CHILDHOOD origin - artist father, writer mother, a wall of VHS tapes; Photoshop at 12 via design forums. Craft ambition stated as polish: "bespoke visual solutions, meaningful animations, and deeply considered experiences." Rule posture: "pushing the boundaries of design, and breaking the rules when needed."
+- DYLAN BROUWER (Dutch, Webflow no-code): the HONEST NO-CODE position - "I'm not your classic technical dev, but with Webflow, some front-end fundamentals, a bit of ChatGPT, and resources like Osmo Supply, I can get surprisingly far." Portfolio hero: a looping showreel inside a rotating 3D display mockup, both scroll-responsive - ambition not capped by the tool. Portfolio tension named: "impress fellow designers, feel like you, and still work for potential clients."
+- VICTORINE SNIJDERS (Amsterdam, ex-Monks 5 yrs, Nike dedicated designer 2 yrs): design as problem-solving tool for "social, cultural, or practical" problems - human behavior and friction as the subjects. Scale experience (BMW, Google, Philips, Nike Play Lab) as the shaper of approach.
+- MARIA VARGAS (Argentina -&gt; Madrid, 10 yrs web UI -&gt; PlayStation game UI): the BRIDGE was fandom - a League of Legends player who fought to join Riot Games web briefs at Media.Monks, which led to game UI and PlayStation. Domain-passion-as-portfolio: your play life qualifies you. Transition told through work artifacts (agency sites -&gt; Riot sites -&gt; game UI) rather than claims.</p>
+<h2>FIU census completion + Webzibition index + Obys FORMAT</h2>
+<p>Sources: fontsinuse.com format sidebar pages, tympanus.net/codrops/webzibition/, format.obys.agency; studiomirage.io + preymaker.com.
+- FIU MOST-COMMON TYPEFACES - SECOND HALF OF THE CENSUS (773): Univers (660), Neue Helvetica (425), News Gothic (394), Suisse Int'l (373), Times New Roman (358), Neue Haas Grotesk (298), Trade Gothic (232), Optima (192), ITC Souvenir (158), Clarendon (152), ITC Serif Gothic (132), Times (131), Windsor (127), Romie (126), Proxima Nova (123), Venus Extended (116), Neue Montreal (106), Palatino (109), Suisse Works (104), Surt (104), GT Walsheim (102). Combined with (Futura 1246 at the top), the hierarchy of real-world type usage is now fully on record. NOTE: FIU format/topic LISTING pages 404 or render no entries (formats/<id>/x, uses-in/x) - the archive is navigable via homepage-latest, search, and direct /uses/<id> pages only.
+- WEBZIBITION PAGE-1 FULL INDEX (774): ~65 live picks harvested with URLs - includes cross-links into our own mined vein: mariavasilyeva.com (codrops feature), odysseeclinic.com.au (Kevin Lam's quiet-sphere project), studyhall.design (GATZARA's client), plus format.obys.agency, preymaker.com, studiomirage.io, macmillan.studio, butter.video, wearetheromans.com, littleplains.com, trajectory.ai, grafik.co.nz, eduardbodak.com and ~50 more. This is the current-craft feed to re-harvest monthly. Studio Mirage (Paris/Dubai): luxury 3D interactive studio, "Click to enable sound" opt-in again (cf. Imogen). Preymaker (NY/LA/Cape Town): VFX/design/color collective, "blend global trends with local insight."
+- OBYS FORMAT (format.obys.agency - Obys x Design Educations Series "Grids Season"): an educational microsite teaching FORMAT as a design variable. Each format gets a structured taxonomy: Usage (mobile/poster/editorial), Geometry (ratio, edges, corners), Perception ("visually taller, narrow focus, tight tension"), Balance (central gravity, strong axis). Notes worth keeping: "Vertical format naturally makes us rely on vertical lines - emphasize them"; "Circle format naturally suggests working with radii and diameters - it draws more attention to the center, so centered alignment feels naturally stronger"; "A format can be divided into several sub-formats"; "Use the boundaries of a complex format to create visual tension"; "Design the content inside the format to work with its shape." Includes a "My 6 y.o. Daughter's Version" mode - teaching material tested against a child's explanation.</p>
+<h2>Webzibition picks deep-reads 5</h2>
+<p>Sources: butter.video, wearetheromans.com, littleplains.com - all.
+- LITTLE PLAINS (brand and product studio for startups): THE GIN LANE SUCCESSOR - the site states the lineage directly: "Gin Lane 2008 - 2019, Little Plains 2024 -". Gin Lane was the defining DTC brand-launch studio of the 2010s, and the exit list reads like the decade's consumer-brand index: Hims &amp; Hers, sweetgreen, Stadium Goods, Shake Shack, Smile Direct Club, Care/Of. Now: "We've launched over 100 startups, from Neuralink and Hims &amp; Hers to the AI companies we're building with today." Scope-per-project naming: each case states its full deliverable set in one line (Sonata: "naming, brand, product, web, motion, &amp; content"). The startup-launch studio as a category: brand system + product + web + content as ONE engagement, not phases. Also works with select VC firms across their portfolios - the studio as venture infrastructure.
+- BUTTER VIDEO (online video editor): flavor-naming carried through the whole product: "Add butter" as CTA, "It's a whole new timeline", "butter blocks" (1000s of composable blocks), "Engineered for Creativity". Blocks + templates + MCP co-create - the 2026 pattern of shipping an MCP endpoint alongside the UI (cf. Paper MCP Atelier MCP: the agent-interface is becoming a standard product surface).
+- THE ROMANS (PR agency, London/NY/Dubai/Amsterdam/Berlin): anti-category positioning - "Bye bye boring pr... hello the romans." The name-drop as a whole attitude: rebrand the category by mocking its default. Specialisms nav (Consumer, Corporate, Sports &amp; Entertainment, Social, Technology) over the usual services list.</p>
+<h2>Obys DES (Design Education Series) - Grids season curriculum</h2>
+<ul>
+<li>THE SERIES MAP: 4 seasons - S01 Typography Principles (3h03m), S02 Colors Combinations (2h47m), S03 Grids (Bestseller, 4h25m, 17 episodes), S04 Motion in Web Design (preorder). This sequence itself is a curriculum doctrine: type -&gt; color -&gt; grid -&gt; motion, in that order of foundation.</li>
+<li>GRIDS SEASON EPISODE MAP (the free curriculum skeleton): 01 Intro; 02-04 Composition in three parts (format/shape BEFORE grid; balance/hierarchy/unity; dynamic layouts); 05 Gestalt Principles; 06 Leading (Power) Lines; 07 Visual Tension; 08 Grid; 09 Types of Grids; (episodes 10-17 continue into practice). The ordering is the lesson: composition theory and perceptual forces come BEFORE the grid - the grid arrives at episode 08 of 17, as the instrument for realizing a composition you can already see. Compare FORMAT microsite: format/shape first, grid second.</li>
+<li>FORMAT-AND-FORCES VOCABULARY (Obys' recurring frame across DES + FORMAT): Gestalt principles, leading/power lines, visual tension, balance, hierarchy, unity. These are the named forces a composition resolves before any column structure.</li>
+<li>BUSINESS MODEL notes: lifetime access per season, Teachable checkout, Discord private community, completion poster (PDF), 6.5k all-time students, 4.8/5 rating, 100+ students' sites of the day claimed. The mentorship tier ($650) = 1h call + 1 Figma feedback round: design education monetized as content + community + feedback, three separate price points.</li>
+</ul>
+<h2>Webzibition page-2 index + picks</h2>
+<p>Source: tympanus.net/codrops/webzibition/page/2/; deep-reads except homunculus [partial].
+- PAGE-2 INDEX (797): ~56 live sites - tbwahakuhodo.co.jp, coloniazacamil.com, maisonauge.com, hugeinc.com, dottxt.ai (letter-by-letter split-text hero; structured-outputs LLM infra co), overworldaudio.com, saffron-griflan.netlify.app (Griflan template), sk-visualarchive.vercel.app, noho.ink, atlasmotion.com, aspensearch.com, leoparpeix.com, a-lign.studio, lxlcreative.co.uk, jesperlandberg.com, white-desert.com, goodgrowth.com, runrobrun.com, 197historiasilustradas.com, bleibtgleich.dev, theperformancelab.ca, unitedcarriers.com, forms.world, mysunwest.com, gilhuybrecht.com, mathis-biabiany.fr, generaladmission.house, mersi-architecture.com, jordigarreta.com, gabrielbeaugonin.com, trevornoah.com, humari.ai, goodside.studio, homunculus.jp, paulkalkbrenner.net, olivergareis.com, illoca.com, houseofyellow.nl, ricardochance.com, immersivebags.miumiu.com, warmnfuzzy.tv, cerebrium.ai, incredibles.dev, michaelgatt.com, antinomy.studio, sharebien.com, revelatio.studio, cipher.tv, haoqi.design, pxpush.com, lemansclassic.richardmille.com, noth.in, santionispirits.com, tsitsipas.com, artemiilebedev.com. Five sites already in the library via their case studies (noho, goodgrowth, runrobrun, bleibtgleich, houseofyellow).
+- JESPER LANDBERG (jesperlandberg.com): Swedish design engineer, Awwwards INDEPENDENT OF THE YEAR 2022 AND 2024, 77 awards (30x Awwwards, 40x FWA, 3x Webby, 2x Lovie). Positioning line: "Usually lead or sole developer, responsible for front-end architecture, animation, interaction and CMS, alongside international agencies" - the one-person full-stack craft offer. His client list cross-links our vein: Casa Di Solare = Unseen Studio's Solare typeface launch site, Griflan (their Saffron Finance template shares page 2), Gil Huybrecht and Nathan Riley (both also Webzibition-listed). The independent-of-the-year tier exists and is documented - a concrete ceiling marker for the craft.
+- GENERAL ADMISSION (generaladmission.house, Ybor City Tampa, EST.2026): "a counter-community culture rooted in Ybor where the idea of a gallery expands into something more fluid and collective. Built for artists, by artists... both platform and archive... Internationally recognized yet locally grounded... in a productive tension both visible and elusive." Gallery + collections e-commerce hybrid. ANTINOMY STUDIO (antinomy.studio, independent design studio founded 2019): "create the best work where strategy and craft hold the same line." Client roster: i-D, Vast (space habitats), Google's Gemini - brand studios now routinely list AI products beside culture magazines.
+- TREVOR NOAH (trevornoah.com): built by ITSOFFBRAND.COM - OFF+BRAND's studio site confirmed shipping celebrity-tier work; entertainer-site pattern: Get Tickets as the persistent CTA above everything (Shows/Watch&amp;Listen/Books/About/Store). HOMUNCULUS.JP (partial): JS/WebGL shell to both curl and browser text reads - only the tagline "Sound without Sound" and Inside/Contact nav recovered; noted as unmined, not skipped silently.</p>
+<h2>Codrops free templates: Isle Thorne + Wide - TUTORIALS TAG COMPLETE 8/8</h2>
+<p>Sources: tympanus.net/codrops/2026/10/07/isle-thorne-collective-astro-template/, tympanus.net/codrops/2026/09/28/wide-template/. Both MIT/free.
+- ISLE THORNE COLLECTIVE (free Astro furniture-shop template, design by Elena Smirnova, by Manoela Ilic): a REFERENCE IMPLEMENTATION of progressive enhancement. Static on purpose: no UI framework/CMS/backend, products are Markdown files, cart in localStorage, checkout/newsletter are demos - "it isn't a complete shop" said up front, README maps where payments/accounts/stock would connect. ONE grid utility (grid-site: 2 cols on phones, 12 from 1024px) places every page's content - "navigation, piece counts and article text all start on the same column." Instrument Sans self-hosted via Astro Fonts API with a metric-adjusted fallback so text doesn't shift on load. PLAIN HTML WHERE IT CAN BE: photo rows are Embla Carousel but still scroll sideways without JS; product panels are <details> sharing a name (browser keeps one open); cart + newsletter are <dialog> elements (which the browser draws ABOVE the page transition - a feature to design around, not fight). Pages and links work without JS entirely; Lenis off under reduced motion. Content = Astro content collections (one JSON + one Markdown per product/story, filename = URL); pages read through two small helpers so a CMS loader can replace collections without touching pages. Transitions: Astro client router + Interlude (21 transitions included, swap via one config key); scripts run once per VISIT so per-page setup lives in Interlude page hooks; transition cost honestly stated: ~39 kB compressed on top of ~18 kB. npm create astro@latest -- --template codrops/isle-thorne-collective.
+- WIDE by BL/S (open-source grid experiment + optional WebGL shader): the ANTI-EFFECT MANIFESTO - "how much can you get from a simple visual system before adding another effect just because you can? Sometimes a grid is enough. Sometimes typography doing the right thing is enough. And sometimes someone says: let's add a shader." TEN CARDS, FIVE COMPOSITIONS: cards created in the DOM ONCE (ITEMS array) and never recreated - "compositions only change their position and size", which is what makes continuous rearrangement cheap. Layouts described as COLUMNS not coordinates: a number = fixed vw, 'ratio' = from the card's proportion, 'eq'/'auto' share what is left. The MIRRORED state is never authored - derived by reversing the column array (typography mirror = a clone with sides flipped). No giant controller: geometry computes positions, one dispatcher handles movement inside a composition, another handles mirror-switching - "each system has its own job. Which becomes particularly important when things start moving." The word "Wide" is the anchor that keeps every reorganisation feeling like one visual system (cf. pixel-as-motif).
+- TUTORIALS TAG MAP (all 8 mined): ghost trails (716), custom cursor trail (772), parallel page transitions (771), pixel transition+reveal (780), Atelier UI WebGL/DOM sync (724), libvips compression tool (781), Isle Thorne (801), Wide (802). The tag forms a curriculum: interaction texture -&gt; transition architecture -&gt; templates that package both.</p>
+<h1>Sources to study</h1>
+<p>Showcases (study, deconstruct, do not copy): awwwards.com (Sites of the Year awwwards.com/websites/sites_of_the_year/), godly.design, siteinspire.com, land-book.com, minimal.gallery, mobbin.com, dribbble.com/tags/ui-library, behance.net, refero (styles.refero.design).
+Craft blogs/courses: refactoringui.com (hierarchy, spacing), joshwcomeau.com (CSS/animation interactive guides), emilkowal.ski (animation/design engineering), tympanus.net/codrops (WebGL/GSAP tutorials), typewolf.com (type pairing and trends), utopia.fyi (fluid scales), web.dev (Core Web Vitals), nngroup.com.
+Case studies: Awwwards annual-site making-ofs (awwwards.com/making-the-annual-awards-voting-website-2021.html, tubikstudio.com/blog/annual-awwwards-website-design, bornfight.com/blog/awwwards-annual-2019...).
+Luxury/negative space: dellamattia.com/journal/web-design-for-luxury-brands..., typza.com white-space articles, dtsworld.in luxury UX.
+Slop: capitalandcompute.net/blog/fix-ai-slop-design, solodesign.cc/blog/ai-design-slop-the-tells, mania.design/blog/spot-the-slop...
+Golden ratio: nngroup.com/articles/golden-ratio-ui-design (read before relying on it), ux360.design/tools/golden-ratio.
+Portfolio guides: thecrit.co/resources/coding-portfolio-guide, figma.com/resource-library/portfolio-website-examples.</p>
+<h2>Awwwards Sites of the Year list (verified from awwwards.com/websites/sites_of_the_year/)</h2>
+<p>2025: Lando Norris (OFF+BRAND), Messenger (abeto). 2024: Igloo Inc (abeto/Bureaux), Don't Board Me (The First The Last), Opal Tadpole (Claudio Guglieri). 2023: Lusion v3, Noomo Agency, Mana Yerba Mate (Louis Paquet).
+Breakdowns found: Codrops WebGL for Lando Norris tympanus.net/codrops/2025/12/05/from-illusions-to-optimization-the-creative-webgl-worlds-of-adrian-gubrica/; dev.to revealed article, itsoffbrand Lando case, awwwards Igloo + Messenger, commarts Messenger — ALL READ; discourse.threejs.org/t/landing-site-igloo-inc/67249 (READ low yield); awwwards Igloo + Messenger case studies + Codrops Gubrica spotlight READ. Study-recreation repos exist (arafays/messenger-copy, tt-u/abeto-copy) but they mirror someone else's assets: learn from, do not reuse.
+Fundamentals sources: nngroup.com/articles/principles-visual-design (read), practicaltypography.com/summary-of-key-rules.html (read), lawsofux.com (read), w3.org/WAI/WCAG22/Understanding/contrast-minimum.html (read), radix-ui.com/colors (read), nngroup.com/articles/gestalt-proximity (fetched).
+https://cari.institute/aesthetics: taxonomy of consumer aesthetics, see</p>
+<ul>
+<li>https://cari.institute/aesthetics (aesthetics taxonomy, see )</li>
+<li>https://www.tumblr.com/gurafiku (Japanese graphic design archive, see )</li>
+<li>https://unsplash.com/ (free photos, licence and imagery guidance in )</li>
+<li>https://coolors.co/, https://slidesgo.com/, https://www.freepik.com/ ; psychology sources : NN/g F-pattern and scanning patterns, Stanford credibility, Lindgaard 2006, NN/g cognitive load</li>
+</ul>
+<p>Flash-era history/archives: digital-archaeology.org (Jim Boulton's exhibition write-ups w/ screenshots), webdesignmuseum.org (history articles readable via web_fetch; ALL images hotlink-blocked, browser also blocked), shift.jp.org (2000s creator interviews, images downloadable), en.wikipedia.org Flash-agency entries.</p>
+<h1>Synthesis: short answers with citations (grows each pass)</h1>
+<p>Q: Which free 3D hero asset is safest for a commercial site? A: Poly Haven CC0 models: no login, public API, Marble Bust 01 checked locally at 17,456 triangles. Entry:  (Poly Haven), source https://polyhaven.com/license. Sketchfab CC0 needs a login for download. See also: .</p>
+<h2>SPOTLIGHT VEIN SYNTHESIS - 22 creative careers, what the patterns say</h2>
+<p>Built from codrops designer+developer spotlights, [all V full reads].
+1. NOBODY STARTED WHERE THEY ENDED. Painter (Papadopoulou), philosophy student (Bernadou), embedded electronics (Kondrashova), developer-who-thought-design-wasn't-for-her (Tykhonova), C++ gamedev dreamer (Penev), YouTube GFX banner maker (Norman). The wandering path is the norm, not the exception. Each detour becomes a differentiator later (Penev's engine-building -&gt; StringTune; Vargas's gaming -&gt; PlayStation).
+2. THE BORDER BETWEEN DESIGN AND DEV IS THE JOB. Every spotlight sits on it from some side: designers who learned to build (Tkachev, Gilroy, Brouwer), developers who learned to see (Vestergaard, Penev), people who refuse the wall ("code is just a creative medium" - Vanderpotte). Garden Eight and mount inc. made the same point at studio scale.
+3. BURNOUT HAS A PRECISE ADDRESS: THE HANDOFF. Gilroy's Figma dying in other people's builds; Bernadou's "once the design is done, what comes next?" frustration; Lunardi's "half-finished work". The cure in every case: move toward the other side of the handoff.
+4. UNPAID EXPERIMENTS ARE THE CAREER ENGINE. Kondrashova's silly demos -&gt; CodePen Most Hearted -&gt; commercial gigs. Bernadou's experiment diary -&gt; SOTD portfolio -&gt; first job. Penev's library. Vanderpotte: "build things for no reason." Studio-scale echo: OFF+BRAND's Totem loss-leader, Studio Freight incubating Lenis. The pattern is unanimous.
+5. COMMUNITY IS THE CLASSROOM. CodePen/X sharing (Kondrashova, Bernadou), GFX clans (Norman), OkayDev (Adolfsson, Lunardi), Codrops itself named as teacher by ~10 of them. Formal education appears in barely half.
+6. NOTEBOOK BEFORE KEYBOARD. Perrey, Bernadou, and others sketch by hand first - "typing my ideas has always felt like a way to lose them."
+7. SIMPLICITY IS A SENIOR MOVE. Veterans remove machinery: Vestergaard's PNG frames over WebGL sprites, Penev's SVG over canvas, Tkachev's 80% removal portfolio, Lunardi's "removing code is the real work." Juniors add; seniors subtract.
+8. ON AI (the 2026 mood, stated across essays): not replacement, not threat - "I am the director of everything that ends up in the codebase" (Lunardi); "the shackles are off" for solo execution (Gilroy); "craft matters more, not less - taste and judgment take years and no model does that work for you" (Lunardi); friction-as-a-feature essay (Kowalski) is the same argument from the design side.</p>
+<div class="pagenav"><a href="case-studies.html">&larr; Case Studies</a><a href="reading.html">Psychology & UX Reading &rarr;</a></div>
+</main>
+</div>
+</body>
+</html>
