@@ -737,21 +737,21 @@
 <td></td>
 </tr>
 <tr>
-<td>Also seen in the list (not checked): Animista, Hover.css, Zdog, KUTE.js, Granim.js, Popmotion, Motion One, Roughnotation, Humaaans. Blush RESOLVED.</td>
+<td>Also seen in the list (not checked): Animista, Hover.css, Zdog, KUTE.js, Granim.js, Popmotion, Motion One, Roughnotation, Humaaans. Blush is covered separately.</td>
 <td></td>
 <td></td>
 </tr>
 </tbody>
 </table>
 <h2>Failed fetches (try twice rule)</h2>
-<h2>Pattern licensing evidence and build decision (Oct 7 2026)</h2>
+<h2>Pattern licensing evidence and build decision</h2>
 <ul>
 <li>https://github.com/mike-hearn/transparent-textures describes adding transparency to Subtle Patterns. https://github.com/subtlepatterns/SubtlePatterns explicitly says CC BY-SA 3.0 and credits original authors. https://news.ycombinator.com/item?id=41515968 contains a post by the account <code>mikehearn</code> claiming authorship and CC BY 3.0. That account claim is not independent proof of relicensing rights. The two licences disagree; do not silently choose the less restrictive one. Prefer original procedural noise or assets with clear CC0 terms.</li>
 <li>https://github.com/sschoger/hero-patterns read but supplies no licence in the fetched summary. https://news.ycombinator.com/item?id=13677828 contains historical CC BY-SA 4.0 claims; current authoritative terms remain. A guessed LICENSE path returned 404, which does not establish that the repo lacks a licence.</li>
 <li>Oct 7 2026 update: heropatterns.com homepage says "will always be free" but carries no licence text; both GitHub repos (steveschoger/hero-patterns, sschoger/hero-patterns) now 404; two independent secondary indexes claim CC BY 4.0. Verdict: treat patterns as attribution-required (credit Steve Schoger) if used at all, prefer procedural noise for anything commercial-critical.</li>
 <li>Build guidance: save local assets rather than hotlinking third-party PNGs; preserve the attribution record and any share-alike obligations attached to modified assets. This is a reliability and rights precaution, not a claim that the whole website must use an asset's licence.</li>
 </ul>
-<h2>Community motion and 3D assets: shipping checklist (Oct 7 2026)</h2>
+<h2>Community motion and 3D assets: shipping checklist</h2>
 <ul>
 <li>Rive: https://rive.app/docs/community/marketplace-overview and https://rive.app/docs/legal/terms-of-service establish the community/marketplace CC BY 4.0 grant. It covers remixing and modification, unlike a licence for the runtime alone. Keep the file URL, creator, licence URL and modification record in the build's asset ledger.</li>
 <li>CC BY 4.0: https://creativecommons.org/licenses/by/4.0/ permits commercial sharing/adaptation with appropriate credit, licence link and indication of changes, without implying endorsement. Other rights (privacy, publicity, trademarks, etc.) can remain; a licence is not a guarantee that an uploader owns every included element.</li>
@@ -759,14 +759,14 @@
 <li>Sketchfab: https://sketchfab.com/blogs/community/refine-downloadable-model-searches-with-new-license-filters/ explains CC0 (no conditions), CC BY (credit), NC (no commercial use), ND (no alteration), SA (same licence for derivatives) and editorial-only assets. Prefer CC0 for hero objects; reject NC for a client build and avoid ND when optimisation/changes are needed. Check actual item download availability and terms, not a collection title. This guide is historical and is not proof of today's search interface.</li>
 <li>Sketchfab: https://sketchfab.com/features/free-3d-models now links royalty-free discovery to Fab. https://sketchfab.com/developers/download-api/guidelines requires account authentication for API downloads and attribution that follows assets in integrations. No specific CC0 model collection has been vetted this pass; do not claim an individual model is ready to use.</li>
 </ul>
-<h2>Build-time tool recipes and export costs (Oct 7 2026)</h2>
+<h2>Build-time tool recipes and export costs</h2>
 <ul>
 <li>Rive: https://rive.app/docs/editor/exporting/exporting-for-runtime states runtime <code>.riv</code> export is paid. https://rive.app/pricing currently advertises $9/month to ship; https://rive.app/blog/rive-s-new-9-mo-plan explains Cadet is $9/month billed annually or $17/month billed monthly, with unlimited exports and up to 3 seats. Recheck exact checkout total and billing term before any purchase. Free editor access and CC BY marketplace rights do not grant free custom export. The announcement explicitly allows running Marketplace/docs demos without exporting; existing exports do not require an active subscription. Paid unlock to consider only if we need new/modified <code>.riv</code> exports, not a requirement to keep learning.</li>
 <li>Open Props: https://open-props.style/ is MIT and gives npm/CSS imports plus individual packs (sizes, easings, animations). Import tokens selectively; normalize and styled buttons are optional. Our build guidance: use sizes/easing tokens behind brand-specific aliases, leave default cards, gradients and colours out unless they fit the brief. Pin the package/version for a real build rather than relying on an unversioned CDN. This avoids importing someone else's visual style along with useful primitives.</li>
 <li>cubic-bezier: https://cubic-bezier.com/ offers preview/compare, duration adjustment and curve library import/export. Source licence read: https://github.com/LeaVerou/cubic-bezier/blob/gh-pages/LICENSE, MIT, retain copyright/permission when copying tool code. Curve choice is a design decision, not a reason to include the whole tool in a website.</li>
 <li>Utopia: https://utopia.fyi/ describes interpolating type and spacing between small and large viewport scales, with free tools and no framework dependency. https://github.com/trys/utopia-core documents JS/TS <code>calculateTypeScale</code>, <code>calculateSpaceScale</code>, <code>calculateClamp</code> and container-relative options.: https://github.com/trys/utopia-core/blob/main/package.json declares ISC.: the attempted LICENSE path returned 404, so preserve/recheck the licence notice in the package before vendoring code. Generated CSS and source-package reuse are separate questions. Fluid typography does not remove the need for layout breakpoints or testing text zoom/wrapping; that is our implementation caution.</li>
 </ul>
-<h2>More 3D archives: choose by delivery mode (Oct 7 2026)</h2>
+<h2>More 3D archives: choose by delivery mode</h2>
 <table>
 <thead>
 <tr>
@@ -796,7 +796,7 @@
 <p>NASA usage boundary: https://www.nasa.gov/nasa-brand-center/images-and-media/ says NASA-created model data and media are generally not subject to copyright in the US, asks acknowledgement as source, and excludes third-party copyrighted material from its grant. Commercial use must not imply NASA endorsement; logos/identifiers and identifiable people introduce separate restrictions or clearance needs. Use this as an informational/science archive, not a source of unqualified CC0 branding assets.</p>
 <p>Quaternius licence version caution: QAL states future changes do not apply retroactively to assets already obtained under an earlier version. Record the actual asset's licence and acquisition date. Older third-party directories calling all Quaternius assets CC0 are not proof of today's download terms.</p>
 <p>Our implementation guidance: browser-delivered 3D is normally retrievable by users, so an asset licence forbidding extractability is not a detail to hand-wave away. Choose clear CC0/CC BY assets for an interactive WebGL hero, or use your own assets; consider rendering restricted assets to 2D/video when the applicable licence explicitly permits that.</p>
-<h2>3D preparation and test assets (Oct 7 2026)</h2>
+<h2>3D preparation and test assets</h2>
 <table>
 <thead>
 <tr>
@@ -834,7 +834,7 @@
 </tbody>
 </table>
 <p>Our shipping checklist: inspect source model, keep original, optimise a copy, validate the result, then compare actual pixels and animation before/after in the target renderer. Confirm decoders and supported extensions match the chosen compression. Smaller transfer bytes alone do not prove faster rendering or lower GPU memory. This is implementation guidance drawn from the tools' different roles, not a measured benchmark.</p>
-<h2>Headless navigation and overlay ingredients (Oct 7 2026)</h2>
+<h2>Headless navigation and overlay ingredients</h2>
 <table>
 <thead>
 <tr>
@@ -866,13 +866,13 @@
 </tr>
 </tbody>
 </table>
-<h2>Google Fonts practical rights and loading checks (Oct 7 2026)</h2>
+<h2>Google Fonts practical rights and loading checks</h2>
 <p>https://fonts.google.com/faq read in full. Fonts are free for commercial products and logos, but redistribution/modification follows the individual font licence (OFL commonly; some Apache or Ubuntu). Google Fonts supports downloading for self-hosting. Do not assume every font is OFL just because it appears in the collection.
 - Product Sans remains Google-only. Google Sans/Google Sans Flex are now available under OFL according to the FAQ; old blanket claims that all Google Sans is unavailable are stale. Recheck the actual family files before use.
 - Material Icons no longer receives updates; Google recommends Material Symbols. Font-ligature failures can come from wrong set, stale version, CSS disabling ligatures, missing <code>icon_names</code> subset entries or loading flashes. FAQ recommends <code>display=block</code> to avoid displaying raw ligature words during load. For essential controls, our build guidance is to use stable SVG icons or accessible text/fallbacks rather than leave a missing font as the only affordance.
 - Privacy section distinguishes API font requests from self-hosting; self-hosting avoids sending font fetches to Google. Read the current privacy requirements for the deployment jurisdiction rather than treating a free font licence as privacy compliance.</p>
 <p>Parallax/snippet quality guidance: reserve hover tilt for a chosen object, not every information block. Keep pointer effects nonessential and provide a reduced-motion/static path. Uiverse/Atropos code rights do not clear third-party images, game logos, or other demo content.</p>
-<h2>Historical illustration archives and procedural drawing (Oct 7 2026)</h2>
+<h2>Historical illustration archives and procedural drawing</h2>
 <table>
 <thead>
 <tr>
@@ -900,7 +900,7 @@
 </tbody>
 </table>
 <p>Build guidance: these archives can supply distinctive editorial motifs instead of stock blobs, but choose imagery from the brand story, not merely because it is antique. Read the chosen source item's rights and inspect actual resolution/crop before selecting it. No image was visually vetted this pass. Archive text, metadata and images can have different licences even on the same page.</p>
-<h2>Font production tools (Oct 7 2026)</h2>
+<h2>Font production tools</h2>
 <table>
 <thead>
 <tr>
@@ -932,7 +932,7 @@
 </tr>
 </tbody>
 </table>
-<h2>Image preparation for real builds (Oct 7 2026)</h2>
+<h2>Image preparation for real builds</h2>
 <table>
 <thead>
 <tr>
@@ -960,7 +960,7 @@
 </tbody>
 </table>
 <p>Build guidance: make mobile and desktop crops intentionally, inspect their pixels, preserve subject/focal point, then generate delivery sizes. Do not assume a smaller file preserves the illustration's fine lines, grain, colour or transparency. Use source-image rights and the tools' code licences separately. No compression/crop was actually performed in this pass.</p>
-<h2>SVG preparation tools (Oct 7 2026)</h2>
+<h2>SVG preparation tools</h2>
 <table>
 <thead>
 <tr>
@@ -988,7 +988,7 @@
 </tbody>
 </table>
 <p>Build guidance: keep viewBox for scalable icons, match IDs/references across masks/gradients/clip paths, and verify thin strokes at actual size. Removing title/desc can remove useful accessible content; decide meaningful versus decorative first and provide an appropriate label or hide decorative SVGs from assistive technology. Tool licences do not license logos or source art. No SVG was optimised or visually inspected this pass.</p>
-<h2>Build verification tools (Oct 7 2026)</h2>
+<h2>Build verification tools</h2>
 <table>
 <thead>
 <tr>
@@ -1016,41 +1016,41 @@
 </tbody>
 </table>
 <p>Our build gate: reviewed responsive screenshots, keyboard/focus and screen-reader checks, automated rules, repeated performance measurements and asset-rights checks answer different questions. None substitutes for the others. No tests were run against a user site in this research pass.</p>
-<h2>Licence notice follow-up (Oct 7)</h2>
+<h2>Licence notice follow-up</h2>
 <ul>
 <li>Fontaine: full MIT notice (Copyright 2022 Daniel Roe) at https://raw.githubusercontent.com/unjs/fontaine/main/LICENCE (file is spelled LICENCE, not LICENSE; GitHub API reports MIT).</li>
 <li>utopia-core: package.json declares ISC, author Trys Mudford (https://raw.githubusercontent.com/trys/utopia-core/main/package.json). Repo has no LICENSE file (root lists README, package.json, src only; GitHub licence API 404). So ISC is a declaration only; keep a copy of the package.json declaration if shipping, or just use the formula.</li>
 </ul>
-<h2>Sketchfab CC0 hero-object candidates (API read Oct 7)</h2>
+<h2>Sketchfab CC0 hero-object candidates</h2>
 <p>Source: Sketchfab public search API (license=cc0, downloadable=true, sorted by likes, q=sculpture). metadata only: licence label, face count, likes. not opened in the viewer, no pixels inspected, no download test.
 - Bust of Róża Loewenfeld, Virtual Museums of Małopolska, 60,395 faces, 1405 likes: https://sketchfab.com/3d-models/none-fc6e731a0131471ba8e45511c7ea9996
 - Owl 'Zun' wine vessel, Minneapolis Institute of Art, 65,082 faces: https://sketchfab.com/3d-models/none-ca77ae1351ca4b1c9a7d403e09e1c4af
 - Tibetan Amoghasiddhi Buddha, Mia, 64,000 faces: https://sketchfab.com/3d-models/none-a2c46e73a9294f32ab12520c6b87a079
 - Water-Moon Guanyin (Mia, 201,796), Venus de Milo (SMK, 274,243), Figure of a Dancer (Smithsonian, 150,000), Löwe (noe-3d.at, 520,042) are heavier.
 Notes: these are museum scans, so raw meshes are far too heavy for a web hero; plan decimation/retopo plus texture baking (glTF Transform, see earlier section). CC0 is the uploader's per-model label on Sketchfab; check the model page before shipping. Subject matter (religious figures, Venus) needs a judgement call for brand fit. Lower face counts (60-65k) are the realistic starting point.</p>
-<h3>Visual check of Sketchfab thumbnails (Oct 8)</h3>
+<h3>Sketchfab thumbnail impressions</h3>
 <p>Looked at the Sketchfab-supplied preview thumbnails (720x405) of three candidates; this is the uploader's preview render, not the mesh in my own viewer, so geometry and texture at close range remain.
 - Bust of Róża Loewenfeld: pale plaster, warm tone, clean readable face; includes a plinth (crop or remove for a floating hero). Light object pops on black.
 - Water-Moon Guanyin (Mia): painted wood, rich colour and detail, but heavy mesh (about 200k faces) and a religious figure.</p>
-<h2>Spline community / Rive community recheck (Oct 8)</h2>
+<h2>Spline Community and Rive Community</h2>
 <ul>
 <li>Spline Community (https://community.spline.design/): public library of editable Spline scenes, licensed CC BY 4.0, attribution required (keep the "Made with Spline" link, credit creator). A community scene has no runtime URL: remix it in Spline, then publish your copy to get one. Collections include Interactive Website, Brand and Marketing, 3D Logos, Immersive Experiences, 3D Mockups, Character Animation. Featured titles seen: Purple coin arch, Moeda Iron Coin, HOVER + SCROLL EFFECT, Drag and Drop landing page, Abstract Background (names are by Spline users, not vetted). Per-scene licence overrides, visual quality and performance not checked. Consistent with earlier note: free web export carries a watermark, so a remix still hits that paid unlock.</li>
 <li>Rive community page (https://rive.app/community/) returned an empty page to fetch (JS-rendered); earlier official-docs licence read (CC BY 4.0) stands, no individual file vetted.</li>
 </ul>
-<h3>Visual check: Spline Community and Rive Marketplace (screenshots viewed Oct 8)</h3>
+<h3>Spline Community and Rive Marketplace galleries</h3>
 <ul>
 <li>Rive: https://rive.app/community/ now returns "Oops! We couldn't find the page" (404 page, with links to Discover, Learn, Marketplace). The live gallery is https://rive.app/marketplace/ (Featured / Latest / For Hire tabs, search, "Get Started"). Featured items are mostly character illustrations and animated posters by individual creators (Galactic Outlaws, Sobo, Character poses etc.), many tagged "For Hire", with like counts. Mostly cartoon characters: weak match for a premium black one-hero look. Per-file licence and export limits as before (CC BY 4.0, custom export paid); no individual file opened.</li>
 </ul>
-<h3>In-viewer check: Owl 'Zun' wine vessel (Oct 8)</h3>
+<h3>In-viewer check: Owl 'Zun' wine vessel</h3>
 <ul>
 <li>Fit: strongest candidate so far for a black-bg one-hero build (dark object needs rim light). 65k triangles is workable but still heavy for mobile; decimate and bake.</li>
 <li>Download needs a Sketchfab login (button shown; not clicked, no account used); glTF size and texture resolution unseen; "animated version" note means check whether the file has animation baggage. CC0 label is the uploader's per page; museum CC0 policy not read.</li>
 </ul>
-<h3>Sketchfab download route (docs read Oct 8)</h3>
+<h3>Sketchfab download route</h3>
 <ul>
 <li>https://sketchfab.com/developers/download-api/downloading-models: downloading a model requires an authenticated Sketchfab account (OAuth 2.0). Flow: GET https://api.sketchfab.com/v3/models/{UID}/download with a Bearer token returns temporary links (glTF zip, USDZ if available; links expire in about 300 s, so don't cache); the archive itself then downloads with no auth. The glTF zip holds scene.gltf, scene.bin and textures. Sizes in the docs example are illustrative, not the Owl's.</li>
 </ul>
-<h2>Poly Haven 3D models: CC0, direct download, no login (Oct 8)</h2>
+<h2>Poly Haven 3D models: CC0, direct download, no login</h2>
 <ul>
 <li>Licence page https://polyhaven.com/license: all HDRIs, textures and 3D models are CC0 (commercial use fine, no credit needed, can redistribute and bundle in products sold). Models are by Poly Haven staff or artists who donate/sell to them.</li>
 <li>Public JSON API https://api.polyhaven.com/assets?t=models lists 521 models (polycount, categories, authors, download counts); https://api.polyhaven.com/files/{id} gives direct file URLs, no account or token. glTF comes in 1k/2k/4k/8k texture sizes (separate.gltf +.bin + textures; also blend, fbx, usd).</li>
@@ -1058,7 +1058,7 @@ Notes: these are museum scans, so raw meshes are far too heavy for a web hero; p
 <li>Other sculpture-ish picks in the API (names only, not viewed): bronze_ray_statue, brass_vase_01-03, antique_ceramic_vase_01, Chandelier_01.</li>
 <li>Not downloaded into a viewer; no mesh/texture inspection yet. The preview shows a light object, so on a black background it will read strongly; on a light site use a dark HDRI.</li>
 </ul>
-<h3>Marble Bust 01 downloaded and inspected (Oct 8)</h3>
+<h3>Marble Bust 01 downloaded and inspected</h3>
 <p>Downloaded the 1k glTF set from the Poly Haven API (no login) and ran <code>npx @gltf-transform/cli inspect</code> locally. Real numbers: one mesh, one material, 17,456 triangles, 9,746 vertices, mesh data 416.6 KB (.bin, u16 indices, POSITION/NORMAL/TEXCOORD_0 only), glTF 2.0 from Khronos Blender exporter, no extensions, no animation. Material is PBR: baseColor, normal and metallicRoughness textures, each a 1024x1024 JPEG (125 + 160 + 194 KB), about 5.6 MB GPU memory each uncompressed (about 17 MB VRAM total). Opaque, double sided. Whole folder is 896 KB on disk.
 - Takeaway: a single-hero-ready asset that needs no decimation. Page weight about 0.9 MB at 1k; use 2k (2 MB) only if the bust fills the screen. Could drop the rough/ARM texture to a constant to save about 190 KB, and KTX2/Basis would cut VRAM further (not tested).
 - Note: the.bin path in the API's 1k list points into the 8k folder; the file is the same shared geometry (416,608 bytes).</p>
@@ -1068,7 +1068,7 @@ Notes: these are museum scans, so raw meshes are far too heavy for a web hero; p
 <li>Brutalist Websites (<a href="https://brutalistwebsites.com/">source</a>): single long page of about 600 site screenshots (Disslist, RAW Magazine, Nelson Heinemann, Middleplane, Utrecht...) under the tagline that brutalism is a younger generation's reaction to the "lightness, optimism and frivolity" of mainstream web design; submissions by email. Free, no login. Direct reference set for Nu-Brutalism/anti-polish work ( Nu-Brutalism, Disslist). Screenshots are thumbnails hotlinked from the site; I did not open individual sites this pass.</li>
 <li>One Page Love (<a href="https://onepagelove.com/about">source</a>): showcase of one-page sites, templates and resources since March 2008 (Rob Hope); as of July 2026 acquired by Some Studio (Piet Terheyden, also Minimalissimo and Minimal Gallery). Matches single-scroll story builds . Whether template downloads are free or paid not checked.</li>
 </ul>
-<h2>Galleries (Oct 13 2026)</h2>
+<h2>Galleries</h2>
 <ul>
 <li>Minimal Gallery (<a href="https://minimal.gallery/about">source</a>): curated website gallery since 2013, started by Piet Terheyden, acquired in 2026 (same group as One Page Love and Minimalissimo, see above). Free to browse; submissions open. Fits restrained/quiet-luxury references ( Austurbane, Zen-X).</li>
 <li>Minimalissimo (<a href="https://www.minimalissimo.com/about">source</a>): minimalism curation across design, architecture, fashion, culture; "principle-driven, not trend-led"; five-person team. Free editorial reading.</li>
@@ -1143,7 +1143,7 @@ Notes: these are museum scans, so raw meshes are far too heavy for a web hero; p
 - MAKEMEPULSE (Paris, founded 2008 by Gobelins classmates Antoine Ughetto + Nicolas Rajabaly, 35+ people): the complementary-founder pattern (one technology, one creative direction). FORMAT-AGNOSTIC doctrine: "the most interesting ideas rarely fit neatly into one category. Some projects need a platform. Others need a story, a world, a game mechanic, an installation, a gesture. Our role is to shape the right format for each ambition." Field intentionally broad: websites, e-commerce, phygital installations, VR/AR/WebXR, gaming. Longevity proof: FWA Hall of Fame after 98 FWAs over 18 years. Client range: UNESCO (Virtual Museum of Stolen Cultural Objects) to McDonald's to Cartier.
 - DASHDIGITAL (Cape Town, 8 people): the PIVOT-BORN-OF-NECESSITY origin told honestly: started as a product studio, built an Uber competitor, CTO left and took the whole Eastern-Europe dev setup with him ("he was the only one who could communicate with them"), stripped back to design, rebuilt properly years later. Doctrine: research-driven, "before anything gets made, we need to understand what we are solving and who we are solving it for." Cross-industry as deliberate strategy: "the way you solve one industry's problem has a habit of showing up in another - it keeps the thinking from getting comfortable." Goodman Gallery case: project pivoted mid-stream into art e-commerce after asking "what does selling art online actually need to look like, and why has nobody done it properly yet?" (answer: the problem is genuinely complex and most galleries avoided it).
 - SAN RITA (Montreal): the trail metaphor as studio philosophy - "every project is a different trail. Some are straight lines, some are steep climbs, some require building the path along the way." Range as comfort: "expressive and narrative-driven" AND "structured, conversion-focused, quietly efficient." Founded out of frustration with siloed strategy/design/development - one coherent flow. White-label backbone work named openly as a line of business. Anti-scale stance: "We're not trying to scale into something bigger for the sake of it."</p>
-<h2>Codrops Studio Spotlights vein 5 - VEIN COMPLETE</h2>
+<h2>Codrops Studio Spotlights, set 5</h2>
 <p>Sources: Beaucoup, Merlin, Lemma, Akaru, Rhumb spotlight articles. All 15 studio spotlights (Apr-Oct 2026) now mined.
 - BEAUCOUP (Lyon, founded 2021, 5 people): complementary-duo founding again (creative developer + art director - same shape as makemepulse). "Balance consistency with each brand's core identity and a constant drive to create memorable experiences."
 - MERLIN (Amsterdam "Code Boutique", founded 2018): three founders, and CREATIVE DEVELOPMENT SITS ACROSS ALL THREE leadership roles "because everyone still builds" - the makers-stay-makers org design. Growth anatomy told plainly: Maritime Museum first client, Covid-era 3D conference platforms, Eurovision Village as the portfolio tipping point ("the moment the portfolio started opening doors on its own"), then an external coach brought roles/OKRs/sales structure - "that chapter is when Merlin grew up." Name doctrine: "A figure of myth and magic, and the collective that now goes by it. Where one ends and the other begins is a line we have never drawn too sharply. We like the wonder that sits in that gap."
@@ -1169,7 +1169,7 @@ Notes: these are museum scans, so raw meshes are far too heavy for a web hero; p
 - YEVA TYKHONOVA (multidisciplinary designer with a code background): EMOTIONAL INTELLIGENCE AS THE DESIGNER'S CORE SKILL - "Design is the ability to evoke the right feelings in users, create emotional contact, and guide interaction, all while making it work for the business." Her crossing: started in development believing "I wasn't talented enough to become a designer"; building other designers' work showed her she wanted to express, not implement; learned design "almost as a challenge to myself" - within a year it was the passion. The dev-to-design direction (compare Tkachev design-&gt;dev, Gilroy design-&gt;build: the border-crossing vein).
 - HUY NGUYEN (MONOLOG studio, founder-led brands, 50k+ social audience): the AWWWARDS-MOMENT origin - stumbling on Active Theory's Prometheus Fuels site: "wait, you can build this on the web?" The 6-month gap before university as the whole career's opening. Path: Udemy frontend -&gt; dropped out -&gt; studio in his twenties -&gt; teaching the studio-building journey to 50k designers. Founder-led brands as niche: "digital experiences that move people and transform how they are perceived."
 - JORDAN GILROY (UK, design + Webflow build): the HANDOFF-BURNOUT diagnosis and cure. Burnout cause named precisely: "designing websites handed off to agencies or developers who would build the site to a low standard... What I was handing over in Figma wasn't what I was seeing in a browser. When that happens to every design you create, it starts to hurt." Cure: learn to build (Webflow). Honest middle stage: "learning Webflow actually had a negative impact on my designs - I'd question whether I'd be able to build it... stifling my creativity. The more I learned, the more I freed my designs from the burden of not knowing how to execute them." Now: "with AI... I don't think about dev at all when designing because I know I/Claude can figure out a solution. The shackles are off." The full arc: handoff pain -&gt; build skills -&gt; temporary constraint-thinking -&gt; fluency -&gt; freedom.</p>
-<h2>Spotlights 7 - VEIN COMPLETE: Buffa, Brouwer, Snijders, Vargas</h2>
+<h2>Studio Spotlights: Buffa, Brouwer, Snijders, Vargas</h2>
 <p>Sources: codrops /2026/01/30/from-art-on-the-walls...daniele-buffas.../, /2026/01/22/from-design-first-to-motion-driven-dylan-brouwers.../, /2026/01/16/design-as-a-problem-solving-tool...victorine-snijders.../, /2026/03/25/from-web-ui-to-game-ui...maria-vargas.../. Both spotlight tags now fully mined (20+ people).
 - DANIELE BUFFA (Rome -&gt; London, 10+ yrs, Google/Sony/Headspace/Spotify): the ART-SATURATED CHILDHOOD origin - artist father, writer mother, a wall of VHS tapes; Photoshop at 12 via design forums. Craft ambition stated as polish: "bespoke visual solutions, meaningful animations, and deeply considered experiences." Rule posture: "pushing the boundaries of design, and breaking the rules when needed."
 - DYLAN BROUWER (Dutch, Webflow no-code): the HONEST NO-CODE position - "I'm not your classic technical dev, but with Webflow, some front-end fundamentals, a bit of ChatGPT, and resources like Osmo Supply, I can get surprisingly far." Portfolio hero: a looping showreel inside a rotating 3D display mockup, both scroll-responsive - ambition not capped by the tool. Portfolio tension named: "impress fellow designers, feel like you, and still work for potential clients."
@@ -1198,7 +1198,7 @@ Notes: these are museum scans, so raw meshes are far too heavy for a web hero; p
 - JESPER LANDBERG (jesperlandberg.com): Swedish design engineer, Awwwards INDEPENDENT OF THE YEAR 2022 AND 2024, 77 awards (30x Awwwards, 40x FWA, 3x Webby, 2x Lovie). Positioning line: "Usually lead or sole developer, responsible for front-end architecture, animation, interaction and CMS, alongside international agencies" - the one-person full-stack craft offer. His client list cross-links our vein: Casa Di Solare = Unseen Studio's Solare typeface launch site, Griflan (their Saffron Finance template shares page 2), Gil Huybrecht and Nathan Riley (both also Webzibition-listed). The independent-of-the-year tier exists and is documented - a concrete ceiling marker for the craft.
 - GENERAL ADMISSION (generaladmission.house, Ybor City Tampa, EST.2026): "a counter-community culture rooted in Ybor where the idea of a gallery expands into something more fluid and collective. Built for artists, by artists... both platform and archive... Internationally recognized yet locally grounded... in a productive tension both visible and elusive." Gallery + collections e-commerce hybrid. ANTINOMY STUDIO (antinomy.studio, independent design studio founded 2019): "create the best work where strategy and craft hold the same line." Client roster: i-D, Vast (space habitats), Google's Gemini - brand studios now routinely list AI products beside culture magazines.
 - TREVOR NOAH (trevornoah.com): built by ITSOFFBRAND.COM - OFF+BRAND's studio site confirmed shipping celebrity-tier work; entertainer-site pattern: Get Tickets as the persistent CTA above everything (Shows/Watch&amp;Listen/Books/About/Store). HOMUNCULUS.JP (partial): JS/WebGL shell to both curl and browser text reads - only the tagline "Sound without Sound" and Inside/Contact nav recovered; noted as unmined, not skipped silently.</p>
-<h2>Codrops free templates: Isle Thorne + Wide - TUTORIALS TAG COMPLETE 8/8</h2>
+<h2>Codrops free templates: Isle Thorne and Wide</h2>
 <p>Sources: tympanus.net/codrops/2026/10/07/isle-thorne-collective-astro-template/, tympanus.net/codrops/2026/09/28/wide-template/. Both MIT/free.
 - ISLE THORNE COLLECTIVE (free Astro furniture-shop template, design by Elena Smirnova, by Manoela Ilic): a REFERENCE IMPLEMENTATION of progressive enhancement. Static on purpose: no UI framework/CMS/backend, products are Markdown files, cart in localStorage, checkout/newsletter are demos - "it isn't a complete shop" said up front, README maps where payments/accounts/stock would connect. ONE grid utility (grid-site: 2 cols on phones, 12 from 1024px) places every page's content - "navigation, piece counts and article text all start on the same column." Instrument Sans self-hosted via Astro Fonts API with a metric-adjusted fallback so text doesn't shift on load. PLAIN HTML WHERE IT CAN BE: photo rows are Embla Carousel but still scroll sideways without JS; product panels are <details> sharing a name (browser keeps one open); cart + newsletter are <dialog> elements (which the browser draws ABOVE the page transition - a feature to design around, not fight). Pages and links work without JS entirely; Lenis off under reduced motion. Content = Astro content collections (one JSON + one Markdown per product/story, filename = URL); pages read through two small helpers so a CMS loader can replace collections without touching pages. Transitions: Astro client router + Interlude (21 transitions included, swap via one config key); scripts run once per VISIT so per-page setup lives in Interlude page hooks; transition cost honestly stated: ~39 kB compressed on top of ~18 kB. npm create astro@latest -- --template codrops/isle-thorne-collective.
 - WIDE by BL/S (open-source grid experiment + optional WebGL shader): the ANTI-EFFECT MANIFESTO - "how much can you get from a simple visual system before adding another effect just because you can? Sometimes a grid is enough. Sometimes typography doing the right thing is enough. And sometimes someone says: let's add a shader." TEN CARDS, FIVE COMPOSITIONS: cards created in the DOM ONCE (ITEMS array) and never recreated - "compositions only change their position and size", which is what makes continuous rearrangement cheap. Layouts described as COLUMNS not coordinates: a number = fixed vw, 'ratio' = from the card's proportion, 'eq'/'auto' share what is left. The MIRRORED state is never authored - derived by reversing the column array (typography mirror = a clone with sides flipped). No giant controller: geometry computes positions, one dispatcher handles movement inside a composition, another handles mirror-switching - "each system has its own job. Which becomes particularly important when things start moving." The word "Wide" is the anchor that keeps every reorganisation feeling like one visual system (cf. pixel-as-motif).
@@ -1214,7 +1214,7 @@ Portfolio guides: thecrit.co/resources/coding-portfolio-guide, figma.com/resourc
 <h2>Awwwards Sites of the Year list (verified from awwwards.com/websites/sites_of_the_year/)</h2>
 <p>2025: Lando Norris (OFF+BRAND), Messenger (abeto). 2024: Igloo Inc (abeto/Bureaux), Don't Board Me (The First The Last), Opal Tadpole (Claudio Guglieri). 2023: Lusion v3, Noomo Agency, Mana Yerba Mate (Louis Paquet).
 Breakdowns found: Codrops WebGL for Lando Norris tympanus.net/codrops/2025/12/05/from-illusions-to-optimization-the-creative-webgl-worlds-of-adrian-gubrica/; dev.to revealed article, itsoffbrand Lando case, awwwards Igloo + Messenger, commarts Messenger — ALL READ; discourse.threejs.org/t/landing-site-igloo-inc/67249 (READ low yield); awwwards Igloo + Messenger case studies + Codrops Gubrica spotlight READ. Study-recreation repos exist (arafays/messenger-copy, tt-u/abeto-copy) but they mirror someone else's assets: learn from, do not reuse.
-Fundamentals sources: nngroup.com/articles/principles-visual-design (read), practicaltypography.com/summary-of-key-rules.html (read), lawsofux.com (read), w3.org/WAI/WCAG22/Understanding/contrast-minimum.html (read), radix-ui.com/colors (read), nngroup.com/articles/gestalt-proximity (fetched).
+Fundamentals sources: nngroup.com/articles/principles-visual-design, practicaltypography.com/summary-of-key-rules.html, lawsofux.com, w3.org/WAI/WCAG22/Understanding/contrast-minimum.html, radix-ui.com/colors, nngroup.com/articles/gestalt-proximity.
 https://cari.institute/aesthetics: taxonomy of consumer aesthetics, see</p>
 <ul>
 <li>https://cari.institute/aesthetics (aesthetics taxonomy, see )</li>

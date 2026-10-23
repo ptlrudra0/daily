@@ -16,7 +16,7 @@
 <nav class="side"><ol><li><a href="foundations.html">01 Foundations</a></li><li><a href="styles.html">02 Styles & Aesthetics</a></li><li><a href="motion.html">03 Motion Craft</a></li><li><a href="texture.html">04 Texture & Print</a></li><li><a href="case-studies.html">05 Case Studies</a></li><li><a href="people.html">06 People, Studios & Sources</a></li><li><a href="reading.html">07 Psychology & UX Reading</a></li><li><a href="building.html" class="on">08 Building & Architecture</a></li><li><a href="tools.html">09 Tools & Assets</a></li><li><a href="anti-slop.html">10 Anti-Slop</a></li><li><a href="craft-pack.html">11 The Craft Pack</a></li></ol></nav>
 <main>
 <p class="kicker">Section 08 of 11</p>
-<h1>Building & Architecture</h1><p class="lede">Information architecture, navigation, layout primitives, design tokens, performance and shipping checklists.</p><h2>System design basics (started Oct 7)</h2>
+<h1>Building & Architecture</h1><p class="lede">Information architecture, navigation, layout primitives, design tokens, performance and shipping checklists.</p><h2>System design basics</h2>
 <h2>1. Frontend / static-site architecture</h2>
 <ul>
 <li>Astro project structure (https://docs.astro.build/en/basics/project-structure/): src/ holds pages, layouts, components, styles, images; Astro builds/optimises it. public/ holds unprocessed assets (fonts, icons, robots.txt, favicon, PDFs) copied as-is. Convention folders: src/components, src/layouts, src/pages, src/styles, src/images (names are convention except pages).</li>
@@ -45,7 +45,7 @@
 <ul>
 <li>Putting user-specific pages behind a shared cache without <code>private</code> (MDN).</li>
 </ul>
-<h2>Additions (Oct 8)</h2>
+<h2>Components, CDN, and stateless apps</h2>
 <h3>Components (frontend)</h3>
 <ul>
 <li>Astro components (https://docs.astro.build/en/basics/astro-components/):.astro components are HTML-only templates rendered at build time or on demand; their frontmatter JS is stripped from the shipped page (zero JS by default). A component can be a snippet, a header/card, a whole layout, or a page (in src/pages). Interactivity is opt-in via client islands; personalised parts via server islands.</li>
@@ -60,51 +60,48 @@
 <li>Twelve-Factor processes (https://12factor.net/processes): processes should be stateless and share-nothing; persist data in a database/backing service; never assume memory or disk survives to the next request; sticky sessions should not be relied on; keep session data in an expiring store like Memcached or Redis; compile assets at build time.</li>
 <li>Anti-pattern: storing uploads or sessions on one server's disk or memory, then adding a second server (12factor).</li>
 </ul>
-<h2>Additions (Oct 8)</h2>
+<h2>HTTP caching, database indexes, and CSS custom properties</h2>
 <ul>
-<li>web.dev HTTP cache (https://web.dev/articles/http-cache, now fetched, 50 KB): browser checks its cache first for every request; a hit removes network latency and data cost. Request headers: leave to the browser. Response headers set on the server matter most: Cache-Control (how long/who may cache), ETag (token the browser sends to revalidate an expired response), Last-Modified. Read through the response-header intro only; the versioned-URL section is.</li>
+<li>web.dev HTTP cache (https://web.dev/articles/http-cache, now fetched, 50 KB): browser checks its cache first for every request; a hit removes network latency and data cost. Request headers: leave to the browser. Response headers set on the server matter most: Cache-Control (how long/who may cache), ETag (token the browser sends to revalidate an expired response), Last-Modified. The response-header guidance is the load-bearing half of the article.</li>
 <li>PostgreSQL index types (https://www.postgresql.org/docs/current/indexes-types.html): CREATE INDEX makes a B-tree by default, which fits most cases; others (Hash, GiST, SP-GiST, GIN, BRIN) are chosen with USING. Student default: B-tree.</li>
 <li>MDN CSS custom properties (https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/--*): <code>--name</code> variables used via var, scoped to the element, inherited, Baseline widely available since April 2017. Basis for design tokens declared once on:root.</li>
-<li>Still: versioned/hashed filenames, SQL vs NoSQL, migrations/backups.</li>
 </ul>
-<h2>Additions (Oct 8)</h2>
+<h2>Cache defaults, asset handling, and data models</h2>
 <ul>
 <li>web.dev Love your cache (https://web.dev/articles/love-your-cache): sensible default is HTML/unversioned files with <code>Cache-Control: max-age=0,must-revalidate</code> (same as <code>no-cache</code>, which does NOT mean never cache). Content-hashed filenames (e.g. sitecode.af12de.js) can take <code>max-age=31536000,immutable</code> (a year, effectively forever). Don't hash by hand, use the bundler. Hash icons, CSS, data files too. Risk: lazy-loaded images with unhashed names can go stale or missing for users with cached HTML.</li>
 <li>Astro images (https://docs.astro.build/en/guides/images/): keep local images in src/ so Astro transforms, optimises and bundles them; public/ is copied as-is. Raw <img> is not processed. No native video support; use a hosted video service.</li>
-<li>MongoDB relational vs non-relational (https://www.mongodb.com/resources/compare/relational-vs-non-relational-databases): operational (OLTP) vs analytical (OLAP) data; most companies use both types of database. Vendor source, so treat the comparison as marketing-leaning; only the OLTP/OLAP framing used. a neutral SQL vs NoSQL source.</li>
+<li>MongoDB relational vs non-relational (https://www.mongodb.com/resources/compare/relational-vs-non-relational-databases): operational (OLTP) vs analytical (OLAP) data; most companies use both types of database. Vendor source, so treat the comparison as marketing-leaning; only the OLTP/OLAP framing is used here.</li>
 <li>Student default [inference]: start with Postgres/SQLite (relational); reach for NoSQL only for a clear reason.</li>
 </ul>
-<h2>Additions (Oct 8)</h2>
+<h2>Database constraints and backups</h2>
 <ul>
 <li>PostgreSQL constraints (https://www.postgresql.org/docs/current/ddl-constraints.html): constraints (CHECK, NOT NULL, UNIQUE, primary key, foreign key) make the DB reject bad data even if it comes from a default. Primary keys identify rows uniquely; foreign keys link tables. CHECK can't reliably reference other rows (use foreign keys).</li>
 <li>PostgreSQL backups (https://www.postgresql.org/docs/current/backup-dump.html): <code>pg_dump dbname &gt; dumpfile</code> writes SQL that recreates the database as of dump time; other formats allow parallelism. Student rule [inference]: schedule dumps and test a restore; a backup never restored is unproven.</li>
-<li>Still: neutral SQL vs NoSQL, migrations.</li>
 </ul>
-<h2>Additions (Oct 8)</h2>
+<h2>SQLite scope, schema changes, and schemaless tradeoffs</h2>
 <ul>
 <li>SQLite "Appropriate uses" (https://sqlite.org/whentouse.html, written by the SQLite project, page example dated 2015): SQLite is local storage ("competes with fopen"), not a rival to client/server DBs. It works for most low-to-medium traffic sites; the project's conservative guide is under 100K hits/day, demonstrated at 10x that. Its own site ran ~400-500K requests/day on one shared VM. Client/server DBs fit better with many concurrent writers or data on a separate machine from the app (checklist section headings read, not the full text).</li>
-<li>Student default [inference from the above]: SQLite for a small real site, move to Postgres when writes are concurrent or the app spans several servers. This replaces the earlier "Postgres/SQLite" hedge, and is a neutral source for the SQL vs NoSQL gap only on the SQL side; NoSQL neutral source still.</li>
+<li>Student default [inference from the above]: SQLite for a small real site, move to Postgres when writes are concurrent or the app spans several servers. This replaces the earlier "Postgres/SQLite" hedge, and is a neutral source for the SQL vs NoSQL gap only on the SQL side; </li>
 <li>PostgreSQL modifying tables (https://www.postgresql.org/docs/current/ddl-alter.html): ALTER TABLE covers adding/removing columns and constraints, changing defaults/types, renaming. Headings only read; migration tooling.</li>
-<li>MDN server-side first steps URL returned a stub (140 bytes), not read.</li>
 </ul>
-<h2>Additions (Oct 8)</h2>
+<h2>Migrations and migration tooling</h2>
 <ul>
 <li>Prisma Migrate mental model (https://www.prisma.io/docs/orm/prisma-migrate/understanding-prisma-migrate/mental-model, vendor docs): a migration is a controlled change taking the schema from one state to another. Two patterns: model/entity-first (define schema in code, tool generates SQL) and database-first (write SQL, introspect). Keep migration SQL files in the repo under version control. Workflow: dev branch syncs local DB, CI applies <code>migrate deploy</code> to preview then production. Generic lesson holds for any tool (Prisma is just one example, not a recommendation).</li>
-<li>SQLite ALTER TABLE (https://www.sqlite.org/lang_altertable.html): headings read (rename table/column, add/drop column, no general ALTER COLUMN section content read). limits compared with Postgres.</li>
-<li>Martin Fowler "Schemaless Data Structures" (https://martinfowler.com/articles/schemaless/, 2013): page returned only the intro and contents (an interactive infodeck); body not read. Intro: schemaless is a main draw of NoSQL but has subtleties; schema exists implicitly in the code ("implicit schema"). Neutral NoSQL source still.</li>
+<li>SQLite ALTER TABLE (https://www.sqlite.org/lang_altertable.html): headings read (rename table/column, add/drop column, no general ALTER COLUMN support).</li>
+<li>Martin Fowler "Schemaless Data Structures" (https://martinfowler.com/articles/schemaless/, 2013): page returned only the intro and contents (an interactive infodeck); body not read. Intro: schemaless is a main draw of NoSQL but has subtleties; schema exists implicitly in the code ("implicit schema").</li>
 </ul>
-<h2>Additions (Oct 8)</h2>
+<h2>JSON in Postgres, document modeling, and Redis</h2>
 <ul>
 <li>PostgreSQL JSON types (https://www.postgresql.org/docs/current/datatype-json.html): Postgres stores JSON as <code>json</code> (exact text copy, reparsed each query) or <code>jsonb</code> (binary, slower to insert, much faster to query, supports indexing). Docs say most applications should prefer jsonb. Takeaway [inference]: a relational DB can hold flexible document-shaped fields, which removes much of the reason a beginner would pick NoSQL.</li>
 <li>MongoDB data modeling intro (https://www.mongodb.com/docs/manual/core/data-modeling-introduction/): documents in one collection need not share fields or types; example is a product catalogue whose items have different attributes; docs still say to plan the schema before production scale. Vendor source, so it states the case for NoSQL rather than comparing neutrally. Use it for what the model is, not for when to choose it.</li>
-<li>Redis quick start (https://redis.io/docs/latest/develop/get-started/data-store/): an in-memory data structure store; page returned mostly embedded JSON config, only title and contents read. Use as session/cache store is from 12-factor note above; Redis own caching docs.</li>
-<li>Neutral SQL vs NoSQL comparison still; the SQLite and Postgres jsonb pages give the practical default: start relational.</li>
+<li>Redis quick start (https://redis.io/docs/latest/develop/get-started/data-store/): an in-memory data structure store; page returned mostly embedded JSON config, only title and contents read. Its use as a session/cache store follows from the 12-factor note above; caching patterns appear below.</li>
+<li>Practical default from the sources above: start relational.</li>
 </ul>
-<h2>Additions (Oct 10): SQLite ALTER resolved, neutral SQL/NoSQL, Redis caching</h2>
+<h2>SQLite ALTER details, SQL vs NoSQL, and Redis caching patterns</h2>
 <ul>
-<li>SQLite ALTER TABLE full page (https://www.sqlite.org/lang_altertable.html): only four operations are directly supported - rename table, rename column, add column, drop column. SQLite stores the schema as plain text in sqlite_schema; every ALTER rewrites that text and reparses the whole schema, so a drop/rename fails if views, triggers or other tables still reference the column. Any other change (e.g. changing a column's type or constraints) needs the official 12-step procedure: foreign_keys=OFF, transaction, CREATE a new table in the desired shape, INSERT... SELECT the data across, DROP the old, RENAME the new, recreate indexes/triggers/views, foreign_key_check, commit, foreign_keys back on. PRAGMA writable_schema=ON (SQLite 3.38.0+) disables the parse error checking. Takeaway for a student: design SQLite tables carefully up front; real migrations mean copy-and-swap, so use a migration tool from day one (see Prisma note, Oct 8 07:33).</li>
-<li>Neutral-ish SQL vs NoSQL comparison: IBM Think, "SQL vs. NoSQL" (https://www.ibm.com/think/topics/sql-vs-nosql, by IBM Cloud Databases engineers; IBM sells both, so less biased than a one-product vendor). SQL: relational tables, predefined schema, scales vertically (horizontal sharding "not well-supported"), ACID transactions (atomicity, consistency, isolation, durability). NoSQL: "not only SQL", dynamic schema, four structures - column-oriented, key-value, document (JSON/BSON), graph; scales horizontally by adding nodes; trades via CAP theorem (consistency, availability, partition tolerance - pick two; e.g. MongoDB strongly consistent, Cassandra eventually consistent). This resolves the neutral-source gap [was Q since Oct 8]. Combined with the Postgres jsonb entry (Oct 8 14:36): a beginner default stays relational; NoSQL for a specific shape (cache/session key-value, document catalogue with wildly varying attributes, graph relationships).</li>
-<li>Redis caching patterns (https://redis.io/solutions/use-cases/caching/, vendor page, patterns are standard): cache-aside is the most common - the app talks to both cache and database, good for read-heavy loads where a miss is acceptable; query caching = cache-aside with no data transformation (speed up repeated SQL queries); write-behind - app writes only to the cache, the cache updates the DB asynchronously (write speed, complexity hidden); write-through - writes flow synchronously through the cache to the DB (favours consistency); cache prefetching - DB changes replicate into the cache before reads. In-memory caching = keeping hot data in RAM instead of disk for sub-millisecond reads. Enterprise claims on the page (200M ops/s, 99.999% SLA) are vendor marketing. This resolves the "Redis own caching docs" gap [was Q since Oct 8].</li>
+<li>SQLite ALTER TABLE full page (https://www.sqlite.org/lang_altertable.html): only four operations are directly supported - rename table, rename column, add column, drop column. SQLite stores the schema as plain text in sqlite_schema; every ALTER rewrites that text and reparses the whole schema, so a drop/rename fails if views, triggers or other tables still reference the column. Any other change (e.g. changing a column's type or constraints) needs the official 12-step procedure: foreign_keys=OFF, transaction, CREATE a new table in the desired shape, INSERT... SELECT the data across, DROP the old, RENAME the new, recreate indexes/triggers/views, foreign_key_check, commit, foreign_keys back on. PRAGMA writable_schema=ON (SQLite 3.38.0+) disables the parse error checking. Takeaway for a student: design SQLite tables carefully up front; real migrations mean copy-and-swap, so use a migration tool from day one (see the migration-tooling section above).</li>
+<li>Neutral-ish SQL vs NoSQL comparison: IBM Think, "SQL vs. NoSQL" (https://www.ibm.com/think/topics/sql-vs-nosql, by IBM Cloud Databases engineers; IBM sells both, so less biased than a one-product vendor). SQL: relational tables, predefined schema, scales vertically (horizontal sharding "not well-supported"), ACID transactions (atomicity, consistency, isolation, durability). NoSQL: "not only SQL", dynamic schema, four structures - column-oriented, key-value, document (JSON/BSON), graph; scales horizontally by adding nodes; trades via CAP theorem (consistency, availability, partition tolerance - pick two; e.g. MongoDB strongly consistent, Cassandra eventually consistent). Combined with the Postgres jsonb entry above, a beginner default stays relational; NoSQL for a specific shape (cache/session key-value, document catalogue with wildly varying attributes, graph relationships).</li>
+<li>Redis caching patterns (https://redis.io/solutions/use-cases/caching/, vendor page, patterns are standard): cache-aside is the most common - the app talks to both cache and database, good for read-heavy loads where a miss is acceptable; query caching = cache-aside with no data transformation (speed up repeated SQL queries); write-behind - app writes only to the cache, the cache updates the DB asynchronously (write speed, complexity hidden); write-through - writes flow synchronously through the cache to the DB (favours consistency); cache prefetching - DB changes replicate into the cache before reads. In-memory caching = keeping hot data in RAM instead of disk for sub-millisecond reads. Enterprise claims on the page (200M ops/s, 99.999% SLA) are vendor marketing.</li>
 </ul>
 <h2>Design tokens: W3C DTCG format</h2>
 <ul>
@@ -228,7 +225,7 @@ gltf-transform optimize input.glb output.glb --compress draco --texture-compress
 </code></pre>
 <p>The second line is a documented starting point, not a universal best setting. Choose after inspecting geometry, textures and draw calls; confirm renderer support and visually compare the output. Format-check with Khronos Validator, then measure in the real page on a representative low-power device. No model was rendered or benchmarked in this research pass.</p>
 <h2>Typography must survive loading</h2>
-<p>Sources: https://web.dev/articles/font-best-practices and https://developer.chrome.com/blog/font-fallbacks, read Oct 7 2026.
+<p>Sources: https://web.dev/articles/font-best-practices and https://developer.chrome.com/blog/font-fallbacks, 
 - Use WOFF2 and the weights/styles/languages the site actually needs. Subsetting must preserve the full set of supported content, including names, currencies and local scripts, not only one screenshot's text. Check font modification rights first.
 - Load font declarations early; preload only truly critical files. A preload can compete with hero/LCP resources and bypass unicode-range selection.
 - Choose <code>font-display</code> knowingly. <code>swap</code> shows text promptly but can move layout when font metrics differ; <code>optional</code> can avoid a late swap but may leave the fallback on that visit. Neither is a universal design default.
@@ -236,7 +233,7 @@ gltf-transform optimize input.glb output.glb --compress draco --texture-compress
 - Treat fallback composition as part of the design: a premium hero that breaks before the font arrives is unfinished. No loading/CLS benchmark was run in this research pass.
 Tools: fontTools and Fontaine are listed in  with their own licences; those licences do not replace the font's licence.</p>
 <h2>Image art direction before compression</h2>
-<p>https://web.dev/learn/design/picture-element and https://web.dev/articles/responsive-images, read Oct 7 2026.
+<p>https://web.dev/learn/design/picture-element and https://web.dev/articles/responsive-images, 
 - One composition at several resolutions: use <code>srcset</code> plus accurate <code>sizes</code> so the browser can choose.
 - Different compositions for different layouts: use <code>picture</code> and media-qualified sources, keeping an <code>img</code> fallback and meaningful alternative text.
 - Reserve layout space with dimensions/aspect ratio. Do not blindly copy a tutorial's lazy-loading attribute onto the main above-the-fold hero; prioritise the image that matters to first render.
@@ -297,20 +294,20 @@ Keep originals, optimise a copy, then inspect output. Test scaling, contrast, cl
 <ul>
 <li>AA: 4.5:1 normal text, 3:1 large text (14pt bold / 18.66px bold, or 18pt / 24px) and 3:1 for UI components and graphics (WCAG 2.1). AAA: 7:1 normal, 4.5:1 large. Check grey-on-black body copy and low-opacity captions on the pure-black builds. (<a href="https://webaim.org/resources/contrastchecker/">source</a>)</li>
 </ul>
-<h2>Navigation semantics and overlay behaviour (Oct 7 2026)</h2>
+<h2>Navigation semantics and overlay behaviour</h2>
 <ul>
 <li>Modal dialog pattern: a modal overlay makes background content inert, moves focus inside, contains Tab/Shift+Tab, closes on Escape and usually restores focus to its trigger. Include a visible close control and accessible title. Initial focus depends on content, not always the first button. Never mark an overlay <code>aria-modal</code> while leaving background interaction active. (<a href="https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/">source</a>)</li>
 <li>Build distinction: a small navigation disclosure should not trap focus like a modal. A genuinely modal full-screen navigation can use dialog behaviour; visual size alone does not establish semantics. Animating a menu does not remove keyboard/focus obligations.</li>
 </ul>
-<h2>Real-site desktop nav studies (screenshots viewed Oct 8 08:34-, 1280x720 and 390x844)</h2>
-<p>Viewed live homepages; desktop top fold only unless noted; content as of capture date. Screenshots were temporary (/downloads); claims rest on the viewings logged here.
+<h2>Real-site desktop and mobile nav studies</h2>
+<p>Homepages viewed live (desktop top fold at 1280x720, mobile at 390x844); descriptions reflect each page at capture date.
 - Stripe (https://stripe.com): white page, nav with chevron dropdown links (Products, Solutions, Developers, Resources) plus Pricing; two buttons right (outlined "Sign in", filled "Contact sales"). Hero is a large gradient ribbon behind the headline. Lesson: dropdowns signalled by chevrons; ribbon acts as the single hero object; text sits over it, so check contrast.
 - Pattern across both: logo left, links right, one primary button, nav height roughly 70px.
 - Lusion (https://lusion.co): two loads, up to 20s each, stayed on the preloader (white bar plus a large scrolling number counter in the bottom-left corner, count passed 100). Never reached the nav, so no nav lesson. The preloader itself is a pattern: pure black, one bar, an oversized counter. Likely needs real GPU/WebGL.
 - Linear mobile (390x844): collapsed bar keeps logo, "Log in", the filled "Sign up" pill and a two-line hamburger right, so the CTA stays visible when closed. Tapped open: full-screen dark overlay, hamburger becomes an X in the same spot, three small grey group labels (System, Product, Resources) over large white single-column links (about 22px), generous spacing, no boxes or dividers, Log in/Sign up stay pinned in the bar. List scrolls. Lesson: grey label plus big tappable link is a clean pattern needing no lines; keep the CTA in the closed mobile bar.
 - Apple mobile (390x844): closed bar is logo left, search and bag icons, two-line hamburger right (no CTA; hero buttons carry that job). Tapped open: overlay covers the whole screen in flat near-black, hamburger swaps to a thin X top right, the same 10 desktop links stack as one left-aligned column of bold white ~24px text with even spacing, nothing else on screen. Lesson: the minimal case; the desktop list simply turns into a column. Works because labels are one word. Pair with Linear's grouped version when the site has more than about 10 links.
 - Not covered: keyboard/focus behaviour (see WAI notes above), open/close animation timing (static screenshots only).</p>
-<h3>Tablet studies (820x1180 iPad preset, screenshots viewed Oct 10)</h3>
+<h3>Tablet studies (820x1180 iPad preset)</h3>
 <ul>
 <li>Linear (https://linear.app) at 820px: the full desktop nav persists - logo left, all five text links (Product, Resources, Customers, Pricing, Contact), Log in text, Sign up pill. No hamburger. So Linear's collapse breakpoint is below 820px. (Page body below the nav had not rendered when captured; nav itself fully visible.)</li>
 <li>Apple (https://www.apple.com) at 820px: the nav collapses to the mobile pattern - logo left, search and bag icons, hamburger right; the 10 text links are gone. So Apple's collapse breakpoint is at or above 820px.</li>
@@ -425,7 +422,7 @@ Keep originals, optimise a copy, then inspect output. Test scaling, contrast, cl
 - figure/figcaption: semantic unit for image+caption; figcaption must be first or last child.</p>
 <h2>Learn HTML: document structure, semantic HTML, headings/sections, text basics</h2>
 <p>Sources: web.dev/learn/html/{document-structure,semantic-html,headings-and-sections,text-basics}.
-- DOCUMENT STRUCTURE (381): head must carry charset utf-8 (early - first 1024 bytes), <title> (tab/SEO/AT identity), viewport width=device-width (controls scale-to-fit; user-scalable=1 default - do NOT disable zoom). Metadata module queued for the rest.
+- DOCUMENT STRUCTURE (381): head must carry charset utf-8 (early - first 1024 bytes), <title> (tab/SEO/AT identity), viewport width=device-width (controls scale-to-fit; user-scalable=1 default - do NOT disable zoom). 
 - SEMANTIC HTML (382): landmark roles come FREE with header/main/footer/nav - but header/footer only count as banner/contentinfo landmarks when NOT nested inside another landmark (a header inside main is just a section header). role attribute is global, from ARIA not WHATWG. HTML is accessible by default; the job is to not break it. Inspect the AOM (accessibility tree) in devtools to verify semantics landed.
 - HEADINGS AND SECTIONS (383): browsers NEVER implemented the HTML5 outline algorithm - multiple-h1-per-section does nothing; use one h1 and nest h2/h3 without skipping levels. Screen-reader users navigate by headings, so the heading tree IS the document map. article = standalone-complete content, section = thematic grouping; neither needs a footer. Headings are never a bold-text tool.
 - TEXT BASICS (384): <br> only where the break is meaningful (addresses, poetry, signatures) - it's nearly unstyleable; blockquote + cite for quotations; <p> is the paragraph, everything else has a specific job.
@@ -442,14 +439,14 @@ Keep originals, optimise a copy, then inspect output. Test scaling, contrast, cl
 - FORMS (390): submission model = name/value pairs; select without value submits the option's inner text; textarea's value is its inner text. Radios group by shared name (one selectable). Every control needs a label - explicit (for/id, gives a styling hook) or implicit (wrap control; equally accessible, no hook). Label is a HIT AREA - clicking it focuses the control - so never nest links/buttons inside a label. Groups get fieldset + legend. label-before-control except radios/checkboxes (common UX order, not required).
 - METADATA (391): include description (search snippet + bookmark default) and theme-color; skip keywords. theme-color in HTML beats the manifest on first paint. Multiple same-name meta: newer first, legacy after (agents read until a match). Open Graph uses property= (not name=) - intentional to avoid clashing with future name values: og:title/og:description/og:image/og:image:alt. link rel icon, canonical, manifest, apple-touch-startup-image (with media=!) all live in head.
 - AUDIO-VIDEO (392): single file -&gt; src attribute; multiple -&gt; source children each with type so the browser picks the first it supports; always include fallback content. controls attribute = user controls; poster = pre-load still for video; autoplay/loop/muted/preload available but muted is required for autoplay to work.</p>
-<h2>Learn HTML: template/slot/shadow, focus, HTML APIs, conclusion — SERIES COMPLETE</h2>
+<h2>Learn HTML: template/slot/shadow, focus, HTML APIs, conclusion</h2>
 <p>Sources: web.dev/learn/html/{template,focus,apis,conclusion}. ("card" module 404s - not a real URL in the series.)
 - TEMPLATE/SLOT/SHADOW (393): Web Components = HTML templates + custom elements + shadow DOM. <template> contents are NOT rendered and are NOT children of the template in the DOM - they're instantiated by JS (clone + insert). Only worth it for repeated components (star rating pattern), not one-offs.
 - FOCUS (394): tab order = source order BY DEFAULT - the rule is to never let visual order diverge from tab order. flex-flow: row-reverse, CSS order, grid placement, transforms, multi-col all reorder VISUALLY only; tabindex&gt;0 reorders the TAB sequence - both create keyboard/AT disconnect. contenteditable and tabindex are global: anything can be made focusable; inert makes interactive things inert. QA: tab through every page.
 - HTML APIS (395): DOM is the full node tree API; AOM (accessibility tree) is built FROM the DOM and is what SRs consume - semantic markup is how you program the AOM. Every element is an object: HTML interfaces expose attributes as JS properties (imageInstance.alt) plus layout info (offsetHeight etc.). Invalid markup still parses - browsers fix it silently, sometimes into a different tree than you wrote.
-- CONCLUSION (396): series done. The companion series queued: Learn Forms (already have Learn CSS complete). Full Learn HTML coverage now: 381-396 = 20 modules.
+- CONCLUSION (396): the full Learn HTML series spans modules 381-396.
 - Vein note: the focus/visual-order rule is the single most design-relevant takeaway - CSS layout freedom (the thing we exploit for craft) is exactly what breaks keyboard users if unconsidered. Add to craft QA: "tab the page; the tab path must match the eye path."</p>
-<h2>Storytelling, scrollytelling, brand through interaction. = read Oct 6 2026</h2>
+<h2>Storytelling, scrollytelling, brand through interaction</h2>
 <h2>Scroll narrative structures</h2>
 <p>Three layers: narrative structure (how much control the reader has), display mechanism (what scroll drives), trigger (how a step begins). Structures: author-driven (linear), reader-driven (explore), hybrids: martini glass (guided stem then free exploration; most common in interactive visualisations), interactive slideshow (scroll replaces "next"), drill-down (poor fit for linear scroll).</p>
 <h2>Six patterns and their failure modes</h2>

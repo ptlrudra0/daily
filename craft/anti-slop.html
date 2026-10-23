@@ -47,7 +47,7 @@
 <li>Derive the look from what the product is made of: the article quotes avoid-ai-design - "from what the product is made of (its materials, its artifacts, its vernacular)"; the avoid-ai-design demo rebuilds a generic SaaS page around the product's own retention cohort table, which becomes the hero, the layout and the only colour ramp.</li>
 <li>Then filter: no unchosen gradient, no nested cards, no motion-on-everything, no invented numbers.</li>
 <li>Reuse  on every page, otherwise page 2 drifts back to defaults: the article reports the avoid-ai-design demo FAQ page, regenerated from scratch, drifted straight back to an indigo gradient and Inter.</li>
-<li>Deterministic checks beat reminders: avoid-ai-design's detect.mjs runs with no model call and no dependencies on Node 18+, exits with code 2 when any P0 or P1 is found and 0 when clean, and honours ignore comments for choices a brief asked for. Repos in .
+<li>Deterministic checks beat reminders: avoid-ai-design's detect.mjs runs with no model call and no dependencies on Node 18+, exits with code 2 when any P0 or P1 is found and 0 when clean, and honours ignore comments for choices a brief asked for.
 - Why this order: the article quotes the antislop README (miqdadbadjuber): a rule set "prevents slop but cannot invent direction" and "a sterile result means the direction was missing, not that the filter failed". Direction alone keeps defaults; filter alone gives a sterile page.</li>
 </ol>
 <h2>Fixing a page that already shipped</h2>
@@ -66,12 +66,12 @@
 </ul>
 <h2>Checker repos</h2>
 <ul>
-<li>Previously verified (MIT, licences read Oct 6): github.com/funboy322/avoid-ai-design (67 tells ranked P0 layperson / P1 designer-dev / P2 craft; ; CI exit code 2), github.com/LeoStehlik/no-slop-ui. Their method: commit to one named aesthetic direction with 3-5 defining moves before building.</li>
+<li>Two MIT-licensed scanner repos worth mining: github.com/funboy322/avoid-ai-design (67 tells ranked P0 layperson / P1 designer-dev / P2 craft; CI exit code 2) and github.com/LeoStehlik/no-slop-ui. Their method: commit to one named aesthetic direction with 3-5 defining moves before building.</li>
 <li>Article's tool table (stars and last-push read from the GitHub API 25 Sep 2026): frontend-design 178,121 stars (whole anthropics/skills repo); Taste Skill 90,036; Impeccable 70,983 plus 444,030 npm downloads Aug 26-Sep 24; diagram-design 42,387; Vercel web-design-guidelines 31,528; Hallmark 29,140 but last push 6 Aug 2026; antislop 3,718; avoid-ai-design 81; Gesso 90 (73 rules on rendered HTML, does not parse JSX/TSX - render or export first); no-slop-ui 8; Superdesign 601 (requires superdesign login to a hosted product, so not free-and-local).</li>
 <li>Heuristic from the article: check the last-push date before trusting a star count; the field is under a year old and stars often record one good week of distribution.</li>
 <li>What no tool fixes: a scanner can confirm the hero is no longer centred over three cards; it cannot tell whether the hero is what a visitor came for. Treat design tools as the floor; keep claims on the page to ones you can source.</li>
 </ul>
-<h2>Deceptive patterns taxonomy (Oct 12)</h2>
+<h2>Deceptive patterns taxonomy</h2>
 <p>Harry Brignull's deceptive.design taxonomy, mapped to laws and enforcement (<a href="https://www.deceptive.design/types">source</a>): Forced action (required unwanted step), Sneaking (hidden/delayed info), Hard to cancel (roach motel), Preselection (defaulted options), Obstruction (barriers to a task), Hidden subscription, Hidden costs, Trick wording, Visual interference, Fake social proof (each with law counts and enforcement examples on the site).</p>
 <h2>Low-contrast "premium minimalism"</h2>
 <ul>

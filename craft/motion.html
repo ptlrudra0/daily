@@ -30,13 +30,13 @@
 <p>GSAP (now 100% free incl. ScrollTrigger, SplitText, Flip, MorphSVG; gsap.com/blog/3-13) + Lenis (MIT) for scroll-driven story; Motion (MIT) or anime.js v4 (MIT) for component motion; CSS scroll-driven animations for simple cases (joshwcomeau.com/animation/scroll-driven-animations); three.js/R3F (MIT) for WebGL heroes; Codrops tutorials for shader hover/transition techniques.
 Lenis + ScrollTrigger: drive Lenis from gsap.ticker, call ScrollTrigger.update on lenis scroll, set gsap.ticker.lagSmoothing(0) (see madeforaward.com/blog/lenis-smooth-scroll-gsap-scrolltrigger-nextjs; confirm against lenis docs when building).
 Respect prefers-reduced-motion.</p>
-<h2>Easing and duration table (source: github.com/emilkowalski/skills animate , read Oct 6; licence of that repo not verified, treat as reference)</h2>
+<h2>Easing and duration table (source: github.com/emilkowalski/skills animate guide; licence unverified - treat as reference)</h2>
 <p>Easing: enter/exit = ease-out; move/morph on screen = ease-in-out; hover/colour = ease; constant motion (marquee, progress) = linear. Never ease-in on UI.
 Curves: --ease-out cubic-bezier(0.23,1,0.32,1); --ease-in-out cubic-bezier(0.77,0,0.175,1); --ease-drawer cubic-bezier(0.32,0.72,0,1). More at easing.dev / easings.co.
 Duration: press 100-160ms; tooltips 125-200ms; dropdown 150-250ms; modal/drawer 200-500ms; marketing/explanatory can be longer.
 Springs for drag/interruptible/alive motion: {type:spring,duration:0.5,bounce:0.2}; bounce 0.1-0.3 max.
 Transitions (not keyframes) for anything triggered rapidly (they retarget). Exit the way it entered. Respect reduced motion and gate hover effects to pointer devices.</p>
-<h2>Verified: Lenis + GSAP ScrollTrigger recipe (Oct 6; github.com/darkroomengineering/lenis README, gsap.com/docs/v3/Plugins/ScrollTrigger)</h2>
+<h2>Lenis + GSAP ScrollTrigger recipe (sources: github.com/darkroomengineering/lenis README, gsap.com/docs/v3/Plugins/ScrollTrigger)</h2>
 <pre><code class="language-js">const lenis = new Lenis({ autoRaf: false });
 lenis.on('scroll', ScrollTrigger.update);
 gsap.ticker.add((time) =&gt; lenis.raf(time * 1000));
@@ -142,15 +142,14 @@ WCAG 2.2.2: any moving/blinking/scrolling content that starts automatically, las
 - Purposeful: pace animations; every animation you add dilutes the rest. Never animate keyboard-initiated actions - they repeat hundreds of times a day and animation makes them feel slow (Raycast has no enter animation and feels right).
 - Performant: animate transform + opacity (composite only; margin/padding trigger layout+paint+composite). If the main thread is busy, rAF-driven JS animation drops frames - use CSS transitions/animations or WAAPI, which are hardware-accelerated (real case: Vercel dashboard tab indicator fixed by moving from Shared Layout Animation to CSS).
 - Interruptible: users change their minds mid-animation; CSS transitions reverse smoothly mid-flight (this is a reason to prefer transitions over @keyframes animations for state changes).
-- Accessible: honour prefers-reduced-motion; swap motion for opacity fades.
-- Gap noted: Comeau's CSS transitions interactive guide 404s on both slug guesses; not retrying further this cycle.</p>
-<h2>Motion design in depth (extends ). = read Oct 6 2026, = queued</h2>
+- Accessible: honour prefers-reduced-motion; swap motion for opacity fades.</p>
+<h2>Motion design in depth</h2>
 <h2>Purpose first</h2>
 <p>Uses: feedback (action received), state change, spatial metaphor/navigation (where did it go/come from), signifier (what is interactive), perceived speed (skeletons/placeholders, web.dev). Attention-grabbing is fine, attention-hijacking is not. The more often seen, the subtler and shorter. Excess motion is an accessibility issue: flashing and hard colour cuts (seizures); parallax, carousel auto-advance, scroll-jacking (vestibular).</p>
 <h2>Anatomy of an animation</h2>
 <p>Trigger (click, hover, scroll position, gesture, load) -&gt; elements -&gt; transformed properties (opacity, position, scale, colour, shape, blur, rotation) -&gt; duration -&gt; easing. Moving objects: arc paths feel more natural than straight diagonals; long ones annoy on repeat. Opacity changes on many elements can be costly: prefer transform + opacity on few elements; avoid animating layout properties.</p>
 <h2>Timing</h2>
-<p>Feedback (toggle/checkbox) ~100ms; modal/large change 200-300ms; most animations 100-400ms; 500ms+ drags. Marketing/story moments may be longer (hero reveals 600-1200ms are fine once, not repeatedly) [Emil: marketing can be longer]. Easing table and curves in .</p>
+<p>Feedback (toggle/checkbox) ~100ms; modal/large change 200-300ms; most animations 100-400ms; 500ms+ drags. Marketing/story moments may be longer (hero reveals 600-1200ms are fine once, not repeatedly) [Emil: marketing can be longer]. The easing table and curves are above.</p>
 <h2>Choreography</h2>
 <p>Stagger siblings 30-80ms, lead with the hero object, secondary follows, one direction of travel per scene, same easing family across the site, elements enter from where they logically came from and leave the way they came. Overlap start of the next motion before the previous ends. One orchestrated entrance per view, not everything animating.</p>
 <h2>Scroll</h2>
@@ -161,7 +160,7 @@ WCAG 2.2.2: any moving/blinking/scrolling content that starts automatically, las
 <h2>Reduced motion</h2>
 <p>@media (prefers-reduced-motion: reduce) removes non-essential movement: no parallax, no zoom, no autoplay loops, crossfade instead of slide, disable smooth-scroll hijack (do not init Lenis). Test with the OS setting. Provide pause control for any auto-moving content longer than 5s.</p>
 <p>Smooth, never stiff: every state change eased, nav transitions animated, scroll buttery; but budgets: &lt;300ms UI, one hero moment per section; glow behind buttons, no motion-for-motion's-sake (premium-web-design tie-breaker: pacing over animation).</p>
-<h2>Verified additions (Oct 6)</h2>
+<h2>Additional recipes</h2>
 <ul>
 <li>Material 3 tokens: Standard cubic-bezier(0.2,0,0,1); standard decelerate (0,0,0,1); standard accelerate (0.3,0,1,1); emphasized decelerate (0.05,0.7,0.1,1); emphasized accelerate (0.3,0,0.8,0.15). Durations: short 50/100/150/200ms, medium 250/300/350/400ms, long 450/500ms+ (large expressive transitions, usually emphasized easing). Selection controls 200ms standard; FAB-to-sheet 400ms emphasized. Note: Material says its expressive update moves to a spring physics system and the easing/duration system is no longer maintained, so treat the tokens as reference values, springs for interactive gesture motion.</li>
 <li>Microinteractions: trigger-feedback pairs; trigger = user action or system state change; feedback = small, narrow, contextual (usually visual) change next to the trigger. Jobs: show system status, prevent errors, communicate brand. Static always-present elements and multi-step flows are not microinteractions; a button with no feedback is not one.</li>
