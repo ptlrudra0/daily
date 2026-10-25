@@ -251,7 +251,7 @@ function itemHTML(it, plateNo){
     ${it.source_url ? `<p class="source-line">Source: <a href="${it.source_url}" target="_blank" rel="noopener">${it.source_name||it.source_url}</a> ↗</p>` : ""}
     <section class="lab" aria-label="Try it on this story">
       <h3>Try it on this story</h3>
-      <p class="sub">Pick one, or ask your own question. An AI model answers from this story only.</p>
+      <p class="sub">Pick one, or ask your own question. An AI model is told to use this story only, but it can still be wrong.</p>
       <div class="acts">
         <button data-a="simple">Explain simply<small>3 quick points</small></button>
         <button data-a="example">Show an example<small>2 everyday cases</small></button>
