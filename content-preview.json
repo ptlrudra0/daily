@@ -190,7 +190,7 @@
      "tryit": {
       "type": "risk-recipe",
       "title": "Build the horror recipe",
-      "instruction": "Flip the exact conditions the evaluators set, and watch the risk fill up.",
+      "instruction": "Flip the exact conditions the evaluators had in place. The bar counts how many you set.",
       "factors": [
        "The legit attempts keep failing",
        "Internet access is on",
@@ -224,22 +224,22 @@
       "old": "We don't show you personalized ads based on your content from Drive, Gmail, or Photos.",
       "newPre": "We don't show you personalized ads based on your content from Drive, Gmail, or Google Photos,",
       "added": "unless you choose to make data from these services available to other Google services that support personalized ads.",
-      "note": "Quoted verbatim from Google's privacy policy before and after the October 16, 2026 update."
+      "note": "Quoted from Google's own privacy policy: the current page, and Google's archived October 1, 2026 version it replaced on October 16, 2026 (policies.google.com/privacy/archive)."
      },
      "tryit": {
       "type": "toggle-consequence",
       "title": "The convenience toggle",
-      "instruction": "This is the switch the policy update is about.",
-      "toggle": "Connect Gmail & Photos to Google's AI features",
+      "instruction": "The choice the updated clause is about.",
+      "toggle": "Make my Gmail, Drive & Photos data available to other Google services",
       "off": {
-       "title": "Not connected",
+       "title": "Not shared",
        "text": "The promise holds as written: no personalized ads based on your content from Drive, Gmail or Google Photos."
       },
       "on": {
-       "title": "Connected",
-       "text": "If you let another Google service (like Search or Gemini) use that data, it can also shape the ads you see. Sensitive categories like health and religion stay off-limits, and advertisers never get your raw data or identity."
+       "title": "Shared",
+       "text": "Under the updated clause, services that support personalized ads can now use that content. Google's own examples are AI features like Personal Intelligence in Search and Gemini. Sensitive categories stay off-limits, and advertisers never get your raw data or identity."
       },
-      "note": "A connection made for convenience became an ad signal. Read what a link does before you tap yes."
+      "note": "A connection made for convenience can become an ad signal. Read what a link does before you tap yes."
      }
     },
     {
