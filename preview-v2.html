@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#FAFAFA">
+<title>The Daily Draft — AI, art & design, every morning</title>
+<meta name="description" content="A one-reader morning paper: sharper AI habits, art and graphic design lessons, and the news worth knowing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400..700;1,400..700&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAFAFA;
+  --ink:#141414;
+  --ink-soft:#6B6B66;
+  --hair:#E4E4DF;
+  --red:#E8480C;
+  --cobalt:#2B4BE0;
+  --amber:#B87A00;
+  --rose:#CE3A6B;
+  --yellow:#F2C200;
+  --rule:1px solid #141414;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:17px}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:"Figtree",-apple-system,"Segoe UI",sans-serif;
+  min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+.sheet{max-width:720px;margin:0 auto;padding:0 22px calc(48px + env(safe-area-inset-bottom))}
+@media(min-width:760px){.sheet{padding:0 32px 72px}}
+
+/* ---------- masthead ---------- */
+.masthead{padding-top:26px}
+.mast-top,.mast-date{
+  display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;
+  font-family:"Inter",sans-serif;font-weight:500;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);
+}
+.mast-top{padding-bottom:10px;border-bottom:var(--rule)}
+.mast-name{
+  font-family:"Fraunces",serif;font-weight:480;
+  font-size:clamp(3.1rem,13.5vw,5.8rem);line-height:1;letter-spacing:-.015em;text-align:center;
+  padding:30px 0 24px;border-bottom:3px solid var(--ink);
+}
+.mast-name .hl{font-style:italic;color:var(--red)}
+.mast-date{padding:10px 0;border-bottom:1px solid var(--hair)}
+.mast-date .dot{color:var(--red);font-size:.5rem}
+.kicker-strip{
+  margin:12px auto 0;display:flex;align-items:center;justify-content:center;gap:10px;
+  font-family:"Inter",sans-serif;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);text-align:center;
+}
+.kicker-strip::before,.kicker-strip::after{content:"";width:32px;height:1px;background:var(--hair);flex:none}
+.checker{display:none}
+
+/* ---------- progress ---------- */
+.dots{display:flex;gap:6px;margin:20px 0 0}
+.dots button{flex:1;height:26px;border:0;background:none;padding:10px 0;cursor:pointer}
+.dots button i{display:block;height:4px;border-radius:4px;background:var(--hair);transition:background .25s}
+.dots button.read i{background:var(--red)}
+.dots button.cur i{background:var(--ink)}
+.dots button.cur.read i{background:linear-gradient(90deg,var(--ink) 50%,var(--red) 50%)}
+.dots-cap{display:flex;justify-content:space-between;font-family:"Inter",sans-serif;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-top:2px}
+
+/* ---------- story ---------- */
+.story{padding-top:26px;position:relative;transition:opacity .3s,transform .3s}
+.story.turn{opacity:0;transform:translateX(-18px)}
+.story.enter{animation:enter .45s cubic-bezier(.2,.9,.3,1)}
+@keyframes enter{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.chip{display:inline-flex;align-items:center;gap:9px;font-family:"Inter",sans-serif;font-weight:600;font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink)}
+.chip::before{content:"";width:7px;height:7px;background:var(--accent,var(--ink));flex:none}
+.chip.ai{--accent:var(--cobalt)}.chip.design{--accent:var(--red)}.chip.news{--accent:var(--amber)}.chip.try{--accent:var(--yellow)}.chip.onscreen{--accent:var(--rose)}
+.rt{font-family:"Inter",sans-serif;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-left:12px}
+.headline{font-family:"Fraunces",serif;font-weight:560;font-size:clamp(2.1rem,8.2vw,3.3rem);line-height:1.05;letter-spacing:-.01em;margin:14px 0 14px}
+.deck{font-family:"Fraunces",serif;font-style:italic;font-weight:400;font-size:1.2rem;line-height:1.45;color:#3d3d39;margin-bottom:6px}
+.art{margin:24px 0 8px}.art img{display:block;width:100%;height:auto;border-radius:6px}
+.art figcaption{display:flex;justify-content:space-between;font-family:"Inter",sans-serif;font-weight:500;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-soft);padding-top:8px}
+.art figcaption .plate-no{color:var(--red)}
+.sec{font-family:"Inter",sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft);margin:34px 0 4px}
+.points{list-style:none;counter-reset:p}
+.points li{counter-increment:p;display:grid;grid-template-columns:44px 1fr;gap:6px;padding:16px 0 6px}
+.points li::before{content:counter(p);font-family:"Fraunces",serif;font-weight:500;font-size:2rem;line-height:1;color:var(--red)}
+.points li p{font-size:1.04rem;line-height:1.6;color:#1f1f1c}
+.why{margin-top:30px;padding:4px 0 4px 18px;border-left:3px solid var(--cobalt)}
+.why .why-label{display:block;font-family:"Inter",sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--cobalt);margin-bottom:6px}
+.why p{font-size:1rem;line-height:1.6}
+.source-line{margin-top:20px;font-family:"Inter",sans-serif;font-size:.7rem;color:var(--ink-soft)}
+.source-line a{color:var(--ink);text-decoration-color:var(--red);text-underline-offset:3px}
+
+/* ---------- try it ---------- */
+.lab{margin-top:36px;padding:20px 18px 18px;border-radius:26px;background:#F4F4F6;box-shadow:inset 0 2px 6px rgba(20,20,26,.09),inset 0 -1px 0 #fff}
+.lab h3{font-family:"Fraunces",serif;font-weight:560;font-size:1.45rem;letter-spacing:-.01em;margin-bottom:2px}
+.lab .sub{font-size:.9rem;color:var(--ink-soft);margin-bottom:12px}
+.acts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+@media(max-width:420px){.acts{grid-template-columns:1fr}}
+.acts button,.askrow button{font:600 .9rem Figtree,sans-serif;color:var(--ink);padding:13px 10px;border:0;border-radius:16px;background:#fff;box-shadow:0 1px 0 #fff inset,0 2px 7px rgba(20,20,26,.13);cursor:pointer;min-height:48px;transition:transform .12s}
+.acts button:active,.askrow button:active{transform:scale(.97)}
+.acts button small{display:block;font-weight:500;font-size:.72rem;color:var(--ink-soft);margin-top:2px}
+.askrow{display:flex;gap:8px;margin-top:10px}
+.askrow input{flex:1;min-width:0;font:inherit;font-size:1rem;padding:13px 14px;border:0;border-radius:16px;background:#fff;color:var(--ink);box-shadow:inset 0 2px 4px rgba(20,20,26,.13);-webkit-appearance:none}
+.askrow button.go{background:var(--red);color:#fff;box-shadow:0 2px 8px rgba(232,72,12,.35)}
+.lab button:disabled,.lab input:disabled{opacity:.5;cursor:default}
+.lstat{font-size:.88rem;color:var(--ink-soft);margin-top:12px;min-height:1.2em}
+.lbar{height:5px;border-radius:5px;background:#E4E4E8;margin-top:8px;overflow:hidden}.lbar i{display:block;height:100%;width:0;background:var(--red);transition:width .4s linear}
+.res{margin-top:14px}
+.res .rh{font-family:"Inter",sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:4px}
+.res ul{list-style:none}.res li{padding:9px 0 9px 20px;position:relative;line-height:1.55}
+.res li::before{content:"";position:absolute;left:2px;top:1.05em;width:8px;height:8px;border-radius:50%;background:var(--red)}
+.res details{padding:10px 0;border-top:1px solid #E2E2E6}.res details:first-of-type{border-top:0}
+.res summary{cursor:pointer;font-weight:600;list-style:none;padding-right:20px;position:relative}.res summary::after{content:"+";position:absolute;right:0;color:var(--red);font-size:1.2rem;line-height:1}
+.res details[open] summary::after{content:"\2212"}
+.res details p{margin-top:6px;color:#3d3d39;line-height:1.55}
+.res .err{color:#b3261e}
+.fine{font-size:.78rem;line-height:1.5;color:var(--ink-soft);margin-top:12px}
+.fine summary{cursor:pointer}
+
+/* ---------- the checkbox ---------- */
+.checkrow{margin-top:34px;border-top:3px solid var(--ink);padding-top:18px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.folio{font-family:"Inter",sans-serif;font-size:.72rem;letter-spacing:.12em;color:var(--ink-soft);white-space:nowrap}
+.folio b{color:var(--red);font-weight:600}
+.tick{display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;background:none;border:none;font-family:inherit;padding:10px 0;color:var(--ink);min-height:44px}
+.tick .box{width:26px;height:26px;border:1.5px solid var(--ink);border-radius:7px;position:relative;flex:none;background:var(--paper);transition:background .18s}
+.tick .box svg{position:absolute;inset:-2px;width:30px;height:30px;opacity:0;transform:scale(.5);transition:opacity .18s,transform .22s cubic-bezier(.34,1.56,.64,1)}
+.tick.done .box{background:var(--red);border-color:var(--red)}
+.tick.done .box svg{opacity:1;transform:scale(1)}
+.tick .tick-label{font-family:"Inter",sans-serif;font-weight:600;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase}
+.tick:active .box{transform:scale(.9)}
+.stamp{position:absolute;top:30%;left:50%;z-index:5;pointer-events:none;transform:translate(-50%,-50%) rotate(-8deg) scale(2.4);opacity:0;border:3px solid var(--red);color:var(--red);font-family:"Fraunces",serif;font-style:italic;font-weight:600;font-size:2rem;letter-spacing:.14em;padding:.2em .5em;mix-blend-mode:multiply}
+.stamp.slam{animation:slam .55s cubic-bezier(.2,1.4,.4,1) forwards}
+@keyframes slam{0%{opacity:0;transform:translate(-50%,-50%) rotate(-8deg) scale(2.4)}55%{opacity:1;transform:translate(-50%,-50%) rotate(-8deg) scale(.96)}100%{opacity:1;transform:translate(-50%,-50%) rotate(-8deg) scale(1)}}
+
+/* ---------- caught up ---------- */
+.done-page{text-align:center;padding:52px 0 30px}
+.done-stamp{
+  display:inline-block;border:3px solid var(--red);color:var(--red);border-radius:50%;
+  width:140px;height:140px;transform:rotate(-8deg);
+  font-family:"Fraunces",serif;font-style:italic;font-weight:600;font-size:1.5rem;line-height:1.1;
+  padding-top:50px;margin-bottom:26px;mix-blend-mode:multiply;
+}
+.done-page h2{font-family:"Fraunces",serif;font-weight:560;font-size:2rem;letter-spacing:-.01em;margin-bottom:10px}
+.done-page p{color:var(--ink-soft);font-size:.95rem;line-height:1.6;max-width:340px;margin:0 auto;font-style:italic}
+
+/* ---------- archive ---------- */
+.archive{margin-top:44px;border-top:var(--rule);padding-top:16px}
+.archive h3{font-family:"Inter",sans-serif;font-size:.6rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px}
+.archive a{
+  display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+  padding:12px 0;border-bottom:1px solid var(--hair);
+  color:var(--ink);text-decoration:none;font-size:.95rem;
+}
+.archive a .a-date{font-style:italic}
+.archive a .a-count{font-family:"Inter",sans-serif;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap}
+
+/* ---------- colophon ---------- */
+.colophon{
+  margin-top:46px;padding-top:14px;border-top:var(--rule);
+  display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
+  font-family:"Inter",sans-serif;font-weight:500;font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);
+}
+.mark{display:inline-block;width:9px;height:9px;background:var(--red);vertical-align:baseline}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header class="masthead">
+    <div class="mast-top"><span>Morning Edition</span><span>Vol. I — For Rudy</span></div>
+    <h1 class="mast-name">The Daily <span class="hl">Draft</span></h1>
+    <div class="mast-date">
+      <span id="mast-day">—</span>
+      <span class="dot">●</span>
+      <span id="mast-issue">Issue № —</span>
+      <span class="dot">●</span>
+      <span id="mast-count">— stories</span>
+    </div>
+    <div class="kicker-strip">Sharper AI habits · Art &amp; design · News worth knowing</div>
+    <nav class="dots" id="dots" aria-label="Stories in this issue"></nav>
+    <div class="dots-cap"><span id="dots-l"></span><span id="dots-r"></span></div>
+  </header>
+
+  <main id="main" class="story" aria-live="polite"></main>
+
+  <div id="archive-slot"></div>
+
+  <footer class="colophon">
+    <span>Set in Fraunces &amp; Figtree</span>
+    <span><span class="mark"></span>&nbsp;Prints daily, 7 AM IST</span>
+    <span>One reader. No noise.</span>
+  </footer>
+</div>
+
+<script>
+const KIND_CLASS = {"AI TIP":"ai","DESIGN":"design","AI NEWS":"news","TRY THIS":"try","ON SCREEN":"onscreen"};
+const KIND_VERB  = {"AI TIP":"Prompting desk","DESIGN":"Design desk","AI NEWS":"News wire","TRY THIS":"Practice desk","ON SCREEN":"Screen desk"};
+const store = {
+  get(){ try{ return JSON.parse(localStorage.getItem("tdr-read")||"{}"); }catch(e){ return {}; } },
+  set(v){ localStorage.setItem("tdr-read", JSON.stringify(v)); }
+};
+
+function titleCase(s){
+  const small = new Set(["a","an","and","as","at","but","by","for","in","is","it","of","on","or","the","to","vs","with"]);
+  const keep = new Set(["ai","api","css","ui","ux","llm","gpt"]);
+  return s.toLowerCase().split(" ").map((w,i)=>{
+    const bare = w.replace(/[^a-z0-9]/gi,"");
+    if(keep.has(bare)) return w.toUpperCase();
+    if(i>0 && small.has(bare)) return w;
+    return w.replace(/(^|[^a-z0-9'])([a-z])/g, (m,p,c)=>p+c.toUpperCase());
+  }).join(" ");
+}
+
+function fmtDate(iso){
+  const d = new Date(iso + "T12:00:00");
+  return d.toLocaleDateString("en-GB",{weekday:"long", day:"numeric", month:"long", year:"numeric"});
+}
+
+var ABBR={"vs":1,"etc":1,"mr":1,"mrs":1,"dr":1,"st":1,"inc":1,"no":1,"eg":1,"ie":1,"approx":1,"u.s":1,"u.k":1};
+function sentences(t){
+  var out=[],cur="",i,words;
+  var parts=t.split(/(\s+)/);
+  for(i=0;i<parts.length;i++){
+    cur+=parts[i];
+    var w=parts[i].trim();
+    if(!w)continue;
+    var end=/[.!?]["')\]\u201d]*$/.test(w);
+    if(end){
+      var next=(parts[i+2]||"").replace(/^["'(\[\u201c]+/,"");
+      var bare=w.replace(/[^A-Za-z.]/g,"").replace(/\.$/,"").toLowerCase();
+      var abbr=/[.!?]$/.test(w)&&w.slice(-1)==="."&&(ABBR[bare]||/^[A-Za-z]$/.test(bare)||/\d\.$/.test(w)&&/^\d/.test(next));
+      if(!abbr&&(next===""||/^[A-Z0-9]/.test(next))){out.push(cur.trim());cur=""}
+    }
+  }
+  if(cur.trim())out.push(cur.trim());
+  return out}
+function chunks(body){
+  var s=sentences(body),out=[],i=0;
+  while(i<s.length){var a=s[i];if(i+1<s.length&&(a+" "+s[i+1]).length<=210){out.push(a+" "+s[i+1]);i+=2}else{out.push(a);i++}}
+  return out}
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function itemHTML(it, plateNo){
+  var kc = KIND_CLASS[it.kind]||"news";
+  var pts = (it.points&&it.points.length)?it.points:chunks(it.body||"");
+  return `
+    <div><span class="chip ${kc}">${it.kind}</span><span class="rt">${it.reading_time||"1 min read"}</span></div>
+    <h2 class="headline">${titleCase(it.headline)}</h2>
+    <p class="deck">${it.deck}</p>
+    ${it.image ? `<figure class="art"><img src="${it.image}" alt="${it.image_alt||it.headline}" loading="lazy"><figcaption><span>Illustration &middot; The Daily Draft</span><span class="plate-no">Plate № ${plateNo}</span></figcaption></figure>` : ""}
+    <div class="sec">The key points</div>
+    <ol class="points">${pts.map(function(p){return "<li><p>"+p+"</p></li>"}).join("")}</ol>
+    ${it.why ? `<div class="why"><span class="why-label">Why it matters to you</span><p>${it.why}</p></div>` : ""}
+    ${it.source_url ? `<p class="source-line">Source: <a href="${it.source_url}" target="_blank" rel="noopener">${it.source_name||it.source_url}</a> ↗</p>` : ""}
+    <section class="lab" aria-label="Try it on this story">
+      <h3>Try it on this story</h3>
+      <p class="sub">Pick one, or ask your own question. An AI model answers from this story only.</p>
+      <div class="acts">
+        <button data-a="simple">Explain simply<small>3 quick points</small></button>
+        <button data-a="example">Show an example<small>2 everyday cases</small></button>
+        <button data-a="quiz">Quiz me<small>3 tap-to-reveal</small></button>
+      </div>
+      <div class="askrow"><input type="text" id="q" maxlength="200" placeholder="Ask about this story..." autocomplete="off" enterkeyhint="send"><button class="go" id="askgo">Ask</button></div>
+      <div class="lstat" id="lstat" role="status" aria-live="polite"></div><div class="lbar" id="lbar" hidden><i id="lbari"></i></div>
+      <div class="res" id="res"></div>
+      <details class="fine"><summary>How this works and its limits</summary>
+        <p>Your tap sends this story's text and your question to a free AI service (Pollinations, no account). It allows one request at a time, so there can be a wait of up to 30 seconds, and it can fail. It is for people 16 and over. Do not type anything private. Answers are AI-written, can be wrong, and are not checked. Reading the story and ticking it off need no AI. <a href="https://pollinations.ai/privacy">Privacy</a>.</p></details>
+    </section>
+  `;
+}
+
+var API="https://text.pollinations.ai/openai",GAP=31000,lastCall=0,busy=false;
+function sleep(ms){return new Promise(function(r){setTimeout(r,ms)})}
+function lstat(t,p){var s=document.getElementById("lstat"),b=document.getElementById("lbar"),bi=document.getElementById("lbari");if(!s)return;s.textContent=t;if(p===undefined)b.hidden=true;else{b.hidden=false;bi.style.width=p+"%"}}
+function setBusy(b){busy=b;var q=document.querySelectorAll(".lab button,.lab input");for(var i=0;i<q.length;i++)q[i].disabled=b}
+async function callModel(sys,user){
+  var w=lastCall+GAP-Date.now();
+  while(w>0){lstat("Waiting for the free AI slot: "+Math.ceil(w/1000)+"s",Math.round((1-w/GAP)*100));await sleep(400);w=lastCall+GAP-Date.now()}
+  lstat("Asking the AI...",100);lastCall=Date.now();
+  var body={model:"openai",messages:[{role:"system",content:sys},{role:"user",content:user}],max_tokens:900,seed:Math.floor(Math.random()*1e9)};
+  var r;try{r=await fetch(API,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(body)})}catch(e){throw new Error("Could not reach the AI service.")}
+  if(r.status===402||r.status===429)throw new Error("The free slot is not ready yet. Nothing was charged. Try again in about 30 seconds.");
+  if(!r.ok)throw new Error("The AI service returned an error ("+r.status+").");
+  var j;try{j=await r.json()}catch(e){throw new Error("Unexpected reply from the AI service.")}
+  var m=j.choices&&j.choices[0]&&j.choices[0].message;if(!m||typeof m.content!=="string"||!m.content.trim())throw new Error("The AI service returned no answer.");
+  var t=m.content,a=t.indexOf("{"),b2=t.lastIndexOf("}");if(a<0||b2<a)throw new Error("The reply was not in the expected format, so nothing is shown. Try again.");
+  try{return JSON.parse(t.slice(a,b2+1))}catch(e){throw new Error("The reply was not in the expected format, so nothing is shown. Try again.")}}
+function okStr(x,n){return typeof x==="string"&&x.trim().length>0&&x.length<=n}
+function validPts(o){if(!o||!Array.isArray(o.points)||o.points.length<1||o.points.length>5)return null;for(var i=0;i<o.points.length;i++)if(!okStr(o.points[i],280))return null;return o.points}
+function validQuiz(o){if(!o||!Array.isArray(o.questions)||o.questions.length<1||o.questions.length>4)return null;for(var i=0;i<o.questions.length;i++){var q=o.questions[i];if(!q||!okStr(q.q,220)||!okStr(q.a,280))return null}return o.questions}
+function mk(tag,cls,text){var e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e}
+async function act(kind,it,question){
+  if(busy)return;
+  var res=document.getElementById("res");res.textContent="";
+  var story="Headline: "+it.headline+"\nSummary: "+it.deck+"\nStory: "+it.body+(it.why?"\nWhy it matters: "+it.why:"");
+  var base="You explain one short newsletter story to a college student. Use ONLY the story text given. Do not add outside facts, numbers or advice. Reply with ONE JSON object and nothing else. ";
+  var sys,user,label;
+  if(kind==="simple"){sys=base+'Format: {"points":["...","...","..."]} with exactly 3 plain-language points, each under 30 words.';user=story;label="Explained simply"}
+  else if(kind==="example"){sys=base+'Format: {"points":["...","..."]} with exactly 2 everyday examples of the idea, each one or two sentences. They are illustrations, not facts.';user=story;label="Two examples"}
+  else if(kind==="quiz"){sys=base+'Format: {"questions":[{"q":"...","a":"..."}]} with exactly 3 short questions that this story text answers, each answer under 30 words.';user=story;label="Quiz yourself"}
+  else{sys=base+'Format: {"points":["..."]} with 1 to 4 short points answering the reader question from the story text. If the story does not answer it, say so in one point.';user=story+"\n\nReader question: "+question;label="Your answer"}
+  setBusy(true);
+  try{
+    var o=await callModel(sys,user);
+    lstat("",undefined);
+    if(kind==="quiz"){var qs=validQuiz(o);if(!qs)throw new Error("The reply was not in the expected format, so nothing is shown. Try again.");
+      res.appendChild(mk("div","rh",label));qs.forEach(function(q){var d=mk("details");d.appendChild(mk("summary",null,q.q));d.appendChild(mk("p",null,q.a));res.appendChild(d)})}
+    else{var ps=validPts(o);if(!ps)throw new Error("The reply was not in the expected format, so nothing is shown. Try again.");
+      res.appendChild(mk("div","rh",label));var ul=mk("ul");ps.forEach(function(p){ul.appendChild(mk("li",null,p))});res.appendChild(ul)}
+    res.appendChild(mk("p","fine","AI-written from this story. It can be wrong."))
+  }catch(e){lstat("",undefined);res.appendChild(mk("p","err",e.message))}
+  setBusy(false)}
+
+function renderDots(issue,idx,doneIds){
+  var d=document.getElementById("dots");d.textContent="";
+  issue.items.forEach(function(it,i){var b=document.createElement("button");b.setAttribute("aria-label","Story "+(i+1)+": "+it.kind+(doneIds.has(it.id)?" (read)":""));b.className=(doneIds.has(it.id)?"read ":"")+(i===idx?"cur":"");b.appendChild(document.createElement("i"));b.onclick=function(){render(issue,i)};d.appendChild(b)});
+  document.getElementById("dots-l").textContent=idx<issue.items.length?"Story "+(idx+1)+" of "+issue.items.length:"All read";
+  document.getElementById("dots-r").textContent=doneIds.size+" read"}
+
+function render(issue, idx){
+  const main = document.getElementById("main");
+  const total = issue.items.length;
+  document.getElementById("mast-day").textContent = fmtDate(issue.date);
+  document.getElementById("mast-issue").textContent = "Issue № " + issue.number;
+  document.getElementById("mast-count").textContent = total + (total===1?" story":" stories");
+  const doneIds = new Set((store.get()[issue.date])||[]);
+  renderDots(issue,idx,doneIds);
+  if(idx >= total){
+    main.innerHTML = `
+      <div class="done-page">
+        <div class="done-stamp">ALL<br>READ</div>
+        <h2>That's the paper.</h2>
+        <p>All ${total} stories read. Tomorrow's edition prints at 7 in the morning — fresh tips, fresh design lessons, fresh news.</p>
+      </div>`;
+    return;
+  }
+  const it = issue.items[idx];
+  const wasRead = doneIds.has(it.id);
+  main.innerHTML = itemHTML(it, idx+1) + `
+    <div class="checkrow">
+      <button class="tick${wasRead?" done":""}" id="tick" aria-pressed="${wasRead}" aria-label="Mark story as read">
+        <span class="box"><svg viewBox="0 0 32 32" fill="none"><path d="M7 17.5 L13.5 23.5 L25 9" stroke="#FAFAFA" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="tick-label">${wasRead?"Read":"Mark as read"}</span>
+      </button>
+      <span class="folio">№ <b>${idx+1}</b> — of ${total}</span>
+    </div>
+    <div class="stamp" id="stamp">Read</div>`;
+  var btns=document.querySelectorAll(".lab .acts button");
+  for(var bi=0;bi<btns.length;bi++)btns[bi].onclick=function(){act(this.getAttribute("data-a"),it)};
+  var ask=function(){var v=document.getElementById("q").value.trim().slice(0,200);if(v)act("ask",it,v)};
+  document.getElementById("askgo").onclick=ask;document.getElementById("q").onkeydown=function(e){if(e.key==="Enter")ask()};
+  if(busy)setBusy(false);
+
+  document.getElementById("tick").addEventListener("click", () => {
+    const tick = document.getElementById("tick");
+    if(tick.classList.contains("done")){ if(idx+1<=total) render(issue, idx+1); return; }
+    tick.classList.add("done");
+    tick.setAttribute("aria-pressed","true");
+    document.getElementById("stamp").classList.add("slam");
+    const read = store.get();
+    const ids = new Set(read[issue.date]||[]);
+    ids.add(it.id);
+    read[issue.date] = [...ids];
+    store.set(read);
+    setTimeout(() => {
+      main.classList.add("turn");
+      setTimeout(() => {
+        main.classList.remove("turn");
+        render(issue, idx+1);
+        main.classList.add("enter");
+        window.scrollTo({top:0, behavior:"smooth"});
+      }, 300);
+    }, 950);
+  });
+}
+
+function renderArchive(issues, currentDate){
+  document.getElementById("archive-slot").innerHTML = `
+    <div class="archive"><h3>The archive — every issue, kept</h3>` +
+    issues.map(i => {
+      const today = i.date === currentDate;
+      return `<a href="?date=${i.date}"><span class="a-date">${fmtDate(i.date)}${today ? " — today's edition" : ""}</span><span class="a-count">№ ${i.number} · ${i.items.length} stories</span></a>`;
+    }).join("") +
+    `</div>`;
+}
+
+fetch("content.json", {cache:"no-store"})
+  .then(r => r.json())
+  .then(data => {
+    const issues = data.issues; // newest first
+    const params = new URLSearchParams(location.search);
+    const want = params.get("date");
+    const issue = (want && issues.find(i => i.date === want)) || issues[0];
+    const read = store.get();
+    const doneIds = new Set(read[issue.date]||[]);
+    const firstUnread = issue.items.findIndex(it => !doneIds.has(it.id));
+    render(issue, firstUnread === -1 ? issue.items.length : firstUnread);
+    renderArchive(issues, issue.date);
+  })
+  .catch(() => {
+    document.getElementById("main").innerHTML =
+      `<div class="done-page"><h2>The presses are warming up.</h2><p>Today's edition could not be loaded. Try again in a moment.</p></div>`;
+  });
+</script>
+</body>
+</html>
