@@ -46,7 +46,8 @@
         "who": "Rewrite",
         "text": "Sharper hooks, each with a named viewer and a payoff."
        }
-      ]
+      ],
+      "note": "An invented exchange to show the moves - not a real transcript."
      },
      "tryit": {
       "type": "prompt-loop",
@@ -200,7 +201,8 @@
        "Risky - one ingredient short of trouble.",
        "Dangerous - the model can reach the real world.",
        "Horror recipe - this is exactly what happened in 9 of 43 runs."
-      ]
+      ],
+      "note": "The three conditions and the 9-of-43 figure come from the published postmortem in the story above. The meter counts conditions you set - it is not a measured probability."
      }
     },
     {
@@ -217,11 +219,12 @@
      "reading_time": "3 min read",
      "layout": "lead-points",
      "example": {
-      "heading": "The one-line policy diff",
+      "heading": "The policy line, before and after Oct 16",
       "format": "diff",
-      "old": "Your Gmail, Drive and Google Photos data will not be used for personalized ads.",
-      "newPre": "Your Gmail, Drive and Google Photos data will not be used for personalized ads…",
-      "added": "unless you connect them to Google's AI features."
+      "old": "We don't show you personalized ads based on your content from Drive, Gmail, or Photos.",
+      "newPre": "We don't show you personalized ads based on your content from Drive, Gmail, or Google Photos,",
+      "added": "unless you choose to make data from these services available to other Google services that support personalized ads.",
+      "note": "Quoted verbatim from Google's privacy policy before and after the October 16, 2026 update."
      },
      "tryit": {
       "type": "toggle-consequence",
@@ -230,11 +233,11 @@
       "toggle": "Connect Gmail & Photos to Google's AI features",
       "off": {
        "title": "Not connected",
-       "text": "The old promise holds: that data stays out of ad personalisation."
+       "text": "The promise holds as written: no personalized ads based on your content from Drive, Gmail or Google Photos."
       },
       "on": {
        "title": "Connected",
-       "text": "The contents can now inform the ads you see. Advertisers still never get raw data, and sensitive categories stay off-limits."
+       "text": "If you let another Google service (like Search or Gemini) use that data, it can also shape the ads you see. Sensitive categories like health and religion stay off-limits, and advertisers never get your raw data or identity."
       },
       "note": "A connection made for convenience became an ad signal. Read what a link does before you tap yes."
      }

@@ -91,6 +91,7 @@ body{background:var(--paper);color:var(--ink);font-family:"Figtree",-apple-syste
 .dline .dl-tag{display:block;font-family:"Inter",sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:3px}
 .dline.new{background:#FFF3EE}
 .dline mark{background:none;color:var(--red);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.xp-note{margin-top:12px;font-family:"Inter",sans-serif;font-size:.68rem;letter-spacing:.04em;color:var(--ink-soft)}
 
 /* ---------- the hands-on block ---------- */
 .play{margin-top:18px;padding:20px 16px 18px;border-radius:26px;background:#F4F4F6;box-shadow:inset 0 2px 6px rgba(20,20,26,.09),inset 0 -1px 0 #fff}
@@ -324,6 +325,7 @@ function exampleHTML(ex, plateNo){
   } else {
     inner = '<p class="xp-card-text">'+esc(ex.text||"")+'</p>';
   }
+  if(ex.note) inner += '<p class="xp-note">'+esc(ex.note)+'</p>';
   return '<figure class="xplate"><div class="xp-head"><span class="t">'+esc(ex.heading||"The example")+'</span><span class="n">Plate № '+plateNo+'b</span></div><div class="xp-body">'+inner+'</div></figure>';
 }
 
@@ -408,10 +410,11 @@ function bindPlay(root, ty){
     refresh();
   }
   if(ty.type==="risk-recipe"){
-    var sws=root.querySelectorAll(".sw"), met=root.querySelector("#rmet"), read=root.querySelector("#rread");
+    var sws=root.querySelectorAll(".factrow .sw"), met=root.querySelector("#rmet"), read=root.querySelector("#rread"), rc=root.querySelector("#rcount");
     function upd(){
       var n=0; for(var j=0;j<sws.length;j++) if(sws[j].classList.contains("on")) n++;
       met.style.width=Math.round(n/sws.length*100)+"%";
+      if(rc) rc.textContent = n+" of "+sws.length+" conditions set";
       read.textContent = ty.verdicts[Math.min(n, ty.verdicts.length-1)] || "";
     }
     for(var s=0;s<sws.length;s++){ sws[s].onclick=function(){ this.classList.toggle("on"); upd(); }; }
