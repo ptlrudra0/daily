@@ -349,7 +349,7 @@ function playHTML(ty){
   } else if(ty.type==="risk-recipe"){
     h += (ty.factors||[]).map(function(f,i){
       return '<div class="factrow"><span>'+esc(f)+'</span><button class="sw" type="button" data-i="'+i+'" aria-label="toggle"></button></div>';
-    }).join("") + '<div class="meter"><i id="rmet"></i></div><div class="readout" id="rread"></div>';
+    }).join("") + '<div class="meter"><i id="rmet"></i></div><div class="pcount" id="rcount"></div><div class="readout" id="rread"></div>' + (ty.note ? '<p class="pnote2">'+esc(ty.note)+'</p>' : "");
   } else if(ty.type==="toggle-consequence"){
     h += '<button class="bigsw" type="button" id="bigsw"><span>'+esc(ty.toggle)+'</span><span class="sw" id="bigswdot"></span></button>'
        + '<div class="outc" id="outc"><div class="ot" id="outct"></div><p id="outcp"></p></div>'
