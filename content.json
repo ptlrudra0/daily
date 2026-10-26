@@ -2,6 +2,108 @@
  "paper": "The Daily Draft",
  "issues": [
   {
+   "number": 9,
+   "date": "2026-10-26",
+   "items": [
+    {
+     "id": "2026-10-26-1",
+     "kind": "AI TIP",
+     "headline": "Don't build an agent when a chain will do",
+     "deck": "The best agent builders in the world mostly don't build agents. Suit up for boring.",
+     "body": "Anthropic wrote down what they learned from a year of building agents with customers, and bro, the headline is almost insulting in its simplicity: the most successful implementations weren't using complex frameworks. They were simple, composable patterns. Their actual advice: find the simplest solution possible, and only add complexity when it's needed - which might mean not building an agent at all. They split the world into workflows (LLMs following code paths YOU wrote) and agents (LLMs steering themselves). Workflows are predictable, debuggable and cheap. Agents trade latency and cost for flexibility. So before you architect some autonomous mastermind, ask: can I just do prompt, then prompt, then prompt? Nine times out of ten - challenge accepted, chain deployed.",
+     "points": [
+      "Workflow = model follows your code path. Agent = model steers itself. Know which one you're actually building.",
+      "Anthropic's own advice: start with the simplest solution, add complexity only when a simpler thing fails.",
+      "Agents cost more and answer slower - pay that tax only when the task genuinely needs judgment calls mid-flight.",
+      "A chain you can debug beats a genius you can't."
+     ],
+     "why": "You're at the exact age of the craft where everything screams 'build an agent'. The pros say: earn it. Your course projects and freelance gigs will ship faster and break less.",
+     "source_name": "Anthropic",
+     "source_url": "https://www.anthropic.com/research/building-effective-agents",
+     "image": "img/2026-10-26-1.jpg",
+     "image_alt": "A straight line of three linked chain segments next to a tangled knot of loops",
+     "reading_time": "2 min read"
+    },
+    {
+     "id": "2026-10-26-2",
+     "kind": "DESIGN",
+     "headline": "Design for the thumb, not the eye",
+     "deck": "Your user is holding the phone one-handed, on a bus, half asleep. The thumb votes.",
+     "body": "Steven Hoober's mobile research gave us the thumb zone, and bro, it remains the most ignored map in design. Picture the screen divided by how far a thumb naturally sweeps: a big comfortable arc near the bottom where taps are free, a stretch zone up top that costs effort, and corners that might as well be Mordor. The rule writes itself: the actions people take constantly - post, like, next, buy - live in the easy arc. Destructive or rare stuff can exile itself to the stretch. Most designers still place things where they LOOK balanced, then wonder why everyone fat-fingers the wrong button. The eye admires symmetry. The thumb files the complaint.",
+     "why": "Every screen you'll ever design - your own pages, a client's app, even your link-in-bio - gets used one-handed. Put the main action where the thumb already rests and your taps go up for free.",
+     "source_name": "Smashing Magazine",
+     "source_url": "https://www.smashingmagazine.com/2016/09/the-thumb-zone-designing-for-mobile-users/",
+     "image": "img/2026-10-26-2.jpg",
+     "image_alt": "A phone outline with a sweeping arc shading the comfortable lower reach zone",
+     "reading_time": "2 min read"
+    },
+    {
+     "id": "2026-10-26-3",
+     "kind": "ON SCREEN",
+     "headline": "The alien planet built from Earth",
+     "deck": "Scavengers Reign's designers watched nature documentaries - and admitted they couldn't out-weird our own planet.",
+     "body": "Scavengers Reign is the most alien-looking show in years, and here's the twist, bro: its creators went looking for alien ideas and gave up. Joe Bennett says they dug into animal documentaries for the original short and realized \"it was almost impossible to find something that doesn't already exist here on Earth.\" So the method became remix, not invention: real biology recombined until it feels wrong in the best way - familiar enough to believe, off enough to make your skin crawl during a totally calm scene. Second lesson, same show: creatures and plants stay local to their native spots. Some appear in one episode and never return, because the characters never pass that habitat again. A whole designed organism for a single-use location. That's worldbuilding with a work ethic: every place gets its own logic, even if the audience sees it for forty seconds.",
+     "why": "World-building is just product-building in a costume: ground the weird in something real, and let every corner of the thing feel intentionally placed - even the parts most people skip.",
+     "source_name": "Cartoon Brew",
+     "source_url": "https://www.cartoonbrew.com/streaming/scavengers-reign-team-talks-through-the-worldbuilding-process-for-their-sci-fi-thriller-series-exclusive-233879.html",
+     "image": "img/2026-10-26-3.jpg",
+     "image_alt": "A strange plant with an earth-like leaf shape growing an otherworldly spiralling pod",
+     "reading_time": "2 min read"
+    },
+    {
+     "id": "2026-10-26-4",
+     "kind": "AI NEWS",
+     "headline": "A 10-year-old model just schooled the giants",
+     "deck": "A dermatologist tested the two smartest AIs on skin cancer. A 2015 network beat them both. Badly.",
+     "body": "Bro, this is the upset of the month. Dr Magnus Lynch, a dermatologist, showed 200 biopsy-proven skin lesions to GPT-6 Astra and Claude Fable 5.1 - the best general-purpose models money can buy - and to a fine-tuned version of Inception v3, a convolutional network Google published in 2015. Final score: the decade-old CNN named the right diagnosis 62% of the time. The frontier LLMs managed 42% each. One case study stings: both LLMs looked at an actual melanoma and called it a harmless wart - discharge the patient. The CNN caught it. And the kicker? The CNN was fine-tuned for about twenty minutes on public dermatology images. The lesson isn't that LLMs are bad - it's that a specialist trained on the right data still beats a genius who read the whole internet. Depth beats breadth when lives are on the line.",
+     "points": [
+      "200 biopsy-proven lesions from the public MILK10k dataset; each model had 6 diagnoses to choose from.",
+      "Fine-tuned Inception v3 (2015): 125 right, 62%. GPT-6 Astra and Claude Fable 5.1: 84 and 85 right, about 42% each.",
+      "Both LLMs called a real melanoma a harmless seborrhoeic keratosis; the CNN named it correctly.",
+      "The specialist needed about 20 minutes of fine-tuning. Not a new architecture - just the right data."
+     ],
+     "why": "This is your first-year superpower in disguise: you don't need a frontier model to win - you need a narrow problem, a good dataset and twenty minutes. That IS the student-project playbook.",
+     "source_name": "Lynch Lab",
+     "source_url": "https://lynchlab.net/llm-skin-cancer",
+     "image": "img/2026-10-26-4.jpg",
+     "image_alt": "A small old ink trophy beside two much larger empty pedestals",
+     "reading_time": "3 min read"
+    },
+    {
+     "id": "2026-10-26-5",
+     "kind": "AI NEWS",
+     "headline": "The open-weights race just got serious",
+     "deck": "Moonshot's Kimi K3.1 Pro packs a million-token memory - and the weights go free next week.",
+     "body": "While the safety world argued, Moonshot shipped. Kimi K3.1 Pro launched this weekend: a 3T-class mixture-of-experts model, their most capable open-weight release yet, with a 1-million-token context window - that's whole codebases, whole book series, whole semesters of notes in one conversation. Moonshot is claiming big gains in coding, 3D creation and agentic work, plus a Highspeed variant running 2-3x faster, and it's landing just behind the top closed models on public rankings. The part that should make you sit up: the full weights release by November 4. Meaning anyone - including a student with a decent GPU hookup - can soon run a near-frontier model with zero API bills and zero rate limits. The closed labs charge rent. The open labs hand out keys.",
+     "points": [
+      "K3.1 Pro: 3T-class MoE, 1M-token context, live now on Kimi's app and API.",
+      "Full open weights promised by November 4 - self-hostable, no per-call cost.",
+      "A Highspeed variant trades a little quality for 2-3x faster responses.",
+      "Public rankings place it within a few points of the frontier closed models."
+     ],
+     "why": "Your project ideas keep dying at 'the API would cost money'. A free near-frontier model with a million-token memory removes that excuse - watch the Nov 4 release and be first to build on it.",
+     "source_name": "Moonshot AI",
+     "source_url": "https://www.kimi.ai/blog/kimi-k3-1-pro",
+     "image": "img/2026-10-26-5.jpg",
+     "image_alt": "An open padlock with a large key-shaped cloud above it",
+     "reading_time": "3 min read"
+    },
+    {
+     "id": "2026-10-26-6",
+     "kind": "TRY THIS",
+     "headline": "The one-thumb audit",
+     "deck": "Thirty seconds. One hand. Instant design verdict.",
+     "body": "Pick up your phone with ONE hand - the way you actually hold it, not the way you hold it for screenshots. Open a page you made or one you use daily. Now try to reach its single most important button with just your thumb. No shuffling the phone, no second hand, no finger gymnastics. If you got there without adjusting your grip, the designer respected the thumb zone. If you had to climb - congrats, you found the flaw, and now you can't unsee it. Run this on your own stuff before anyone else does.",
+     "why": "You'll never place a primary button in the stretch zone again after failing this test on your own page once.",
+     "source_name": null,
+     "source_url": null,
+     "image": "img/2026-10-26-6.jpg",
+     "image_alt": "A hand-drawn phone with a bold dot in the easy lower reach area and a fading dot high in the corner",
+     "reading_time": "1 min read"
+    }
+   ]
+  },
+  {
    "number": 8,
    "date": "2026-10-25",
    "items": [
