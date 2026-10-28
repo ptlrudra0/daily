@@ -2,6 +2,106 @@
   "paper": "The Daily Draft",
   "issues": [
     {
+      "number": 11,
+      "date": "2026-10-28",
+      "items": [
+        {
+          "id": "2026-10-28-1",
+          "kind": "AI TIP",
+          "headline": "Make it interview you first",
+          "deck": "The best prompt upgrade isn't more instructions. It's forcing the model to ask you questions before it answers.",
+          "body": "Developer Kasper Junge noticed a pattern in every disappointing AI answer he got: the model wasn't dumb, it was under-informed. His fix is almost offensively simple - the Clarification Pattern. Instead of hoping your brief is complete, you end it with one line: 'Before you answer, ask me any questions that would change your response.' The model interviews you, you answer, and THEN it does the task. Ambiguity dies in the interview, not in the output. The trick works because models are polite guessers - left alone they fill your gaps with the most average assumptions on the internet. Make them earn the answer with questions first and the guesswork disappears.",
+          "points": [
+            "Bad outputs usually mean missing context, not a weak model.",
+            "End your brief with: 'Before answering, ask me the questions that would change your answer.'",
+            "Answer the questions, then let it run. The interview kills the ambiguity before it becomes output.",
+            "Skip it for tiny tasks. Use it when the task actually matters - briefs, plans, code, scripts."
+          ],
+          "why": "Every caption writer, research helper and study buddy you build gets sharper the moment it stops guessing what you meant. One line of prompt, permanently better briefs.",
+          "source_name": "Kasper Junge",
+          "source_url": "https://blog.kasperjunge.com/prompting-patterns-the-clarification-pattern",
+          "image": "img/2026-10-28-1.jpg",
+          "image_alt": "Cut-paper illustration of a large cobalt question-mark-shaped flower leaning toward a smaller vermilion one",
+          "reading_time": "2 min"
+        },
+        {
+          "id": "2026-10-28-2",
+          "kind": "DESIGN",
+          "headline": "Contrast is the whole game",
+          "deck": "Every design lesson you've ever read is secretly the same lesson: make the different things different.",
+          "body": "A List Apart put it plainly back in 2010 and nobody has improved on it since: contrast is king. Big only works against small. Bold only works against quiet. Your cobalt accent only pops because everything around it is calm. Designers call it hierarchy, emphasis, focal point - but it all reduces to one move: decide what matters, then exaggerate the difference between it and everything else. The failure mode is the middle: when two elements are almost the same size, almost the same colour, almost the same weight, the eye gets no instruction and the design turns to mush. So next time a layout feels weak, don't add more stuff. Push the important thing further away from the pack - bigger, darker, brighter, emptier around it.",
+          "why": "Your thumbnails and posters live or die in a half-second glance. If the title and the background are almost-contrasting, you lose the glance. Exaggerate the difference and you win it.",
+          "source_name": "A List Apart",
+          "source_url": "https://alistapart.com/article/contrast-is-king/",
+          "image": "img/2026-10-28-2.jpg",
+          "image_alt": "Cut-paper illustration of one oversized vermilion circle towering over a crowd of tiny ink dots",
+          "reading_time": "1 min"
+        },
+        {
+          "id": "2026-10-28-3",
+          "kind": "ON SCREEN",
+          "headline": "KPop Demon Hunters remixed two worlds on purpose",
+          "deck": "The biggest animated film of the year built its look from a collision: ancient Korean craft against neon K-pop spectacle.",
+          "body": "Animation World Network's behind-the-scenes on KPop Demon Hunters reads like a masterclass in deliberate contrast. Production designer Dave Bleich and art director Wendell Dalit didn't pick one reference and polish it - they picked two that shouldn't fit and made them fuse. Centuries-old Korean motifs, folk patterns and traditional shapes on one side; the hyper-saturated, choreography-first energy of modern K-pop on the other. The film's look IS the tension between those two worlds, scene after scene. Even the colour scripting follows the emotional arc of the music. The lesson for anyone building a visual identity: don't start from 'what looks good', start from 'which two of my influences collide in a way nobody else can copy'. The collision is the style.",
+          "points": [
+            "Two clashing influences, fused deliberately, beat one safe reference polished to death.",
+            "Colour was scripted to the music's emotional arc - palette as storytelling, not decoration."
+          ],
+          "why": "You're building a channel identity right now. Your version of this collision - desi internet culture meets clean AI-era design - is more ownable than any template you'll find.",
+          "source_name": "Animation World Network",
+          "source_url": "https://www.awn.com/animationworld/designing-sound-and-style-netflixs-kpop-demon-hunters",
+          "image": "img/2026-10-28-3.jpg",
+          "image_alt": "Cut-paper illustration of a traditional Korean-style cloud motif in cobalt colliding with vermilion neon stage shapes",
+          "reading_time": "2 min"
+        },
+        {
+          "id": "2026-10-28-4",
+          "kind": "AI NEWS",
+          "headline": "Google's new model dreams up playable worlds",
+          "deck": "Genie 4 generates interactive simulations you can steer in real time - with sound. Games and film pre-vis just flinched.",
+          "body": "Google DeepMind announced Genie 4 yesterday, a world model that generates real-time interactive simulations with unprecedented realism and - the new part - native audio: ambient sound, music, even dialogue, generated on the fly. You set a scene in motion and steer it with plain language: move the camera, change the weather, introduce a character. DeepMind frames it as a step toward AGI - a safe training ground for robots and agents - but the same tech obviously points at filmmaking, gaming and pre-visualization. It's built on the Gemini family, with Gemini Omni anchoring simulations in real-world appearance and behavior. Access is rolling out to a limited group first.",
+          "points": [
+            "Genie 4 generates interactive worlds you steer live with natural language: camera moves, weather, new characters.",
+            "First version with native audio - ambience, music and dialogue generated on the fly.",
+            "Framed as AGI infrastructure for training robots and agents, but aimed equally at film, games and journalism.",
+            "Limited rollout for now. Watch where your skills overlap when it opens up."
+          ],
+          "why": "Storyboard-to-world is about to be a job skill. The creators who learn to direct generated scenes - camera language, mood, pacing - will have a head start when tools like this go wide.",
+          "source_name": "Google DeepMind",
+          "source_url": "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/introducing-genie-4/",
+          "image": "img/2026-10-28-4.jpg",
+          "image_alt": "Cut-paper illustration of a film clapperboard-shaped portal opening onto a landscape of cobalt hills and a vermilion sun",
+          "reading_time": "2 min"
+        },
+        {
+          "id": "2026-10-28-5",
+          "kind": "AI NEWS",
+          "headline": "Microsoft's image editor crashes the leaderboard",
+          "deck": "MAI Image 2.7 debuted above OpenAI's GPT Image 2.5 Flare on Artificial Analysis and number three on Arena Edit.",
+          "body": "Microsoft AI shipped MAI Image 2.7 yesterday, an image editing model built for the edits that are hardest to get right: restyle or relight an entire scene, change text and symbols while keeping them integrated in the image, restore old assets. It launched in preview at number three on Arena Edit - making Microsoft the number two lab - and number two on Artificial Analysis's image editing leaderboard, ahead of OpenAI's GPT Image 2.5 Flare. The edit-that-matters framing is the tell: the labs have stopped competing on pretty pictures and started competing on control.",
+          "why": "Image editing with real control - relight a frame, swap a background, fix text in a poster - is exactly the boring middle of your editing workflow. This one's worth a test drive when it reaches you.",
+          "source_name": "Microsoft AI",
+          "source_url": "https://microsoft.ai/news/mai-image-2-7-debut/",
+          "image": "img/2026-10-28-5.jpg",
+          "image_alt": "Cut-paper illustration of a photograph being repainted by a giant vermilion brush, one half cobalt day and one half amber dusk",
+          "reading_time": "1 min"
+        },
+        {
+          "id": "2026-10-28-6",
+          "kind": "TRY THIS",
+          "headline": "The collision palette",
+          "deck": "Steal like KPop Demon Hunters: build a colour set from two influences that shouldn't fit.",
+          "body": "Pick two visual worlds you love that have no business overlapping - a temple mural and a sneaker drop, your grandma's textile patterns and a sci-fi HUD. Assign three colours to each. Now design one small thing - a thumbnail, a story background, a title card - using at least two colours from each world. Don't smooth out the clash; let it stay loud. If it looks like nothing else in your feed, keep the palette. If it looks like everything else, the collision wasn't real - pick stranger worlds.",
+          "why": "This is the exact exercise that builds an ownable channel identity, and it takes fifteen minutes with zero software.",
+          "source_name": null,
+          "source_url": null,
+          "image": "img/2026-10-28-6.jpg",
+          "image_alt": "Cut-paper illustration of two different patterned squares overlapping to form a third bold shape in the middle",
+          "reading_time": "1 min"
+        }
+      ]
+    },
+    {
       "number": 10,
       "date": "2026-10-27",
       "items": [
