@@ -37,7 +37,7 @@ const MODE_ORDER: Mode[] = ["family", "cheeky", "custom"]
 // ---------------------------------------------------------------------------
 
 export const FAMILY: Card[] = [
-	{word: "Cricket", img: "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7e/Cricket_match_and_Marina_Bay_Sands_Hotel_in_Singapore.jpg/500px-Cricket_match_and_Marina_Bay_Sands_Hotel_in_Singapore.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"},
+	{word: "Cricket", img: "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/72/Master_Blaster_at_work.jpg/500px-Master_Blaster_at_work.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"},
 	{word: "Biryani", img: "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5f/Shrimp_Biriyani.JPG/500px-Shrimp_Biriyani.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"},
 	{word: "Taj Mahal", img: "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/74/Taj_Mahal%2C_Agra%2C_India_edit2.jpg/500px-Taj_Mahal%2C_Agra%2C_India_edit2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"},
 	{word: "Auto Rickshaw", img: "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2c/Tuk-tuk_taxi_sidecar_in_Laos.jpg/500px-Tuk-tuk_taxi_sidecar_in_Laos.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"},
