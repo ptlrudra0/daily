@@ -2,6 +2,105 @@
   "paper": "The Daily Draft",
   "issues": [
     {
+      "number": 12,
+      "date": "2026-10-29",
+      "items": [
+        {
+          "id": "2026-10-29-1",
+          "kind": "AI TIP",
+          "headline": "Long prompts rot",
+          "deck": "Stuffing the context window doesn't make the model smarter. It makes it dumber, measurably.",
+          "body": "Chroma ran a proper technical report on what happens as you pile more tokens into a prompt, and the result should be taped to every keyboard: performance doesn't stay flat, it rots. Models handle short, focused context well, but as input grows, their ability to find and use the right detail degrades - even on tasks that look trivially easy. The million-token context window is storage, not attention. So the pro move isn't 'give it everything', it's 'give it exactly what this task needs'. Trim the brief. Pull the two relevant pages, not the whole book. If a prompt has grown into a novel, split the job into smaller calls. Bro, context is a budget, and every irrelevant token is spending the model's attention on junk.",
+          "points": [
+            "Bigger context isn't free: accuracy degrades as input length grows.",
+            "Curate what goes in - two relevant pages beat the whole book.",
+            "A prompt that became a novel should become several small calls."
+          ],
+          "why": "When your agents start misbehaving, the bug is often a bloated prompt, not the model. Lean context is the cheapest accuracy upgrade you own.",
+          "source_name": "Chroma",
+          "source_url": "https://research.trychroma.com/context-rot",
+          "image": "img/2026-10-29-1.jpg",
+          "image_alt": "Cut-paper illustration of an overstuffed paper suitcase bursting with scraps, one vermilion scrap escaping",
+          "reading_time": "2 min"
+        },
+        {
+          "id": "2026-10-29-2",
+          "kind": "DESIGN",
+          "headline": "Colour has a dress code: 60-30-10",
+          "deck": "The oldest ratio in decorating quietly runs every clean interface you've ever admired.",
+          "body": "The 60-30-10 rule assigns every colour in a design a job and a budget: 60% dominant (your background, your base), 30% secondary (structure, supporting blocks), 10% accent (the thing you want eyes on). It's why restrained interfaces feel expensive and rainbow ones feel like a carnival. The accent only works because it's scarce - ten percent is a headline, fifty percent is noise. You're literally reading an example right now: this paper is mostly white, structured in ink, and the vermilion shows up exactly where you're supposed to look. The move to steal: pick your three colours first, assign the percentages, then refuse to let the accent leak. When everything shouts, nothing does.",
+          "points": [
+            "60% dominant, 30% secondary, 10% accent - assign the jobs before you design.",
+            "The accent's power is scarcity. Let it leak past 10% and the hierarchy collapses.",
+            "Audit any design by asking which colour owns which share."
+          ],
+          "why": "Three colours with assigned roles is a brand kit you can build tonight - for a channel, a deck or a poster - and it will instantly look more pro than a twelve-colour palette.",
+          "source_name": "LogRocket Blog",
+          "source_url": "https://blog.logrocket.com/ux-design/60-30-10-rule/",
+          "image": "img/2026-10-29-2.jpg",
+          "image_alt": "Cut-paper illustration of three nested shapes showing proportion: large white field, medium cobalt block, small vermilion dot",
+          "reading_time": "2 min"
+        },
+        {
+          "id": "2026-10-29-3",
+          "kind": "ON SCREEN",
+          "headline": "Squid Game's sets were homework",
+          "deck": "The most memeable show on Earth hid art-history references and coded symbolism in every playground.",
+          "body": "Production designer Chae Kyoung-sun didn't build Squid Game's world to look 'cool' - she built it like an essay. The pastel staircases nod to Escher's impossible architecture, turning a children's-game aesthetic into a maze with no exit. The oversized, candy-coloured arenas shrink the players back into kids, which is the whole horror of the show: adults being destroyed inside the visual language of childhood. And the symbolism runs deeper than the memes - shapes, colours and layout choices carry meanings about class and power that many international viewers missed entirely. The lesson for your own frames: set design is argument. Every colour and prop either supports the theme or dilutes it. The shows you remember didn't decorate, they committed.",
+          "why": "Your reels have three seconds of background behind every caption. One deliberate visual metaphor beats ten random aesthetic choices - pick the metaphor first.",
+          "source_name": "Architectural Digest",
+          "source_url": "https://www.architecturaldigest.com/story/squid-game-production-designer-shares-story-art-references",
+          "image": "img/2026-10-29-3.jpg",
+          "image_alt": "Cut-paper illustration of impossible interlocking staircases in cobalt and vermilion looping into each other",
+          "reading_time": "2 min"
+        },
+        {
+          "id": "2026-10-29-4",
+          "kind": "AI NEWS",
+          "headline": "Google's new flagship is a security nerd",
+          "deck": "Gemini 4 Carbon retakes the number one benchmark spot with state-of-the-art cyber skills - and almost nobody can use it yet.",
+          "body": "Google announced Gemini 4 Carbon yesterday, its next frontier model, and the headline stat is cybersecurity: 88.2% on SEC-bench Pro for finding vulnerabilities, 54.8% on ExploitGym for exploitation, 71.0% on CWE-bench for patching. It ranks number one on the freshly hardened Artificial Analysis Intelligence Index v5.0 with a score of 59, with gains across coding and agentic tasks. The catch, per Reuters: access is limited at launch, so for now it's a benchmark king you mostly can't hire. Two frontier launches in two days, bro. The pace is the story.",
+          "points": [
+            "Gemini 4 Carbon: Google's new frontier model, #1 on the updated Artificial Analysis Intelligence Index (59).",
+            "Cybersecurity is the flex: 88.2% SEC-bench Pro, 54.8% ExploitGym, 71.0% CWE-bench.",
+            "Limited access at launch - strong on paper, not yet in your tools."
+          ],
+          "why": "Security skills in frontier models mean your future freelancing toolkit will include automated code review and vuln-hunting. Worth tracking even before you can touch it.",
+          "source_name": "Reuters",
+          "source_url": "https://money.usnews.com/investing/news/articles/2026-10-28/google-launches-gemini-4-carbon-ai-model-with-cybersecurity-focus",
+          "image": "img/2026-10-29-4.jpg",
+          "image_alt": "Cut-paper illustration of a cobalt shield shape with a small vermilion keyhole, amber sparks around it",
+          "reading_time": "2 min"
+        },
+        {
+          "id": "2026-10-29-5",
+          "kind": "AI NEWS",
+          "headline": "Experts follow the agent, study finds",
+          "deck": "In an Anthropic experiment, 50 professional analysts matched their AI assistant's preference 86% of the time.",
+          "body": "Here's a study to think about next time you ask a model 'what do you think'. Anthropic ran an experiment with 50 professional analysts making judgment calls with help from an AI assistant. The result, reported by Al Jazeera: the analysts chose options matching the AI's preference 86% of the time. These are paid experts, in their own field, and the assistant's lean became their answer nearly nine times out of ten. The lesson isn't 'don't use AI' - it's that every AI answer arrives with invisible gravity. Ask for options and reasoning before you ask for a recommendation, and decide which judgment calls are actually yours to outsource.",
+          "why": "You'll use agents for research and decisions daily from now on. Knowing the 86% pull exists is how you stay the one making the call.",
+          "source_name": "Al Jazeera",
+          "source_url": "https://www.aljazeera.com/economy/2026/10/28/experts-defer-to-ai-in-decision-making-anthropic-study-finds",
+          "image": "img/2026-10-29-5.jpg",
+          "image_alt": "Cut-paper illustration of a large magnet in cobalt pulling small ink arrow shapes toward it",
+          "reading_time": "2 min"
+        },
+        {
+          "id": "2026-10-29-6",
+          "kind": "TRY THIS",
+          "headline": "The 60-30-10 repaint",
+          "deck": "One thumbnail, three colours, ten minutes, instant brand feel.",
+          "body": "Take any thumbnail or poster you've made - or a screenshot of your feed. Count how many colours are fighting in it. Now repaint it in your head with three: one calm dominant (about 60% of the area), one structured secondary (30%), one loud accent (10%, exactly where the eye should land). Actually redo it if you have time; otherwise sketch the blocks on paper. The test: cover the accent with your thumb. If the design still reads clean, you nailed the ratio. If everything falls apart, the accent was carrying furniture, not headlines.",
+          "why": "This turns today's design lesson into muscle memory before the weekend, and your next thumbnail gets a free upgrade.",
+          "source_name": null,
+          "source_url": null,
+          "image": "img/2026-10-29-6.jpg",
+          "image_alt": "Cut-paper illustration of a paint roller spreading one bold cobalt band across a white card, a small vermilion square as accent",
+          "reading_time": "1 min"
+        }
+      ]
+    },
+    {
       "number": 11,
       "date": "2026-10-28",
       "items": [
