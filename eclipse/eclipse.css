@@ -17,7 +17,7 @@ img{max-width:100%;display:block}
 .sky{position:fixed;inset:0;z-index:0;overflow:hidden;background:#000}
 .blob{position:absolute;border-radius:50%;will-change:transform;pointer-events:none}
 .b1{width:96vmax;height:96vmax;left:-38vmax;top:-50vmax;
-  background:radial-gradient(circle at 50% 50%, rgba(237,93,23,.58) 0%, rgba(232,72,12,.26) 16%, rgba(160,40,6,.09) 32%, rgba(0,0,0,0) 56%);
+  background:radial-gradient(circle at 50% 50%, rgba(237,93,23,.52) 0%, rgba(232,72,12,.21) 14%, rgba(160,40,6,.07) 28%, rgba(0,0,0,0) 52%);
   animation:drift1 47s ease-in-out infinite alternate,morphA 23s ease-in-out infinite}
 .b2{width:72vmax;height:72vmax;right:-28vmax;top:-26vmax;
   background:radial-gradient(circle at 50% 50%, rgba(249,160,63,.34) 0%, rgba(237,93,23,.14) 24%, rgba(0,0,0,0) 52%);
@@ -47,7 +47,7 @@ img{max-width:100%;display:block}
 
 /* ---------- chrome ---------- */
 .top{display:flex;align-items:center;justify-content:space-between;padding:26px 0}
-.wordmark{font-family:var(--sans);font-weight:500;font-size:13px;letter-spacing:.22em;text-transform:uppercase}
+.wordmark{font-family:var(--sans);font-weight:500;font-size:13px;letter-spacing:.22em;text-transform:uppercase;text-shadow:0 1px 10px rgba(0,0,0,.75)}
 .wordmark em{color:var(--orange);font-style:normal}
 .burger{width:44px;height:44px;background:none;border:0;cursor:pointer;position:fixed;top:22px;right:24px;z-index:70}
 .burger span{display:block;width:26px;height:1.5px;background:var(--ink);margin:7px auto;transition:transform .35s ease,opacity .3s}
@@ -73,11 +73,11 @@ img{max-width:100%;display:block}
 
 /* ---------- hero ---------- */
 .hero{min-height:82vh;display:flex;flex-direction:column;justify-content:center;padding:8vh 0 10vh}
-.kicker{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#cbbfab;margin-bottom:26px}
+.kicker{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#d8cbb4;margin-bottom:26px;text-shadow:0 1px 10px rgba(0,0,0,.75)}
 .kicker b{color:var(--orange);font-weight:400}
 .masthead{font-family:var(--serif);font-weight:800;font-size:clamp(58px,11.5vw,164px);line-height:.98;letter-spacing:-.015em}
 .masthead .dot{color:var(--orange)}
-.standfirst{max-width:520px;margin-top:34px;font-size:15.5px;line-height:1.75;color:#d3c9ba}
+.standfirst{max-width:520px;margin-top:34px;font-size:15.5px;line-height:1.75;color:#d3c9ba;text-shadow:0 1px 10px rgba(0,0,0,.7)}
 .orbrow{margin-top:56px;display:flex;align-items:center;gap:28px;flex-wrap:wrap}
 .orb{position:relative;width:150px;height:150px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:0 0 auto;
   background:radial-gradient(circle at 42% 38%, rgba(249,160,63,.85) 0%, rgba(237,93,23,.55) 34%, rgba(232,72,12,.22) 60%, rgba(232,72,12,0) 78%);
