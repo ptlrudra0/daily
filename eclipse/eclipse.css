@@ -101,7 +101,7 @@ img{max-width:100%;display:block}
 .headline{font-family:var(--serif);font-weight:700;font-size:clamp(28px,4.4vw,50px);line-height:1.12;letter-spacing:-.01em;text-shadow:0 1px 16px rgba(0,0,0,.7)}
 .headline a{transition:color .3s}
 .headline a:hover{color:var(--orange)}
-.deck{margin-top:16px;font-size:15.5px;line-height:1.75;color:#ddd4c5;max-width:600px;text-shadow:0 1px 12px rgba(0,0,0,.6)}
+.deck{margin-top:16px;font-size:15.5px;line-height:1.75;color:#ddd4c5;max-width:600px;text-shadow:0 1px 14px rgba(0,0,0,.85),0 0 5px rgba(0,0,0,.55)}
 .readline{display:inline-flex;align-items:center;gap:12px;margin-top:24px;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink)}
 .readline .arr{color:var(--orange);transition:transform .3s}
 .story:hover .arr{transform:translateX(6px)}
