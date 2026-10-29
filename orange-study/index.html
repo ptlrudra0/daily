@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Daily Draft - Eclipse orange motion study (internal)</title>
+<style>
+  :root{--verm:#ED5D17;--amber:#F9A03F;--line:rgba(237,93,23,.28)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#000;color:#FAFAFA;font:15px/1.55 -apple-system,"Inter","Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:920px;margin:0 auto;padding:28px 20px 80px}
+  header{padding:18px 0 6px}
+  h1{font-size:20px;font-weight:650;letter-spacing:.01em}
+  h1 .tag{color:var(--verm)}
+  .sub{color:#b9b3ae;font-size:13px;margin-top:6px;max-width:62ch}
+  .note{margin:16px 0 30px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;color:#d8d2cc;font-size:12.5px;background:rgba(237,93,23,.05)}
+  section{margin:34px 0 46px}
+  h2{font-size:14px;font-weight:600;color:var(--amber);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+  .role{color:#8f8984;font-size:12.5px;margin-bottom:12px}
+  .stage{position:relative;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#000}
+  canvas{display:block;width:100%;height:auto}
+  .controls{display:grid;grid-template-columns:1fr 1fr;gap:10px 22px;padding:14px 16px;border-top:1px solid var(--line);background:rgba(255,255,255,.02)}
+  .ctl{display:flex;flex-direction:column;gap:4px}
+  .ctl label{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#a39d97;display:flex;justify-content:space-between}
+  .ctl label output{color:var(--amber);font-variant-numeric:tabular-nums}
+  input[type=range]{width:100%;accent-color:var(--verm);height:22px}
+  .btnrow{display:flex;gap:10px;padding:0 16px 14px;background:rgba(255,255,255,.02)}
+  button{font:12.5px/1 -apple-system,"Inter",sans-serif;font-weight:600;letter-spacing:.04em;color:#FAFAFA;background:rgba(237,93,23,.16);border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer}
+  button:hover{background:rgba(237,93,23,.3)}
+  @media(max-width:560px){.controls{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>The Daily Draft <span class="tag">/ eclipse orange motion study</span></h1>
+  <p class="sub">Internal preview, separate study page. Actual-speed flowing deformation over the clean recreated treatments (generated artwork, no reference pixels). The references are still images - their motion was never observed; this motion is designed to the genre, restrained so the rim and wash geometry stay recognisable.</p>
+  <div class="note">Delivered eclipse site is untouched. Nothing on this page is shipped design - it is a study surface for review.</div>
+</header>
+
+<section id="sec-b">
+  <h2>Sphere treatment</h2>
+  <p class="role">Deeper sections. Eclipsed sphere entering from the lower left: dark body, pale luminous rim, broad external glow. Flowing deformation: slow radial ripple on the rim circle, gentle drift of the lit direction, soft glow breathing.</p>
+  <div class="stage">
+    <canvas id="cvB" width="1081" height="800"></canvas>
+    <div class="controls" id="ctlB"></div>
+    <div class="btnrow"><button data-act="pause" data-for="B">Pause</button><button data-act="reset" data-for="B">Reset to defaults</button></div>
+  </div>
+</section>
+
+<section id="sec-a">
+  <h2>Wash treatment</h2>
+  <p class="role">Home / hero. Broad vermilion wash across the top with pale lower-left falloff on pitch black. Flowing deformation: slow drift of the wash lobes and gentle breathing, no travelling hotspots.</p>
+  <div class="stage">
+    <canvas id="cvA" width="820" height="1040" style="max-height:70vh"></canvas>
+    <div class="controls" id="ctlA"></div>
+    <div class="btnrow"><button data-act="pause" data-for="A">Pause</button><button data-act="reset" data-for="A">Reset to defaults</button></div>
+  </div>
+</section>
+</div>
+
+<script>
+"use strict";
+const VERT=`attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}`;
+
+// ---------- Sphere (B) ----------
+const FRAG_B=`
+precision highp float;
+uniform vec2 u_res;uniform float u_time;
+uniform float u_flowAmp,u_flowSpeed,u_rimW,u_haloTau,u_warm;
+void main(){
+  vec2 p=vec2(gl_FragCoord.x,u_res.y-gl_FragCoord.y);
+  // reference space 1081x800, cover-fit
+  float sc=max(u_res.x/1081.0,u_res.y/800.0);
+  vec2 ctr=vec2(-89.3,684.3)*sc;
+  float R=802.0*sc;
+  vec2 dp=p-ctr;
+  float d=length(dp);
+  float th=atan(dp.y,dp.x);
+  float ph=u_time*u_flowSpeed;
+  float R_eff=R*(1.0+u_flowAmp*(0.012*sin(3.0*th+ph*0.35)+0.008*sin(5.0*th-ph*0.22)+0.006*sin(2.0*th+ph*0.5)));
+  float litA=-0.855+0.05*u_flowAmp*sin(ph*0.11+0.7);
+  float t=d-R_eff;
+  float dth=th-litA;
+  float body_g=exp(min(t+60.0*sc,0.0)/(430.0*sc));
+  float ang=dth<0.0?exp(-pow(dth/1.98,2.0)):exp(-pow(dth/0.43,2.5));
+  float rim_g=exp(-pow(t/(u_rimW*sc),2.0))*exp(-pow(dth/0.60,2.0))*0.80;
+  float tout=max(t,0.0);
+  float sig=0.62*exp(-tout/(500.0*sc));
+  float halo_g=exp(-tout/(u_haloTau*sc))*exp(-pow(dth/max(sig,0.05),2.0))*step(0.0,t)*1.05;
+  halo_g*=1.0+0.06*u_flowAmp*sin(ph*0.17+1.3);
+  vec3 wbody=vec3(170.,72.,40.)/255.*0.98*u_warm;
+  vec3 body=wbody*body_g*ang*step(t,0.0);
+  vec3 rim=vec3(255.,165.,115.)/255.*rim_g;
+  vec3 halo=vec3(255.,140.,80.)/255.*halo_g;
+  vec3 c=1.0-(1.0-clamp(body,0.,1.))*(1.0-clamp(rim,0.,1.))*(1.0-clamp(halo,0.,1.));
+  c=max(c,vec3(9./255.));
+  gl_FragColor=vec4(c,1.0);
+}`;
+
+// ---------- Wash (A) ----------
+const FRAG_A=`
+precision highp float;
+uniform vec2 u_res;uniform float u_time;
+uniform float u_flowAmp,u_flowSpeed,u_verm,u_pale;
+vec3 ell(vec2 p,vec2 c,vec2 r,vec3 col,float amp,float pw,float aspect){
+  vec2 q=(p-c*vec2(1.0,aspect))/(r*vec2(1.0,aspect));
+  float d=dot(q,q);
+  return col*pow(exp(-pow(d,pw)),1.0)*amp;
+}
+void main(){
+  vec2 p=vec2(gl_FragCoord.x,u_res.y-gl_FragCoord.y);
+  float aspect=u_res.y/u_res.x; // work in units of width
+  vec2 q=p/u_res.x;
+  float ph=u_time*u_flowSpeed;
+  // slow drift of lobes
+  vec2 d1=0.03*u_flowAmp*vec2(sin(ph*0.13),0.6*sin(ph*0.09+1.0));
+  vec2 d2=0.025*u_flowAmp*vec2(sin(ph*0.11+2.1),0.5*sin(ph*0.14+0.4));
+  vec2 d3=0.02*u_flowAmp*vec2(sin(ph*0.07+4.0),0.5*sin(ph*0.10+2.8));
+  float b1=1.0+0.05*u_flowAmp*sin(ph*0.15+0.3);
+  float b2=1.0+0.06*u_flowAmp*sin(ph*0.12+2.2);
+  vec3 col=vec3(0.);
+  col+=ell(q,vec2(0.483,-0.162)+d1,vec2(0.336,0.653),vec3(237.,86.,18.)/255.,1.08*b1*u_verm,1.4,aspect);
+  col+=ell(q,vec2(0.496,0.303)+d2,vec2(0.400,0.193),vec3(249.,120.,38.)/255.,0.34*b2*u_verm,1.4,aspect);
+  col+=ell(q,vec2(0.22,0.42)+d3,vec2(0.42,0.45),vec3(150.,110.,88.)/255.,0.30*u_pale,1.2,aspect);
+  col=min(col,vec3(1.0));
+  gl_FragColor=vec4(col,1.0);
+}`;
+
+function makeScene(canvasId,ctlId,frag,defs){
+  const cv=document.getElementById(canvasId);
+  const gl=cv.getContext('webgl',{antialias:false});
+  if(!gl){cv.parentElement.innerHTML='<p style="padding:20px;color:#b9b3ae">WebGL not available in this browser.</p>';return null;}
+  function sh(type,src){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);
+    if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){console.error(gl.getShaderInfoLog(s));}return s;}
+  const pr=gl.createProgram();
+  gl.attachShader(pr,sh(gl.VERTEX_SHADER,VERT));
+  gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,frag));
+  gl.linkProgram(pr);gl.useProgram(pr);
+  const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+  const loc=gl.getAttribLocation(pr,'a');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+  const U={};['u_res','u_time',...Object.keys(defs)].forEach(n=>U[n]=gl.getUniformLocation(pr,n));
+  const state={vals:{},paused:false,t:0,last:performance.now()};
+  Object.entries(defs).forEach(([k,v])=>state.vals[k]=v.def);
+  // controls
+  const ctl=document.getElementById(ctlId);
+  Object.entries(defs).forEach(([k,v])=>{
+    const div=document.createElement('div');div.className='ctl';
+    const lab=document.createElement('label');lab.textContent=v.label;
+    const out=document.createElement('output');out.textContent=v.def.toFixed(2);
+    lab.appendChild(out);
+    const inp=document.createElement('input');inp.type='range';
+    inp.min=v.min;inp.max=v.max;inp.step=(v.max-v.min)/100;inp.value=v.def;
+    inp.addEventListener('input',()=>{state.vals[k]=parseFloat(inp.value);out.textContent=state.vals[k].toFixed(2);});
+    div.appendChild(lab);div.appendChild(inp);ctl.appendChild(div);
+    if(!state.sliders)state.sliders={};state.sliders[k]=[inp,out];
+  });
+  function frame(now){
+    if(!state.paused){state.t+=(now-state.last)/1000;}
+    state.last=now;
+    gl.viewport(0,0,cv.width,cv.height);
+    gl.uniform2f(U.u_res,cv.width,cv.height);
+    gl.uniform1f(U.u_time,state.t);
+    Object.keys(defs).forEach(k=>gl.uniform1f(U[k],state.vals[k]));
+    gl.drawArrays(gl.TRIANGLES,0,3);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+  return state;
+}
+
+const defsB={
+  u_flowAmp:{label:'Flow amount',min:0,max:2,def:1},
+  u_flowSpeed:{label:'Flow speed',min:0,max:3,def:1},
+  u_rimW:{label:'Rim softness',min:10,max:50,def:26},
+  u_haloTau:{label:'Glow breadth',min:200,max:700,def:420},
+  u_warm:{label:'Body warmth',min:0.85,max:1.15,def:0.98},
+};
+const defsA={
+  u_flowAmp:{label:'Flow amount',min:0,max:2,def:1},
+  u_flowSpeed:{label:'Flow speed',min:0,max:3,def:1},
+  u_verm:{label:'Vermilion intensity',min:0.6,max:1.3,def:1},
+  u_pale:{label:'Pale falloff',min:0,max:1.5,def:1},
+};
+const scenes={B:makeScene('cvB','ctlB',FRAG_B,defsB),A:makeScene('cvA','ctlA',FRAG_A,defsA)};
+document.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+  const s=scenes[b.dataset.for];if(!s)return;
+  if(b.dataset.act==='pause'){s.paused=!s.paused;b.textContent=s.paused?'Play':'Pause';}
+  if(b.dataset.act==='reset'){
+    const defs=b.dataset.for==='B'?defsB:defsA;
+    Object.entries(defs).forEach(([k,v])=>{s.vals[k]=v.def;
+      const sl=s.sliders[k];sl[0].value=v.def;sl[1].textContent=v.def.toFixed(2);});
+  }
+}));
+</script>
+</body>
+</html>
