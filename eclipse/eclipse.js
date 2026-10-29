@@ -37,7 +37,7 @@ function chrome(){
 
 /* ---------- shared fragments ---------- */
 function skyHTML(){return '<div class="sky" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div><div class="sheen"></div></div><div class="vignette" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div>';}
-function topHTML(){return '<div class="page"><header class="top"><a class="wordmark" href="index.html">The Daily <em>Draft</em></a></header></div><button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>';}
+function topHTML(){return '<div class="topbar"><div class="page"><header class="top"><a class="wordmark" href="index.html">The Daily <em>Draft</em></a></header></div><button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button></div>';}
 function menuHTML(){return '<nav class="menu" id="menu" aria-hidden="true"><div class="mblob m1"></div><div class="mblob m2"></div><div class="mblob m3"></div><div class="menu-inner">'+
   '<a class="menu-item" href="index.html#today">Today</a>'+
   '<a class="menu-item" href="index.html#archive">Archive</a>'+
