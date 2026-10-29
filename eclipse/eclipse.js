@@ -134,7 +134,12 @@ function skyInit(){
   if(reduced){
     if(sB){sizeSky(sB);drawSky(sB,4);}
     if(sA){sizeSky(sA);drawSky(sA,4);fade();}
-    window.addEventListener('scroll',fade,{passive:true});
+    var pend=false;
+    window.addEventListener('scroll',function(){
+      fade();
+      if(pend)return;pend=true;
+      requestAnimationFrame(function(){pend=false;if(sB){drawSky(sB,4);}if(sA&&sA.cv.style.opacity!=='0'){drawSky(sA,4);}});
+    },{passive:true});
     window.addEventListener('resize',function(){if(sB){sizeSky(sB);drawSky(sB,4);}if(sA){sizeSky(sA);drawSky(sA,4);}},{passive:true});
     return;
   }
