@@ -34,6 +34,9 @@ const DCARD = ["#F2B90C", "#2A2886", "#C6D936", "#F04E23", "#E93E8A", "#7B3FBF",
 const DPLATE = ["#2A2886", "#F04E23", "#E93E8A", "#2A2886", "#C6D936", "#F2B90C", "#7B3FBF"];
 const DPLATE_TXT = ["#F5EFE3", "#F5EFE3", "#F5EFE3", "#F5EFE3", "#23206E", "#23206E", "#F5EFE3"];
 const DCARD_TXT = ["#23206E", "#F5EFE3", "#23206E", "#F5EFE3", "#F5EFE3", "#F5EFE3", "#F5EFE3"];
+// widget-face chip: the banner/plate colour that contrasts the indigo widget field
+const WCHIP_BG = ["#F2B90C", "#F04E23", "#C6D936", "#F04E23", "#E93E8A", "#7B3FBF", "#7B3FBF"];
+const WCHIP_TXT = ["#23206E", "#F5EFE3", "#23206E", "#F5EFE3", "#F5EFE3", "#F5EFE3", "#F5EFE3"];
 const DINDIGO = "#2A2886";
 const DLIME = "#C6D936";
 const DCREAM = "#F5EFE3";
@@ -128,8 +131,8 @@ async function buildWidget(issue, state) {
   // riveted name-plate chip in this story's dangler plate colour
   const chip = w.addText(" " + lead.kind + " ");
   chip.font = Font.boldSystemFont(9);
-  chip.textColor = new Color(DPLATE_TXT[leadIdx] || "#F5EFE3");
-  chip.backgroundColor = new Color(DPLATE[leadIdx] || "#F04E23");
+  chip.textColor = new Color(WCHIP_TXT[leadIdx] || "#F5EFE3");
+  chip.backgroundColor = new Color(WCHIP_BG[leadIdx] || "#F04E23");
 
   w.addSpacer(6);
 
