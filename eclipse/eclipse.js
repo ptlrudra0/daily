@@ -33,7 +33,7 @@ function chrome(){
   }else{
     Array.prototype.forEach.call(document.querySelectorAll('.rv'),function(el){el.classList.add('in');});
   }
-  skyInit();
+  try{skyInit();}catch(e){document.body.classList.add('no-webgl');}
 }
 
 /* ---------- shared fragments ---------- */
@@ -41,7 +41,11 @@ function chrome(){
 /* ---------- recreated orange treatments (approved study defaults) ---------- */
 var SKY_VERT='attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}';
 var SKY_FRAG_B=`
+#ifdef GL_FRAGMENT_PRECISION_HIGH
 precision highp float;
+#else
+precision mediump float;
+#endif
 uniform vec2 u_res;uniform float u_time;
 uniform float u_flowAmp,u_flowSpeed,u_rimW,u_haloTau,u_warm;
 void main(){
@@ -73,7 +77,11 @@ void main(){
   gl_FragColor=vec4(c,1.0);
 }`;
 var SKY_FRAG_A=`
+#ifdef GL_FRAGMENT_PRECISION_HIGH
 precision highp float;
+#else
+precision mediump float;
+#endif
 uniform vec2 u_res;uniform float u_time;
 uniform float u_flowAmp,u_flowSpeed,u_verm,u_pale;
 // reference frame 820x1040 (fitted still), cover-fit
@@ -102,11 +110,25 @@ function mkSkyScene(id,frag,vals){
   var cv=document.getElementById(id);if(!cv)return null;
   var gl=cv.getContext('webgl',{antialias:false,alpha:false,powerPreference:'low-power'});
   if(!gl){cv.style.display='none';return null;}
-  function sh(ty,src){var s=gl.createShader(ty);gl.shaderSource(s,src);gl.compileShader(s);return s;}
+  function sh(ty,src){
+    var s=gl.createShader(ty);gl.shaderSource(s,src);gl.compileShader(s);
+    if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){
+      if(ty===gl.FRAGMENT_SHADER&&src.indexOf('highp')>-1){
+        var s2=gl.createShader(ty);gl.shaderSource(s2,src.replace(/highp/g,'mediump'));gl.compileShader(s2);
+        if(gl.getShaderParameter(s2,gl.COMPILE_STATUS))return s2;
+      }
+      return null;
+    }
+    return s;
+  }
+  var vs=sh(gl.VERTEX_SHADER,SKY_VERT),fs=sh(gl.FRAGMENT_SHADER,frag);
+  if(!vs||!fs){cv.style.display='none';return null;}
   var pr=gl.createProgram();
-  gl.attachShader(pr,sh(gl.VERTEX_SHADER,SKY_VERT));
-  gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,frag));
-  gl.linkProgram(pr);gl.useProgram(pr);
+  gl.attachShader(pr,vs);
+  gl.attachShader(pr,fs);
+  gl.linkProgram(pr);
+  if(!gl.getProgramParameter(pr,gl.LINK_STATUS)){cv.style.display='none';return null;}
+  gl.useProgram(pr);
   var buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);
   gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
   var loc=gl.getAttribLocation(pr,'a');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
@@ -127,7 +149,7 @@ function drawSky(s,t){
 function skyInit(){
   var sB=mkSkyScene('bgB',SKY_FRAG_B,{u_flowAmp:1,u_flowSpeed:1,u_rimW:26,u_haloTau:420,u_warm:0.98});
   var sA=mkSkyScene('bgA',SKY_FRAG_A,{u_flowAmp:1,u_flowSpeed:1,u_verm:1,u_pale:1});
-  if(!sB&&!sA)return;
+  if(!sB&&!sA){document.body.classList.add('no-webgl');return;}
   var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function mix(){return sA?Math.min(1,Math.max(0,window.scrollY/(window.innerHeight*0.9))):1;}
   function fade(){if(sA)sA.cv.style.opacity=(1-mix()).toFixed(3);}

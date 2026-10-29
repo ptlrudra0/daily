@@ -150,6 +150,8 @@ footer{position:relative;z-index:2;border-top:1px solid var(--hair);margin-top:8
 @media(min-width:760px){.foot{grid-template-columns:repeat(3,1fr)}}
 
 @media(prefers-reduced-motion:reduce){.rv{transition:none;transform:none}html{scroll-behavior:auto}}
+/* degraded stand-in when WebGL is unavailable: static approximation of the approved treatments, failure-only */
+body.no-webgl{background:radial-gradient(130% 100% at 74% 10%,rgba(237,86,18,.55),rgba(140,60,25,.22) 42%,#000 78%) fixed,#000}
 /* reveal on scroll (transform+opacity only) */
 .rv{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s cubic-bezier(.22,.9,.3,1)}
 .rv.in{opacity:1;transform:none}
