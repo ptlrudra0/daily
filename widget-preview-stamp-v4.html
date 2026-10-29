@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Widget preview - stamp face v4 (Gujarati, designed lettering)</title>
+<style>
+  body{background:#1c1c22;margin:0;padding:34px 16px 60px;display:flex;flex-direction:column;align-items:center;gap:34px;font-family:-apple-system,"Segoe UI",sans-serif}
+  .label{font:600 10px -apple-system;letter-spacing:.22em;color:#C6D936;text-transform:uppercase;align-self:flex-start;margin-bottom:8px}
+  .section{display:flex;flex-direction:column;width:329px;max-width:100%}
+  .note{font:400 11px/1.65 -apple-system;color:#F5EFE3aa;margin-top:10px}
+  /* medium-widget size 329x155pt. The image is the ACTUAL background asset the
+     script loads; the text over it is a browser approximation of what iOS draws
+     in system font on top. */
+  .widget{position:relative;width:329px;height:155px;border-radius:22px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+  .widget img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .w-text{position:absolute;left:20px;right:20px;top:119px;bottom:8px;text-align:center}
+  .w-head{font:600 12px -apple-system;color:#F5EFE3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .w-foot{font:400 9px -apple-system;color:#F5EFE3;margin-top:3px}
+</style>
+</head>
+<body>
+
+<div class="section">
+  <div class="label">Home Screen widget - medium, actual size (browser approximation)</div>
+  <div class="widget">
+    <img class="bg" src="img/widget-bg-stamp-v4.png" alt="">
+    <div class="w-text">
+      <div class="w-head">Long prompts rot</div>
+      <div class="w-foot">Thursday, 29 October &nbsp;&middot;&nbsp; &#8470; 12</div>
+    </div>
+  </div>
+  <p class="note">Browser approximation of the widget at its real size. The artwork (stamp border, the designed DAILY ડ્રાફ્ટ lockup, સવાર EXPRESS tag, railway track) is a fixed image the script loads as the background, so the Gujarati lettering stays exactly as drawn - Scriptable cannot load custom fonts. The story headline and date are an adaptation: iOS draws them in the system font in the empty strip under the track, changing with each edition. Sample text shown is from issue &#8470; 12.</p>
+</div>
+
+<div class="section">
+  <div class="label">The background artwork alone</div>
+  <img src="img/widget-bg-stamp-v4.png" style="width:100%;border-radius:10px" alt="">
+  <p class="note">Composition from your reference cover: perforated stamp edge, custom-drawn constructed letterforms: DAILY built as squared monoline forms under one continuous top bar, ડ્રાફ્ટ redrawn in the same stroke system without forcing a Devanagari-style headline through the Gujarati, tilted lime tag overlapping the lettering base, thin curved track cupping the cluster - the rest left empty on purpose. The reference is a tall poster; the widget is wide, so the negative space spreads sideways instead of above and below.</p>
+</div>
+
+</body>
+</html>
