@@ -1,7 +1,7 @@
 /* The Daily Draft - dark edition (preview). Pitch black ground, high-contrast vermilion, liquid gradient motion. */
 :root{
   --black:#000000; --surface:#0c0c0c; --surface2:#111110;
-  --ink:#f7f1e8; --muted:#9a9084; --faint:#6b635a;
+  --ink:#f7f1e8; --muted:#b6aa98; --faint:#8f8471;
   --verm:#e8480c; --orange:#ed5d17; --amber:#f9a03f; --gold:#f2c200; --dusk:#2b4be0;
   --hair:rgba(232,72,12,.28);
   --serif:'Playfair Display',Georgia,serif; --sans:'Inter',-apple-system,sans-serif; --mono:'Anton',Impact,sans-serif;
@@ -16,18 +16,18 @@ img{max-width:100%;display:block}
 /* ---------- liquid sky ---------- */
 .sky{position:fixed;inset:0;z-index:0;overflow:hidden;background:#000}
 .blob{position:absolute;border-radius:50%;will-change:transform;pointer-events:none}
-.b1{width:150vmax;height:150vmax;left:-55vmax;top:-95vmax;
+.b1{width:96vmax;height:96vmax;left:-38vmax;top:-50vmax;
   background:radial-gradient(circle at 50% 50%, rgba(237,93,23,.62) 0%, rgba(232,72,12,.34) 22%, rgba(160,40,6,.12) 45%, rgba(0,0,0,0) 68%);
-  animation:drift1 47s ease-in-out infinite alternate}
-.b2{width:110vmax;height:110vmax;right:-60vmax;top:-35vmax;
+  animation:drift1 47s ease-in-out infinite alternate,morphA 23s ease-in-out infinite}
+.b2{width:72vmax;height:72vmax;right:-28vmax;top:-26vmax;
   background:radial-gradient(circle at 50% 50%, rgba(249,160,63,.38) 0%, rgba(237,93,23,.20) 30%, rgba(0,0,0,0) 62%);
-  animation:drift2 61s ease-in-out infinite alternate}
-.b3{width:90vmax;height:90vmax;left:-30vmax;bottom:-55vmax;
+  animation:drift2 61s ease-in-out infinite alternate,morphB 29s ease-in-out infinite}
+.b3{width:64vmax;height:64vmax;left:-24vmax;bottom:-32vmax;
   background:radial-gradient(circle at 50% 50%, rgba(43,75,224,.30) 0%, rgba(20,32,110,.14) 35%, rgba(0,0,0,0) 62%);
-  animation:drift3 73s ease-in-out infinite alternate}
-.b4{width:60vmax;height:60vmax;right:-15vmax;bottom:-30vmax;
+  animation:drift3 73s ease-in-out infinite alternate,morphA 31s ease-in-out infinite reverse}
+.b4{width:46vmax;height:46vmax;right:-14vmax;bottom:-18vmax;
   background:radial-gradient(circle at 50% 50%, rgba(242,200,0,.16) 0%, rgba(232,72,12,.08) 40%, rgba(0,0,0,0) 64%);
-  animation:drift4 53s ease-in-out infinite alternate}
+  animation:drift4 53s ease-in-out infinite alternate,morphB 19s ease-in-out infinite reverse}
 .sheen{position:absolute;inset:-60vmax;will-change:transform;pointer-events:none;
   background:conic-gradient(from 0deg at 50% 50%, rgba(0,0,0,0) 0deg, rgba(237,93,23,.05) 60deg, rgba(0,0,0,0) 130deg, rgba(43,75,224,.045) 210deg, rgba(0,0,0,0) 300deg);
   animation:sheenrot 190s linear infinite}
@@ -35,7 +35,10 @@ img{max-width:100%;display:block}
 @keyframes drift2{0%{transform:translate3d(0,0,0) scale(1)}30%{transform:translate3d(-10vmax,7vmax,0) scale(1.1)}60%{transform:translate3d(-4vmax,-5vmax,0) scale(.94)}100%{transform:translate3d(-12vmax,3vmax,0) scale(1.05)}}
 @keyframes drift3{0%{transform:translate3d(0,0,0) scale(1)}35%{transform:translate3d(12vmax,-8vmax,0) scale(1.12)}70%{transform:translate3d(5vmax,-3vmax,0) scale(.95)}100%{transform:translate3d(9vmax,-11vmax,0) scale(1.06)}}
 @keyframes drift4{0%{transform:translate3d(0,0,0) scale(1)}40%{transform:translate3d(-8vmax,-9vmax,0) scale(1.15)}100%{transform:translate3d(4vmax,-12vmax,0) scale(.97)}}
+@keyframes morphA{0%,100%{border-radius:42% 58% 61% 39%/45% 43% 57% 55%}33%{border-radius:58% 42% 40% 60%/52% 62% 38% 48%}66%{border-radius:38% 62% 55% 45%/60% 38% 62% 40%}}
+@keyframes morphB{0%,100%{border-radius:55% 45% 40% 60%/48% 58% 42% 52%}50%{border-radius:40% 60% 62% 38%/62% 40% 60% 42%}}
 @keyframes sheenrot{to{transform:rotate(360deg)}}
+.vignette{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(125% 95% at 50% 42%, rgba(0,0,0,0) 44%, rgba(0,0,0,.66) 100%)}
 .grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.5;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
 @media (prefers-reduced-motion:reduce){.blob,.sheen{animation:none}}
@@ -56,9 +59,9 @@ img{max-width:100%;display:block}
 .menu{position:fixed;inset:0;z-index:50;background:#000;visibility:hidden;opacity:0;transition:opacity .5s ease,visibility 0s .5s;overflow:hidden}
 .menu.on{visibility:visible;opacity:1;transition:opacity .5s ease}
 .menu .mblob{position:absolute;border-radius:50%;will-change:transform}
-.m1{width:120vmax;height:120vmax;left:-45vmax;top:-60vmax;background:radial-gradient(circle,rgba(237,93,23,.55) 0%,rgba(232,72,12,.25) 30%,rgba(0,0,0,0) 65%);animation:drift2 41s ease-in-out infinite alternate}
-.m2{width:95vmax;height:95vmax;right:-50vmax;bottom:-50vmax;background:radial-gradient(circle,rgba(43,75,224,.34) 0%,rgba(0,0,0,0) 60%);animation:drift1 57s ease-in-out infinite alternate}
-.m3{width:70vmax;height:70vmax;right:-10vmax;top:-25vmax;background:radial-gradient(circle,rgba(249,160,63,.30) 0%,rgba(0,0,0,0) 62%);animation:drift3 49s ease-in-out infinite alternate}
+.m1{width:84vmax;height:84vmax;left:-32vmax;top:-42vmax;background:radial-gradient(circle,rgba(237,93,23,.55) 0%,rgba(232,72,12,.25) 30%,rgba(0,0,0,0) 65%);animation:drift2 41s ease-in-out infinite alternate}
+.m2{width:64vmax;height:64vmax;right:-26vmax;bottom:-28vmax;background:radial-gradient(circle,rgba(43,75,224,.34) 0%,rgba(0,0,0,0) 60%);animation:drift1 57s ease-in-out infinite alternate}
+.m3{width:50vmax;height:50vmax;right:-8vmax;top:-20vmax;background:radial-gradient(circle,rgba(249,160,63,.30) 0%,rgba(0,0,0,0) 62%);animation:drift3 49s ease-in-out infinite alternate}
 .menu-inner{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:center;padding:0 7vw}
 .menu-item{display:block;font-family:var(--mono);font-size:clamp(52px,11vw,128px);line-height:1.04;letter-spacing:.01em;color:var(--ink);text-transform:uppercase;opacity:0;transform:translateY(40px);transition:opacity .6s ease,transform .6s cubic-bezier(.22,.9,.3,1),color .3s}
 .menu.on .menu-item{opacity:1;transform:translateY(0)}
@@ -74,7 +77,7 @@ img{max-width:100%;display:block}
 .kicker b{color:var(--orange);font-weight:400}
 .masthead{font-family:var(--serif);font-weight:800;font-size:clamp(58px,11.5vw,164px);line-height:.98;letter-spacing:-.015em}
 .masthead .dot{color:var(--orange)}
-.standfirst{max-width:520px;margin-top:34px;font-size:15px;line-height:1.75;color:var(--muted)}
+.standfirst{max-width:520px;margin-top:34px;font-size:15.5px;line-height:1.75;color:#d3c9ba}
 .orbrow{margin-top:56px;display:flex;align-items:center;gap:28px;flex-wrap:wrap}
 .orb{position:relative;width:150px;height:150px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:0 0 auto;
   background:radial-gradient(circle at 42% 38%, rgba(249,160,63,.85) 0%, rgba(237,93,23,.55) 34%, rgba(232,72,12,.22) 60%, rgba(232,72,12,0) 78%);
@@ -96,7 +99,7 @@ img{max-width:100%;display:block}
 .headline{font-family:var(--serif);font-weight:700;font-size:clamp(28px,4.4vw,50px);line-height:1.12;letter-spacing:-.01em}
 .headline a{transition:color .3s}
 .headline a:hover{color:var(--orange)}
-.deck{margin-top:16px;font-size:15.5px;line-height:1.75;color:var(--muted);max-width:600px}
+.deck{margin-top:16px;font-size:15.5px;line-height:1.75;color:#cfc6b7;max-width:600px}
 .readline{display:inline-flex;align-items:center;gap:12px;margin-top:24px;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink)}
 .readline .arr{color:var(--orange);transition:transform .3s}
 .story:hover .arr{transform:translateX(6px)}
@@ -110,7 +113,7 @@ img{max-width:100%;display:block}
 .arow{display:grid;grid-template-columns:26px 74px 108px 1fr;align-items:baseline;gap:18px;padding:26px 0}
 .adot{width:7px;height:7px;border-radius:50%;background:var(--orange);box-shadow:0 0 14px 3px rgba(237,93,23,.65);align-self:center}
 .anum{font-family:var(--serif);font-style:italic;font-size:19px;color:var(--muted)}
-.adate{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--faint)}
+.adate{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:#b3a184}
 .atitles{font-size:14px;color:var(--ink);font-weight:300;line-height:1.6}
 .atitles span{color:var(--faint)}
 .arow:hover .adate{color:var(--orange)}
@@ -120,7 +123,7 @@ img{max-width:100%;display:block}
 .reader{max-width:760px;margin:0 auto;padding:0 24px 12vh;position:relative;z-index:2}
 .r-hero{padding:12vh 0 7vh}
 .r-headline{font-family:var(--serif);font-weight:800;font-size:clamp(36px,6.4vw,64px);line-height:1.08;letter-spacing:-.01em;margin-top:18px}
-.r-deck{margin-top:22px;font-size:17px;line-height:1.75;color:var(--muted)}
+.r-deck{margin-top:22px;font-size:17px;line-height:1.75;color:#d3c9ba}
 .r-plate{margin:7vh 0}
 .r-body p{font-size:17.5px;line-height:1.85;color:#e9e2d6;margin-bottom:1.6em;font-weight:300}
 .r-points{list-style:none;margin:5vh 0}
@@ -141,7 +144,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--hair);margin-top:8
 .fcol h4{font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--faint);margin-bottom:14px;font-weight:400}
 .fcol p,.fcol a{font-size:13.5px;line-height:2;color:var(--muted)}
 .fcol a:hover{color:var(--orange)}
-.legal{max-width:1120px;margin:0 auto;padding:0 24px 40px;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:#4c463f;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.legal{max-width:1120px;margin:0 auto;padding:0 24px 40px;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:#7a7060;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 @media(min-width:760px){.foot{grid-template-columns:repeat(3,1fr)}}
 
 /* reveal on scroll (transform+opacity only) */
