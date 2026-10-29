@@ -107,14 +107,14 @@ img{max-width:100%;display:block}
 .plate img{width:100%}
 
 /* ---------- archive ---------- */
-.arow{display:grid;grid-template-columns:26px 74px 1fr auto;align-items:baseline;gap:18px;padding:26px 0}
+.arow{display:grid;grid-template-columns:26px 74px 108px 1fr;align-items:baseline;gap:18px;padding:26px 0}
 .adot{width:7px;height:7px;border-radius:50%;background:var(--orange);box-shadow:0 0 14px 3px rgba(237,93,23,.65);align-self:center}
 .anum{font-family:var(--serif);font-style:italic;font-size:19px;color:var(--muted)}
 .adate{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--faint)}
 .atitles{font-size:14px;color:var(--ink);font-weight:300;line-height:1.6}
 .atitles span{color:var(--faint)}
 .arow:hover .adate{color:var(--orange)}
-@media(max-width:560px){.arow{grid-template-columns:20px 56px 1fr}.atitles{grid-column:3}}
+@media(max-width:560px){.arow{grid-template-columns:16px 46px 1fr}.adate{display:none}.atitles{grid-column:3}}
 
 /* ---------- reading view ---------- */
 .reader{max-width:760px;margin:0 auto;padding:0 24px 12vh;position:relative;z-index:2}
