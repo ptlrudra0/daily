@@ -20,13 +20,18 @@ Live at **https://ptlrudra0.github.io/daily/**
 
 The widget shows today's first UNREAD story on the home screen. Tapping it
 runs the script inside Scriptable, which opens the story as a paper-styled
-reader with a working **Mark as read** tick. Ticking saves the read state
-on-device (a JSON file in Scriptable's documents), turns to the next
-unread story, and updates the home-screen widget when you leave.
+reader: the plate with its caption, the key points, the interactive
+**Try it on this story** lab (explain simply / show an example / quiz me /
+ask your own question), dots to jump between stories, and a working
+**Mark as read** tick. Ticking saves the read state on-device (a JSON file
+in Scriptable's documents), turns to the next unread story, and updates
+the home-screen widget when you leave.
 
 1. Install the free **Scriptable** app from the App Store.
 2. Open Scriptable, tap **+**, paste in the whole contents of `widget.js`,
-   name it "The Daily Draft".
+   name it "The Daily Draft". If you installed an earlier version, replace
+   the whole script with the current `widget.js` - installs do not update
+   themselves.
 3. Long-press the home screen → **+** → **Scriptable** → choose the **Medium**
    widget → long-press the placed widget → **Edit Widget** → set Script to
    "The Daily Draft" and **When Interacting** to **Run Script**.
