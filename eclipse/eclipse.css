@@ -49,7 +49,7 @@ img{max-width:100%;display:block}
 .top{display:flex;align-items:center;justify-content:space-between;padding:26px 0}
 .wordmark{font-family:var(--sans);font-weight:500;font-size:13px;letter-spacing:.22em;text-transform:uppercase;text-shadow:0 1px 10px rgba(0,0,0,.75)}
 .wordmark em{color:var(--orange);font-style:normal}
-.burger{width:44px;height:44px;background:none;border:0;cursor:pointer;position:fixed;top:22px;right:24px;z-index:70}
+.burger{width:44px;height:44px;background:rgba(0,0,0,.66);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(247,241,232,.12);border-radius:12px;cursor:pointer;position:fixed;top:22px;right:24px;z-index:70}
 .burger span{display:block;width:26px;height:1.5px;background:var(--ink);margin:7px auto;transition:transform .35s ease,opacity .3s}
 .burger.open span:nth-child(1){transform:translateY(8.5px) rotate(45deg)}
 .burger.open span:nth-child(2){opacity:0}
