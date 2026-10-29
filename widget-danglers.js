@@ -256,6 +256,8 @@ function pageCSS() {
   .art img{position:relative;display:block;width:100%;height:auto;border-radius:4px;box-shadow:0 14px 28px rgba(0,0,0,.35)}
   .art .platform{display:block;width:64%;height:16px;margin:-8px auto 0;background:radial-gradient(ellipse at center,rgba(0,0,0,.45) 0%,rgba(0,0,0,0) 70%);position:relative}
   .art figcaption{position:relative;display:flex;justify-content:space-between;gap:8px;font-family:"Inter",sans-serif;font-weight:500;font-size:9px;letter-spacing:1.6px;text-transform:uppercase;color:var(--txt);opacity:.85;padding-top:10px;margin-top:6px;text-align:left}
+  .dangler.lighttext .art figcaption,.dangler.lighttext .source,.dangler.lighttext .folio{opacity:1}
+  .dangler.lighttext .sec,.dangler.lighttext .why span{opacity:.92}
   .art figcaption .no{white-space:nowrap}
   h1{position:relative;font-family:"Anton",sans-serif;font-weight:400;font-size:29px;line-height:1.12;letter-spacing:.4px;text-transform:uppercase;margin:16px 20px 10px;color:var(--txt)}
   .deck{position:relative;font-style:italic;font-size:16.5px;line-height:1.5;opacity:.92;margin:0 20px 16px;color:var(--txt)}
