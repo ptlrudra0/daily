@@ -244,7 +244,7 @@ function itemHTML(it, plateNo){
     <div><span class="chip ${kc}">${it.kind}</span><span class="rt">${it.reading_time||"1 min read"}</span></div>
     <h2 class="headline">${titleCase(it.headline)}</h2>
     <p class="deck">${it.deck}</p>
-    ${it.image ? `<figure class="art"><img src="${it.image}" alt="${it.image_alt||it.headline}" loading="lazy"><figcaption><span>Illustration &middot; The Daily Draft</span><span class="plate-no">Plate № ${plateNo}</span></figcaption></figure>` : ""}
+    ${it.image ? `<figure class="art"><img src="${it.image}" alt="${it.image_alt||it.headline}" loading="lazy"><figcaption><span>${it.image_caption || 'Illustration &middot; The Daily Draft'}</span><span class="plate-no">Plate № ${plateNo}</span></figcaption></figure>` : ""}
     <div class="sec">The key points</div>
     <ol class="points">${pts.map(function(p){return "<li><p>"+p+"</p></li>"}).join("")}</ol>
     ${it.why ? `<div class="why"><span class="why-label">Why it matters to you</span><p>${it.why}</p></div>` : ""}

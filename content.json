@@ -59,18 +59,19 @@
           "kind": "AI NEWS",
           "headline": "Google's new flagship is a security nerd",
           "deck": "Gemini 4 Carbon retakes the number one benchmark spot with state-of-the-art cyber skills - and almost nobody can use it yet.",
-          "body": "Google announced Gemini 4 Carbon yesterday, its next frontier model, and the headline stat is cybersecurity: 88.2% on SEC-bench Pro for finding vulnerabilities, 54.8% on ExploitGym for exploitation, 71.0% on CWE-bench for patching. It ranks number one on the freshly hardened Artificial Analysis Intelligence Index v5.0 with a score of 59, with gains across coding and agentic tasks. The catch, per Reuters: access is limited at launch, so for now it's a benchmark king you mostly can't hire. Two frontier launches in two days, bro. The pace is the story.",
+          "body": "Google announced Gemini 4 Carbon yesterday, its next frontier model, and the headline stat is cybersecurity: 88.2% on SEC-bench Pro for finding vulnerabilities, 71.0% on CWE-bench for patching, 54.8% on ExploitGym for exploitation. It ranks number one on the freshly hardened Artificial Analysis Intelligence Index v5.0 with a score of 59, with gains across coding and agentic tasks. The catch, per Reuters: access is limited at launch, so for now it's a benchmark king you mostly can't hire. Two frontier launches in two days, bro. The pace is the story.",
           "points": [
             "Gemini 4 Carbon: Google's new frontier model, #1 on the updated Artificial Analysis Intelligence Index (59).",
-            "Cybersecurity is the flex: 88.2% SEC-bench Pro, 54.8% ExploitGym, 71.0% CWE-bench.",
+            "Cybersecurity is the flex: 88.2% SEC-bench Pro, 71.0% CWE-bench, 54.8% ExploitGym.",
             "Limited access at launch - strong on paper, not yet in your tools."
           ],
           "why": "Security skills in frontier models mean your future freelancing toolkit will include automated code review and vuln-hunting. Worth tracking even before you can touch it.",
           "source_name": "Reuters",
           "source_url": "https://money.usnews.com/investing/news/articles/2026-10-28/google-launches-gemini-4-carbon-ai-model-with-cybersecurity-focus",
           "image": "img/2026-10-29-4.jpg",
-          "image_alt": "Cut-paper bar chart of three bars in honest proportion to the benchmark scores 88, 71 and 55",
-          "reading_time": "2 min"
+          "image_alt": "Cut-paper bar chart of three bars in honest proportion to the benchmark scores 88.2, 71.0 and 54.8",
+          "reading_time": "2 min",
+          "image_caption": "Chart, left to right: SEC-bench Pro 88.2% · CWE-bench 71.0% · ExploitGym 54.8% (score in %). Source: Google"
         },
         {
           "id": "2026-10-29-5",
@@ -83,7 +84,8 @@
           "source_url": "https://www.aljazeera.com/economy/2026/10/28/experts-defer-to-ai-in-decision-making-anthropic-study-finds",
           "image": "img/2026-10-29-5.jpg",
           "image_alt": "Cut-paper waffle chart of 100 squares with 86 filled in cobalt and 14 left as outlines",
-          "reading_time": "2 min"
+          "reading_time": "2 min",
+          "image_caption": "Each square = 1% of decisions. Cobalt = the 86% matching the AI assistant's preference (chance = 50%). Source: Anthropic via Al Jazeera"
         },
         {
           "id": "2026-10-29-6",
