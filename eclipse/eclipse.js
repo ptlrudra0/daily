@@ -48,11 +48,13 @@ precision mediump float;
 #endif
 uniform vec2 u_res;uniform float u_time;
 uniform float u_flowAmp,u_flowSpeed,u_rimW,u_haloTau,u_warm;
+uniform float u_frameR,u_frameCX,u_frameCY;
 void main(){
   vec2 p=vec2(gl_FragCoord.x,u_res.y-gl_FragCoord.y);
   float sc=max(u_res.x/1081.0,u_res.y/800.0);
-  vec2 ctr=vec2(-89.3,684.3)*sc;
-  float R=802.0*sc;
+  float mf=clamp((720.0-u_res.x)/360.0,0.0,1.0);
+  vec2 ctr=mix(vec2(-89.3,684.3)*sc,vec2(u_frameCX*u_res.x,u_frameCY*u_res.y),mf);
+  float R=mix(802.0*sc,u_frameR*u_res.x,mf);
   vec2 dp=p-ctr;
   float d=length(dp);
   float th=atan(dp.y,dp.x);
@@ -147,7 +149,7 @@ function drawSky(s,t){
   s.gl.drawArrays(s.gl.TRIANGLES,0,3);
 }
 function skyInit(){
-  var sB=mkSkyScene('bgB',SKY_FRAG_B,{u_flowAmp:1,u_flowSpeed:1,u_rimW:26,u_haloTau:420,u_warm:0.98});
+  var sB=mkSkyScene('bgB',SKY_FRAG_B,{u_flowAmp:1,u_flowSpeed:1,u_rimW:26,u_haloTau:420,u_warm:0.98,u_frameR:0.9,u_frameCX:0.24,u_frameCY:0.61});
   var sA=mkSkyScene('bgA',SKY_FRAG_A,{u_flowAmp:1,u_flowSpeed:1,u_verm:1,u_pale:1});
   if(!sB&&!sA){document.body.classList.add('no-webgl');return;}
   var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
