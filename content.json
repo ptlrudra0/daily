@@ -71,7 +71,7 @@
           "image": "img/2026-10-29-4.jpg",
           "image_alt": "Cut-paper bar chart of three bars in honest proportion to the benchmark scores 88.2, 71.0 and 54.8",
           "reading_time": "2 min",
-          "image_caption": "Chart, left to right: SEC-bench Pro 88.2% · CWE-bench 71.0% · ExploitGym 54.8% (score in %). Source: Google"
+          "image_caption": "Left to right: SEC-bench Pro 88.2% · CWE-bench 71.0% · ExploitGym 54.8%"
         },
         {
           "id": "2026-10-29-5",
@@ -85,7 +85,7 @@
           "image": "img/2026-10-29-5.jpg",
           "image_alt": "Cut-paper waffle chart of 100 squares with 86 filled in cobalt and 14 left as outlines",
           "reading_time": "2 min",
-          "image_caption": "Each square = 1% of decisions. Cobalt = the 86% matching the AI assistant's preference (chance = 50%). Source: Anthropic via Al Jazeera"
+          "image_caption": "1 square = 1% of decisions · Cobalt: 86% matched the AI's preference (chance 50%)"
         },
         {
           "id": "2026-10-29-6",
