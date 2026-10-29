@@ -75,11 +75,11 @@ img{max-width:100%;display:block}
 
 /* ---------- hero ---------- */
 .hero{min-height:82vh;display:flex;flex-direction:column;justify-content:center;padding:8vh 0 10vh}
-.kicker{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#d8cbb4;margin-bottom:26px;text-shadow:0 1px 10px rgba(0,0,0,.75)}
+.kicker{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#e6dac6;margin-bottom:26px;text-shadow:0 1px 12px rgba(0,0,0,.85),0 0 4px rgba(0,0,0,.55)}
 .kicker b{color:var(--orange);font-weight:400}
 .masthead{font-family:var(--serif);font-weight:800;font-size:clamp(58px,11.5vw,164px);line-height:.98;letter-spacing:-.015em}
 .masthead .dot{color:var(--orange)}
-.standfirst{max-width:520px;margin-top:34px;font-size:15.5px;line-height:1.75;color:#d3c9ba;text-shadow:0 1px 10px rgba(0,0,0,.7)}
+.standfirst{max-width:520px;margin-top:34px;font-size:15.5px;line-height:1.75;color:#e8dfd0;text-shadow:0 1px 16px rgba(0,0,0,.9),0 0 5px rgba(0,0,0,.6)}
 .orbrow{margin-top:56px;display:flex;align-items:center;gap:28px;flex-wrap:wrap}
 .orb{position:relative;width:150px;height:150px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:0 0 auto;
   background:radial-gradient(circle at 42% 38%, rgba(249,160,63,.85) 0%, rgba(237,93,23,.55) 34%, rgba(232,72,12,.22) 60%, rgba(232,72,12,0) 78%);
@@ -98,10 +98,10 @@ img{max-width:100%;display:block}
 .story{display:grid;grid-template-columns:1fr;gap:18px;padding:44px 0}
 .story + .story{margin-top:8px}
 .kind{font-size:10.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--orange);margin-bottom:14px}
-.headline{font-family:var(--serif);font-weight:700;font-size:clamp(28px,4.4vw,50px);line-height:1.12;letter-spacing:-.01em}
+.headline{font-family:var(--serif);font-weight:700;font-size:clamp(28px,4.4vw,50px);line-height:1.12;letter-spacing:-.01em;text-shadow:0 1px 16px rgba(0,0,0,.7)}
 .headline a{transition:color .3s}
 .headline a:hover{color:var(--orange)}
-.deck{margin-top:16px;font-size:15.5px;line-height:1.75;color:#cfc6b7;max-width:600px}
+.deck{margin-top:16px;font-size:15.5px;line-height:1.75;color:#ddd4c5;max-width:600px;text-shadow:0 1px 12px rgba(0,0,0,.6)}
 .readline{display:inline-flex;align-items:center;gap:12px;margin-top:24px;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink)}
 .readline .arr{color:var(--orange);transition:transform .3s}
 .story:hover .arr{transform:translateX(6px)}
@@ -124,10 +124,10 @@ img{max-width:100%;display:block}
 /* ---------- reading view ---------- */
 .reader{max-width:760px;margin:0 auto;padding:0 24px 12vh;position:relative;z-index:2}
 .r-hero{padding:12vh 0 7vh}
-.r-headline{font-family:var(--serif);font-weight:800;font-size:clamp(36px,6.4vw,64px);line-height:1.08;letter-spacing:-.01em;margin-top:18px}
-.r-deck{margin-top:22px;font-size:17px;line-height:1.75;color:#d3c9ba}
+.r-headline{font-family:var(--serif);font-weight:800;font-size:clamp(36px,6.4vw,64px);line-height:1.08;letter-spacing:-.01em;margin-top:18px;text-shadow:0 1px 18px rgba(0,0,0,.75)}
+.r-deck{margin-top:22px;font-size:17px;line-height:1.75;color:#e4dac9;text-shadow:0 1px 14px rgba(0,0,0,.8),0 0 4px rgba(0,0,0,.5)}
 .r-plate{margin:7vh 0}
-.r-body p{font-size:17.5px;line-height:1.85;color:#e9e2d6;margin-bottom:1.6em;font-weight:300}
+.r-body p{font-size:17.5px;line-height:1.85;color:#ece5d8;margin-bottom:1.6em;font-weight:300;text-shadow:0 1px 10px rgba(0,0,0,.5)}
 .r-points{list-style:none;margin:5vh 0}
 .r-points li{position:relative;padding:14px 0 14px 34px;font-size:16px;line-height:1.7;color:var(--ink)}
 .r-points li::before{content:"";position:absolute;left:2px;top:24px;width:7px;height:7px;border-radius:50%;background:var(--orange);box-shadow:0 0 12px 2px rgba(237,93,23,.6)}
@@ -149,6 +149,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--hair);margin-top:8
 .legal{max-width:1120px;margin:0 auto;padding:0 24px 40px;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:#7a7060;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 @media(min-width:760px){.foot{grid-template-columns:repeat(3,1fr)}}
 
+@media(prefers-reduced-motion:reduce){.rv{transition:none;transform:none}html{scroll-behavior:auto}}
 /* reveal on scroll (transform+opacity only) */
 .rv{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s cubic-bezier(.22,.9,.3,1)}
 .rv.in{opacity:1;transform:none}
