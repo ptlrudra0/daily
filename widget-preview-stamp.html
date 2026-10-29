@@ -9,35 +9,34 @@
   .label{font:600 10px -apple-system;letter-spacing:.22em;color:#C6D936;text-transform:uppercase;align-self:flex-start;margin-bottom:8px}
   .section{display:flex;flex-direction:column;width:329px;max-width:100%}
   .note{font:400 11px/1.65 -apple-system;color:#F5EFE3aa;margin-top:10px}
-  /* the real medium-widget size: 329x155pt. The image below is the ACTUAL
-     background asset the script loads; the text over it is what iOS draws
-     in system font - this is the widget, not a stylised mock. */
+  /* medium-widget size 329x155pt. The image is the ACTUAL background asset the
+     script loads; the text over it is a browser approximation of what iOS draws
+     in system font on top. */
   .widget{position:relative;width:329px;height:155px;border-radius:22px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.4)}
   .widget img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  .w-text{position:absolute;left:24px;right:24px;top:88px;bottom:10px;display:flex;flex-direction:column;justify-content:flex-end}
-  .w-head{font:600 15px/1.25 -apple-system;color:#F5EFE3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .w-foot{display:flex;justify-content:space-between;font:400 9px -apple-system;color:#F5EFE3;margin-top:5px}
-  .w-foot b{font-weight:700;color:#C6D936}
+  .w-text{position:absolute;left:20px;right:20px;top:119px;bottom:8px;text-align:center}
+  .w-head{font:600 12px -apple-system;color:#F5EFE3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .w-foot{font:400 9px -apple-system;color:#F5EFE3;margin-top:3px}
 </style>
 </head>
 <body>
 
 <div class="section">
-  <div class="label">Home Screen widget - medium, actual size</div>
+  <div class="label">Home Screen widget - medium, actual size (browser approximation)</div>
   <div class="widget">
     <img class="bg" src="img/widget-bg-stamp.png" alt="">
     <div class="w-text">
       <div class="w-head">Long prompts rot</div>
-      <div class="w-foot"><span>Thursday, 29 October &nbsp;&middot;&nbsp; &#8470; 12</span><b>Read &amp; tick &rarr;</b></div>
+      <div class="w-foot">Thursday, 29 October &nbsp;&middot;&nbsp; &#8470; 12</div>
     </div>
   </div>
-  <p class="note">This is the widget at its real size. The artwork (stamp border, DAILY ડ્રાફ્ટ lockup, સવાર EXPRESS tag, track) is a fixed image the script loads as the background, so the Gujarati lettering is pixel-exact - Scriptable cannot load custom fonts, so this is how the lettering stays faithful. The story headline and footer are drawn by iOS in the system font and change with each edition.</p>
+  <p class="note">Browser approximation of the widget at its real size. The artwork (stamp border, DAILY ડ્રાફ્ટ lockup, સવાર EXPRESS tag, railway track) is a fixed image the script loads as the background, so the Gujarati lettering stays exactly as drawn - Scriptable cannot load custom fonts. The story headline and date are an adaptation: iOS draws them in the system font in the empty strip under the track, changing with each edition. Sample text shown is from issue &#8470; 12.</p>
 </div>
 
 <div class="section">
   <div class="label">The background artwork alone</div>
   <img src="img/widget-bg-stamp.png" style="width:100%;border-radius:10px" alt="">
-  <p class="note">Composition from your reference cover: perforated stamp edge, fused condensed lockup, tilted lime tag on a notch, curved track - the rest is left empty on purpose.</p>
+  <p class="note">Composition from your reference cover: perforated stamp edge, fused condensed Latin+Gujarati lockup, tilted lime tag overlapping the lettering base, thin curved track cupping the cluster - the rest left empty on purpose. The reference is a tall poster; the widget is wide, so the negative space spreads sideways instead of above and below.</p>
 </div>
 
 </body>

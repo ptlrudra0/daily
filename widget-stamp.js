@@ -2,7 +2,7 @@
 // Home-screen face = raster artwork (img/widget-bg-stamp.png) adapted from
 // Rudy's exact Behance cover reference: stamp border, fused Latin+Gujarati
 // lockup, lime Express tag, railway-track arc, generous negative space.
-// Reader below is the approved live reader, unchanged.
+// Reader below is the existing live reader, unchanged.
 // Install: copy this whole file into a new script in the Scriptable app,
 // name it "The Daily Draft", then long-press home screen > + > Scriptable >
 // Medium > long-press the placed widget > Edit Widget > pick this script,
@@ -53,62 +53,47 @@ function markRead(issue, id) {
 }
 
 // ---------- home-screen widget ----------
+// The artwork (img/widget-bg-stamp.png) carries all branding: scalloped stamp
+// border, fused DAILY + Gujarati lockup, lime tag, railway-track arc, negative
+// space. Scriptable cannot load custom fonts, so that lettering lives in the
+// raster. Dynamic text is an adaptation: one subordinate line of story text
+// plus the date, in the system font, in the empty strip under the track.
 async function buildWidget(issue, state) {
   const w = new ListWidget();
   const INDIGO = new Color("#2A2886"), LIME = new Color("#C6D936"), CREAM = new Color("#F5EFE3");
-  // the artwork IS the widget: stamp border + fused DAILY ડ્રાફ્ટ lockup + tag + track
   try {
-    w.backgroundImage = await new Request(PAGE + "img/widget-bg-stamp.png?t=" + Date.now()).loadImage();
+    w.backgroundImage = await new Request(PAGE + "img/widget-bg-stamp.png?v=3").loadImage();
   } catch (e0) {
     w.backgroundColor = INDIGO;
   }
-  w.setPadding(88, 24, 10, 24);
+  w.setPadding(119, 20, 8, 20);
   w.refreshAfterDate = new Date(Date.now() + 5 * 60 * 1000);
 
   const d = new Date(issue.date + "T12:00:00");
   const dayStr = d.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
   const lead = firstUnread(issue, state);
 
-  w.addSpacer();
-
   if (!lead) {
     const stamp = w.addText("ALL READ");
-    stamp.font = Font.boldSystemFont(15);
+    stamp.font = Font.boldSystemFont(12);
     stamp.textColor = LIME;
-    w.addSpacer(4);
-    const foot = w.addStack();
-    foot.layoutHorizontally();
-    const dt = foot.addText(dayStr + "  ·  № " + issue.number);
-    dt.font = Font.systemFont(9);
-    dt.textColor = CREAM;
-    foot.addSpacer();
-    const open = foot.addText("Archive →");
-    open.font = Font.boldSystemFont(9);
-    open.textColor = LIME;
-    w.url = PAGE;
-    return w;
+    stamp.centerAlignText();
+  } else {
+    const head = w.addText(lead.headline);
+    head.font = Font.semiboldSystemFont(12);
+    head.textColor = CREAM;
+    head.centerAlignText();
+    head.lineLimit = 1;
+    head.minimumScaleFactor = 0.8;
   }
 
-  // headline only - the artwork carries the branding; keep the negative space
-  const head = w.addText(lead.headline);
-  head.font = Font.semiboldSystemFont(15);
-  head.textColor = CREAM;
-  head.lineLimit = 2;
-  head.minimumScaleFactor = 0.85;
+  w.addSpacer(3);
 
-  w.addSpacer(5);
-
-  // footer row
-  const foot = w.addStack();
-  foot.layoutHorizontally();
-  foot.centerAlignContent();
-  const dt = foot.addText(dayStr + "  ·  № " + issue.number);
+  const dt = w.addText(dayStr + "  \u00b7  \u2116 " + issue.number);
   dt.font = Font.systemFont(9);
   dt.textColor = CREAM;
-  foot.addSpacer();
-  const open = foot.addText("Read & tick →");
-  open.font = Font.boldSystemFont(9);
-  open.textColor = LIME;
+  dt.centerAlignText();
+  w.url = PAGE;
   return w;
 }
 
