@@ -78,10 +78,11 @@ body{
 .art figcaption{display:flex;justify-content:space-between;font-family:"Inter",sans-serif;font-weight:500;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-soft);padding-top:8px}
 .art figcaption .plate-no{color:var(--red)}
 .sec{font-family:"Inter",sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft);margin:34px 0 4px}
-.points{list-style:none;counter-reset:p}
-.points li{counter-increment:p;display:grid;grid-template-columns:44px 1fr;gap:6px;padding:16px 0 6px}
-.points li::before{content:counter(p);font-variant-numeric:lining-nums;font-family:"Fraunces",serif;font-weight:500;font-size:2rem;line-height:1;color:var(--red)}
-.points li p{font-size:1.04rem;line-height:1.6;color:#1f1f1c}
+.sbody{font-size:1.05rem;line-height:1.66;color:#1f1f1c;margin:22px 0 2px}
+.points{list-style:none}
+.points li{position:relative;padding:11px 0 5px 22px}
+.points li::before{content:"";position:absolute;left:2px;top:1.5em;width:7px;height:7px;background:var(--red)}
+.points li p{font-size:1.02rem;line-height:1.6;color:#1f1f1c}
 .why{margin-top:30px;padding:4px 0 4px 18px;border-left:3px solid var(--cobalt)}
 .why .why-label{display:block;font-family:"Inter",sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--cobalt);margin-bottom:6px}
 .why p{font-size:1rem;line-height:1.6}
@@ -239,14 +240,15 @@ function chunks(body){
 function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function itemHTML(it, plateNo){
   var kc = KIND_CLASS[it.kind]||"news";
-  var pts = (it.points&&it.points.length)?it.points:chunks(it.body||"");
+  var pts = (it.points&&it.points.length)?it.points:null;
   return `
     <div><span class="chip ${kc}">${it.kind}</span><span class="rt">${it.reading_time||"1 min read"}</span></div>
     <h2 class="headline">${titleCase(it.headline)}</h2>
     <p class="deck">${it.deck}</p>
     ${it.image ? `<figure class="art"><img src="${it.image}" alt="${it.image_alt||it.headline}" loading="lazy"><figcaption><span>${it.image_caption || 'Illustration &middot; The Daily Draft'}</span><span class="plate-no">Plate № ${plateNo}</span></figcaption></figure>` : ""}
-    <div class="sec">The key points</div>
-    <ol class="points">${pts.map(function(p){return "<li><p>"+p+"</p></li>"}).join("")}</ol>
+    <p class="sbody">${it.body||""}</p>
+    ${pts ? `<div class="sec">The key points</div>
+    <ol class="points">${pts.map(function(p){return "<li><p>"+esc(p)+"</p></li>"}).join("")}</ol>` : ""}
     ${it.why ? `<div class="why"><span class="why-label">Why it matters to you</span><p>${it.why}</p></div>` : ""}
     ${it.source_url ? `<p class="source-line">Source: <a href="${it.source_url}" target="_blank" rel="noopener">${it.source_name||it.source_url}</a> ↗</p>` : ""}
     <section class="lab" aria-label="Try it on this story">

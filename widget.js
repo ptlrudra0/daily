@@ -228,9 +228,9 @@ function pageCSS() {
   .done h1{font-size:30px;margin-bottom:10px}
   .done p{color:#6B6B66;font-style:italic;font-size:15px;line-height:1.6;max-width:320px;margin:0 auto}
     .sec{font-family:"Inter",sans-serif;font-weight:700;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#6B6B66;margin:26px 0 2px}
-  .points{list-style:none;counter-reset:p}
-  .points li{counter-increment:p;display:grid;grid-template-columns:34px 1fr;gap:4px;padding:12px 0 4px}
-  .points li::before{content:counter(p);font-family:"Fraunces",serif;font-weight:500;font-size:26px;line-height:1;color:#E8480C}
+  .points{list-style:none}
+  .points li{position:relative;padding:10px 0 4px 22px}
+  .points li::before{content:"";position:absolute;left:2px;top:1.45em;width:7px;height:7px;background:#E8480C}
   .points li p{font-size:15.5px;line-height:1.6;color:#1f1f1c}
   .dots{display:flex;gap:6px;margin:26px 0 0}
   .dots a{flex:1;padding:12px 0;text-decoration:none}
@@ -331,7 +331,7 @@ function storyHTML(issue, it, idx, state) {
   const hex = KIND_HEX[it.kind] || "#B87A00";
   const d = new Date(issue.date + "T12:00:00");
   const dayStr = d.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
-  const pts = (it.points && it.points.length) ? it.points : chunks(it.body || "");
+  const pts = (it.points && it.points.length) ? it.points : null;
   const readCount = (state && state[issue.date]) ? state[issue.date].length : 0;
   const dots = issue.items.map((x, i) => {
     const cls = ((state && isRead(state, issue.date, x.id)) ? "read " : "") + (i === idx ? "cur" : "");
@@ -350,8 +350,9 @@ function storyHTML(issue, it, idx, state) {
     <p class="deck">${esc(it.deck)}</p>
     ${it.image ? `<figure class="art"><img src="${PAGE + esc(it.image)}" alt="${esc(it.image_alt || it.headline)}"><figcaption><span>${it.image_caption ? esc(it.image_caption) : "Illustration &middot; The Daily Draft"}</span><span class="no">Plate № ${idx + 1}</span></figcaption></figure>` : ""}
     <div class="byline"><b>${esc(KIND_VERB[it.kind] || "News wire")}</b><span>·</span><span>${esc(it.reading_time || "1 min read")}</span></div>
-    <div class="sec">The key points</div>
-    <ol class="points">${pts.map(p => `<li><p>${esc(p)}</p></li>`).join("")}</ol>
+    <p class="body">${esc(it.body || "")}</p>
+    ${pts ? `<div class="sec">The key points</div>
+    <ol class="points">${pts.map(p => `<li><p>${esc(p)}</p></li>`).join("")}</ol>` : ""}
     ${it.why ? `<div class="why"><span>Why it matters</span>${esc(it.why)}</div>` : ""}
     ${it.source_url ? `<p class="source">Filed from <a href="${esc(it.source_url)}">${esc(it.source_name || it.source_url)}</a> ↗</p>` : ""}
     <section class="lab">
