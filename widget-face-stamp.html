@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!-- Source art for the Home Screen widget background. Render at exactly
+     1316x620 (= medium widget 658x310pt @2x) and screenshot to
+     img/widget-bg-stamp.png. The bottom zone stays plain indigo: the
+     ListWidget draws the kind chip, headline and footer there in
+     system font over this artwork. -->
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Shrikhand&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1316px;height:620px;overflow:hidden;background:#2A2886}
+.face{position:relative;width:1316px;height:620px;background:#2A2886}
+/* cream stamp perforation on all four sides */
+.perf-h{position:absolute;left:0;right:0;height:30px;background-image:radial-gradient(circle 12px at 19px 15px, #F5EFE3 12px, transparent 13px);background-size:38px 30px;background-repeat:repeat-x}
+.perf-h.top{top:0}.perf-h.bot{bottom:0}
+.perf-v{position:absolute;top:30px;bottom:30px;width:30px;background-image:radial-gradient(circle 12px at 15px 19px, #F5EFE3 12px, transparent 13px);background-size:30px 38px;background-repeat:repeat-y}
+.perf-v.left{left:0}.perf-v.right{right:0}
+/* fused condensed lockup, mirroring SPEC+Devanagari+06 : Latin + Gujarati */
+.lockup{position:absolute;top:78px;left:0;right:0;text-align:center;color:#F5EFE3;font-family:"Anton",sans-serif;font-size:104px;line-height:1;letter-spacing:1px}
+.lockup .guj{font-family:"Shrikhand",serif;font-size:99px;color:#F5EFE3;padding:0 2px}
+/* lime tilted luggage tag hanging under the lockup centre */
+.tagwrap{position:absolute;top:196px;left:50%;transform:translateX(-50%) rotate(-8deg);text-align:center}
+.tagwrap .tri{width:0;height:0;margin:0 auto;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:14px solid #C6D936}
+.tag{background:#C6D936;color:#23206E;font-family:"Anton",sans-serif;font-size:33px;letter-spacing:4px;padding:10px 26px 7px;box-shadow:0 0 40px 12px rgba(198,217,54,.45),0 0 100px 40px rgba(198,217,54,.2)}
+/* small condensed flanks at tag level, like DESTINATION: / NIFT PATNA */
+.flank{position:absolute;top:240px;font-family:"Anton",sans-serif;font-size:21px;letter-spacing:3px;color:#F5EFE3}
+.flank.l{left:190px}
+.flank.r{right:190px}
+/* curved railway-track motif under the tag */
+.track{position:absolute;top:288px;left:50%;transform:translateX(-50%)}
+</style></head>
+<body>
+<div class="face">
+  <div class="perf-h top"></div><div class="perf-h bot"></div>
+  <div class="perf-v left"></div><div class="perf-v right"></div>
+  <div class="lockup">DAILY<span class="guj">ડ્રાફ્ટ</span></div>
+  <div class="tagwrap"><div class="tri"></div><div class="tag">સવાર EXPRESS</div></div>
+  <div class="flank l">MORNING EDITION</div>
+  <div class="flank r">VOL. I</div>
+  <svg class="track" width="620" height="92" viewBox="0 0 620 92">
+    <path d="M 16 12 Q 310 106 604 12" stroke="#F5EFE3" stroke-width="26" fill="none" stroke-dasharray="5 11"/>
+    <path d="M 16 5 Q 310 99 604 5" stroke="#F5EFE3" stroke-width="3.5" fill="none"/>
+    <path d="M 16 19 Q 310 113 604 19" stroke="#F5EFE3" stroke-width="3.5" fill="none"/>
+  </svg>
+  <!-- y 410..620: plain indigo, reserved for ListWidget text -->
+</div>
+</body></html>
