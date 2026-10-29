@@ -1,0 +1,100 @@
+<!DOCTYPE html><html><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Figtree:ital,wght@0,400..700;1,400..700&family=Inter:wght@400;500;600;700&family=Mukta+Vaani:wght@500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#F5EFE3;color:#2A2886;font-family:"Figtree",-apple-system,"Segoe UI",sans-serif;padding:0 0 48px;-webkit-font-smoothing:antialiased}
+.mast{font-family:"Inter",sans-serif;font-weight:500;font-size:10px;letter-spacing:2.2px;text-transform:uppercase;color:rgba(245,239,227,.75);padding:0 20px;display:flex;justify-content:space-between}
+.mast.top{padding-top:14px}
+.paper{font-family:"Anton",sans-serif;font-weight:400;font-size:30px;letter-spacing:.04em;text-transform:uppercase;text-align:center;color:#F5EFE3;padding:10px 0 12px;margin:8px 0 0}
+.paper em{font-style:normal;color:#C6D936}
+.mast.bot{border-top:1px solid rgba(245,239,227,.28);margin:0 20px;padding:8px 0 14px}
+.head{background:#2A2886;padding-bottom:0}
+.perf{height:14px;background-image:radial-gradient(circle at 9px -2px, #F5EFE3 8px, rgba(0,0,0,0) 8.5px);background-size:22px 14px}
+.dots{display:flex;gap:6px;margin:0;padding:22px 20px 0}
+.dots a{flex:1;padding:12px 0;text-decoration:none}
+.dots a i{display:block;height:4px;border-radius:4px;background:#DCD4C0}
+.dots a.read i{background:#2A2886}
+.dots a.cur i{background:#C6D936}
+.dots a.cur.read i{background:linear-gradient(90deg,#C6D936 50%,#2A2886 50%)}
+.dots-cap{display:flex;justify-content:space-between;font-family:"Inter",sans-serif;font-size:9px;letter-spacing:1.8px;text-transform:uppercase;color:#7A76B8;margin-top:2px;padding:0 20px}
+.story{padding:20px 20px 0}
+.chip{display:inline-flex;align-items:center;gap:8px;font-family:"Inter",sans-serif;font-weight:600;font-size:11px;letter-spacing:2.6px;text-transform:uppercase;color:#2A2886}
+.chip i{width:7px;height:7px;flex:none;background:#C6D936!important}
+.redrule{width:44px;height:3px;background:#C6D936;margin:14px 0}
+h1{font-family:"Anton",sans-serif;font-weight:400;font-size:32px;line-height:1.08;letter-spacing:.01em;text-transform:uppercase;margin:0 0 12px}
+.deck{font-style:italic;font-size:17px;line-height:1.5;color:#55519E;margin-bottom:18px}
+.art{margin:20px 0 22px}
+.art img{display:block;width:100%;height:auto}
+.art figcaption{display:flex;justify-content:space-between;font-family:"Inter",sans-serif;font-weight:500;font-size:9px;letter-spacing:1.8px;text-transform:uppercase;color:#7A76B8;border-top:1px solid #DCD4C0;padding-top:8px;margin-top:10px}
+.byline{display:flex;gap:8px;font-family:"Inter",sans-serif;font-weight:500;font-size:10px;letter-spacing:2.2px;text-transform:uppercase;color:#7A76B8;border-top:1px solid #DCD4C0;border-bottom:1px solid #DCD4C0;padding:8px 0;margin-bottom:18px}
+.byline b{color:#2A2886;font-weight:600}
+.body{font-size:16.5px;line-height:1.66}
+.body::first-letter{font-family:"Anton",sans-serif;font-size:50px;float:left;line-height:.85;padding:4px 9px 0 0;color:#2A2886}
+.sec{font-family:"Inter",sans-serif;font-weight:700;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#7A76B8;margin:26px 0 2px}
+.points{list-style:none}
+.points li{position:relative;padding:10px 0 4px 22px}
+.points li::before{content:"";position:absolute;left:2px;top:1.45em;width:7px;height:7px;background:#C6D936}
+.points li p{font-size:15.5px;line-height:1.6;color:#23204F}
+.why{margin-top:20px;padding:2px 0 2px 14px;border-left:2px solid #C6D936;font-size:15px;line-height:1.6}
+.why span{display:block;font-family:"Inter",sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#2A2886;margin-bottom:5px}
+.source{margin-top:16px;font-family:"Inter",sans-serif;font-size:12px;color:#7A76B8}
+.source a{color:#2A2886;text-decoration-color:#C6D936;text-underline-offset:3px}
+.tickrow{margin-top:30px;border-top:3px solid #2A2886;padding-top:16px;display:flex;justify-content:space-between;align-items:center}
+.tick{display:flex;align-items:center;gap:12px;text-decoration:none;color:#2A2886}
+.tick .box{width:24px;height:24px;border:1.5px solid #2A2886;background:#F5EFE3;display:inline-block}
+.tick .lbl{font-family:"Inter",sans-serif;font-weight:600;font-size:13px;letter-spacing:2.2px;text-transform:uppercase}
+.folio{font-family:"Inter",sans-serif;font-size:12px;letter-spacing:1.5px;color:#7A76B8}
+.paper-link{display:block;text-align:center;margin-top:26px;font-family:"Inter",sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#7A76B8;text-decoration-color:#C6D936}
+.lab{margin-top:30px;padding:18px 16px 16px;border:1.5px solid #2A2886;border-radius:18px;background:#FFFDF4}
+.lab h3{font-family:"Anton",sans-serif;font-weight:400;font-size:21px;letter-spacing:.02em;text-transform:uppercase;margin-bottom:2px}
+.lab .sub{font-size:13.5px;color:#55519E;margin-bottom:12px;line-height:1.5}
+.acts{display:grid;grid-template-columns:1fr;gap:8px}
+.acts button,.askrow button{font:600 14px Figtree,-apple-system,sans-serif;color:#2A2886;padding:13px 10px;border:1.5px solid #2A2886;border-radius:12px;background:#F5EFE3;cursor:pointer;min-height:48px}
+.acts button small{display:block;font-weight:500;font-size:11px;color:#7A76B8;margin-top:2px}
+.askrow{display:flex;gap:8px;margin-top:10px}
+.askrow input{flex:1;min-width:0;font:inherit;font-size:15px;padding:13px 14px;border:1.5px solid #2A2886;border-radius:12px;background:#F5EFE3;color:#2A2886;-webkit-appearance:none}
+.askrow button.go{background:#C6D936;border-color:#C6D936;color:#2A2886}
+.lab button:disabled,.lab input:disabled{opacity:.5}
+.lstat{font-size:13px;color:#55519E;margin-top:12px;min-height:1.2em}
+.lbar{height:5px;border-radius:5px;background:#DCD4C0;margin-top:8px;overflow:hidden}
+.lbar i{display:block;height:100%;width:0;background:#C6D936;transition:width .4s linear}
+.res{margin-top:14px}
+.res .rh{font-family:"Inter",sans-serif;font-size:9.5px;font-weight:700;letter-spacing:2.4px;text-transform:uppercase;color:#2A2886;margin-bottom:4px}
+.res ul{list-style:none}
+.res li{padding:9px 0 9px 20px;position:relative;line-height:1.55;font-size:14.5px}
+.res li::before{content:"";position:absolute;left:2px;top:1.05em;width:8px;height:8px;border-radius:50%;background:#C6D936}
+.res details{padding:10px 0;border-top:1px solid #E4DECC}
+.res summary{cursor:pointer;font-weight:600;list-style:none;padding-right:20px;position:relative;font-size:14.5px}
+.res summary::after{content:"+";position:absolute;right:0;color:#2A2886;font-size:18px;line-height:1}
+.res details p{margin-top:6px;color:#3d3a75;line-height:1.55;font-size:14px}
+.fine{font-size:12px;line-height:1.5;color:#7A76B8;margin-top:12px}
+.fine a{color:#2A2886}
+</style></head><body><div style="background:#17171F;color:#C6D936;font:600 10px Inter,sans-serif;letter-spacing:2.5px;text-transform:uppercase;text-align:center;padding:12px">News reader &middot; browser approximation of the in-app view</div>
+<div class="head">
+<div class="mast top"><span>Morning edition</span><span>Vol. I</span></div>
+<h1 class="paper">The Daily <em>Draft</em></h1>
+<div class="mast bot"><span>Thursday, 29 October 2026</span><span>Issue &#8470; 12</span></div>
+<div class="perf"></div>
+</div>
+<div class="dots"><a class="read cur"><i></i></a><a class="read "><i></i></a><a class=""><i></i></a><a class=""><i></i></a><a class=""><i></i></a><a class=""><i></i></a></div>
+<div class="dots-cap"><span>Story 1 of 6</span><span>2 read</span></div>
+<div class="story">
+<span class="chip"><i></i>AI TIP</span>
+<div class="redrule"></div>
+<h1>Long prompts rot</h1>
+<p class="deck">Stuffing the context window doesn't make the model smarter. It makes it dumber, measurably.</p>
+<figure class="art"><img src="https://ptlrudra0.github.io/daily/img/2026-10-29-1.jpg" alt="Cut-paper illustration"><figcaption><span>Illustration &middot; The Daily Draft</span><span class="no">Plate &#8470; 1</span></figcaption></figure><div class="byline"><b>News wire</b><span>&middot;</span><span>2 min</span></div>
+<p class="body">Chroma ran a proper technical report on what happens as you pile more tokens into a prompt, and the result should be taped to every keyboard: performance doesn't stay flat, it rots. Models handle short, focused context well, but as input grows, their ability to find and use the right detail degrades - even on tasks that look trivially easy. The million-token context window is storage, not attention. So the pro move isn't 'give it everything', it's 'give it exactly what this task needs'. Trim the brief. Pull the two relevant pages, not the whole book. If a prompt has grown into a novel, split the job into smaller calls. Bro, context is a budget, and every irrelevant token is spending the model's attention on junk.</p>
+<div class="sec">The key points</div>
+<ol class="points"><li><p>Bigger context isn't free: accuracy degrades as input length grows.</p></li><li><p>Curate what goes in - two relevant pages beat the whole book.</p></li><li><p>A prompt that became a novel should become several small calls.</p></li></ol>
+<div class="why"><span>Why it matters</span>When your agents start misbehaving, the bug is often a bloated prompt, not the model. Lean context is the cheapest accuracy upgrade you own.</div>
+<section class="lab">
+<h3>Try it on this story</h3>
+<p class="sub">Pick one, or ask your own question.</p>
+<div class="acts"><button>Explain simply<small>3 quick points</small></button><button>Show an example<small>2 everyday cases</small></button><button>Quiz me<small>3 tap-to-reveal</small></button></div>
+<div class="askrow"><input type="text" placeholder="Ask about this story..."><button class="go">Ask</button></div>
+</section>
+<div class="tickrow"><a class="tick"><span class="box"></span><span class="lbl">MARK AS READ</span></a><span class="folio">&#8470; <b>1</b> &mdash; of 6</span></div>
+</div>
+</body></html>
