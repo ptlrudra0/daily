@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Reading - The Daily Draft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,400;1,500&family=Inter:wght@300;400;500&family=Anton&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="eclipse.css?v=9a">
+</head>
+<body>
+<script src="eclipse.js?v=9a"></script>
+<script>
+document.body.insertAdjacentHTML('afterbegin', ECLIPSE.skyHTML()+ECLIPSE.topHTML()+ECLIPSE.menuHTML());
+</script>
+
+<main class="reader" id="reader">
+  <p class="deck" style="padding:16vh 0 6vh">Pouring today's edition&hellip;</p>
+</main>
+
+<script>document.body.insertAdjacentHTML('beforeend', ECLIPSE.footHTML());</script>
+<script>
+fetch(ECLIPSE.DATA_URL).then(function(r){return r.json()}).then(function(d){
+  var esc=ECLIPSE.esc, fmt=ECLIPSE.fmtDate;
+  var q=new URLSearchParams(location.search);
+  var want=q.get('date');
+  var issues=d.issues||[];
+  var iss=issues.filter(function(x){return x.date===want})[0]||issues[0];
+  if(!iss){document.getElementById('reader').innerHTML='<p class="deck">No edition found.</p>';ECLIPSE.chrome();return;}
+  document.title='Issue '+iss.number+' - The Daily Draft';
+  var html='';
+  iss.items.forEach(function(it,ix){
+    var prev=iss.items[ix-1], next=iss.items[ix+1];
+    html+='<article id="'+esc(it.id)+'">'
+      +'<header class="r-hero rv">'
+      +'<p class="kicker"><b>'+esc(it.kind||'Story')+'</b> &nbsp;/&nbsp; issue '+iss.number+' &nbsp;/&nbsp; '+fmt(iss.date)+'</p>'
+      +'<h1 class="r-headline">'+esc(it.headline)+'</h1>'
+      +(it.deck?'<p class="r-deck">'+esc(it.deck)+'</p>':'')
+      +'</header>';
+    if(it.image){
+      html+='<figure class="r-plate plate rv"><img src="../'+esc(it.image)+'" alt="'+esc(it.headline)+' - illustration" loading="lazy"></figure>';
+    }
+    html+='<div class="r-body rv"><p>'+esc(it.body||'')+'</p></div>';
+    if(it.points&&it.points.length){
+      html+='<ul class="r-points rv">'+it.points.map(function(p){return '<li>'+esc(p)+'</li>'}).join('')+'</ul>';
+    }
+    if(it.why){html+='<blockquote class="r-why rv">'+esc(it.why)+'</blockquote>';}
+    if(it.source_name){
+      html+='<p class="r-src rv">Source &nbsp;'+(it.source_url?'<a href="'+esc(it.source_url)+'" rel="noopener">'+esc(it.source_name)+'</a>':esc(it.source_name))+'</p>';
+    }
+    html+='<nav class="r-nav">'
+      +'<span>'+(prev?'<a href="#'+esc(prev.id)+'">&larr; '+esc(prev.headline)+'</a>':'')+'</span>'
+      +'<span>'+(next?'<a href="#'+esc(next.id)+'">'+esc(next.headline)+' &rarr;</a>':'')+'</span>'
+      +'</nav></article>';
+  });
+  html+='<a class="backline" href="index.html#archive">&larr; Back to the archive</a>';
+  document.getElementById('reader').innerHTML=html;
+  ECLIPSE.chrome();
+  if(location.hash){var t=document.getElementById(location.hash.slice(1));if(t){setTimeout(function(){t.scrollIntoView();},80);}}
+}).catch(function(){
+  document.getElementById('reader').innerHTML='<p class="deck">Could not load the edition. Try the classic site.</p>';
+  ECLIPSE.chrome();
+});
+</script>
+</body>
+</html>

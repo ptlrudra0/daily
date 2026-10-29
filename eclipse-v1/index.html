@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Daily Draft</title>
+<meta name="description" content="The Daily Draft - dark design preview. Pitch black, vermilion light, liquid colour in motion.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,400&family=Inter:wght@300;400;500&family=Anton&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="eclipse.css?v=9a">
+</head>
+<body>
+<script src="eclipse.js?v=9a"></script>
+<script>
+document.body.insertAdjacentHTML('afterbegin', ECLIPSE.skyHTML()+ECLIPSE.topHTML()+ECLIPSE.menuHTML());
+</script>
+
+<main class="page">
+  <section class="hero" id="today">
+    <p class="kicker rv"><b id="kNum">Issue -</b> &nbsp;/&nbsp; <span id="kDate">-</span> &nbsp;/&nbsp; morning edition</p>
+    <h1 class="masthead rv">The Daily<br>Draft<span class="dot">.</span></h1>
+    <p class="standfirst rv" id="standfirst">Ideas worth your coffee, poured black. Today's edition is below - the rest lives in the archive.</p>
+    <div class="orbrow rv">
+      <a class="orb" id="orbRead" href="#top-story"><span>Read<br>today's<br>issue</span></a>
+      <p class="orbnote">Served dark. Scroll for today's stories.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="top-story">
+    <div class="sec-head rv">
+      <h2 class="sec-title">Today's paper</h2>
+      <span class="sec-note" id="todayNote"></span>
+    </div>
+    <div id="todayItems"></div>
+  </section>
+
+  <section class="sec" id="archive">
+    <div class="sec-head rv">
+      <h2 class="sec-title">Archive</h2>
+      <span class="sec-note">every edition</span>
+    </div>
+    <div id="archiveRows"></div>
+  </section>
+</main>
+
+<script>document.body.insertAdjacentHTML('beforeend', ECLIPSE.footHTML());</script>
+<script>
+fetch(ECLIPSE.DATA_URL).then(function(r){return r.json()}).then(function(d){
+  var esc=ECLIPSE.esc, fmt=ECLIPSE.fmtDate;
+  var issues=d.issues||[];
+  var latest=issues[0];
+  if(latest){
+    document.getElementById('kNum').textContent='Issue '+latest.number;
+    document.getElementById('kDate').textContent=fmt(latest.date);
+    document.getElementById('todayNote').textContent='issue '+latest.number+' - '+fmt(latest.date);
+    var html='';
+    latest.items.forEach(function(it,ix){
+      html+='<article class="story rv" id="s-'+esc(it.id)+'">'
+        +'<div class="kind">'+esc(it.kind||'Story')+'</div>'
+        +'<div><h3 class="headline"><a href="issue.html?date='+encodeURIComponent(latest.date)+'#'+esc(it.id)+'">'+esc(it.headline)+'</a></h3>'
+        +'<p class="deck">'+esc(it.deck||'')+'</p>'
+        +'<a class="readline" href="issue.html?date='+encodeURIComponent(latest.date)+'#'+esc(it.id)+'">Read the story <span class="arr">&rarr;</span></a></div>'
+        +'</article>';
+    });
+    document.getElementById('todayItems').innerHTML=html;
+    document.getElementById('orbRead').href='issue.html?date='+encodeURIComponent(latest.date);
+  }
+  var rows='';
+  issues.forEach(function(iss){
+    var titles=iss.items.map(function(it){return esc(it.headline)}).join('<span> &nbsp;/&nbsp; </span>');
+    rows+='<a class="arow rv" href="issue.html?date='+encodeURIComponent(iss.date)+'">'
+      +'<span class="adot"></span>'
+      +'<span class="anum">'+String(iss.number).padStart(2,'0')+'</span>'
+      +'<span class="adate">'+fmt(iss.date)+'</span>'
+      +'<span class="atitles">'+titles+'</span></a>';
+  });
+  document.getElementById('archiveRows').innerHTML=rows;
+  ECLIPSE.chrome();
+}).catch(function(){
+  document.getElementById('todayItems').innerHTML='<p class="deck">Could not load the edition. Try the classic site.</p>';
+  ECLIPSE.chrome();
+});
+</script>
+</body>
+</html>
