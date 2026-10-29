@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Widget preview - desi danglers (Gujarati)</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Shrikhand&family=Figtree:ital,wght@0,400..700;1,400..700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body{background:#23206E;margin:0;padding:26px 14px 60px;display:flex;flex-direction:column;align-items:center;gap:40px;font-family:"Figtree",sans-serif}
+  .label{font:600 10px "Inter";letter-spacing:.22em;color:#C6D936;text-transform:uppercase;align-self:flex-start;margin-bottom:8px}
+  .section{display:flex;flex-direction:column;max-width:430px;width:100%}
+  .note{font:400 11px/1.6 "Inter";color:#F5EFE399;margin-top:10px}
+  /* mock of the Scriptable ListWidget face (buildWidget in widget-danglers.js) */
+  .widget{width:100%;aspect-ratio:658/310;background:#2A2886;border-radius:22px;padding:16px 16px 12px;box-sizing:border-box;display:flex;flex-direction:column;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+  .w-mast{display:flex;justify-content:space-between;align-items:baseline}
+  .w-name{font-weight:700;font-size:11px;color:#C6D936}
+  .w-dot{color:#C6D936;font-size:8px}
+  .w-rule{color:#C6D936;font-size:6px;letter-spacing:2px;margin:2px 0 8px;white-space:nowrap;overflow:hidden}
+  .w-chip{display:inline-block;font:700 9px -apple-system,sans-serif;color:#F5EFE3;background:#2A2886;padding:2px 4px;border-radius:2px;width:max-content}
+  .w-mid{flex:1;display:flex;align-items:center;gap:6px;min-height:0;margin-top:6px}
+  .w-head{flex:1;font-weight:600;font-size:17px;line-height:1.2;color:#F5EFE3;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .w-mid img{width:92px;height:62px;object-fit:cover;border-radius:3px}
+  .w-foot{display:flex;justify-content:space-between;font-size:10px;color:#C6D936}
+  .w-foot b{font-weight:700}
+</style>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#F5EFE3;color:#23206E;font-family:"Figtree",-apple-system,"Segoe UI",sans-serif;padding:0 0 48px;-webkit-font-smoothing:antialiased}
+  .masthead{background:#2A2886;text-align:center;padding:30px 16px 8px;position:relative;overflow:hidden}
+  .lockup{font-family:"Anton",sans-serif;font-size:44px;line-height:1;color:#F5EFE3;letter-spacing:.5px}
+  .lockup .guj{font-family:"Shrikhand",serif;font-weight:400;font-size:46px;color:#C6D936;padding:0 2px}
+  .tagrow{position:relative;height:74px;margin-top:2px}
+  .string{width:0;height:30px;margin:0 auto;border-left:2px dashed rgba(245,239,227,.85);transform:rotate(9deg);transform-origin:top center}
+  .tag{position:absolute;left:50%;top:26px;transform:translateX(-50%) rotate(-7deg);background:#C6D936;color:#23206E;font-family:"Anton",sans-serif;font-size:15px;letter-spacing:2px;padding:7px 16px 6px;white-space:nowrap;box-shadow:0 0 26px 8px rgba(198,217,54,.55),0 0 60px 22px rgba(198,217,54,.25)}
+  .perf{height:12px;background-color:#F5EFE3;background-image:radial-gradient(circle 6px at 12px 6px, #2A2886 6px, transparent 6.8px);background-size:24px 12px;background-repeat:repeat-x}
+  .perf.flip{background-image:radial-gradient(circle 6px at 12px 6px, #2A2886 6px, transparent 6.8px)}
+  .dateline{display:flex;justify-content:space-between;gap:10px;font-family:"Inter",sans-serif;font-weight:500;font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:#23206E;padding:14px 20px 10px}
+  .dateline .guj{font-family:"Shrikhand",serif;font-size:12px;letter-spacing:.4px;text-transform:none}
+  .wrap{padding:0 20px}
+  .dots{display:flex;gap:6px;margin:8px 0 0}
+  .dots a{flex:1;padding:12px 0;text-decoration:none}
+  .dots a i{display:block;height:4px;border-radius:4px;background:#DDD3C2}
+  .dots a.read i{background:#E93E8A}
+  .dots a.cur i{background:#23206E}
+  .dots a.cur.read i{background:linear-gradient(90deg,#23206E 50%,#E93E8A 50%)}
+  .dots-cap{display:flex;justify-content:space-between;font-family:"Inter",sans-serif;font-size:9px;letter-spacing:1.8px;text-transform:uppercase;color:#6E6860;margin-top:2px}
+  .dangler{--card:#F2B90C;--plate:#2A2886;--ptxt:#F5EFE3;--txt:#23206E;position:relative;overflow:hidden;background:var(--card);color:var(--txt);margin-top:16px;border-radius:6px;box-shadow:0 10px 30px rgba(35,32,110,.25)}
+  .pattern{position:absolute;inset:0;background-repeat:repeat;pointer-events:none}
+  .hang{position:relative;display:flex;flex-direction:column;align-items:center;padding-top:2px}
+  .strings{display:flex;gap:64px;height:24px}
+  .strings i{width:2px;border-left:2px dashed rgba(0,0,0,.35)}
+  .nameplate{position:relative;background:var(--plate);color:var(--ptxt);font-family:"Anton",sans-serif;font-size:14px;letter-spacing:3.5px;padding:9px 30px 8px;border-radius:3px;box-shadow:0 3px 0 rgba(0,0,0,.22)}
+  .nameplate::before,.nameplate::after{content:"";position:absolute;top:5px;width:6px;height:6px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffffff 0%,#c9c9c9 45%,#7a7a7a 100%)}
+  .nameplate::before{left:7px}
+  .nameplate::after{right:7px}
+  .art{position:relative;margin:18px 20px 6px;text-align:center}
+  .art .bloom{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);width:78%;height:240px;background:radial-gradient(closest-side,var(--plate) 0%,transparent 72%);filter:blur(30px);opacity:.6;pointer-events:none}
+  .art img{position:relative;display:block;width:100%;height:auto;border-radius:4px;box-shadow:0 14px 28px rgba(0,0,0,.35)}
+  .art .platform{display:block;width:64%;height:16px;margin:-8px auto 0;background:radial-gradient(ellipse at center,rgba(0,0,0,.45) 0%,rgba(0,0,0,0) 70%);position:relative}
+  .art figcaption{position:relative;display:flex;justify-content:space-between;gap:8px;font-family:"Inter",sans-serif;font-weight:500;font-size:9px;letter-spacing:1.6px;text-transform:uppercase;color:var(--txt);opacity:.85;padding-top:10px;margin-top:6px;text-align:left}
+  .art figcaption .no{white-space:nowrap}
+  h1{position:relative;font-family:"Anton",sans-serif;font-weight:400;font-size:29px;line-height:1.12;letter-spacing:.4px;text-transform:uppercase;margin:16px 20px 10px;color:var(--txt)}
+  .deck{position:relative;font-style:italic;font-size:16.5px;line-height:1.5;opacity:.92;margin:0 20px 16px;color:var(--txt)}
+  .byline{position:relative;display:flex;gap:8px;font-family:"Inter",sans-serif;font-weight:500;font-size:10px;letter-spacing:2px;text-transform:uppercase;border-top:1px solid rgba(0,0,0,.18);border-bottom:1px solid rgba(0,0,0,.18);padding:8px 0;margin:0 20px 16px;color:var(--txt)}
+  .dangler.darktext .byline{border-color:rgba(0,0,0,.18)}
+  .dangler.lighttext .byline{border-color:rgba(255,255,255,.25)}
+  .byline b{font-weight:700}
+  .body{position:relative;font-size:16.5px;line-height:1.66;margin:0 20px;color:var(--txt)}
+  .body::first-letter{font-family:"Anton",sans-serif;font-size:50px;float:left;line-height:.82;padding:4px 9px 0 0;color:var(--plate)}
+  .dangler.lighttext .body::first-letter{color:var(--txt)}
+  .sec{position:relative;font-family:"Inter",sans-serif;font-weight:700;font-size:10px;letter-spacing:3px;text-transform:uppercase;opacity:.75;margin:22px 20px 2px;color:var(--txt)}
+  .points{position:relative;list-style:none;margin:0 20px}
+  .points li{position:relative;padding:10px 0 4px 22px}
+  .points li::before{content:"";position:absolute;left:2px;top:1.45em;width:8px;height:8px;background:var(--plate)}
+  .points li p{font-size:15.5px;line-height:1.6;color:var(--txt)}
+  .why{position:relative;margin:20px 20px 0;padding:2px 0 2px 14px;border-left:3px solid var(--plate);font-size:15px;line-height:1.6;color:var(--txt)}
+  .why span{display:block;font-family:"Inter",sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;opacity:.75;margin-bottom:5px}
+  .source{position:relative;margin:16px 20px 0;font-family:"Inter",sans-serif;font-size:12px;color:var(--txt);opacity:.85}
+  .source a{color:var(--txt);text-decoration-color:var(--plate);text-underline-offset:3px}
+  .lab{position:relative;margin:24px 20px 0;padding:18px 16px 16px;border-radius:20px;background:#F4F1EA;color:#141414;box-shadow:inset 0 2px 6px rgba(20,20,26,.09),inset 0 -1px 0 #fff}
+  .lab h3{font-family:"Anton",sans-serif;font-weight:400;font-size:22px;letter-spacing:.4px;text-transform:uppercase;margin-bottom:2px;color:#141414}
+  .lab .sub{font-size:13.5px;color:#6B6B66;margin-bottom:12px;line-height:1.5}
+  .acts{display:grid;grid-template-columns:1fr;gap:8px}
+  .acts button,.askrow button{font:600 14px Figtree,-apple-system,sans-serif;color:#141414;padding:13px 10px;border:0;border-radius:14px;background:#fff;box-shadow:0 1px 0 #fff inset,0 2px 7px rgba(20,20,26,.13);cursor:pointer;min-height:48px}
+  .acts button:active,.askrow button:active{transform:scale(.97)}
+  .acts button small{display:block;font-weight:500;font-size:11px;color:#6B6B66;margin-top:2px}
+  .askrow{display:flex;gap:8px;margin-top:10px}
+  .askrow input{flex:1;min-width:0;font:inherit;font-size:15px;padding:13px 14px;border:0;border-radius:14px;background:#fff;color:#141414;box-shadow:inset 0 2px 4px rgba(20,20,26,.13);-webkit-appearance:none}
+  .askrow button.go{background:#2A2886;color:#F5EFE3;box-shadow:0 2px 8px rgba(42,40,134,.35)}
+  .lab button:disabled,.lab input:disabled{opacity:.5}
+  .lstat{font-size:13px;color:#6B6B66;margin-top:12px;min-height:1.2em}
+  .lbar{height:5px;border-radius:5px;background:#E4E4E8;margin-top:8px;overflow:hidden}
+  .lbar i{display:block;height:100%;width:0;background:#2A2886;transition:width .4s linear}
+  .res{margin-top:14px}
+  .res .rh{font-family:"Inter",sans-serif;font-size:9.5px;font-weight:700;letter-spacing:2.4px;text-transform:uppercase;color:#2A2886;margin-bottom:4px}
+  .res ul{list-style:none}
+  .res li{padding:9px 0 9px 20px;position:relative;line-height:1.55;font-size:14.5px}
+  .res li::before{content:"";position:absolute;left:2px;top:1.05em;width:8px;height:8px;border-radius:50%;background:#2A2886}
+  .res details{padding:10px 0;border-top:1px solid #E2E2E6}
+  .res details:first-of-type{border-top:0}
+  .res summary{cursor:pointer;font-weight:600;list-style:none;padding-right:20px;position:relative;font-size:14.5px}
+  .res summary::after{content:"+";position:absolute;right:0;color:#2A2886;font-size:18px;line-height:1}
+  .res details[open] summary::after{content:"\2212"}
+  .res details p{margin-top:6px;color:#3d3d39;line-height:1.55;font-size:14px}
+  .res .err{color:#b3261e;font-size:14px}
+  .res .fine2{font-size:12px;color:#6B6B66;margin-top:10px}
+  .fine{font-size:12px;line-height:1.5;color:#6B6B66;margin-top:12px}
+  .fine summary{cursor:pointer}
+  .fine a{color:#141414}
+  .tickrow{position:relative;margin:26px 20px 0;border-top:3px solid var(--txt);padding:16px 0 30px;display:flex;justify-content:space-between;align-items:center}
+  .tick{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--txt)}
+  .tick .box{width:24px;height:24px;border:1.5px solid var(--txt);background:transparent;display:inline-block}
+  .tick .lbl{font-family:"Anton",sans-serif;font-size:13px;letter-spacing:2.2px}
+  .folio{font-family:"Inter",sans-serif;font-size:12px;letter-spacing:1.5px;color:var(--txt);opacity:.8}
+  .folio b{font-weight:700;opacity:1}
+  .paper-link{display:block;text-align:center;margin-top:26px;font-family:"Inter",sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#6E6860;text-decoration-color:#E93E8A}
+  .done{text-align:center;padding:44px 20px 20px}
+  .done .stamp{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;border:3px solid #C6D936;color:#C6D936;border-radius:50%;width:140px;height:140px;font-family:"Shrikhand",serif;font-weight:400;font-size:24px;line-height:1.1;transform:rotate(-8deg);margin-bottom:24px}
+  .done h1{font-family:"Anton",sans-serif;font-size:28px;text-transform:uppercase;margin:0 0 10px}
+  .done p{color:#6E6860;font-style:italic;font-size:15px;line-height:1.6;max-width:320px;margin:0 auto}
+</style>
+</head>
+<body>
+
+<div class="section">
+  <div class="label">Home-screen widget - medium (Scriptable ListWidget)</div>
+  <div class="widget">
+    <div class="w-mast"><span class="w-name">ડેઈલી ડ્રાફ્ટ · THE DAILY DRAFT</span><span class="w-dot">&#9679;</span></div>
+    <div class="w-rule">- - - - - - - - - - - - - - - - - - - - - - - - - - - -</div>
+    <span class="w-chip"> AI TIP </span>
+    <div class="w-mid">
+      <div class="w-head">Long prompts rot</div>
+      <img src="https://ptlrudra0.github.io/daily/img/2026-10-29-1.jpg" alt="">
+    </div>
+    <div class="w-foot"><span>Thursday, 29 October &nbsp;&middot;&nbsp; &#8470; 12</span><b>Read &amp; tick &rarr;</b></div>
+  </div>
+  <p class="note">Scriptable can't load custom fonts, so on the real home screen the Gujarati renders in the system font; colours and layout match this mock. The name-plate chip takes each story's dangler plate colour.</p>
+</div>
+
+<div class="section">
+  <div class="label">Reader - story 1 (yellow dangler, indigo plate)</div>
+  <div style="background:#F5EFE3;border-radius:10px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.35)">
+
+  <header class="masthead">
+    <div class="lockup"><span class="lat">THE</span> <span class="guj">ડેઈલી</span> <span class="lat">DRAFT</span></div>
+    <div class="tagrow"><div class="string"></div><div class="tag">સવાર EXPRESS</div></div>
+  </header>
+  <div class="perf"></div>
+  <div class="dateline"><span class="guj">સવારની આવૃત્તિ · Morning edition</span><span>Issue № 12</span></div>
+  <div class="dateline" style="padding-top:0"><span>Thursday, 29 October 2026</span><span>Vol. I</span></div>
+  <div class="wrap">
+  <div class="dots"><a class="cur" href="tdr://goto/0"><i></i></a><a class="" href="tdr://goto/1"><i></i></a><a class="" href="tdr://goto/2"><i></i></a><a class="" href="tdr://goto/3"><i></i></a><a class="" href="tdr://goto/4"><i></i></a><a class="" href="tdr://goto/5"><i></i></a></div>
+  <div class="dots-cap"><span>Story 1 of 6</span><span>0 read</span></div>
+  </div>
+  <section class="dangler darktext" style="--card:#F2B90C;--plate:#2A2886;--ptxt:#F5EFE3;--txt:#23206E">
+    <div class="pattern" style="background-image:url(&quot;data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'72'%20height%3D'72'%3E%3Cpath%20d%3D'M18%2010%20l26%2026%20-12%203%209%2015%20-6%204%20-9%20-15%20-10%209%20z'%20fill%3D'%23141414'%20fill-opacity%3D'0.16'%2F%3E%3C%2Fsvg%3E&quot;)"></div>
+    <div class="hang"><div class="strings"><i></i><i></i></div><div class="nameplate">AI TIP</div></div>
+    <figure class="art"><span class="bloom"></span><img src="https://ptlrudra0.github.io/daily/img/2026-10-29-1.jpg" alt="Cut-paper illustration of an overstuffed paper suitcase bursting with scraps, one vermilion scrap escaping"><span class="platform"></span><figcaption><span>Illustration &middot; The Daily Draft</span><span class="no">Plate № 1</span></figcaption></figure>
+    <h1>Long Prompts Rot</h1>
+    <p class="deck">Stuffing the context window doesn't make the model smarter. It makes it dumber, measurably.</p>
+    <div class="byline"><b>Prompting desk</b><span>·</span><span>2 min</span></div>
+    <p class="body">Chroma ran a proper technical report on what happens as you pile more tokens into a prompt, and the result should be taped to every keyboard: performance doesn't stay flat, it rots. Models handle short, focused context well, but as input grows, their ability to find and use the right detail degrades - even on tasks that look trivially easy. The million-token context window is storage, not attention. So the pro move isn't 'give it everything', it's 'give it exactly what this task needs'. Trim the brief. Pull the two relevant pages, not the whole book. If a prompt has grown into a novel, split the job into smaller calls. Bro, context is a budget, and every irrelevant token is spending the model's attention on junk.</p>
+    <div class="sec">The key points</div>
+    <ol class="points"><li><p>Bigger context isn't free: accuracy degrades as input length grows.</p></li><li><p>Curate what goes in - two relevant pages beat the whole book.</p></li><li><p>A prompt that became a novel should become several small calls.</p></li></ol>
+    <div class="why"><span>Why it matters</span>When your agents start misbehaving, the bug is often a bloated prompt, not the model. Lean context is the cheapest accuracy upgrade you own.</div>
+    <p class="source">Filed from <a href="https://research.trychroma.com/context-rot">Chroma</a> ↗</p>
+    <section class="lab">
+      <h3>Try it on this story</h3>
+      <p class="sub">Pick one, or ask your own question. An AI model is told to use this story only, but it can still be wrong.</p>
+      <div class="acts">
+        <button data-a="simple">Explain simply<small>3 quick points</small></button>
+        <button data-a="example">Show an example<small>2 everyday cases</small></button>
+        <button data-a="quiz">Quiz me<small>3 tap-to-reveal</small></button>
+      </div>
+      <div class="askrow"><input type="text" id="q" maxlength="200" placeholder="Ask about this story..." autocomplete="off" enterkeyhint="send"><button class="go" id="askgo">Ask</button></div>
+      <div class="lstat" id="lstat"></div><div class="lbar" id="lbar" hidden><i id="lbari"></i></div>
+      <div class="res" id="res"></div>
+      <details class="fine"><summary>How this works and its limits</summary>
+        <p>Your tap sends this story's text and your question to a free AI service (Pollinations, no account). One request at a time, so there can be a wait of up to 30 seconds, and it can fail. Answers are AI-written, can be wrong, and are not checked. Reading the story and ticking it off need no AI. Do not type anything private. <a href="https://pollinations.ai/privacy">Privacy</a>.</p></details>
+    </section>
+    <div class="tickrow">
+      <a class="tick" href="tdr://read/2026-10-29-1"><span class="box"></span><span class="lbl">MARK AS READ</span></a>
+      <span class="folio">№ <b>1</b> — of 6</span>
+    </div>
+  </section>
+  <a class="paper-link" href="tdr://open">Read in the full paper ↗</a>
+  
+  
+  </div>
+</div>
+
+<div class="section">
+  <div class="label">Reader - story 2 (indigo dangler, orange plate)</div>
+  <div style="background:#F5EFE3;border-radius:10px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.35)">
+
+  <header class="masthead">
+    <div class="lockup"><span class="lat">THE</span> <span class="guj">ડેઈલી</span> <span class="lat">DRAFT</span></div>
+    <div class="tagrow"><div class="string"></div><div class="tag">સવાર EXPRESS</div></div>
+  </header>
+  <div class="perf"></div>
+  <div class="dateline"><span class="guj">સવારની આવૃત્તિ · Morning edition</span><span>Issue № 12</span></div>
+  <div class="dateline" style="padding-top:0"><span>Thursday, 29 October 2026</span><span>Vol. I</span></div>
+  <div class="wrap">
+  <div class="dots"><a class="read" href="tdr://goto/0"><i></i></a><a class="cur" href="tdr://goto/1"><i></i></a><a class="" href="tdr://goto/2"><i></i></a><a class="" href="tdr://goto/3"><i></i></a><a class="" href="tdr://goto/4"><i></i></a><a class="" href="tdr://goto/5"><i></i></a></div>
+  <div class="dots-cap"><span>Story 2 of 6</span><span>1 read</span></div>
+  </div>
+  <section class="dangler lighttext" style="--card:#2A2886;--plate:#F04E23;--ptxt:#F5EFE3;--txt:#F5EFE3">
+    <div class="pattern" style="background-image:url(&quot;data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'72'%20height%3D'72'%3E%3Cpath%20d%3D'M6%2020%20q12%20-14%2024%200%20t24%200'%20stroke%3D'%23141414'%20stroke-opacity%3D'0.16'%20stroke-width%3D'5'%20fill%3D'none'%2F%3E%3Cpath%20d%3D'M6%2046%20q12%20-14%2024%200%20t24%200'%20stroke%3D'%23141414'%20stroke-opacity%3D'0.16'%20stroke-width%3D'5'%20fill%3D'none'%2F%3E%3C%2Fsvg%3E&quot;)"></div>
+    <div class="hang"><div class="strings"><i></i><i></i></div><div class="nameplate">DESIGN</div></div>
+    <figure class="art"><span class="bloom"></span><img src="https://ptlrudra0.github.io/daily/img/2026-10-29-2.jpg" alt="Cut-paper illustration of three nested shapes showing proportion: large white field, medium cobalt block, small vermilion dot"><span class="platform"></span><figcaption><span>Illustration &middot; The Daily Draft</span><span class="no">Plate № 2</span></figcaption></figure>
+    <h1>Colour Has a Dress Code: 60-30-10</h1>
+    <p class="deck">The oldest ratio in decorating quietly runs every clean interface you've ever admired.</p>
+    <div class="byline"><b>Design desk</b><span>·</span><span>2 min</span></div>
+    <p class="body">The 60-30-10 rule assigns every colour in a design a job and a budget: 60% dominant (your background, your base), 30% secondary (structure, supporting blocks), 10% accent (the thing you want eyes on). It's why restrained interfaces feel expensive and rainbow ones feel like a carnival. The accent only works because it's scarce - ten percent is a headline, fifty percent is noise. You're literally reading an example right now: this paper is mostly white, structured in ink, and the vermilion shows up exactly where you're supposed to look. The move to steal: pick your three colours first, assign the percentages, then refuse to let the accent leak. When everything shouts, nothing does.</p>
+    <div class="sec">The key points</div>
+    <ol class="points"><li><p>60% dominant, 30% secondary, 10% accent - assign the jobs before you design.</p></li><li><p>The accent's power is scarcity. Let it leak past 10% and the hierarchy collapses.</p></li><li><p>Audit any design by asking which colour owns which share.</p></li></ol>
+    <div class="why"><span>Why it matters</span>Three colours with assigned roles is a brand kit you can build tonight - for a channel, a deck or a poster - and it will instantly look more pro than a twelve-colour palette.</div>
+    <p class="source">Filed from <a href="https://blog.logrocket.com/ux-design/60-30-10-rule/">LogRocket Blog</a> ↗</p>
+    <section class="lab">
+      <h3>Try it on this story</h3>
+      <p class="sub">Pick one, or ask your own question. An AI model is told to use this story only, but it can still be wrong.</p>
+      <div class="acts">
+        <button data-a="simple">Explain simply<small>3 quick points</small></button>
+        <button data-a="example">Show an example<small>2 everyday cases</small></button>
+        <button data-a="quiz">Quiz me<small>3 tap-to-reveal</small></button>
+      </div>
+      <div class="askrow"><input type="text" id="q" maxlength="200" placeholder="Ask about this story..." autocomplete="off" enterkeyhint="send"><button class="go" id="askgo">Ask</button></div>
+      <div class="lstat" id="lstat"></div><div class="lbar" id="lbar" hidden><i id="lbari"></i></div>
+      <div class="res" id="res"></div>
+      <details class="fine"><summary>How this works and its limits</summary>
+        <p>Your tap sends this story's text and your question to a free AI service (Pollinations, no account). One request at a time, so there can be a wait of up to 30 seconds, and it can fail. Answers are AI-written, can be wrong, and are not checked. Reading the story and ticking it off need no AI. Do not type anything private. <a href="https://pollinations.ai/privacy">Privacy</a>.</p></details>
+    </section>
+    <div class="tickrow">
+      <a class="tick" href="tdr://read/2026-10-29-2"><span class="box"></span><span class="lbl">MARK AS READ</span></a>
+      <span class="folio">№ <b>2</b> — of 6</span>
+    </div>
+  </section>
+  <a class="paper-link" href="tdr://open">Read in the full paper ↗</a>
+  
+  
+  </div>
+  <p class="note">The interactive "Try it on this story" lab works in the installed widget; buttons are inert on this static preview. Story dots and MARK AS READ also only respond inside the widget.</p>
+</div>
+
+</body>
+</html>
