@@ -27,6 +27,9 @@
   .btnrow{display:flex;gap:10px;padding:0 16px 14px;background:rgba(255,255,255,.02)}
   button{font:12.5px/1 -apple-system,"Inter",sans-serif;font-weight:600;letter-spacing:.04em;color:#FAFAFA;background:rgba(237,93,23,.16);border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer}
   button:hover{background:rgba(237,93,23,.3)}
+  .sendback{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:0 16px 16px;background:rgba(255,255,255,.02)}
+  .sendback input[type=text]{flex:1;min-width:180px;font:12px/1.4 ui-monospace,monospace;color:#d8d2cc;background:#000;border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+  .sendback .sb-status{font-size:11.5px;color:#a39d97}
   @media(max-width:560px){.controls{grid-template-columns:1fr}}
 </style>
 </head>
@@ -44,7 +47,8 @@
   <div class="stage">
     <canvas id="cvB" width="1081" height="800"></canvas>
     <div class="controls" id="ctlB"></div>
-    <div class="btnrow"><button data-act="pause" data-for="B">Pause</button><button data-act="reset" data-for="B">Reset to defaults</button></div>
+    <div class="btnrow"><button data-act="pause" data-for="B">Pause</button><button data-act="reset" data-for="B">Reset to defaults</button><button data-act="copy" data-for="B">Copy settings</button></div>
+    <div class="sendback"><input type="text" id="sbB" placeholder="Settings text - tap Copy settings, send it back; or paste settings here and Apply"><button data-act="apply" data-for="B">Apply</button><span class="sb-status" id="sbB-status"></span></div>
   </div>
 </section>
 
@@ -54,7 +58,8 @@
   <div class="stage">
     <canvas id="cvA" width="820" height="1040" style="max-height:70vh"></canvas>
     <div class="controls" id="ctlA"></div>
-    <div class="btnrow"><button data-act="pause" data-for="A">Pause</button><button data-act="reset" data-for="A">Reset to defaults</button></div>
+    <div class="btnrow"><button data-act="pause" data-for="A">Pause</button><button data-act="reset" data-for="A">Reset to defaults</button><button data-act="copy" data-for="A">Copy settings</button></div>
+    <div class="sendback"><input type="text" id="sbA" placeholder="Settings text - tap Copy settings, send it back; or paste settings here and Apply"><button data-act="apply" data-for="A">Apply</button><span class="sb-status" id="sbA-status"></span></div>
   </div>
 </section>
 </div>
@@ -191,6 +196,36 @@ document.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
     const defs=b.dataset.for==='B'?defsB:defsA;
     Object.entries(defs).forEach(([k,v])=>{s.vals[k]=v.def;
       const sl=s.sliders[k];sl[0].value=v.def;sl[1].textContent=v.def.toFixed(2);});
+  }
+  if(b.dataset.act==='copy'){
+    const defs=b.dataset.for==='B'?defsB:defsA;
+    const labels=Object.fromEntries(Object.entries(defs).map(([k,v])=>[k,v.label]));
+    const payload={scene:b.dataset.for,version:'orange-study-1',settings:Object.fromEntries(Object.entries(s.vals).map(([k,v])=>[labels[k],+v.toFixed(3)]))};
+    const txt=JSON.stringify(payload);
+    const field=document.getElementById('sb'+b.dataset.for);
+    const status=document.getElementById('sb'+b.dataset.for+'-status');
+    field.value=txt;field.focus();field.select();
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(()=>{status.textContent='Copied - paste it into your reply.';},()=>{status.textContent='Text placed in the field - long-press to copy.';});
+    }else{status.textContent='Text placed in the field - long-press to copy.';}
+  }
+  if(b.dataset.act==='apply'){
+    const defs=b.dataset.for==='B'?defsB:defsA;
+    const labels=Object.fromEntries(Object.entries(defs).map(([k,v])=>[k,v.label]));
+    const rev=Object.fromEntries(Object.entries(labels).map(([k,l])=>[l,k]));
+    const field=document.getElementById('sb'+b.dataset.for);
+    const status=document.getElementById('sb'+b.dataset.for+'-status');
+    try{
+      const payload=JSON.parse(field.value);
+      if(!payload||payload.scene!==b.dataset.for)throw new Error('scene mismatch');
+      let n=0;
+      Object.entries(payload.settings||{}).forEach(([lab,val])=>{
+        const k=rev[lab];if(k&&typeof val==='number'&&isFinite(val)){
+          const d=defs[k];const cl=Math.min(d.max,Math.max(d.min,val));
+          s.vals[k]=cl;const sl=s.sliders[k];sl[0].value=cl;sl[1].textContent=cl.toFixed(2);n++;}
+      });
+      status.textContent=n?('Applied '+n+' setting'+(n>1?'s':'')+'.'):'No known settings found in pasted text.';
+    }catch(e){status.textContent='Could not read that settings text.';}
   }
 }));
 </script>
