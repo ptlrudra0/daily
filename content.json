@@ -2,6 +2,101 @@
   "paper": "The Daily Draft",
   "issues": [
     {
+      "number": 13,
+      "date": "2026-10-30",
+      "items": [
+        {
+          "id": "2026-10-30-1",
+          "kind": "AI TIP",
+          "headline": "Let it say 'I don't know'",
+          "deck": "Three magic words for your system prompt: permission to pass.",
+          "body": "Quick story, bro. A developer pointed a GPT-4 bot at sports news and asked about Harry Kane's Ballon d'Or. Small problem: Kane has never won the Ballon d'Or. The bot, wearing its default 'helpful assistant' suit, answered anyway - confidently, fluently, wrongly. Then the developer added one line to the system prompt: 'If you don't know the answer, say you don't know.' The bot started passing on questions it couldn't back up, like the quiz-show expert who only buzzes when sure. Hold onto the nuance here: the model doesn't 'know' anything - it serves the most probable answer. That one sentence doesn't give it knowledge, it gives it an exit door, and models use exit doors best when their answers come from documents you handed them. Suit up your next agent the same way: permission to pass, built in.",
+          "points": [
+            "Add 'If you don't know, say so' to your system prompt.",
+            "Works best when answers come from retrieved documents.",
+            "A pass beats a confident fib, every time."
+          ],
+          "why": "Your agents will answer college and client questions with total confidence whether they're right or not. One line in the system prompt is the cheapest honesty upgrade you own.",
+          "source_name": "Tony Baloney",
+          "source_url": "https://tonybaloney.github.io/posts/the-big-fib-can-you-prompt-llms-to-tell-the-truth.html",
+          "image": "img/2026-10-30-1.jpg",
+          "image_alt": "Vermilion cut-paper speech bubble, completely blank, hovering over a small ink dot",
+          "reading_time": "2 min"
+        },
+        {
+          "id": "2026-10-30-2",
+          "kind": "DESIGN",
+          "headline": "The squint test",
+          "deck": "Blur your design on purpose. Whatever still reads is your real hierarchy.",
+          "body": "Legendary interface trick, zero equipment needed: squint at your screen until everything goes soft and blurry, then ask the only question that matters - what still stands out? Designer Luke Wroblewski has pushed this for years because it ends arguments. When a layout feels off, teams will debate fonts for an hour; one squint shows the truth in two seconds. If the thing that matters most doesn't survive the blur, your hierarchy is broken, no matter how pretty the pixels are. It also flips the meeting from 'make the logo bigger' to strategy: what SHOULD punch through first on this screen? Answer that, then design until the squint agrees. Bro, your eyes at full focus are easily flattered. Blurred eyes don't lie.",
+          "why": "Before you post your next thumbnail or reel cover, squint at it at phone size. If the hook isn't the thing that survives the blur, move elements until it is.",
+          "source_name": "Luke Wroblewski",
+          "source_url": "https://www.lukew.com/ff/2013/evaluating-user-interfaces-with-the-squint-test",
+          "image": "img/2026-10-30-2.jpg",
+          "image_alt": "A crisp cobalt cut-paper square beside its deliberately blurred vermilion twin",
+          "reading_time": "2 min"
+        },
+        {
+          "id": "2026-10-30-3",
+          "kind": "ON SCREEN",
+          "headline": "Every prop is a biography",
+          "deck": "East of Eden's designers tell you who people are through objects before anyone speaks.",
+          "body": "Zoe Kazan's new East of Eden limited series hired Grant Major - the production designer behind The Lord of the Rings: The Return of the King and The Power of the Dog - and his philosophy is basically: objects talk first. A portrait of the Trask father hangs in frame looking heroic while the show calls it 'a stately portrait of a dishonest man', because the whole saga sits on his invented war stories. A wedding memento lies there carrying a marriage you can already smell going wrong. Fifty years of family history, delivered by furniture, photographs and keepsakes before a single line of dialogue lands. That's the lesson: set design isn't decoration, it's narration with objects.",
+          "why": "You shoot reels on zero budget. One deliberately chosen object in your background - a trophy, a dead keyboard, a stack of scripts - is free production design telling viewers who you are.",
+          "source_name": "Netflix Tudum",
+          "source_url": "https://www.netflix.com/tudum/articles/east-of-eden-artifacts-production-design",
+          "image": "img/2026-10-30-3.jpg",
+          "image_alt": "An ornate empty ink-black picture frame casting a long amber cut-paper shadow",
+          "reading_time": "2 min"
+        },
+        {
+          "id": "2026-10-30-4",
+          "kind": "AI NEWS",
+          "headline": "The trillion-parameter giant wakes up in pieces",
+          "deck": "Mistral's Large 4 is out in the open: a trillion parameters that thinks with only 49 billion at a time.",
+          "body": "Mistral just did the thing: released Mistral Large 4 - nickname Le Chonk, respect - as open weights anyone can download. The numbers are architectural poetry: a one-trillion-parameter mixture-of-experts model where each token only activates about 49 billion parameters, roughly five percent of the beast. It's like owning a stadium full of experts and only waking the twenty who know this exact topic. The payoff: it leads open-weight models on coding and defensive security benchmarks, and Mistral reports a 96.6% refusal rate on malicious cyber requests. You can pull the weights from Hugging Face and run it on your own infrastructure today. Two heavyweight open releases in two weeks, bro. The open side is not playing catch-up anymore.",
+          "points": [
+            "1T parameters total, about 49B active per token (roughly 5%).",
+            "Top open-weight scores in coding and defensive security.",
+            "96.6% refusal on malicious cyber tasks, per Mistral."
+          ],
+          "why": "Open weights are your lab: you can study, fine-tune and self-host this class of model instead of renting it, and the skills transfer to every open model you'll touch this decade.",
+          "source_name": "Mistral AI",
+          "source_url": "https://mistral.ai/news/mistral-large-4-oss/",
+          "image": "img/2026-10-30-4.jpg",
+          "image_alt": "Cut-paper waffle chart of twenty ink blocks with exactly one vermilion block lit, in honest proportion to the active-parameter share",
+          "image_caption": "1 of 20 blocks lit: ~49B active parameters per token out of 1T total (about 5%)",
+          "reading_time": "2 min"
+        },
+        {
+          "id": "2026-10-30-5",
+          "kind": "AI NEWS",
+          "headline": "Grok opened a shop inside the chat",
+          "deck": "xAI's bot now shows product cards and takes the order - with your thumbs-up at the till.",
+          "body": "The chatbot-to-cashier pipeline is official. xAI's latest Grok Bot changelog adds shopping: products appear as cards with photos, ratings, prices and store names, you swipe through options in a carousel, and 'Buy now' kicks off an order that you approve before any money moves. After that, the bot tracks the package and pings you when it ships and lands. Notice the trust design: the agent recommends, you still sign the cheque. That's the pattern every agent storefront will copy - full autonomy for browsing, human signature for spending. First it answers questions, then it fills the cart.",
+          "why": "When you eventually sell presets, merch or a service, your customer's agent - not your customer - may be the one doing the browsing. Shops that agents can read will get the sale.",
+          "source_name": "xAI",
+          "source_url": "https://x.ai/changelog/bot",
+          "image": "img/2026-10-30-5.jpg",
+          "image_alt": "A cut-paper storefront with a striped vermilion awning and a blank cobalt price tag",
+          "reading_time": "2 min"
+        },
+        {
+          "id": "2026-10-30-6",
+          "kind": "TRY THIS",
+          "headline": "The thirty-second squint",
+          "deck": "One thumbnail, one squint, instant verdict.",
+          "body": "Tonight's drill is stupidly simple. Pull up the last thumbnail or cover image you made. Hold it at arm's length and squint until it's a blur. Say out loud the ONE thing that still pops. If that thing is your hook - the face, the product, the big shape - you pass, go to bed. If the blur serves you some random corner detail, you know exactly what to fix: shrink it, mute it or move it, then squint again. Two rounds max. The blur doesn't care about your feelings, and that's exactly why it works.",
+          "why": "This turns today's design lesson into a habit before your next post - free, fast and ruthless.",
+          "source_name": null,
+          "source_url": null,
+          "image": "img/2026-10-30-6.jpg",
+          "image_alt": "An ink cut-paper viewfinder frame held over a deliberately blurry amber paper blob",
+          "reading_time": "1 min"
+        }
+      ]
+    },
+    {
       "number": 12,
       "date": "2026-10-29",
       "items": [
