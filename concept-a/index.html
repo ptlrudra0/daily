@@ -102,8 +102,9 @@
   .kicker{font:600 11px "IBM Plex Mono",monospace;letter-spacing:.2em;text-transform:uppercase;color:var(--a2t,var(--soft));margin:30px 0 12px}
   .deck{margin-left:0 !important;max-width:26em}
 
-  .ptr{font:600 12px "IBM Plex Mono",monospace;letter-spacing:.03em;color:var(--ink);display:flex;gap:9px;align-items:baseline;margin:10px 0 22px}
-  .ptr i{width:8px;height:8px;flex:none}
+  .ptrs{margin:14px 0 24px}
+  .ptr{display:flex;gap:10px;margin:0 0 12px;font-size:14.5px;line-height:1.55;color:var(--ink)}
+  .ptr i{width:8px;height:8px;flex:none;margin-top:7px}
 </style>
 </head>
 <body>
@@ -159,9 +160,8 @@ function itemHTML(it, idx, total, issue){
     ? '<div class="plate infofig"><img src="../'+esc(it.info_image)+'" alt="'+esc(it.info_alt||'Explanatory diagram')+'" loading="lazy">'+((it.info_labels||[]).map(function(l){return `<span class="infolbl" style="left:${l.x}%;top:${l.y}%;border-color:${l.c||'#141412'}">${esc(l.t)}</span>`}).join(""))+'</div>'+(it.info_caption?'<div class="pcap mono">'+esc(it.info_caption)+'</div>':'')
     : '';
   var accs=(it.accents&&it.accents.length)?it.accents:[it.accent||"#141412"];
-  var paras=(it.paras&&it.paras.length)?it.paras:null;
-  var bodyHtml=paras
-    ? paras.map(function(pr,pi){return '<p class="sbody para">'+esc(pr.text)+'</p><p class="ptr"><i style="background:'+accs[pi%accs.length]+'"></i>'+esc(pr.pointer)+'</p>'}).join("")
+  var bodyHtml=(it.lead&&it.ptrs&&it.ptrs.length)
+    ? '<p class="sbody">'+esc(it.lead)+'</p><div class="ptrs">'+it.ptrs.map(function(t,pi){return '<p class="ptr"><i style="background:'+accs[pi%accs.length]+'"></i><span>'+esc(t)+'</span></p>'}).join("")+'</div>'
     : '<p class="sbody">'+esc(it.body||"")+'</p>';
   var headFull='<h2 class="headline hl-a '+hlSize(it.headline)+'">'+esc(it.headline)+'</h2>';
   return `
@@ -171,7 +171,7 @@ function itemHTML(it, idx, total, issue){
     <p class="deck">${esc(it.deck)}</p>
     ${bodyHtml}
     ${it.example ? `<p class="example">${esc(it.example)}</p>` : ""}
-    ${pts ? `<ol class="points">${pts.map(function(p){return "<li><p>"+esc(p)+"</p></li>"}).join("")}</ol>` : ""}
+    
     ${infofig}
     ${it.why ? `<div class="why"><p>${esc(it.why)}</p></div>` : ""}
     ${(it.questions&&it.questions.length) ? `<div class="quiz">${it.questions.map(function(q){return `<details><summary>${esc(q.q)}</summary><p>${esc(q.a)}</p></details>`}).join("")}</div>` : ""}
