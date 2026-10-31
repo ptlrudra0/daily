@@ -69,9 +69,9 @@
               "c": "#141412"
             },
             {
-              "t": "one prompt the model can parse",
+              "t": "one tagged prompt",
               "x": 81,
-              "y": 22,
+              "y": 20,
               "c": "#141412"
             }
           ]
@@ -175,8 +175,8 @@
           "info_labels": [
             {
               "t": "era-consistent set",
-              "x": 20,
-              "y": 10,
+              "x": 15,
+              "y": 8,
               "c": "#2B4BE0"
             },
             {
