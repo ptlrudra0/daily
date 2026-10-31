@@ -46,7 +46,7 @@
     var el=document.getElementById("head");
     el.textContent=h;
     el.style.fontSize="calc(min(987px,96vw)*"+(h.length<=14?0.066:h.length<=24?0.054:h.length<=38?0.044:0.038)+")";
-    document.getElementById("num").textContent=String(idx).padStart(2,"0");
+    var ne=document.getElementById("num");ne.textContent=String(idx).padStart(2,"0");ne.style.color=it.accent||"#141412";
     document.getElementById("oftot").textContent="/ "+String(issue.items.length).padStart(2,"0");
     if(it.image)document.getElementById("thumb").src="../"+it.image;
     var dt=new Date(issue.date+"T12:00:00").toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"}).toUpperCase();
