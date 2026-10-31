@@ -63,18 +63,30 @@ function firstUnreadIdx(issue, state) {
 // method (github.com/supermamon/scriptable-no-background).
 // Entries marked EST are scaled estimates for newer phones.
 const PHONE_SIZES = {
-  "2868": { models: "16 Pro Max / 17 Pro Max (EST)", small: { w: 522, h: 522 }, medium: { w: 1117, h: 522 }, large: { w: 1117, h: 1176 }, left: 101, right: 697, top: 289, middle: 942, bottom: 1594 },
-  "2796": { models: "14 Pro Max / 15 Pro Max", small: { w: 510, h: 510 }, medium: { w: 1092, h: 510 }, large: { w: 1092, h: 1146 }, left: 99, right: 681, top: 282, middle: 918, bottom: 1554 },
-  "2622": { models: "16 Pro / 17 (EST)", small: { w: 486, h: 486 }, medium: { w: 1037, h: 486 }, large: { w: 1037, h: 1089 }, left: 84, right: 636, top: 277, middle: 880, bottom: 1483 },
-  "2556": { models: "14 Pro / 15 / 15 Pro", small: { w: 474, h: 474 }, medium: { w: 1014, h: 474 }, large: { w: 1014, h: 1062 }, left: 82, right: 622, top: 270, middle: 858, bottom: 1446 },
-  "2778": { models: "12/13 Pro Max, 14 Plus", small: { w: 510, h: 510 }, medium: { w: 1092, h: 510 }, large: { w: 1092, h: 1146 }, left: 96, right: 678, top: 246, middle: 882, bottom: 1518 },
-  "2532": { models: "12 / 12 Pro / 13 / 14", small: { w: 474, h: 474 }, medium: { w: 1014, h: 474 }, large: { w: 1014, h: 1062 }, left: 78, right: 618, top: 231, middle: 819, bottom: 1407 },
-  "2688": { models: "Xs Max / 11 Pro Max", small: { w: 507, h: 507 }, medium: { w: 1080, h: 507 }, large: { w: 1080, h: 1137 }, left: 81, right: 654, top: 228, middle: 858, bottom: 1488 },
-  "1792": { models: "11 / Xr", small: { w: 338, h: 338 }, medium: { w: 720, h: 338 }, large: { w: 720, h: 758 }, left: 54, right: 436, top: 160, middle: 580, bottom: 1000 },
-  "2436": { models: "X / Xs / 11 Pro", small: { w: 465, h: 465 }, medium: { w: 987, h: 465 }, large: { w: 987, h: 1035 }, left: 69, right: 591, top: 213, middle: 783, bottom: 1353 },
-  "2436_mini": { models: "12/13 mini", small: { w: 465, h: 465 }, medium: { w: 987, h: 465 }, large: { w: 987, h: 1035 }, left: 69, right: 591, top: 231, middle: 801, bottom: 1371 },
-  "2208": { models: "6+/6s+/7+/8+", small: { w: 471, h: 471 }, medium: { w: 1044, h: 471 }, large: { w: 1044, h: 1071 }, left: 99, right: 672, top: 114, middle: 696, bottom: 1278 },
-  "1334": { models: "6/6s/7/8", small: { w: 296, h: 296 }, medium: { w: 642, h: 296 }, large: { w: 642, h: 648 }, left: 54, right: 400, top: 60, middle: 412, bottom: 764 }
+  // Confirmed in iOS 18 (maintained community table, gist mzeryck/3a97ccd1e059b3afa3c6666d27a496c9)
+  "2868": { models: "iPhone 16 Pro Max / 17 Pro Max", variants: {
+    text:   { small: 510, medium: 1092, large: 1146, left: 114, right: 696, top: 276, middle: 912, bottom: 1548 },
+    notext: { small: 530, medium: 1138, large: 1136, left: 91, right: 699, top: 276, middle: 882, bottom: 1488 } } },
+  "2796": { models: "iPhone 16 Plus / 15 Plus / 15 Pro Max / 14 Pro Max", variants: {
+    text:   { small: 510, medium: 1092, large: 1146, left: 98, right: 681, top: 252, middle: 888, bottom: 1524 },
+    notext: { small: 530, medium: 1139, large: 1136, left: 75, right: 684, top: 252, middle: 858, bottom: 1464 } } },
+  "2622": { models: "iPhone 16 Pro / 17 / 17 Pro", variants: {
+    text:   { small: 486, medium: 1032, large: 1098, left: 87, right: 633, top: 261, middle: 872, bottom: 1485 },
+    notext: { small: 495, medium: 1037, large: 1035, left: 84, right: 626, top: 270, middle: 810, bottom: 1350 } } },
+  "2556": { models: "iPhone 16 / 15 / 15 Pro / 14 Pro", variants: {
+    text:   { small: 474, medium: 1017, large: 1062, left: 81, right: 624, top: 240, middle: 828, bottom: 1416 },
+    notext: { small: 495, medium: 1047, large: 1047, left: 66, right: 618, top: 243, middle: 795, bottom: 1347 } } },
+  "1334": { models: "iPhone SE 2/3", variants: {
+    text:   { small: 296, medium: 642, large: 648, left: 54, right: 400, top: 60, middle: 412, bottom: 764 },
+    notext: { small: 309, medium: 667, large: 667, left: 41, right: 399, top: 67, middle: 425, bottom: 783 } } },
+  // Confirmed on older iOS only (single variant)
+  "2778": { models: "14 Plus / 13 Pro Max / 12 Pro Max", variants: { text: { small: 510, medium: 1092, large: 1146, left: 96, right: 678, top: 246, middle: 882, bottom: 1518 } } },
+  "2688": { models: "11 Pro Max / XS Max", variants: { text: { small: 507, medium: 1080, large: 1137, left: 81, right: 654, top: 228, middle: 858, bottom: 1488 } } },
+  "2532": { models: "14 / 13 / 13 Pro / 12 / 12 Pro", variants: { text: { small: 474, medium: 1014, large: 1062, left: 78, right: 618, top: 231, middle: 819, bottom: 1407 } } },
+  "2436": { models: "11 Pro / XS / X", variants: { text: { small: 465, medium: 987, large: 1035, left: 69, right: 591, top: 213, middle: 783, bottom: 1353 } } },
+  "2436_mini": { models: "13 mini / 12 mini", variants: { text: { small: 465, medium: 987, large: 1035, left: 69, right: 591, top: 231, middle: 801, bottom: 1371 } } },
+  "1792": { models: "11 / Xr", variants: { text: { small: 338, medium: 720, large: 758, left: 54, right: 436, top: 160, middle: 580, bottom: 1000 } } },
+  "2208": { models: "8 Plus and older Plus", variants: { text: { small: 471, medium: 1044, large: 1071, left: 99, right: 672, top: 114, middle: 696, bottom: 1278 } } }
 };
 
 // ---------- wallpaper config ----------
@@ -104,82 +116,122 @@ async function pickOption(title, message, options) {
   return i === -1 ? null : options[i];
 }
 
-async function setupWallpaper() {
-  const how = new Alert();
-  how.title = "Wallpaper slice setup";
-  how.message = "First take a screenshot of an EMPTY home-screen page: long-press your home screen, keep swiping right to the empty page, screenshot it.\n\nThen come back and pick it here. Nothing leaves your phone.";
-  how.addAction("Pick my screenshot");
-  how.addCancelAction("Cancel");
-  if (await how.present() === -1) return false;
+function geoFor(fam, g) {
+  return { w: (fam === "small" ? g.small : g.medium), h: (fam === "large" ? g.large : g.small) };
+}
+function shotPath() { return FM.documentsDirectory() + "/daily-draft-shot.jpg"; }
 
-  const shot = await Photos.fromLibrary();
-  if (!shot) return false;
+async function doCrop(shot, cfg) {
+  const g = cfg.geo;
+  const dims = geoFor(cfg.family, g);
+  const x = (cfg.family === "small" && cfg.col === "right" ? g.right : g.left) + (cfg.nudge ? cfg.nudge.x : 0);
+  const y = g[cfg.row] + (cfg.nudge ? cfg.nudge.y : 0);
+  const slice = cropImage(shot, x, y, dims.w, dims.h);
+  FM.writeImage(slicePath(cfg.family), slice);
+}
+
+async function setupWallpaper(existingShot) {
+  let shot = existingShot || null;
+  if (!shot) {
+    const how = new Alert();
+    how.title = "Wallpaper slice setup";
+    how.message = "First take a screenshot of an EMPTY home-screen page: long-press your home screen, keep swiping right to the empty page, screenshot it.\n\nThen come back and pick it here. Nothing leaves your phone.";
+    how.addAction("Pick my screenshot");
+    how.addCancelAction("Cancel");
+    if (await how.present() === -1) return false;
+    shot = await Photos.fromLibrary();
+    if (!shot) return false;
+    FM.writeImage(shotPath(), shot);
+  }
   const hpx = shot.size.height;
   let key = String(hpx);
   if (hpx === 2436) {
-    const mini = await pickOption("Which iPhone?", "This screenshot size fits two layouts.", ["12 mini / 13 mini", "X / Xs / 11 Pro"]);
+    const mini = await pickOption("Which iPhone?", "This screenshot size fits two layouts.", ["13 mini / 12 mini", "11 Pro / XS / X"]);
     if (mini === null) return false;
     if (mini.indexOf("mini") !== -1) key = "2436_mini";
   }
-  let geo = PHONE_SIZES[key];
-  if (!geo) {
-    // unknown phone: estimate by scaling from the closest entry
+  let entry = PHONE_SIZES[key];
+  if (!entry) {
     let best = null, bd = 1e9;
     for (const k of Object.keys(PHONE_SIZES)) {
       const d = Math.abs(parseInt(k) - hpx);
       if (d < bd) { bd = d; best = k; }
     }
-    const src = PHONE_SIZES[best];
     const f = hpx / parseInt(best);
     const sc = n => Math.round(n * f);
-    geo = {
-      models: "unknown (estimated)",
-      small: { w: sc(src.small.w), h: sc(src.small.h) },
-      medium: { w: sc(src.medium.w), h: sc(src.medium.h) },
-      large: { w: sc(src.large.w), h: sc(src.large.h) },
-      left: sc(src.left), right: sc(src.right),
-      top: sc(src.top), middle: sc(src.middle), bottom: sc(src.bottom)
-    };
+    const src = PHONE_SIZES[best].variants.text;
+    entry = { models: "unknown (estimated)", variants: { text: {
+      small: sc(src.small), medium: sc(src.medium), large: sc(src.large),
+      left: sc(src.left), right: sc(src.right), top: sc(src.top), middle: sc(src.middle), bottom: sc(src.bottom) } } };
     const warn = new Alert();
     warn.title = "Phone not in the table";
-    warn.message = "I'll estimate the crop from the closest known model. If the background looks offset on the widget, re-run this setup after telling support your phone model.";
+    warn.message = "Estimated the crop from the closest known model. Use 'Adjust background alignment' from the menu to fine-tune it on your home screen.";
     warn.addAction("OK");
     await warn.present();
+  }
+
+  // iOS icon style shifts widget positions on newer phones
+  let g = entry.variants.text;
+  if (entry.variants.notext) {
+    const style = await pickOption("Home screen icon style", "Settings / jiggle mode > Edit > Customize: are your app icons Small (with names) or Large (no names)?", ["Small icons (with names)", "Large icons (no names)"]);
+    if (!style) return false;
+    if (style.indexOf("Large") === 0) g = entry.variants.notext;
   }
 
   const family = await pickOption("Widget size", "Which size did you (or will you) add to the home screen?", ["Small", "Medium", "Large"]);
   if (!family) return false;
   const fam = family.toLowerCase();
-  let slot;
+  let row, col = "full";
   if (fam === "small") {
-    const row = await pickOption("Which row?", "Where will the widget sit?", ["Top", "Middle", "Bottom"]);
+    row = await pickOption("Which row?", "Where will the widget sit?", ["Top", "Middle", "Bottom"]);
     if (!row) return false;
-    const col = await pickOption("Which column?", null, ["Left", "Right"]);
+    col = await pickOption("Which column?", null, ["Left", "Right"]);
     if (!col) return false;
-    slot = row.toLowerCase() + "|" + col.toLowerCase();
+    col = col.toLowerCase();
   } else if (fam === "medium") {
-    const row = await pickOption("Which row?", "Where will the widget sit?", ["Top", "Middle", "Bottom"]);
+    row = await pickOption("Which row?", "Where will the widget sit?", ["Top", "Middle", "Bottom"]);
     if (!row) return false;
-    slot = row.toLowerCase() + "|full";
   } else {
-    const row = await pickOption("Which row?", "A large widget fills two rows: which row does it START on?", ["Top", "Middle"]);
+    row = await pickOption("Which row?", "A large widget fills two rows: which row does it START on?", ["Top", "Middle"]);
     if (!row) return false;
-    slot = row.toLowerCase() + "|full";
   }
-  const [r, c] = slot.split("|");
-  const x = (fam === "small" && c === "right") ? geo.right : geo.left;
-  const y = geo[r];
-  const w = geo[fam].w, h = geo[fam].h;
-  const slice = cropImage(shot, x, y, w, h);
-  FM.writeImage(slicePath(fam), slice);
-  saveCfg({ family: fam, slot: slot, shotHeight: hpx, models: geo.models, setAt: Date.now() });
+  const cfg = { family: fam, row: row.toLowerCase(), col: col, shotHeight: hpx, models: entry.models, nudge: { x: 0, y: 0 }, setAt: Date.now() };
+  cfg.geo = g;
+  saveCfg(cfg);
+  await doCrop(shot, cfg);
 
   const done = new Alert();
   done.title = "All set";
-  done.message = "Wallpaper slice saved for the " + fam + " widget (" + r + (c === "full" ? "" : " " + c) + "). Add the widget to that exact slot and it will blend into your wallpaper.";
+  done.message = "Wallpaper slice saved for the " + fam + " widget (" + cfg.row + (col === "full" ? "" : " " + col) + "). Add the widget to that exact slot. If the background looks slightly off, run me again and choose 'Adjust background alignment'.";
   done.addAction("Done");
   await done.present();
   return true;
+}
+
+async function adjustAlignment() {
+  const cfg = loadCfg();
+  if (!cfg || !FM.fileExists(shotPath())) {
+    const a = new Alert();
+    a.title = "Nothing to adjust";
+    a.message = "Run 'Set up wallpaper background' first.";
+    a.addAction("OK");
+    await a.present();
+    return;
+  }
+  const shot = FM.readImage(shotPath());
+  for (;;) {
+    const cur = cfg.nudge || { x: 0, y: 0 };
+    const c = await pickOption("Adjust alignment", "Current offset: " + cur.x + "px right, " + cur.y + "px down. Nudge the background until it lines up, then check the widget.",
+      ["Up", "Down", "Left", "Right", "Reset", "Done"]);
+    if (!c || c === "Done") break;
+    if (c === "Reset") { cfg.nudge = { x: 0, y: 0 }; }
+    if (c === "Up") cfg.nudge = { x: cur.x, y: cur.y - 6 };
+    if (c === "Down") cfg.nudge = { x: cur.x, y: cur.y + 6 };
+    if (c === "Left") cfg.nudge = { x: cur.x - 6, y: cur.y };
+    if (c === "Right") cfg.nudge = { x: cur.x + 6, y: cur.y };
+    saveCfg(cfg);
+    await doCrop(shot, cfg);
+  }
 }
 
 // ---------- ticket background: wallpaper slice + paper with real notch cut-outs ----------
@@ -365,8 +417,9 @@ if (config.runsInWidget) {
   // go straight to the article. A manual run inside the app gets the menu.
   let openArticle = true;
   if (!config.widgetFamily) {
-    const choice = await pickOption("The Daily Draft", null, ["Read today's edition", "Set up wallpaper background"]);
+    const choice = await pickOption("The Daily Draft", null, ["Read today's edition", "Set up wallpaper background", "Adjust background alignment"]);
     if (choice === "Set up wallpaper background") { await setupWallpaper(); openArticle = false; }
+    else if (choice === "Adjust background alignment") { await adjustAlignment(); openArticle = false; }
     else if (!choice) openArticle = false;
   }
   if (openArticle) {

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Daily Draft - widget script</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--canvas:#F4F1EA;--ink:#141412;--soft:#6E6A5E;--a1:#E8480C}
+  *{margin:0;box-sizing:border-box}
+  body{background:var(--canvas);color:var(--ink);font-family:"Inter",-apple-system,sans-serif;-webkit-font-smoothing:antialiased;padding:28px 20px 64px;max-width:560px;margin:0 auto}
+  .mono{font-family:"IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.16em}
+  .kick{font:600 10px "IBM Plex Mono",monospace;letter-spacing:.2em;text-transform:uppercase;color:var(--soft)}
+  h1{font-family:"Anton",Impact,sans-serif;font-weight:400;text-transform:uppercase;font-size:34px;line-height:1;margin:10px 0 18px}
+  p{font-size:15px;line-height:1.65;color:#1D1D1F;margin-bottom:14px}
+  ol{margin:0 0 22px 20px;font-size:15px;line-height:1.65;color:#1D1D1F}
+  ol li{margin-bottom:10px}
+  .copybtn{display:block;width:100%;border:0;border-radius:16px;background:var(--ink);color:var(--canvas);font-family:"Anton",Impact,sans-serif;text-transform:uppercase;font-size:22px;padding:18px 0;cursor:pointer;margin:6px 0 8px}
+  .copybtn.done{background:var(--a1)}
+  .hint{font:500 10px "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);text-align:center;margin-bottom:22px}
+  pre{background:#fff;border:1.5px solid rgba(20,20,18,.15);border-radius:14px;padding:16px;font:11px/1.5 "IBM Plex Mono",monospace;white-space:pre;overflow:auto;max-height:320px}
+  .fine{font-size:12.5px;color:var(--soft);margin-top:18px}
+</style>
+</head>
+<body>
+<p class="kick">The Daily Draft · Scriptable widget</p>
+<h1>Ticket widget script</h1>
+<p>One tap copies the whole script. Then: open Scriptable &gt; + &gt; paste &gt; name it "The Daily Draft" &gt; run it once and choose "Set up wallpaper background".</p>
+<button class="copybtn" id="copy">Copy the script</button>
+<p class="hint" id="hint">copies all <span id="n">…</span> lines</p>
+<pre id="code">loading…</pre>
+<p class="fine">Headlines use Impact, the closest font built into iOS to the site's Anton. The see-through notches use a slice of your own wallpaper, set up on your phone - nothing is uploaded. If the background sits slightly off, run the script in the app and choose "Adjust background alignment".</p>
+<textarea id="stash" style="position:absolute;left:-9999px;top:-9999px"></textarea>
+<script>
+fetch("./widget-spacious.js", {cache: "no-store"}).then(r => r.text()).then(code => {
+  document.getElementById("code").textContent = code;
+  document.getElementById("n").textContent = code.split("\n").length;
+  const btn = document.getElementById("copy");
+  btn.onclick = async () => {
+    let ok = false;
+    try { await navigator.clipboard.writeText(code); ok = true; }
+    catch (e) {
+      const t = document.getElementById("stash");
+      t.value = code; t.style.position = "static"; t.style.left = "0"; t.style.top = "0";
+      t.focus(); t.select(); t.setSelectionRange(0, t.value.length);
+      try { ok = document.execCommand("copy"); } catch (e2) {}
+      t.style.position = "absolute"; t.style.left = "-9999px";
+    }
+    btn.textContent = ok ? "Copied - paste it in Scriptable" : "Select the code below and copy";
+    btn.classList.toggle("done", ok);
+    document.getElementById("hint").textContent = ok ? "then: Scriptable > + > paste > run once" : "long-press the code > select all > copy";
+  };
+}).catch(() => {
+  document.getElementById("code").textContent = "Could not load the script. Check your connection and reload.";
+});
+</script>
+</body>
+</html>
