@@ -10,25 +10,26 @@
           "kind": "AI TIP",
           "headline": "Put every ingredient in its own bag",
           "deck": "XML tags tell the model which words are orders and which are ingredients.",
-          "body": "Bro, your prompt is a kitchen, and right now you're throwing the recipe, the groceries and your life story into one bowl. Anthropic's own prompting guide has a fix so simple it hurts: wrap every ingredient in its own XML tag. Instructions in one tag, context in another, examples in a third, the user's actual question in a fourth. The docs say it flat out - tags help the model parse complex prompts unambiguously, especially when instructions, context, examples and variable inputs collide. It's not decoration, it's lanes on a highway. When the model never has to guess which paragraph is the order and which is the raw material, it stops treating your data like your demands. Label the lanes, and the machine drives straighter.",
-          "why": "This is the same separation that keeps agents safe: when instructions and data are clearly fenced, a hostile document has a much harder time impersonating you. Start tagging now and every agent you build inherits the habit.",
+          "body": "Bro, your prompt is a kitchen, and right now you're throwing the recipe, the groceries and your life story into one bowl. Anthropic's own prompting guide has a fix so simple it hurts: wrap every ingredient in its own XML tag. Instructions in one tag, context in another, examples in a third, the user's actual question in a fourth. The docs say it flat out - tags help the model parse complex prompts unambiguously, especially when instructions, context, examples and variable inputs collide. It's not decoration, it's lanes on a highway. When the model rarely has to guess which paragraph is the order and which is the raw material, it is far less likely to treat your data like your demands. Label the lanes, and the machine drives straighter.",
+          "why": "Clear structure also helps with safety hygiene: fenced content makes injected instructions easier to spot. But tags are organisation, not armour - a hostile document can write its own tags, so keep your agents least-privileged either way.",
           "source_name": "Anthropic Docs",
           "source_url": "https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/use-xml-tags",
-          "image": "img/2026-10-31-1.jpg",
-          "image_alt": "Three stacked cut-paper trays in ink, cobalt and vermilion, each neatly holding one different paper shape",
+          "image": "img/2026-10-31-1-info.jpg",
+          "image_alt": "Four coloured paper lanes - instructions, context, example, question - merging into one prompt arrow",
           "reading_time": "2 min",
-          "example": "Sloppy: 'Summarize this for me:' followed by 500 pasted lines. Tagged: <instructions>Summarize the document in three bullets.</instructions> <document>500 pasted lines</document>. Same words, but the model can never again confuse your order with your raw material.",
+          "example": "Sloppy: 'Summarize this for me:' followed by 500 pasted lines. Tagged: <instructions>Summarize the document in three bullets.</instructions> <document>500 pasted lines</document>. Same words, but now the model has a much easier time telling your order from your raw material.",
           "questions": [
             {
               "q": "Your prompt mixes one instruction with a long pasted article. How do you tag it?",
               "a": "Put the instruction in <instructions> and the article in <document> - one lane per ingredient, so nothing gets read as something else."
             },
             {
-              "q": "Why does tagging also make agents safer?",
-              "a": "When instructions and data are clearly fenced, a hostile document has a much harder time impersonating you."
+              "q": "Do XML tags make a prompt injection-proof?",
+              "a": "No. Tags help the model parse which part is the order and which is the data, but they are not a security boundary - a hostile document can contain its own tags. Treat them as hygiene, not armour."
             }
           ],
-          "accent": "#E8480C"
+          "accent": "#E8480C",
+          "image_caption": "Four lanes - instruction, context, example, question - each tagged apart, merging into one prompt"
         },
         {
           "id": "2026-10-31-2",
@@ -39,8 +40,8 @@
           "why": "Your reel titles are the top bar of someone's F. If the hook word isn't in the first two words, the sweep never reaches it - lead with the strongest word you own.",
           "source_name": "Nielsen Norman Group",
           "source_url": "https://www.nngroup.com/articles/f-shaped-pattern-reading-web-content-discovered/",
-          "image": "img/2026-10-31-2.jpg",
-          "image_alt": "Abstract cut-paper composition of two horizontal cobalt and vermilion strips and one vertical ink strip, like a reading path",
+          "image": "img/2026-10-31-2-info.jpg",
+          "image_alt": "Cut-paper F shape over grey text lines - two horizontal sweeps and a vertical left scan",
           "reading_time": "2 min",
           "example": "'Tips for better mobile reading experiences' sweeps past unseen. Front-load it - 'Mobile reading: eyes scan, they don't read' - and the first two words do all the work.",
           "questions": [
@@ -53,7 +54,8 @@
               "a": "At the very start. Scanners judge the whole line by its first two words."
             }
           ],
-          "accent": "#2B4BE0"
+          "accent": "#E8480C",
+          "image_caption": "The F: two horizontal sweeps (vermilion, cobalt), then the vertical left-edge scan (ink)"
         },
         {
           "id": "2026-10-31-3",
@@ -64,8 +66,8 @@
           "why": "One deliberately 'wrong' object in your reel background - a toy next to your keyboard, a vintage phone beside your laptop - makes viewers pause and rewatch. Confusion, used carefully, is retention.",
           "source_name": "Film Independent",
           "source_url": "https://www.filmindependent.org/blog/creating-the-singular-disquieting-aesthetic-of-severance-with-emmy-winning-production-designer-jeremy-hindle/",
-          "image": "img/2026-10-31-3.jpg",
-          "image_alt": "A boxy retro ink-black computer with a glowing amber screen beside a trackball mouse with a vermilion ball",
+          "image": "img/2026-10-31-3-info.jpg",
+          "image_alt": "Four mismatched-era objects with one tilted vermilion toy block out of place",
           "reading_time": "2 min",
           "example": "Try it in one frame: a reel about your editing setup, but with a bright plastic toy next to the keyboard. Viewers pause, rewatch, comment. The almost-fits object does the work.",
           "questions": [
@@ -78,7 +80,8 @@
               "a": "The 1967 film Playtime, and a camera test before any prop earned screen time."
             }
           ],
-          "accent": "#A67C00"
+          "accent": "#E8480C",
+          "image_caption": "Three era-mixed objects in place; the tilted vermilion toy is the deliberate wrong note"
         },
         {
           "id": "2026-10-31-4",
@@ -129,8 +132,8 @@
           "why": "You code inside these tools every day. Keep them updated, treat every page your agent opens as hostile, and never let an agent browse inside a logged-in session you can't afford to lose.",
           "source_name": "Forever Security",
           "source_url": "https://forever.security/blog/embrace-hacking-5-ai-assistants-embedded-browsers/",
-          "image": "img/2026-10-31-5.jpg",
-          "image_alt": "A cobalt cut-paper browser window with a torn hole through its center revealing ink black paper behind",
+          "image": "img/2026-10-31-5-info.jpg",
+          "image_alt": "App window containing a torn embedded browser with arrows escaping to file folders",
           "reading_time": "2 min",
           "example": "This is not theory: a page opened inside Cursor ran code on the host machine, and one in Copilot repainted the address bar to fake a login site. Both demos worked.",
           "questions": [
@@ -143,7 +146,8 @@
               "a": "Cursor, GitHub Copilot, Codex, VS Code and Claude Desktop. Cursor patched on October 1; Codex and VS Code were unpatched."
             }
           ],
-          "accent": "#2B4BE0"
+          "accent": "#2B4BE0",
+          "image_caption": "The EMBRACE flaw: pages in the embedded browser (cobalt) break out toward your files (amber)"
         },
         {
           "id": "2026-10-31-6",
@@ -154,8 +158,8 @@
           "why": "You publish on a schedule; titles are your top bar. This drill pays out on every future post, starting with the next one.",
           "source_name": null,
           "source_url": null,
-          "image": "img/2026-10-31-6.jpg",
-          "image_alt": "A blank cut-paper card with a vermilion starburst bursting from its top-left corner and thin ink strips trailing right",
+          "image": "img/2026-10-31-6-info.jpg",
+          "image_alt": "An eye scanning three title bars where only the first two segments are lit vermilion",
           "reading_time": "1 min",
           "questions": [
             {
@@ -167,7 +171,8 @@
               "a": "The left column - it is the vertical stripe of the F, so every thumbnail there must carry the page alone."
             }
           ],
-          "accent": "#E8480C"
+          "accent": "#E8480C",
+          "image_caption": "The two-word test: only the vermilion segments - the first two words - get the scan"
         }
       ]
     },
