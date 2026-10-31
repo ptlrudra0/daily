@@ -27,11 +27,9 @@
   .mast .right{color:var(--ink);text-align:right}
   @media (max-width:560px){ .mast .mid{display:none} }
 
-  /* ---------- info row ---------- */
-  .inforow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;border-bottom:1px solid var(--hair);padding:10px 0 12px;font-size:9px}
-  .inforow .lbl{color:var(--soft);display:block;margin-bottom:4px;font-size:8px}
-  .inforow .val{font-weight:600}
-  @media (max-width:560px){ .inforow{grid-template-columns:repeat(2,1fr);row-gap:14px} }
+  /* ---------- metadata line ---------- */
+  .metaline{border-bottom:1px solid var(--hair);padding:12px 0;font-size:10px;color:var(--soft)}
+  .metaline b{color:var(--ink);font-weight:600}
 
   /* ---------- dots ---------- */
   .dots{display:flex;gap:6px;margin:22px 0 0}
@@ -39,29 +37,25 @@
   .dots button i{display:block;height:4px;border-radius:4px;background:rgba(20,20,18,.18)}
   .dots button.read i{background:rgba(20,20,18,.45)}
   .dots button.cur i{background:var(--ink)}
-  .dots-cap{display:flex;justify-content:space-between;font-size:9px;color:var(--soft);margin-top:4px}
 
   /* ---------- story hero ---------- */
-  .story{padding-top:26px}
-  .tagrow{display:flex;align-items:center;gap:10px;font-size:10px}
-  .tag{display:inline-block;border:1.5px solid var(--ink);border-radius:999px;padding:4px 10px;font-weight:600}
-  .rt{color:var(--soft)}
-  .hero{display:grid;grid-template-columns:1fr;gap:22px;margin-top:16px}
-  @media (min-width:900px){ .hero{grid-template-columns:1.15fr .85fr;gap:34px;align-items:start} }
+  .story{padding-top:44px}
+  .hero{display:grid;grid-template-columns:1fr;gap:28px;margin-top:26px}
+  @media (min-width:900px){ .hero{grid-template-columns:1.15fr .85fr;gap:40px;align-items:start} }
   .headline{font-family:"Anton",Impact,sans-serif;font-weight:400;text-transform:uppercase;line-height:.98;letter-spacing:.005em;margin:2px 0 14px}
   .hl-xl{font-size:88px} .hl-l{font-size:66px} .hl-m{font-size:52px} .hl-s{font-size:40px}
   @media (min-width:900px){
     .hl-xl{font-size:128px} .hl-l{font-size:96px} .hl-m{font-size:74px} .hl-s{font-size:58px}
   }
   .deck{font-size:17px;line-height:1.55;color:#3A382F;max-width:34em}
-  .panel{position:relative;background:var(--panel);border-radius:30px;padding:10px;border:1.5px solid var(--ink)}
+  .panel{position:relative;background:var(--panel);border-radius:30px;padding:12px;border:1.5px solid var(--ink)}
   .panel img{display:block;width:100%;height:auto;border-radius:22px}
   .panel .over{position:absolute;left:18px;bottom:18px;font-size:9px;font-weight:600;color:#F4F1EA;background:rgba(20,20,18,.82);border-radius:8px;padding:5px 9px}
   .pcap{display:flex;justify-content:space-between;gap:10px;font-size:9px;color:var(--soft);margin-top:8px}
   .pcap .pno{color:var(--ink);font-weight:600;white-space:nowrap}
 
   /* ---------- body ---------- */
-  .sbody{font-size:16.5px;line-height:1.68;margin-top:24px;max-width:38em}
+  .sbody{font-size:16.5px;line-height:1.68;margin-top:36px;max-width:38em}
   .sec{font-size:10px;font-weight:600;color:var(--soft);margin:26px 0 2px}
   .points{list-style:none}
   .points li{position:relative;padding:10px 0 4px 24px}
@@ -73,7 +67,7 @@
   .source-line a{color:var(--ink);text-underline-offset:3px}
 
   /* ---------- lab ---------- */
-  .lab{margin-top:30px;padding:20px 18px 16px;border-radius:26px;background:var(--panel);border:1.5px solid var(--ink)}
+  .lab{margin-top:38px;padding:20px 18px 16px;border-radius:26px;background:var(--panel);border:1.5px solid var(--ink)}
   .lab h3{font-family:"Anton",Impact,sans-serif;font-weight:400;text-transform:uppercase;font-size:26px;letter-spacing:.01em;margin-bottom:4px}
   .lab .sub{font-size:13.5px;color:var(--soft);margin-bottom:14px;line-height:1.5}
   .acts{display:grid;grid-template-columns:1fr;gap:8px}
@@ -106,7 +100,7 @@
   .fine a{color:var(--ink)}
 
   /* ---------- check row / stamp ---------- */
-  .checkrow{margin-top:30px;border-top:2px solid var(--ink);padding-top:16px;display:flex;justify-content:space-between;align-items:center}
+  .checkrow{margin-top:38px;border-top:2px solid var(--ink);padding-top:16px;display:flex;justify-content:space-between;align-items:center}
   .tick{display:flex;align-items:center;gap:12px;border:0;background:none;cursor:pointer;color:var(--ink);padding:8px 0}
   .tick .box{width:26px;height:26px;border:1.5px solid var(--ink);border-radius:8px;background:var(--panel);display:inline-flex;align-items:center;justify-content:center}
   .tick .box svg{opacity:0;transition:opacity .2s}
@@ -148,17 +142,10 @@
 <div class="sheet">
   <header class="mast mono">
     <span class="brand">The Daily Draft</span>
-    <span class="mid">Morning edition &middot; sharper AI habits &middot; art &amp; design</span>
     <span class="right" id="mast-right">Prints daily &middot; 7 AM IST</span>
   </header>
-  <div class="inforow mono">
-    <div><span class="lbl">No.</span><span class="val" id="info-no">— / —</span></div>
-    <div><span class="lbl">Desk</span><span class="val" id="info-desk">—</span></div>
-    <div><span class="lbl">Source</span><span class="val" id="info-src">—</span></div>
-    <div><span class="lbl">Edition</span><span class="val" id="info-ed">—</span></div>
-  </div>
+  <div class="metaline mono" id="metaline">—</div>
   <nav class="dots" id="dots" aria-label="Stories in this issue"></nav>
-  <div class="dots-cap mono"><span id="dots-l"></span><span id="dots-r"></span></div>
 
   <main id="main" class="story" aria-live="polite"></main>
 
@@ -207,7 +194,6 @@ function hlClass(h){
 function itemHTML(it, plateNo){
   var pts = (it.points&&it.points.length)?it.points:null;
   return `
-    <div class="tagrow mono"><span class="tag">${esc(it.kind)}</span><span class="rt">${esc(it.reading_time||"1 min read")}</span></div>
     <div class="hero">
       <div>
         <h2 class="headline ${hlClass(it.headline)}">${esc(it.headline)}</h2>
@@ -215,7 +201,7 @@ function itemHTML(it, plateNo){
       </div>
       ${it.image ? `<div>
         <div class="panel"><img src="../${esc(it.image)}" alt="${esc(it.image_alt||it.headline)}" loading="lazy"><span class="over mono">Plate № ${plateNo}</span></div>
-        <div class="pcap mono"><span>${esc(it.image_caption || 'Illustration · The Daily Draft')}</span><span class="pno">Poster study</span></div>
+        <div class="pcap mono"><span>${esc(it.image_caption || 'Illustration · The Daily Draft')}</span></div>
       </div>` : ""}
     </div>
     <p class="sbody">${esc(it.body||"")}</p>
@@ -285,22 +271,17 @@ async function act(kind,it,question){
 function renderDots(issue,idx,doneIds){
   var d=document.getElementById("dots");d.textContent="";
   issue.items.forEach(function(it,i){var b=document.createElement("button");b.setAttribute("aria-label","Story "+(i+1)+": "+it.kind+(doneIds.has(it.id)?" (read)":""));b.className=(doneIds.has(it.id)?"read ":"")+(i===idx?"cur":"");b.appendChild(document.createElement("i"));b.onclick=function(){render(issue,i)};d.appendChild(b)});
-  document.getElementById("dots-l").textContent=idx<issue.items.length?"Story "+(idx+1)+" of "+issue.items.length:"All read";
-  document.getElementById("dots-r").textContent=doneIds.size+" read"}
+}
 
 function setInfo(issue,idx,doneIds){
   var total=issue.items.length;
+  var dstr=new Date(issue.date+"T12:00:00").toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short"}).toUpperCase();
   if(idx<total){
     var it=issue.items[idx];
-    document.getElementById("info-no").textContent=String(idx+1).padStart(2,"0")+" / "+String(total).padStart(2,"0");
-    document.getElementById("info-desk").textContent=KIND_VERB[it.kind]||it.kind;
-    document.getElementById("info-src").textContent=it.source_name||"Original";
+    document.getElementById("metaline").innerHTML="<b>№ "+issue.number+"</b> &nbsp;·&nbsp; "+dstr+" &nbsp;·&nbsp; NO. <b>"+String(idx+1).padStart(2,"0")+"/"+String(total).padStart(2,"0")+"</b> &nbsp;·&nbsp; "+esc(it.kind)+" &nbsp;·&nbsp; "+esc((it.reading_time||"1 min").toUpperCase());
   }else{
-    document.getElementById("info-no").textContent=String(total).padStart(2,"0")+" / "+String(total).padStart(2,"0");
-    document.getElementById("info-desk").textContent="Complete";
-    document.getElementById("info-src").textContent="—";
+    document.getElementById("metaline").innerHTML="<b>№ "+issue.number+"</b> &nbsp;·&nbsp; "+dstr+" &nbsp;·&nbsp; <b>ALL READ</b>";
   }
-  document.getElementById("info-ed").textContent="Issue № "+issue.number+" · "+doneIds.size+" read";
 }
 
 function render(issue, idx){

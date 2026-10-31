@@ -16,10 +16,7 @@
   .mrow{display:flex;justify-content:space-between;font-family:"IBM Plex Mono",monospace;font-size:calc(min(987px,96vw)*0.0273);letter-spacing:.12em;color:#141412;font-weight:600}
   .mrow .vol{color:#6E6A5E;font-weight:400}
   .hair{border-bottom:calc(min(987px,96vw)*0.003) solid #141412;margin:calc(min(987px,96vw)*0.012) 0 calc(min(987px,96vw)*0.03)}
-  .meta{display:flex;gap:calc(min(987px,96vw)*0.024);font-family:"IBM Plex Mono",monospace;font-size:calc(min(987px,96vw)*0.0243)}
-  .meta .no{font-weight:600}
-  .meta .desk{color:#6E6A5E}
-  .mid{flex:1;display:flex;align-items:center;gap:calc(min(987px,96vw)*0.024);min-height:0}
+    .mid{flex:1;display:flex;align-items:center;gap:calc(min(987px,96vw)*0.024);min-height:0}
   .head{font-family:"Anton",Impact,sans-serif;text-transform:uppercase;line-height:.96;font-size:calc(min(987px,96vw)*0.079);flex:1;min-width:0}
   .thumb{width:calc(min(987px,96vw)*0.291);height:calc(min(987px,96vw)*0.194);border-radius:calc(min(987px,96vw)*0.0425);object-fit:cover;flex:none}
   .foot{display:flex;justify-content:space-between;font-family:"IBM Plex Mono",monospace;font-size:calc(min(987px,96vw)*0.0243);color:#6E6A5E}
@@ -31,26 +28,23 @@
 <div class="frame"><div class="face">
   <div class="mrow"><span>THE DAILY DRAFT</span><span class="vol">VOL. I</span></div>
   <div class="hair"></div>
-  <div class="meta"><span class="no">NO. 04/06</span><span class="desk">AI NEWS · 2 MIN</span></div>
   <div class="mid">
     <div class="head" id="head">The model that writes all at once</div>
     <img class="thumb" id="thumb" src="../img/2026-10-31-4.jpg" alt="story plate thumbnail in colour">
   </div>
-  <div class="foot"><span>SATURDAY, 31 OCTOBER · № 14</span><span class="go">READ &amp; TICK →</span></div>
+  <div class="foot"><span id="footl">NO. 01/06 · SAT, 31 OCT</span><span class="go">READ &amp; TICK →</span></div>
 </div></div>
 <script>
   // pull today's first story live so the mock shows real content shape
   fetch("../content.json",{cache:"no-store"}).then(r=>r.json()).then(d=>{
     var issue=d.issues[0], it=issue.items[0], idx=1;
-    document.querySelector(".meta .no").textContent="NO. 0"+idx+"/0"+issue.items.length;
-    document.querySelector(".meta .desk").textContent=(it.kind+" · "+(it.reading_time||"1 MIN")).toUpperCase();
     var h=it.headline.toUpperCase();
     var el=document.getElementById("head");
     el.textContent=h;
     el.style.fontSize="calc(min(987px,96vw)*"+(h.length<=14?0.079:h.length<=24?0.062:h.length<=38?0.05:0.042)+")";
     if(it.image)document.getElementById("thumb").src="../"+it.image;
     var dt=new Date(issue.date+"T12:00:00").toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"}).toUpperCase();
-    document.querySelector(".foot span").textContent=dt+" · № "+issue.number;
+    document.getElementById("footl").textContent="NO. 0"+idx+"/0"+issue.items.length+" · "+dt;
   }).catch(()=>{});
 </script>
 </body>
