@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Daily Draft — Concept C - Poster card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --canvas:#F4F1EA; --ink:#141412; --soft:#6E6A5E; --panel:#FFFFFF;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--canvas);color:var(--ink);font-family:"Inter",-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;padding:18px 16px 64px}
+  body.bigtext .sbody, body.bigtext .deck, body.bigtext .example{font-size:19px;line-height:1.75}
+  body.bigtext .points li p{font-size:18px}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;text-transform:uppercase;letter-spacing:.14em}
+  .sheet{max-width:820px;margin:0 auto}
+  @media (min-width:1100px){ .sheet{max-width:980px} }
+
+  .mast{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:10px;border-bottom:2px solid var(--ink);padding-bottom:10px}
+  .mast .brand{font-weight:600}
+  .mast .right{text-align:right;color:var(--soft)}
+  .dots{display:flex;gap:6px;margin:16px 0 0}
+  .dots button{flex:1;padding:10px 0;border:0;background:none;cursor:pointer}
+  .dots button i{display:block;height:3px;border-radius:3px;background:rgba(20,20,18,.16)}
+  .dots button.read i{background:rgba(20,20,18,.4)}
+  .dots button.cur i{background:var(--ink)}
+
+  .story{padding-top:52px}
+  .bignum{font-family:"Anton",Impact,sans-serif;font-size:118px;line-height:.82;color:var(--a1,var(--ink));margin-left:-4px}
+  .bignum .mono{font-size:11px;font-weight:500;color:var(--a2t,var(--soft));letter-spacing:.18em}
+  @media (min-width:900px){ .bignum{font-size:180px} }
+  .headline{font-family:"Anton",Impact,sans-serif;font-weight:400;text-transform:uppercase;line-height:.94;letter-spacing:.005em}
+  .hl-a{margin-top:10px}
+  .hl-b{margin-top:6px}
+  .hs-xl{font-size:80px} .hs-l{font-size:62px} .hs-m{font-size:48px} .hs-s{font-size:38px}
+  @media (min-width:900px){
+    .hs-xl{font-size:118px} .hs-l{font-size:92px} .hs-m{font-size:72px} .hs-s{font-size:56px}
+  }
+  .plate{margin:10px 0}
+  .infofig{margin:26px 0 0;position:relative}
+  .infolbl{position:absolute;transform:translate(-50%,-50%);font:600 9px "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:rgba(250,250,248,.94);border:1.5px solid #141412;border-radius:8px;padding:3px 6px;max-width:44%;text-align:center;line-height:1.35}
+  .plate img{display:block;width:100%;height:auto;border-radius:26px}
+  .pcap{font-size:9px;color:var(--soft);margin:8px 2px 0}
+  .deck{font-style:italic;font-size:18px;line-height:1.5;color:#3A382F;max-width:24em;margin:34px 0 0 12%}
+  .sbody{font-size:16.5px;line-height:1.7;margin-top:40px;max-width:34em}
+  .example{font-style:italic;font-size:16px;line-height:1.6;color:#3A382F;margin:26px 0 0 12%;max-width:30em;border-left:3px solid var(--a3,var(--a2,var(--ink)));padding-left:16px}
+  .points{list-style:none;max-width:34em;margin-top:26px}
+  .points li{position:relative;padding:10px 0 4px 24px}
+  .points li::before{content:"";position:absolute;left:2px;top:1.5em;width:8px;height:8px;background:var(--a1,var(--ink))}
+  .points li:nth-child(3n+2)::before{background:var(--a2,var(--a1,var(--ink)))}
+  .points li:nth-child(3n+3)::before{background:var(--a3,var(--a2,var(--a1,var(--ink))))}
+  .points li p{font-size:15.5px;line-height:1.6}
+  .why{margin:30px 0 0 12%;padding:2px 0 2px 16px;border-left:3px solid var(--a2,var(--a1,var(--ink)));font-size:15px;line-height:1.6;max-width:30em}
+  .quiz{margin-top:30px;max-width:34em}
+  .quiz details{padding:12px 0;border-top:1px solid rgba(20,20,18,.18)}
+  .quiz details:first-child{border-top:0}
+  .quiz summary{cursor:pointer;font-weight:600;font-size:15.5px;list-style:none;position:relative;padding-right:28px;line-height:1.45}
+  .quiz summary::after{content:"+";position:absolute;right:2px;top:-2px;font-size:22px;font-weight:400;color:var(--a3t,var(--a2t,var(--soft)))}
+  .quiz details[open] summary::after{content:"\2212"}
+  .quiz details p{margin-top:8px;color:#3d3d39;font-size:14.5px;line-height:1.6}
+  .source-line{margin-top:22px;font-size:10px;color:var(--soft)}
+  .source-line a{color:var(--ink);text-underline-offset:3px}
+
+
+  .checkrow{margin-top:44px}
+  .tick{display:flex;align-items:center;gap:12px;border:0;background:none;cursor:pointer;color:var(--ink);padding:8px 0}
+  .tick .box{width:26px;height:26px;border:1.5px solid var(--ink);border-radius:8px;background:var(--panel);display:inline-flex;align-items:center;justify-content:center}
+  .tick .box svg{opacity:0;transition:opacity .2s}
+  .tick.done .box{background:var(--a1,var(--ink));border-color:var(--a1,var(--ink))}
+  .tick.done .box svg{opacity:1}
+  .tick-label{font:600 11px "IBM Plex Mono",monospace;letter-spacing:.2em;text-transform:uppercase}
+  .stamp{position:fixed;left:50%;top:42%;transform:translate(-50%,-50%) rotate(-8deg) scale(2.4);font-family:"Anton",Impact,sans-serif;text-transform:uppercase;font-size:44px;color:var(--ink);border:4px solid var(--ink);border-radius:18px;padding:8px 26px;background:var(--canvas);opacity:0;pointer-events:none;transition:transform .35s cubic-bezier(.2,2.2,.4,1),opacity .2s}
+  .stamp.slam{opacity:1;transform:translate(-50%,-50%) rotate(-8deg) scale(1)}
+  .prevnext{display:flex;justify-content:space-between;gap:14px;margin-top:36px;border-top:2px solid var(--ink);padding-top:14px}
+  .prevnext button{border:0;background:none;cursor:pointer;font-family:"Anton",Impact,sans-serif;text-transform:uppercase;font-size:24px;color:var(--ink);padding:6px 0;max-width:46%;text-align:left;line-height:1.05}
+  .prevnext button small{display:block;font:500 9px "IBM Plex Mono",monospace;letter-spacing:.2em;color:var(--soft);margin-top:4px}
+  .prevnext button:last-child{text-align:right}
+  .prevnext button:last-child small{margin-left:auto}
+  .prevnext button:disabled{visibility:hidden}
+  .done-page{text-align:center;padding:70px 0 20px}
+  .done-stamp{display:inline-block;font-family:"Anton",Impact,sans-serif;text-transform:uppercase;font-size:52px;line-height:1;border:4px solid var(--ink);border-radius:20px;padding:14px 30px;transform:rotate(-6deg);margin-bottom:26px}
+  .done-page h2{font-family:"Anton",Impact,sans-serif;font-weight:400;text-transform:uppercase;font-size:30px;margin-bottom:10px}
+  .done-page p{color:var(--soft);font-size:15px;line-height:1.6;max-width:320px;margin:0 auto}
+
+  .sizerow{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-top:44px}
+  .pill{border:1.5px solid var(--ink);border-radius:999px;background:none;padding:7px 16px;font:600 10px "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);cursor:pointer}
+  .pill.on{background:var(--ink);color:var(--canvas)}
+  .archive{margin-top:48px;border-top:2px solid var(--ink);padding-top:14px}
+  .archive h3{font:600 10px "IBM Plex Mono",monospace;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);margin-bottom:6px}
+  .archive a{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid rgba(20,20,18,.18);text-decoration:none;color:var(--ink)}
+  .a-date{font-size:14px;font-weight:500}
+  .a-count{font:10px "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);white-space:nowrap;padding-top:3px}
+  .story.turn{opacity:0;transition:opacity .3s}
+  .story.enter{animation:enter .5s ease}
+  @keyframes enter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  /* Concept C - Poster card */
+  .hero{position:relative;margin:18px -20px 0}
+  .hero .plate{margin:0}
+  .hero .plate img{border-radius:0}
+  .hero .pcap{margin:6px 20px 0}
+  .badge{position:absolute;top:14px;right:14px;background:var(--a1,var(--ink));color:var(--canvas);font-family:"Anton",Impact,sans-serif;font-size:40px;line-height:1;padding:8px 14px;transform:rotate(-4deg);border-radius:10px}
+  .headline.overlap{margin:-30px 14px 0;background:var(--canvas);display:table;padding:8px 12px 4px;position:relative;border-radius:6px}
+  .kicker{font:600 11px "IBM Plex Mono",monospace;letter-spacing:.2em;text-transform:uppercase;color:var(--a2t,var(--soft));margin:14px 0 0}
+  .deck{margin-left:0 !important}
+  .figwrap{border:2px solid var(--ink);border-radius:18px;background:#fff;padding:12px;margin-top:26px}
+  .figwrap .infofig{margin-top:0}
+  .figtag{font-size:10px;letter-spacing:.22em;color:var(--a2t,var(--soft));margin:2px 2px 8px}
+
+  .ptr{font:600 12px "IBM Plex Mono",monospace;letter-spacing:.03em;color:var(--ink);display:flex;gap:9px;align-items:baseline;margin:10px 0 22px}
+  .ptr i{width:8px;height:8px;flex:none}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="mast mono">
+    <span class="brand">The Daily Draft</span>
+    <span class="right" id="mast-right">—</span>
+  </header>
+  <nav class="dots" id="dots" aria-label="Stories in this issue"></nav>
+
+  <main id="main" class="story" aria-live="polite"></main>
+
+  <div class="sizerow">
+    <button class="pill" id="sz-std">Standard</button>
+    <button class="pill" id="sz-big">Larger</button>
+  </div>
+
+  <div id="archive-slot"></div>
+</div>
+
+<script>
+const store = {
+  get(){ try{ return JSON.parse(localStorage.getItem("tdr-read-poster")||"{}"); }catch(e){ return {}; } },
+  set(v){ localStorage.setItem("tdr-read-poster", JSON.stringify(v)); }
+};
+function fmtDate(iso){
+  const d = new Date(iso + "T12:00:00");
+  return d.toLocaleDateString("en-GB",{weekday:"long", day:"numeric", month:"long", year:"numeric"});
+}
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function splitHead(h){
+  var w=h.split(/\s+/);
+  if(w.length<4)return [h,""];
+  var m=Math.ceil(w.length/2);
+  return [w.slice(0,m).join(" "), w.slice(m).join(" ")];
+}
+function hlSize(part){
+  var n=part.length;
+  if(n<=12)return "hs-xl";
+  if(n<=20)return "hs-l";
+  if(n<=30)return "hs-m";
+  return "hs-s";
+}
+function itemHTML(it, idx, total, issue){
+  var pts=(it.points&&it.points.length)?it.points:null;
+  var parts=splitHead(it.headline);
+  var no=String(idx+1).padStart(2,"0"), tot=String(total).padStart(2,"0");
+  var plate=it.image
+    ? '<div class="plate"><img src="../'+esc(it.image)+'" alt="'+esc(it.image_alt||it.headline)+'" loading="lazy"></div>'
+      +(it.image_caption?'<div class="pcap mono">'+esc(it.image_caption)+'</div>':'')
+    : '';
+  var infofig=it.info_image
+    ? '<div class="plate infofig"><img src="../'+esc(it.info_image)+'" alt="'+esc(it.info_alt||'Explanatory diagram')+'" loading="lazy">'+((it.info_labels||[]).map(function(l){return `<span class="infolbl" style="left:${l.x}%;top:${l.y}%;border-color:${l.c||'#141412'}">${esc(l.t)}</span>`}).join(""))+'</div>'+(it.info_caption?'<div class="pcap mono">'+esc(it.info_caption)+'</div>':'')
+    : '';
+  var accs=(it.accents&&it.accents.length)?it.accents:[it.accent||"#141412"];
+  var paras=(it.paras&&it.paras.length)?it.paras:null;
+  var bodyHtml=paras
+    ? paras.map(function(pr,pi){return '<p class="sbody para">'+esc(pr.text)+'</p><p class="ptr"><i style="background:'+accs[pi%accs.length]+'"></i>'+esc(pr.pointer)+'</p>'}).join("")
+    : '<p class="sbody">'+esc(it.body||"")+'</p>';
+  var headFull='<h2 class="headline hl-a overlap '+hlSize(it.headline)+'">'+esc(it.headline)+'</h2>';
+  return `
+    <div class="hero">${plate}<div class="badge">${no}</div></div>
+    ${headFull}
+    <p class="kicker mono">${esc(it.kind)} &middot; ${no} / ${tot}</p>
+    <p class="deck">${esc(it.deck)}</p>
+    ${bodyHtml}
+    ${it.example ? `<p class="example">${esc(it.example)}</p>` : ""}
+    ${pts ? `<ol class="points">${pts.map(function(p){return "<li><p>"+esc(p)+"</p></li>"}).join("")}</ol>` : ""}
+    ${infofig ? `<div class="figwrap"><div class="figtag mono">FIG. ${no}</div>${infofig}</div>` : ""}
+    ${it.why ? `<div class="why"><p>${esc(it.why)}</p></div>` : ""}
+    ${(it.questions&&it.questions.length) ? `<div class="quiz">${it.questions.map(function(q){return `<details><summary>${esc(q.q)}</summary><p>${esc(q.a)}</p></details>`}).join("")}</div>` : ""}
+    ${it.source_url ? `<p class="source-line mono">Source: <a href="${esc(it.source_url)}" target="_blank" rel="noopener">${esc(it.source_name||it.source_url)} ↗</a></p>` : ""}
+  `;
+}
+
+
+function renderDots(issue,idx,doneIds){
+  var d=document.getElementById("dots");d.textContent="";
+  issue.items.forEach(function(it,i){var b=document.createElement("button");b.setAttribute("aria-label","Story "+(i+1)+": "+it.kind+(doneIds.has(it.id)?" (read)":""));b.className=(doneIds.has(it.id)?"read ":"")+(i===idx?"cur":"");b.appendChild(document.createElement("i"));b.onclick=function(){render(issue,i)};d.appendChild(b)});
+}
+
+function render(issue, idx){
+  const main = document.getElementById("main");
+  const total = issue.items.length;
+  document.getElementById("mast-right").textContent = "№ " + issue.number + " · " + new Date(issue.date+"T12:00:00").toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short"});
+  const doneIds = new Set((store.get()[issue.date])||[]);
+  renderDots(issue,idx,doneIds);
+  if(idx >= total){
+    main.innerHTML = `
+      <div class="done-page">
+        <div class="done-stamp">ALL READ</div>
+        <h2>That's the paper.</h2>
+        <p>All ${total} stories read. Tomorrow's edition prints at 7 in the morning.</p>
+      </div>`;
+    return;
+  }
+  const it = issue.items[idx];
+  var accs=(it.accents&&it.accents.length)?it.accents:[it.accent||"#141412"];
+  var a1=accs[0],a2=accs[1]||a1,a3=accs[2]||a2;
+  var safeT=function(c){return c.toUpperCase()==="#F2C200"?"#A67C00":c};
+  main.style.setProperty("--a1",a1);main.style.setProperty("--a2",a2);main.style.setProperty("--a3",a3);
+  main.style.setProperty("--a2t",safeT(a2));main.style.setProperty("--a3t",safeT(a3));
+  const wasRead = doneIds.has(it.id);
+  const prev = idx>0 ? issue.items[idx-1] : null;
+  const next = idx+1<total ? issue.items[idx+1] : null;
+  main.innerHTML = itemHTML(it, idx, total, issue) + `
+    <div class="checkrow">
+      <button class="tick${wasRead?" done":""}" id="tick" aria-pressed="${wasRead}" aria-label="Mark story as read">
+        <span class="box"><svg viewBox="0 0 32 32" width="18" height="18" fill="none"><path d="M7 17.5 L13.5 23.5 L25 9" stroke="#F4F1EA" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="tick-label">${wasRead?"Read":"Mark as read"}</span>
+      </button>
+    </div>
+    <div class="prevnext">
+      <button id="pn-prev" ${prev?"":"disabled"}>← Prev${prev?'<small>'+esc(prev.kind)+'</small>':""}</button>
+      <button id="pn-next" ${next?"":"disabled"}>Next →${next?'<small>'+esc(next.kind)+'</small>':""}</button>
+    </div>
+    <div class="stamp" id="stamp">Read</div>`;
+  if(prev)document.getElementById("pn-prev").onclick=function(){render(issue,idx-1);window.scrollTo({top:0,behavior:"smooth"})};
+  if(next)document.getElementById("pn-next").onclick=function(){render(issue,idx+1);window.scrollTo({top:0,behavior:"smooth"})};
+
+  document.getElementById("tick").addEventListener("click", () => {
+    const tick = document.getElementById("tick");
+    if(tick.classList.contains("done")){ if(idx+1<=total){render(issue, idx+1);window.scrollTo({top:0,behavior:"smooth"})} return; }
+    tick.classList.add("done");
+    tick.setAttribute("aria-pressed","true");
+    document.getElementById("stamp").classList.add("slam");
+    const read = store.get();
+    const ids = new Set(read[issue.date]||[]);
+    ids.add(it.id);
+    read[issue.date] = [...ids];
+    store.set(read);
+    setTimeout(() => {
+      main.classList.add("turn");
+      setTimeout(() => {
+        main.classList.remove("turn");
+        render(issue, idx+1);
+        main.classList.add("enter");
+        window.scrollTo({top:0, behavior:"smooth"});
+      }, 300);
+    }, 950);
+  });
+}
+
+function renderArchive(issues, currentDate){
+  document.getElementById("archive-slot").innerHTML = `
+    <div class="archive"><h3>Archive</h3>` +
+    issues.map(i => {
+      const today = i.date === currentDate;
+      return `<a href="?date=${i.date}"><span class="a-date">${fmtDate(i.date)}${today ? " — today's edition" : ""}</span><span class="a-count">№ ${i.number} · ${i.items.length} stories</span></a>`;
+    }).join("") +
+    `</div>`;
+}
+
+(function(){
+  var key="tdr-poster-text";
+  var cur="std"; try{cur=localStorage.getItem(key)||"std"}catch(e){}
+  function apply(v){cur=v;try{localStorage.setItem(key,v)}catch(e){}
+    document.body.classList.toggle("bigtext",v==="big");
+    document.getElementById("sz-std").classList.toggle("on",v==="std");
+    document.getElementById("sz-big").classList.toggle("on",v==="big")}
+  document.getElementById("sz-std").onclick=function(){apply("std")};
+  document.getElementById("sz-big").onclick=function(){apply("big")};
+  apply(cur);
+})();
+
+fetch("./content.json", {cache:"no-store"})
+  .then(r => r.json())
+  .then(data => {
+    const issues = data.issues;
+    const params = new URLSearchParams(location.search);
+    const want = params.get("date");
+    const issue = (want && issues.find(i => i.date === want)) || issues[0];
+    const read = store.get();
+    const doneIds = new Set(read[issue.date]||[]);
+    const firstUnread = issue.items.findIndex(it => !doneIds.has(it.id));
+    render(issue, firstUnread === -1 ? issue.items.length : firstUnread);
+    renderArchive(issues, issue.date);
+  })
+  .catch(() => {
+    document.getElementById("main").innerHTML =
+      `<div class="done-page"><h2>The presses are warming up.</h2><p>Today's edition could not be loaded. Try again in a moment.</p></div>`;
+  });
+</script>
+</body>
+</html>

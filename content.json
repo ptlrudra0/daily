@@ -74,6 +74,20 @@
               "y": 20,
               "c": "#141412"
             }
+          ],
+          "paras": [
+            {
+              "text": "Bro, your prompt is a kitchen, and right now you're throwing the recipe, the groceries and your life story into one bowl. Anthropic's own prompting guide has a fix so simple it hurts: wrap every ingredient in its own XML tag.",
+              "pointer": "One ingredient per tag"
+            },
+            {
+              "text": "Instructions in one tag, context in another, examples in a third, the user's actual question in a fourth. The docs say it flat out - tags help the model parse complex prompts unambiguously, especially when instructions, context, examples and variable inputs collide.",
+              "pointer": "Four lanes: instructions, context, examples, question"
+            },
+            {
+              "text": "It's not decoration, it's lanes on a highway. When the model rarely has to guess which paragraph is the order and which is the raw material, it is far less likely to treat your data like your demands. Label the lanes, and the machine drives straighter.",
+              "pointer": "Label the lanes; the machine drives straighter"
+            }
           ]
         },
         {
@@ -138,6 +152,20 @@
               "y": 85,
               "c": "#141412"
             }
+          ],
+          "paras": [
+            {
+              "text": "Nielsen Norman Group strapped eye-tracking gear on 232 people and watched them read thousands of web pages. The verdict, confirmed in a follow-up study eleven years later: almost nobody reads top to bottom.",
+              "pointer": "232 tracked readers: almost nobody reads top to bottom"
+            },
+            {
+              "text": "Eyes sweep across the top in one horizontal bar, come back for a second, shorter bar, then drop into a vertical scan down the left edge - a shape like the letter F. Your beautiful middle-paragraph argument? Structurally invisible.",
+              "pointer": "Two bars, one left-edge scan - the middle is invisible"
+            },
+            {
+              "text": "The fix is free: put the most important words in your first two lines, front-load every heading with its keyword, and treat the left edge as prime real estate. You are not designing for readers, bro. You are designing for scanners who might, if the F treats them well, become readers.",
+              "pointer": "Front-load the first two lines and every heading"
+            }
           ]
         },
         {
@@ -191,6 +219,20 @@
               "y": 90,
               "c": "#141412"
             }
+          ],
+          "paras": [
+            {
+              "text": "How do you design an office that makes viewers' skin crawl without a single jump scare? Jeremy Hindle - who just won an Emmy for Severance and built worlds for Top Gun: Maverick and Zero Dark Thirty - answered with kindergarten logic.",
+              "pointer": "Emmy-winning answer: kindergarten logic"
+            },
+            {
+              "text": "The severed workers are corporate newborns, so his team treated them like children: playful desks, bright carpets, and computers that look forty years old yet secretly pack touchscreens and trackballs. Nothing on Lumon's floor belongs to one decade, because the place 'had to make no sense to anyone in their right mind.'",
+              "pointer": "No single decade allowed on the floor"
+            },
+            {
+              "text": "He even cites the 1967 film Playtime as a reference, and every single prop got camera-tested before it earned screen time. The lesson: unease isn't built from darkness - it's built from things that almost fit, mixed so carefully the audience can't name what's wrong.",
+              "pointer": "Unease = things that almost fit"
+            }
           ]
         },
         {
@@ -230,6 +272,16 @@
           "accents": [
             "#141412",
             "#2B4BE0"
+          ],
+          "paras": [
+            {
+              "text": "Every chatbot you've used writes like a typewriter - one word, then the next, no going back. DiffuSpace, founded by members of the Hong Kong University NLP group behind Dream 7B, just shipped the alternative: Clover-35B-A3B-Preview, an open-weights diffusion language model that drafts the whole answer in rough, then refines it in passes, exactly like an image model sharpening noise into a picture.",
+              "pointer": "Drafts the whole answer, then refines in passes"
+            },
+            {
+              "text": "It's a 35-billion-parameter mixture-of-experts that only activates about 3 billion parameters per token, comes with a thinking mode, and according to its release post out-scores the similarly sized Qwen3.6-35B-A3B while generating significantly faster - leading all six agent benchmarks in their comparison, including 73.6 on SWE-bench Verified. Text that appears all at once, bro. The typewriter era just got a challenger.",
+              "pointer": "35B total, ~3B active per token; 73.6 SWE-bench Verified"
+            }
           ]
         },
         {
@@ -306,6 +358,20 @@
               "y": 91,
               "c": "#E8480C"
             }
+          ],
+          "paras": [
+            {
+              "text": "Security firm Forever Security published research this week that should sit next to your keyboard: they looked at the browsers embedded inside five desktop AI coding tools - Cursor, GitHub Copilot, Codex, VS Code and Claude Desktop - and broke all five with one shared flaw they call EMBRACE.",
+              "pointer": "Five tools, one shared flaw: EMBRACE"
+            },
+            {
+              "text": "Each tool runs a browser that is trusted like a real browser but given powers no real browser has, and that contradiction collapses the whole security model. Their demos are not theoretical: a web page in Cursor could run code on the host machine, a page in Copilot could repaint the address bar to fake a login site, and local files could escape their project folder.",
+              "pointer": "Trusted like a browser, powered like root"
+            },
+            {
+              "text": "Cursor patched its issue on October 1; Codex and VS Code were still unpatched at publication. Here's why the stakes are personal: these agents already hold your tokens, credentials and file access, so every page they render is attack surface.",
+              "pointer": "Your tokens and files are the blast radius"
+            }
           ]
         },
         {
@@ -356,6 +422,20 @@
               "x": 50,
               "y": 93,
               "c": "#141412"
+            }
+          ],
+          "paras": [
+            {
+              "text": "Tonight, pull up your three most recent reel or video titles. Read only the first two words of each, out loud. Do those two words alone make anyone curious?",
+              "pointer": "Read the first two words out loud"
+            },
+            {
+              "text": "That's the top bar of the F - the only bar every scanner actually reads. Rewrite each title so the strongest word leads: not 'My thoughts on the new model' but 'This model writes whole answers at once.'",
+              "pointer": "Strongest word leads the title"
+            },
+            {
+              "text": "Then open your profile grid and scan just the left column of thumbnails - that's your vertical stripe, so make sure each one can carry the page alone. Ten minutes, three titles, one permanent habit.",
+              "pointer": "Left column must carry the page alone"
             }
           ]
         }
