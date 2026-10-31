@@ -27,7 +27,8 @@
               "q": "Why does tagging also make agents safer?",
               "a": "When instructions and data are clearly fenced, a hostile document has a much harder time impersonating you."
             }
-          ]
+          ],
+          "accent": "#E8480C"
         },
         {
           "id": "2026-10-31-2",
@@ -51,7 +52,8 @@
               "q": "Where do a heading's most important words belong?",
               "a": "At the very start. Scanners judge the whole line by its first two words."
             }
-          ]
+          ],
+          "accent": "#2B4BE0"
         },
         {
           "id": "2026-10-31-3",
@@ -75,7 +77,8 @@
               "q": "What film did Jeremy Hindle cite, and what did every prop go through?",
               "a": "The 1967 film Playtime, and a camera test before any prop earned screen time."
             }
-          ]
+          ],
+          "accent": "#A67C00"
         },
         {
           "id": "2026-10-31-4",
@@ -109,7 +112,8 @@
               "q": "What did it score on SWE-bench Verified?",
               "a": "73.6 - top of its comparison class, leading all six agent benchmarks in the release post's comparison."
             }
-          ]
+          ],
+          "accent": "#141412"
         },
         {
           "id": "2026-10-31-5",
@@ -138,7 +142,8 @@
               "q": "Which tools were named, and which were still unpatched at publication?",
               "a": "Cursor, GitHub Copilot, Codex, VS Code and Claude Desktop. Cursor patched on October 1; Codex and VS Code were unpatched."
             }
-          ]
+          ],
+          "accent": "#2B4BE0"
         },
         {
           "id": "2026-10-31-6",
@@ -161,7 +166,8 @@
               "q": "Which column of your profile grid matters most?",
               "a": "The left column - it is the vertical stripe of the F, so every thumbnail there must carry the page alone."
             }
-          ]
+          ],
+          "accent": "#E8480C"
         }
       ]
     },

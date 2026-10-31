@@ -100,7 +100,7 @@ async function buildWidget(issue, state) {
   numCol.layoutVertically();
   const num = numCol.addText(String(idx).padStart(2, "0"));
   num.font = new Font("AvenirNextCondensed-Bold", 46);
-  num.textColor = INK;
+  num.textColor = new Color(lead.accent || "#141412");
   const ofTot = numCol.addText("/ " + String(issue.items.length).padStart(2, "0"));
   ofTot.font = Font.monospacedSystemFont(8, 0);
   ofTot.textColor = SOFT;
@@ -178,7 +178,7 @@ function pageCSS() {
   .story{padding-top:44px}
   .kicker{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:10px;color:#6E6A5E}
   .kicker b{color:#141412;font-weight:600}
-  .bignum{font-family:"Anton",Impact,sans-serif;font-size:110px;line-height:.82;color:#141412;margin:22px 0 0 -4px}
+  .bignum{font-family:"Anton",Impact,sans-serif;font-size:110px;line-height:.82;color:var(--acc,#141412);margin:22px 0 0 -4px}
   .bignum span{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;letter-spacing:.18em;color:#6E6A5E}
   .headline{font-family:"Anton",Impact,sans-serif;font-weight:400;text-transform:uppercase;line-height:.94;letter-spacing:.005em}
   .hl-a{margin-top:10px}
@@ -193,14 +193,14 @@ function pageCSS() {
   .example{font-style:italic;font-size:15.5px;line-height:1.6;color:#3A382F;margin:24px 0 0 12%;max-width:30em}
   .points{list-style:none;max-width:34em;margin-top:26px}
   .points li{position:relative;padding:10px 0 4px 24px}
-  .points li::before{content:"";position:absolute;left:2px;top:1.5em;width:8px;height:8px;background:#141412}
+  .points li::before{content:"";position:absolute;left:2px;top:1.5em;width:8px;height:8px;background:var(--acc,#141412)}
   .points li p{font-size:15.5px;line-height:1.6}
-  .why{margin:26px 0 0 12%;padding:2px 0 2px 16px;border-left:3px solid #141412;font-size:15px;line-height:1.6;max-width:30em}
+  .why{margin:26px 0 0 12%;padding:2px 0 2px 16px;border-left:3px solid var(--acc,#141412);font-size:15px;line-height:1.6;max-width:30em}
   .quiz{margin-top:28px;max-width:34em}
   .quiz details{padding:12px 0;border-top:1px solid rgba(20,20,18,.18)}
   .quiz details:first-child{border-top:0}
   .quiz summary{cursor:pointer;font-weight:600;font-size:15px;list-style:none;position:relative;padding-right:26px;line-height:1.45}
-  .quiz summary::after{content:"+";position:absolute;right:2px;top:-2px;font-size:20px;font-weight:400;color:#6E6A5E}
+  .quiz summary::after{content:"+";position:absolute;right:2px;top:-2px;font-size:20px;font-weight:400;color:var(--acc,#6E6A5E)}
   .quiz details[open] summary::after{content:"\\2212"}
   .quiz details p{margin-top:8px;color:#3d3d39;font-size:14px;line-height:1.6}
   .source{margin-top:20px;font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#6E6A5E}
@@ -317,7 +317,7 @@ function storyHTML(issue, it, idx, state) {
   return `<!DOCTYPE html><html><head>${pageCSS()}</head><body>
   <div class="mast mono"><span class="brand">The Daily Draft</span><span>№ ${issue.number} · ${esc(dShort)}</span></div>
   <div class="dots">${dots}</div>
-  <div class="story">
+  <div class="story" style="--acc:${esc(it.accent || '#141412')}">
     <div class="bignum">${String(idx + 1).padStart(2, "0")}<span> / ${String(total).padStart(2, "0")} &middot; ${esc(it.kind)}</span></div>
     <h1 class="headline hl-a ${hsClass(parts[0])}">${esc(parts[0])}</h1>
     ${it.image ? `<div class="plate"><img src="${PAGE + esc(it.image)}" alt="${esc(it.image_alt || it.headline)}"></div>
