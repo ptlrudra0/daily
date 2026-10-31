@@ -184,7 +184,7 @@ function pageCSS() {
   .deck{font-size:16.5px;line-height:1.55;color:#3A382F;margin-bottom:18px;max-width:34em}
   .panel{position:relative;background:#fff;border-radius:26px;padding:9px;border:1.5px solid #141412;margin:18px 0 6px}
   .panel img{display:block;width:100%;height:auto;border-radius:18px;filter:grayscale(1) contrast(1.06)}
-  .panel .over{position:absolute;left:20px;bottom:17px;font-size:9px;font-weight:600;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.55)}
+  .panel .over{position:absolute;left:16px;bottom:15px;font-size:9px;font-weight:600;color:#F4F1EA;background:rgba(20,20,18,.82);border-radius:8px;padding:5px 9px}
   .pcap{display:flex;justify-content:space-between;gap:10px;font-size:9px;color:#6E6A5E;margin:8px 0 20px}
   .body{font-size:16.5px;line-height:1.68;max-width:38em}
   .sec{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#6E6A5E;margin:26px 0 2px}
