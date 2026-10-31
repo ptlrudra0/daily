@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Daily Draft widget - spacious concept (design preview)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--canvas:#F4F1EA;--ink:#141412;--soft:#6E6A5E;--a1:#E8480C;--a2:#2B4BE0;--a3:#F2C200}
+  *{margin:0;box-sizing:border-box}
+  body{background:#E9E5DA;color:var(--ink);font-family:"Inter",-apple-system,sans-serif;-webkit-font-smoothing:antialiased;padding:28px 20px 60px;display:flex;flex-direction:column;align-items:center;gap:44px}
+  .note{font:500 10px "IBM Plex Mono",monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--soft);text-align:center;max-width:340px;line-height:1.8}
+  .lbl{font:600 10px "IBM Plex Mono",monospace;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);margin-bottom:12px;text-align:center}
+  .w{background:var(--canvas);border-radius:22px;box-shadow:0 8px 28px rgba(20,20,18,.10);position:relative;overflow:hidden;display:flex;flex-direction:column}
+  .mono{font-family:"IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.16em}
+  .top{display:flex;justify-content:space-between;align-items:baseline;font-size:8px;font-weight:600;color:var(--soft)}
+  .dots{display:flex;gap:5px}
+  .dots i{width:10px;height:3px;border-radius:2px;background:rgba(20,20,18,.14)}
+  .dots i.cur{background:var(--ink)}
+  /* medium 329x155 */
+  .wm{width:329px;height:155px;padding:16px 18px 14px}
+  .wm .space{flex:1}
+  .wm h1{font-family:"Anton",Impact,sans-serif;font-weight:400;text-transform:uppercase;font-size:19px;line-height:1.04;max-width:12em}
+  .wm .sub{font-size:9.5px;line-height:1.45;color:#3A382F;margin-top:7px;max-width:30em}
+  .wm .foot{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+  .wm .tap{font-size:7.5px;color:var(--soft)}
+  /* small 155x155 */
+  .ws{width:155px;height:155px;padding:16px 16px 14px;align-items:flex-start}
+  .ws .space{flex:1}
+  .ws .num{font-family:"Anton",Impact,sans-serif;font-size:52px;line-height:.9;color:var(--a1)}
+  .ws .kind{font-size:7.5px;font-weight:600;color:var(--soft);margin-top:6px}
+  .ws .dots{margin-top:10px}
+  /* large 329x345 */
+  .wl{width:329px;height:345px;padding:18px 20px 16px}
+  .wl .num{font-family:"Anton",Impact,sans-serif;font-size:64px;line-height:.9;color:var(--a1);margin-top:14px}
+  .wl .kind{font-size:8px;font-weight:600;color:var(--soft);margin-top:6px}
+  .wl .space{flex:1}
+  .wl h1{font-family:"Anton",Impact,sans-serif;font-weight:400;text-transform:uppercase;font-size:23px;line-height:1.05;max-width:12em}
+  .wl .lead{font-size:10.5px;line-height:1.55;color:#1D1D1F;margin-top:10px;max-width:32em}
+  .wl .foot{display:flex;justify-content:space-between;align-items:center;margin-top:14px}
+  .wl .tap{font-size:7.5px;color:var(--soft)}
+</style>
+</head>
+<body>
+<p class="note">Widget appearance concept - design preview only, not running on the phone. Deliberately spacious: type and a few marks, lots of open canvas.</p>
+
+<div>
+  <p class="lbl">Small</p>
+  <div class="w ws">
+    <div class="top mono"><span>Daily Draft</span><span>&#8470; 14</span></div>
+    <div class="space"></div>
+    <div class="num">1</div>
+    <div class="kind mono">AI Tip</div>
+    <div class="dots"><i class="cur"></i><i></i><i></i><i></i><i></i><i></i></div>
+  </div>
+</div>
+
+<div>
+  <p class="lbl">Medium</p>
+  <div class="w wm">
+    <div class="top mono"><span>The Daily Draft</span><span>&#8470; 14 &middot; Sat 31 Oct</span></div>
+    <div class="space"></div>
+    <h1>Put every ingredient in its own bag</h1>
+    <p class="sub">XML tags tell the model which words are orders and which are ingredients.</p>
+    <div class="foot">
+      <div class="dots"><i class="cur"></i><i></i><i></i><i></i><i></i><i></i></div>
+      <span class="tap mono">Tap to read</span>
+    </div>
+  </div>
+</div>
+
+<div>
+  <p class="lbl">Large</p>
+  <div class="w wl">
+    <div class="top mono"><span>The Daily Draft</span><span>&#8470; 14 &middot; Sat 31 Oct</span></div>
+    <div class="num">1<span class="mono" style="font-size:8px;color:var(--soft);letter-spacing:.16em"> / 06 &middot; AI Tip</span></div>
+    <div class="space"></div>
+    <h1>Put every ingredient in its own bag</h1>
+    <p class="lead">Bro, your prompt is a kitchen, and right now you're throwing the recipe, the groceries and your life story into one bowl.</p>
+    <div class="foot">
+      <div class="dots"><i class="cur"></i><i></i><i></i><i></i><i></i><i></i></div>
+      <span class="tap mono">Tap to read</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
