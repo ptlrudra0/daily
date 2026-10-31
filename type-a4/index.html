@@ -177,6 +177,7 @@
 </div>
 
 <script>
+const INAPP = new URLSearchParams(location.search).has("inapp"); // opened inside the Scriptable widget: keep all navigation in-app
 const store = {
   get(){ try{ return JSON.parse(localStorage.getItem("tdr-read-poster")||"{}"); }catch(e){ return {}; } },
   set(v){ localStorage.setItem("tdr-read-poster", JSON.stringify(v)); }
@@ -226,7 +227,7 @@ function itemHTML(it, idx, total, issue){
     ${infofig}
     ${it.why ? `<div class="why"><p>${esc(it.why)}</p></div>` : ""}
     ${(it.questions&&it.questions.length) ? `<div class="quiz">${it.questions.map(function(q){return `<details><summary>${esc(q.q)}</summary><p>${esc(q.a)}</p></details>`}).join("")}</div>` : ""}
-    ${it.source_url ? `<p class="source-line mono">Source: <a href="${esc(it.source_url)}" target="_blank" rel="noopener">${esc(it.source_name||it.source_url)} ↗</a></p>` : ""}
+    ${it.source_url ? `<p class="source-line mono">Source: <a href="${esc(it.source_url)}" target="${INAPP ? '_self' : '_blank'}" rel="noopener">${esc(it.source_name||it.source_url)} ↗</a></p>` : ""}
   `;
 }
 
@@ -335,7 +336,7 @@ function renderArchive(issues, currentDate){
     <div class="archive"><h3>Archive</h3>` +
     issues.map(i => {
       const today = i.date === currentDate;
-      return `<a href="?date=${i.date}"><span class="a-date">${fmtDate(i.date)}${today ? " — today's edition" : ""}</span><span class="a-count">№ ${i.number} · ${i.items.length} stories</span></a>`;
+      return `<a href="?date=${i.date}${INAPP ? "&inapp=1" : ""}"><span class="a-date">${fmtDate(i.date)}${today ? " — today's edition" : ""}</span><span class="a-count">№ ${i.number} · ${i.items.length} stories</span></a>`;
     }).join("") +
     `</div>`;
 }

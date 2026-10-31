@@ -19,7 +19,9 @@
 //   4. Tap the widget any time to open today's edition inside
 //      Scriptable (new spacious article design, first unread
 //      story, scroll-reveal animations). Closing it syncs your
-//      read marks back to the widget face.
+//      read marks back to the widget face. Everything stays
+//      inside Scriptable - source links open in place, no
+//      Safari. Re-tap the widget to return to the edition.
 //
 // HONEST NOTES:
 //   - iOS widgets cannot be truly transparent. The wallpaper
@@ -425,12 +427,12 @@ if (config.runsInWidget) {
   if (openArticle) {
     const issue = await getIssue();
     const v = new WebView();
-    await v.loadURL(PAGE + "?date=" + issue.date);
+    await v.loadURL(PAGE + "?inapp=1&date=" + issue.date);
     await v.present(true);
     // sync the marks made in the article back to the widget face
     try {
       const probe = new WebView();
-      await probe.loadURL(PAGE + "?date=" + issue.date);
+      await probe.loadURL(PAGE + "?inapp=1&date=" + issue.date);
       const raw = await probe.evaluateJavaScript("localStorage.getItem('" + PAGE_STATE_KEY + "')");
       if (raw) {
         const fromPage = JSON.parse(raw);
