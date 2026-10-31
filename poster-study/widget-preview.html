@@ -40,7 +40,7 @@
 </div></div>
 <script>
   // pull today's first story live so the mock shows real content shape
-  fetch("../content.json",{cache:"no-store"}).then(r=>r.json()).then(d=>{
+  fetch("./content.json",{cache:"no-store"}).then(r=>r.json()).then(d=>{
     var issue=d.issues[0], it=issue.items[0], idx=1;
     var h=it.headline.toUpperCase();
     var el=document.getElementById("head");

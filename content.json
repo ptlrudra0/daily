@@ -14,8 +14,8 @@
           "why": "Clear structure also helps with safety hygiene: fenced content makes injected instructions easier to spot. But tags are organisation, not armour - a hostile document can write its own tags, so keep your agents least-privileged either way.",
           "source_name": "Anthropic Docs",
           "source_url": "https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/use-xml-tags",
-          "image": "img/2026-10-31-1-info.jpg",
-          "image_alt": "Four coloured paper lanes - instructions, context, example, question - merging into one prompt arrow",
+          "image": "img/2026-10-31-1.jpg",
+          "image_alt": "Three stacked cut-paper trays in ink, cobalt and vermilion, each neatly holding one different paper shape",
           "reading_time": "2 min",
           "example": "Sloppy: 'Summarize this for me:' followed by 500 pasted lines. Tagged: <instructions>Summarize the document in three bullets.</instructions> <document>500 pasted lines</document>. Same words, but now the model has a much easier time telling your order from your raw material.",
           "questions": [
@@ -29,7 +29,14 @@
             }
           ],
           "accent": "#E8480C",
-          "image_caption": "Four lanes - instruction, context, example, question - each tagged apart, merging into one prompt"
+          "accents": [
+            "#E8480C",
+            "#2B4BE0",
+            "#F2C200"
+          ],
+          "info_image": "img/2026-10-31-1-schematic.jpg",
+          "info_alt": "Four separate containers - instructions, context, example, question - each flowing along its own arrow into one merged prompt",
+          "info_caption": "Diagram: four tagged containers, four arrows merging into one - wrap every ingredient in its own tag"
         },
         {
           "id": "2026-10-31-2",
@@ -40,8 +47,8 @@
           "why": "Your reel titles are the top bar of someone's F. If the hook word isn't in the first two words, the sweep never reaches it - lead with the strongest word you own.",
           "source_name": "Nielsen Norman Group",
           "source_url": "https://www.nngroup.com/articles/f-shaped-pattern-reading-web-content-discovered/",
-          "image": "img/2026-10-31-2-info.jpg",
-          "image_alt": "Cut-paper F shape over grey text lines - two horizontal sweeps and a vertical left scan",
+          "image": "img/2026-10-31-2.jpg",
+          "image_alt": "Abstract cut-paper composition of two horizontal cobalt and vermilion strips and one vertical ink strip, like a reading path",
           "reading_time": "2 min",
           "example": "'Tips for better mobile reading experiences' sweeps past unseen. Front-load it - 'Mobile reading: eyes scan, they don't read' - and the first two words do all the work.",
           "questions": [
@@ -55,7 +62,13 @@
             }
           ],
           "accent": "#E8480C",
-          "image_caption": "The F: two horizontal sweeps (vermilion, cobalt), then the vertical left-edge scan (ink)"
+          "accents": [
+            "#E8480C",
+            "#2B4BE0"
+          ],
+          "info_image": "img/2026-10-31-2-schematic.jpg",
+          "info_alt": "An F-shaped arrow path over lines of text: long top sweep, shorter second sweep, then down the left edge",
+          "info_caption": "Diagram: the F pattern - sweep the top bar, a shorter second bar, then scan down the left edge"
         },
         {
           "id": "2026-10-31-3",
@@ -66,8 +79,8 @@
           "why": "One deliberately 'wrong' object in your reel background - a toy next to your keyboard, a vintage phone beside your laptop - makes viewers pause and rewatch. Confusion, used carefully, is retention.",
           "source_name": "Film Independent",
           "source_url": "https://www.filmindependent.org/blog/creating-the-singular-disquieting-aesthetic-of-severance-with-emmy-winning-production-designer-jeremy-hindle/",
-          "image": "img/2026-10-31-3-info.jpg",
-          "image_alt": "Four mismatched-era objects with one tilted vermilion toy block out of place",
+          "image": "img/2026-10-31-3.jpg",
+          "image_alt": "A boxy retro ink-black computer with a glowing amber screen beside a trackball mouse with a vermilion ball",
           "reading_time": "2 min",
           "example": "Try it in one frame: a reel about your editing setup, but with a bright plastic toy next to the keyboard. Viewers pause, rewatch, comment. The almost-fits object does the work.",
           "questions": [
@@ -81,7 +94,14 @@
             }
           ],
           "accent": "#E8480C",
-          "image_caption": "Three era-mixed objects in place; the tilted vermilion toy is the deliberate wrong note"
+          "accents": [
+            "#E8480C",
+            "#2B4BE0",
+            "#F2C200"
+          ],
+          "info_image": "img/2026-10-31-3-schematic.jpg",
+          "info_alt": "A row of era-consistent office objects with one tilted toy ringed and arrowed as the deliberate wrong object",
+          "info_caption": "Diagram: one deliberate oddity, ringed and arrowed - the wrong object is what holds the viewer"
         },
         {
           "id": "2026-10-31-4",
@@ -116,7 +136,11 @@
               "a": "73.6 - top of its comparison class, leading all six agent benchmarks in the release post's comparison."
             }
           ],
-          "accent": "#141412"
+          "accent": "#141412",
+          "accents": [
+            "#141412",
+            "#2B4BE0"
+          ]
         },
         {
           "id": "2026-10-31-5",
@@ -132,8 +156,8 @@
           "why": "You code inside these tools every day. Keep them updated, treat every page your agent opens as hostile, and never let an agent browse inside a logged-in session you can't afford to lose.",
           "source_name": "Forever Security",
           "source_url": "https://forever.security/blog/embrace-hacking-5-ai-assistants-embedded-browsers/",
-          "image": "img/2026-10-31-5-info.jpg",
-          "image_alt": "App window containing a torn embedded browser with arrows escaping to file folders",
+          "image": "img/2026-10-31-5.jpg",
+          "image_alt": "A cobalt cut-paper browser window with a torn hole through its center revealing ink black paper behind",
           "reading_time": "2 min",
           "example": "This is not theory: a page opened inside Cursor ran code on the host machine, and one in Copilot repainted the address bar to fake a login site. Both demos worked.",
           "questions": [
@@ -147,7 +171,14 @@
             }
           ],
           "accent": "#2B4BE0",
-          "image_caption": "The EMBRACE flaw: pages in the embedded browser (cobalt) break out toward your files (amber)"
+          "accents": [
+            "#2B4BE0",
+            "#F2C200",
+            "#E8480C"
+          ],
+          "info_image": "img/2026-10-31-5-schematic.jpg",
+          "info_alt": "Five torn browser windows above one cracked shape, with arrows from the single flaw up into each window",
+          "info_caption": "Diagram: one shared root cause reaching all five embedded browsers"
         },
         {
           "id": "2026-10-31-6",
@@ -158,8 +189,8 @@
           "why": "You publish on a schedule; titles are your top bar. This drill pays out on every future post, starting with the next one.",
           "source_name": null,
           "source_url": null,
-          "image": "img/2026-10-31-6-info.jpg",
-          "image_alt": "An eye scanning three title bars where only the first two segments are lit vermilion",
+          "image": "img/2026-10-31-6.jpg",
+          "image_alt": "A blank cut-paper card with a vermilion starburst bursting from its top-left corner and thin ink strips trailing right",
           "reading_time": "1 min",
           "questions": [
             {
@@ -172,7 +203,13 @@
             }
           ],
           "accent": "#E8480C",
-          "image_caption": "The two-word test: only the vermilion segments - the first two words - get the scan"
+          "accents": [
+            "#E8480C",
+            "#2B4BE0"
+          ],
+          "info_image": "img/2026-10-31-6-schematic.jpg",
+          "info_alt": "Three title strips with only the first two word-segments solid; an arrow touches only those segments",
+          "info_caption": "Diagram: the audit - a scanner reads only the first two words of each title, skipping the rest"
         }
       ]
     },

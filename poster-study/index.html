@@ -329,7 +329,7 @@ function renderArchive(issues, currentDate){
   apply(cur);
 })();
 
-fetch("../content.json", {cache:"no-store"})
+fetch("./content.json", {cache:"no-store"})
   .then(r => r.json())
   .then(data => {
     const issues = data.issues;
