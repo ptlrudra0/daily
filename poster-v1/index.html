@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Daily Draft — poster study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --canvas:#F4F1EA; --ink:#141412; --soft:#6E6A5E; --panel:#FFFFFF;
+    --hair:rgba(20,20,18,.9);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--canvas);color:var(--ink);font-family:"Inter",-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;padding:18px 16px 56px}
+  body.bigtext .sbody, body.bigtext .deck{font-size:19px;line-height:1.75}
+  body.bigtext .points li p{font-size:18px}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;text-transform:uppercase;letter-spacing:.14em}
+  .sheet{max-width:1060px;margin:0 auto}
+
+  /* ---------- masthead ---------- */
+  .mast{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:10px;color:var(--ink);border-bottom:2px solid var(--ink);padding-bottom:10px}
+  .mast .brand{font-weight:600}
+  .mast .mid{color:var(--soft)}
+  .mast .right{color:var(--ink);text-align:right}
+  @media (max-width:560px){ .mast .mid{display:none} }
+
+  /* ---------- metadata line ---------- */
+  .metaline{border-bottom:1px solid var(--hair);padding:12px 0;font-size:10px;color:var(--soft)}
+  .metaline b{color:var(--ink);font-weight:600}
+
+  /* ---------- dots ---------- */
+  .dots{display:flex;gap:6px;margin:22px 0 0}
+  .dots button{flex:1;padding:10px 0;border:0;background:none;cursor:pointer}
+  .dots button i{display:block;height:4px;border-radius:4px;background:rgba(20,20,18,.18)}
+  .dots button.read i{background:rgba(20,20,18,.45)}
+  .dots button.cur i{background:var(--ink)}
+
+  /* ---------- story hero ---------- */
+  .story{padding-top:44px}
+  .hero{display:grid;grid-template-columns:1fr;gap:28px;margin-top:26px}
+  @media (min-width:900px){ .hero{grid-template-columns:1.15fr .85fr;gap:40px;align-items:start} }
+  .headline{font-family:"Anton",Impact,sans-serif;font-weight:400;text-transform:uppercase;line-height:.98;letter-spacing:.005em;margin:2px 0 14px}
+  .hl-xl{font-size:88px} .hl-l{font-size:66px} .hl-m{font-size:52px} .hl-s{font-size:40px}
+  @media (min-width:900px){
+    .hl-xl{font-size:128px} .hl-l{font-size:96px} .hl-m{font-size:74px} .hl-s{font-size:58px}
+  }
+  .deck{font-size:17px;line-height:1.55;color:#3A382F;max-width:34em}
+  .panel{position:relative;background:var(--panel);border-radius:30px;padding:12px;border:1.5px solid var(--ink)}
+  .panel img{display:block;width:100%;height:auto;border-radius:22px}
+  .panel .over{position:absolute;left:18px;bottom:18px;font-size:9px;font-weight:600;color:#F4F1EA;background:rgba(20,20,18,.82);border-radius:8px;padding:5px 9px}
+  .pcap{display:flex;justify-content:space-between;gap:10px;font-size:9px;color:var(--soft);margin-top:8px}
+  .pcap .pno{color:var(--ink);font-weight:600;white-space:nowrap}
+
+  /* ---------- body ---------- */
+  .sbody{font-size:16.5px;line-height:1.68;margin-top:36px;max-width:38em}
+  .sec{font-size:10px;font-weight:600;color:var(--soft);margin:26px 0 2px}
+  .points{list-style:none}
+  .points li{position:relative;padding:10px 0 4px 24px}
+  .points li::before{content:"";position:absolute;left:2px;top:1.5em;width:8px;height:8px;background:var(--ink)}
+  .points li p{font-size:15.5px;line-height:1.6}
+  .why{margin-top:22px;padding:2px 0 2px 16px;border-left:3px solid var(--ink);font-size:15px;line-height:1.6;max-width:38em}
+  .why span{display:block;font-size:9px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--soft);margin-bottom:6px;font-family:"IBM Plex Mono",monospace}
+  .source-line{margin-top:16px;font-size:11px;color:var(--soft)}
+  .source-line a{color:var(--ink);text-underline-offset:3px}
+
+  /* ---------- lab ---------- */
+  .lab{margin-top:38px;padding:20px 18px 16px;border-radius:26px;background:var(--panel);border:1.5px solid var(--ink)}
+  .lab h3{font-family:"Anton",Impact,sans-serif;font-weight:400;text-transform:uppercase;font-size:26px;letter-spacing:.01em;margin-bottom:4px}
+  .lab .sub{font-size:13.5px;color:var(--soft);margin-bottom:14px;line-height:1.5}
+  .acts{display:grid;grid-template-columns:1fr;gap:8px}
+  @media (min-width:560px){ .acts{grid-template-columns:repeat(3,1fr)} }
+  .acts button,.askrow button{font:600 13px "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--ink);padding:13px 10px;border:1.5px solid var(--ink);border-radius:16px;background:var(--canvas);cursor:pointer;min-height:48px;text-align:left}
+  .acts button small{display:block;font-weight:400;font-size:10px;color:var(--soft);margin-top:3px;letter-spacing:.04em;text-transform:none;font-family:"Inter",sans-serif}
+  .acts button:active,.askrow button:active{transform:scale(.98)}
+  .askrow{display:flex;gap:8px;margin-top:10px}
+  .askrow input{flex:1;min-width:0;font:15px "Inter",sans-serif;padding:13px 14px;border:1.5px solid var(--ink);border-radius:16px;background:var(--canvas);color:var(--ink);-webkit-appearance:none}
+  .askrow button.go{background:var(--ink);color:var(--canvas)}
+  .lab button:disabled,.lab input:disabled{opacity:.5}
+  .lstat{font-size:13px;color:var(--soft);margin-top:12px;min-height:1.2em}
+  .lbar{height:5px;border-radius:5px;background:rgba(20,20,18,.15);margin-top:8px;overflow:hidden}
+  .lbar i{display:block;height:100%;width:0;background:var(--ink);transition:width .4s linear}
+  .res{margin-top:14px}
+  .res .rh{font-family:"IBM Plex Mono",monospace;font-size:9.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);margin-bottom:4px}
+  .res ul{list-style:none}
+  .res li{padding:9px 0 9px 20px;position:relative;line-height:1.55;font-size:14.5px}
+  .res li::before{content:"";position:absolute;left:2px;top:1.05em;width:8px;height:8px;background:var(--ink)}
+  .res details{padding:10px 0;border-top:1px solid rgba(20,20,18,.18)}
+  .res details:first-of-type{border-top:0}
+  .res summary{cursor:pointer;font-weight:600;list-style:none;padding-right:20px;position:relative;font-size:14.5px}
+  .res summary::after{content:"+";position:absolute;right:0;font-size:18px;line-height:1}
+  .res details[open] summary::after{content:"\2212"}
+  .res details p{margin-top:6px;color:#3d3d39;line-height:1.55;font-size:14px}
+  .res .err{color:#9c1f13;font-size:14px}
+  .res .fine{font-size:12px;color:var(--soft);margin-top:10px}
+  .fine{font-size:12px;line-height:1.5;color:var(--soft);margin-top:12px}
+  .fine summary{cursor:pointer}
+  .fine a{color:var(--ink)}
+
+  /* ---------- check row / stamp ---------- */
+  .checkrow{margin-top:38px;border-top:2px solid var(--ink);padding-top:16px;display:flex;justify-content:space-between;align-items:center}
+  .tick{display:flex;align-items:center;gap:12px;border:0;background:none;cursor:pointer;color:var(--ink);padding:8px 0}
+  .tick .box{width:26px;height:26px;border:1.5px solid var(--ink);border-radius:8px;background:var(--panel);display:inline-flex;align-items:center;justify-content:center}
+  .tick .box svg{opacity:0;transition:opacity .2s}
+  .tick.done .box{background:var(--ink)}
+  .tick.done .box svg{opacity:1}
+  .tick-label{font:600 11px "IBM Plex Mono",monospace;letter-spacing:.2em;text-transform:uppercase}
+  .folio{font:11px "IBM Plex Mono",monospace;letter-spacing:.1em;color:var(--soft)}
+  .folio b{color:var(--ink)}
+  .stamp{position:fixed;left:50%;top:42%;transform:translate(-50%,-50%) rotate(-8deg) scale(2.4);font-family:"Anton",Impact,sans-serif;text-transform:uppercase;font-size:44px;color:var(--ink);border:4px solid var(--ink);border-radius:18px;padding:8px 26px;background:var(--canvas);opacity:0;pointer-events:none;transition:transform .35s cubic-bezier(.2,2.2,.4,1),opacity .2s}
+  .stamp.slam{opacity:1;transform:translate(-50%,-50%) rotate(-8deg) scale(1)}
+  .done-page{text-align:center;padding:60px 0 20px}
+  .done-stamp{display:inline-block;font-family:"Anton",Impact,sans-serif;text-transform:uppercase;font-size:52px;line-height:1;border:4px solid var(--ink);border-radius:20px;padding:14px 30px;transform:rotate(-6deg);margin-bottom:26px}
+  .done-page h2{font-family:"Anton",Impact,sans-serif;font-weight:400;text-transform:uppercase;font-size:30px;margin-bottom:10px}
+  .done-page p{color:var(--soft);font-size:15px;line-height:1.6;max-width:320px;margin:0 auto}
+
+  /* ---------- prev/next ---------- */
+  .prevnext{display:flex;justify-content:space-between;gap:14px;margin-top:26px;border-top:1px solid var(--hair);padding-top:12px}
+  .prevnext button{border:0;background:none;cursor:pointer;font:600 10px "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);text-decoration:underline;text-underline-offset:4px;padding:8px 0;max-width:46%;text-align:left}
+  .prevnext button:last-child{text-align:right}
+  .prevnext button:disabled{visibility:hidden}
+
+  /* ---------- text size + archive + colophon ---------- */
+  .sizerow{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-top:18px}
+  .sizerow .cap{font:9px "IBM Plex Mono",monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
+  .pill{border:1.5px solid var(--ink);border-radius:999px;background:none;padding:7px 16px;font:600 10px "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);cursor:pointer}
+  .pill.on{background:var(--ink);color:var(--canvas)}
+  .archive{margin-top:44px;border-top:2px solid var(--ink);padding-top:14px}
+  .archive h3{font:600 10px "IBM Plex Mono",monospace;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);margin-bottom:6px}
+  .archive a{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid rgba(20,20,18,.18);text-decoration:none;color:var(--ink)}
+  .a-date{font-size:14px;font-weight:500}
+  .a-count{font:10px "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);white-space:nowrap;padding-top:3px}
+  .colophon{margin-top:36px;display:flex;justify-content:space-between;font-size:9px;color:var(--soft)}
+  .story.turn{opacity:0;transition:opacity .3s}
+  .story.enter{animation:enter .5s ease}
+  @keyframes enter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header class="mast mono">
+    <span class="brand">The Daily Draft</span>
+    <span class="right" id="mast-right">Prints daily &middot; 7 AM IST</span>
+  </header>
+  <div class="metaline mono" id="metaline">—</div>
+  <nav class="dots" id="dots" aria-label="Stories in this issue"></nav>
+
+  <main id="main" class="story" aria-live="polite"></main>
+
+  <div class="sizerow">
+    <span class="cap">Text size</span>
+    <button class="pill" id="sz-std">Standard</button>
+    <button class="pill" id="sz-big">Larger</button>
+  </div>
+
+  <div id="archive-slot"></div>
+
+  <footer class="colophon mono">
+    <span id="mast-day">—</span>
+    <span>One reader. No noise.</span>
+  </footer>
+</div>
+
+<script>
+const KIND_VERB  = {"AI TIP":"Prompting desk","DESIGN":"Design desk","AI NEWS":"News wire","TRY THIS":"Practice desk","ON SCREEN":"Screen desk"};
+const store = {
+  get(){ try{ return JSON.parse(localStorage.getItem("tdr-read-poster")||"{}"); }catch(e){ return {}; } },
+  set(v){ localStorage.setItem("tdr-read-poster", JSON.stringify(v)); }
+};
+function titleCase(s){
+  const small = new Set(["a","an","and","as","at","but","by","for","in","is","it","of","on","or","the","to","vs","with"]);
+  const keep = new Set(["ai","api","css","ui","ux","llm","gpt"]);
+  return s.toLowerCase().split(" ").map((w,i)=>{
+    const bare = w.replace(/[^a-z0-9]/gi,"");
+    if(keep.has(bare)) return w.toUpperCase();
+    if(i>0 && small.has(bare)) return w;
+    return w.replace(/(^|[^a-z0-9'])([a-z])/g, (m,p,c)=>p+c.toUpperCase());
+  }).join(" ");
+}
+function fmtDate(iso){
+  const d = new Date(iso + "T12:00:00");
+  return d.toLocaleDateString("en-GB",{weekday:"long", day:"numeric", month:"long", year:"numeric"});
+}
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function hlClass(h){
+  var n=h.length;
+  if(n<=14)return "hl-xl";
+  if(n<=24)return "hl-l";
+  if(n<=38)return "hl-m";
+  return "hl-s";
+}
+function itemHTML(it, plateNo){
+  var pts = (it.points&&it.points.length)?it.points:null;
+  return `
+    <div class="hero">
+      <div>
+        <h2 class="headline ${hlClass(it.headline)}">${esc(it.headline)}</h2>
+        <p class="deck">${esc(it.deck)}</p>
+      </div>
+      ${it.image ? `<div>
+        <div class="panel"><img src="../${esc(it.image)}" alt="${esc(it.image_alt||it.headline)}" loading="lazy"><span class="over mono">Plate № ${plateNo}</span></div>
+        <div class="pcap mono"><span>${esc(it.image_caption || 'Illustration · The Daily Draft')}</span></div>
+      </div>` : ""}
+    </div>
+    <p class="sbody">${esc(it.body||"")}</p>
+    ${pts ? `<div class="sec mono">The key points</div>
+    <ol class="points">${pts.map(function(p){return "<li><p>"+esc(p)+"</p></li>"}).join("")}</ol>` : ""}
+    ${it.why ? `<div class="why"><span>Why it matters to you</span><p>${esc(it.why)}</p></div>` : ""}
+    ${it.source_url ? `<p class="source-line mono">Source: <a href="${esc(it.source_url)}" target="_blank" rel="noopener">${esc(it.source_name||it.source_url)}</a> ↗</p>` : ""}
+    <section class="lab" aria-label="Try it on this story">
+      <h3>Try it on this story</h3>
+      <p class="sub">Pick one, or ask your own question. An AI model is told to use this story only, but it can still be wrong.</p>
+      <div class="acts">
+        <button data-a="simple">Explain simply<small>3 quick points</small></button>
+        <button data-a="example">Show an example<small>2 everyday cases</small></button>
+        <button data-a="quiz">Quiz me<small>3 tap-to-reveal</small></button>
+      </div>
+      <div class="askrow"><input type="text" id="q" maxlength="200" placeholder="Ask about this story..." autocomplete="off" enterkeyhint="send"><button class="go" id="askgo">Ask</button></div>
+      <div class="lstat" id="lstat" role="status" aria-live="polite"></div><div class="lbar" id="lbar" hidden><i id="lbari"></i></div>
+      <div class="res" id="res"></div>
+      <details class="fine"><summary>How this works and its limits</summary>
+        <p>Your tap sends this story's text and your question to a free AI service (Pollinations, no account). It allows one request at a time, so there can be a wait of up to 30 seconds, and it can fail. It is for people 16 and over. Do not type anything private. Answers are AI-written, can be wrong, and are not checked. Reading the story and ticking it off need no AI. <a href="https://pollinations.ai/privacy">Privacy</a>.</p></details>
+    </section>
+  `;
+}
+
+var API="https://text.pollinations.ai/openai",GAP=31000,lastCall=0,busy=false;
+function sleep(ms){return new Promise(function(r){setTimeout(r,ms)})}
+function lstat(t,p){var s=document.getElementById("lstat"),b=document.getElementById("lbar"),bi=document.getElementById("lbari");if(!s)return;s.textContent=t;if(p===undefined)b.hidden=true;else{b.hidden=false;bi.style.width=p+"%"}}
+function setBusy(b){busy=b;var q=document.querySelectorAll(".lab button,.lab input");for(var i=0;i<q.length;i++)q[i].disabled=b}
+async function callModel(sys,user){
+  var w=lastCall+GAP-Date.now();
+  while(w>0){lstat("Waiting for the free AI slot: "+Math.ceil(w/1000)+"s",Math.round((1-w/GAP)*100));await sleep(400);w=lastCall+GAP-Date.now()}
+  lstat("Asking the AI...",100);lastCall=Date.now();
+  var body={model:"openai",messages:[{role:"system",content:sys},{role:"user",content:user}],max_tokens:900,seed:Math.floor(Math.random()*1e9)};
+  var r;try{r=await fetch(API,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(body)})}catch(e){throw new Error("Could not reach the AI service.")}
+  if(r.status===402||r.status===429)throw new Error("The free slot is not ready yet. Nothing was charged. Try again in about 30 seconds.");
+  if(!r.ok)throw new Error("The AI service returned an error ("+r.status+").");
+  var j;try{j=await r.json()}catch(e){throw new Error("Unexpected reply from the AI service.")}
+  var m=j.choices&&j.choices[0]&&j.choices[0].message;if(!m||typeof m.content!=="string"||!m.content.trim())throw new Error("The AI service returned no answer.");
+  var t=m.content,a=t.indexOf("{"),b2=t.lastIndexOf("}");if(a<0||b2<a)throw new Error("The reply was not in the expected format, so nothing is shown. Try again.");
+  try{return JSON.parse(t.slice(a,b2+1))}catch(e){throw new Error("The reply was not in the expected format, so nothing is shown. Try again.")}}
+function okStr(x,n){return typeof x==="string"&&x.trim().length>0&&x.length<=n}
+function validPts(o){if(!o||!Array.isArray(o.points)||o.points.length<1||o.points.length>5)return null;for(var i=0;i<o.points.length;i++)if(!okStr(o.points[i],280))return null;return o.points}
+function validQuiz(o){if(!o||!Array.isArray(o.questions)||o.questions.length<1||o.questions.length>4)return null;for(var i=0;i<o.questions.length;i++){var q=o.questions[i];if(!q||!okStr(q.q,220)||!okStr(q.a,280))return null}return o.questions}
+function mk(tag,cls,text){var e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e}
+async function act(kind,it,question){
+  if(busy)return;
+  var res=document.getElementById("res");res.textContent="";
+  var story="Headline: "+it.headline+"\nSummary: "+it.deck+"\nStory: "+it.body+(it.why?"\nWhy it matters: "+it.why:"");
+  var base="You explain one short newsletter story to a college student. Use ONLY the story text given. Do not add outside facts, numbers or advice. Reply with ONE JSON object and nothing else. ";
+  var sys,user,label;
+  if(kind==="simple"){sys=base+'Format: {"points":["...","...","..."]} with exactly 3 plain-language points, each under 30 words.';user=story;label="Explained simply"}
+  else if(kind==="example"){sys=base+'Format: {"points":["...","..."]} with exactly 2 everyday examples of the idea, each one or two sentences. They are illustrations, not facts.';user=story;label="Two examples"}
+  else if(kind==="quiz"){sys=base+'Format: {"questions":[{"q":"...","a":"..."}]} with exactly 3 short questions that this story text answers, each answer under 30 words.';user=story;label="Quiz yourself"}
+  else{sys=base+'Format: {"points":["..."]} with 1 to 4 short points answering the reader question from the story text. If the story does not answer it, say so in one point.';user=story+"\n\nReader question: "+question;label="Your answer"}
+  setBusy(true);
+  try{
+    var o=await callModel(sys,user);
+    lstat("",undefined);
+    if(kind==="quiz"){var qs=validQuiz(o);if(!qs)throw new Error("The reply was not in the expected format, so nothing is shown. Try again.");
+      res.appendChild(mk("div","rh",label));qs.forEach(function(q){var d=mk("details");d.appendChild(mk("summary",null,q.q));d.appendChild(mk("p",null,q.a));res.appendChild(d)})}
+    else{var ps=validPts(o);if(!ps)throw new Error("The reply was not in the expected format, so nothing is shown. Try again.");
+      res.appendChild(mk("div","rh",label));var ul=mk("ul");ps.forEach(function(p){ul.appendChild(mk("li",null,p))});res.appendChild(ul)}
+    res.appendChild(mk("p","fine","AI-written from this story. It can be wrong."))
+  }catch(e){lstat("",undefined);res.appendChild(mk("p","err",e.message))}
+  setBusy(false)}
+
+function renderDots(issue,idx,doneIds){
+  var d=document.getElementById("dots");d.textContent="";
+  issue.items.forEach(function(it,i){var b=document.createElement("button");b.setAttribute("aria-label","Story "+(i+1)+": "+it.kind+(doneIds.has(it.id)?" (read)":""));b.className=(doneIds.has(it.id)?"read ":"")+(i===idx?"cur":"");b.appendChild(document.createElement("i"));b.onclick=function(){render(issue,i)};d.appendChild(b)});
+}
+
+function setInfo(issue,idx,doneIds){
+  var total=issue.items.length;
+  var dstr=new Date(issue.date+"T12:00:00").toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short"}).toUpperCase();
+  if(idx<total){
+    var it=issue.items[idx];
+    document.getElementById("metaline").innerHTML="<b>№ "+issue.number+"</b> &nbsp;·&nbsp; "+dstr+" &nbsp;·&nbsp; NO. <b>"+String(idx+1).padStart(2,"0")+"/"+String(total).padStart(2,"0")+"</b> &nbsp;·&nbsp; "+esc(it.kind)+" &nbsp;·&nbsp; "+esc((it.reading_time||"1 min").toUpperCase());
+  }else{
+    document.getElementById("metaline").innerHTML="<b>№ "+issue.number+"</b> &nbsp;·&nbsp; "+dstr+" &nbsp;·&nbsp; <b>ALL READ</b>";
+  }
+}
+
+function render(issue, idx){
+  const main = document.getElementById("main");
+  const total = issue.items.length;
+  document.getElementById("mast-day").textContent = fmtDate(issue.date);
+  const doneIds = new Set((store.get()[issue.date])||[]);
+  renderDots(issue,idx,doneIds);
+  setInfo(issue,idx,doneIds);
+  if(idx >= total){
+    main.innerHTML = `
+      <div class="done-page">
+        <div class="done-stamp">ALL READ</div>
+        <h2>That's the paper.</h2>
+        <p>All ${total} stories read. Tomorrow's edition prints at 7 in the morning — fresh tips, fresh design lessons, fresh news.</p>
+      </div>`;
+    return;
+  }
+  const it = issue.items[idx];
+  const wasRead = doneIds.has(it.id);
+  const prev = idx>0 ? issue.items[idx-1] : null;
+  const next = idx+1<total ? issue.items[idx+1] : null;
+  main.innerHTML = itemHTML(it, idx+1) + `
+    <div class="checkrow">
+      <button class="tick${wasRead?" done":""}" id="tick" aria-pressed="${wasRead}" aria-label="Mark story as read">
+        <span class="box"><svg viewBox="0 0 32 32" width="18" height="18" fill="none"><path d="M7 17.5 L13.5 23.5 L25 9" stroke="#F4F1EA" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="tick-label">${wasRead?"Read":"Mark as read"}</span>
+      </button>
+      <span class="folio">№ <b>${idx+1}</b> — of ${total}</span>
+    </div>
+    <div class="prevnext">
+      <button id="pn-prev" ${prev?"":"disabled"}>← Prev${prev?" · "+esc(prev.kind):""}</button>
+      <button id="pn-next" ${next?"":"disabled"}>${next?"Next · "+esc(next.kind):""} →</button>
+    </div>
+    <div class="stamp" id="stamp">Read</div>`;
+  var btns=document.querySelectorAll(".lab .acts button");
+  for(var bi=0;bi<btns.length;bi++)btns[bi].onclick=function(){act(this.getAttribute("data-a"),it)};
+  var ask=function(){var v=document.getElementById("q").value.trim().slice(0,200);if(v)act("ask",it,v)};
+  document.getElementById("askgo").onclick=ask;document.getElementById("q").onkeydown=function(e){if(e.key==="Enter")ask()};
+  if(busy)setBusy(false);
+  if(prev)document.getElementById("pn-prev").onclick=function(){render(issue,idx-1);window.scrollTo({top:0,behavior:"smooth"})};
+  if(next)document.getElementById("pn-next").onclick=function(){render(issue,idx+1);window.scrollTo({top:0,behavior:"smooth"})};
+
+  document.getElementById("tick").addEventListener("click", () => {
+    const tick = document.getElementById("tick");
+    if(tick.classList.contains("done")){ if(idx+1<=total){render(issue, idx+1);window.scrollTo({top:0,behavior:"smooth"})} return; }
+    tick.classList.add("done");
+    tick.setAttribute("aria-pressed","true");
+    document.getElementById("stamp").classList.add("slam");
+    const read = store.get();
+    const ids = new Set(read[issue.date]||[]);
+    ids.add(it.id);
+    read[issue.date] = [...ids];
+    store.set(read);
+    setTimeout(() => {
+      main.classList.add("turn");
+      setTimeout(() => {
+        main.classList.remove("turn");
+        render(issue, idx+1);
+        main.classList.add("enter");
+        window.scrollTo({top:0, behavior:"smooth"});
+      }, 300);
+    }, 950);
+  });
+}
+
+function renderArchive(issues, currentDate){
+  document.getElementById("archive-slot").innerHTML = `
+    <div class="archive"><h3>The archive — every issue, kept</h3>` +
+    issues.map(i => {
+      const today = i.date === currentDate;
+      return `<a href="?date=${i.date}"><span class="a-date">${fmtDate(i.date)}${today ? " — today's edition" : ""}</span><span class="a-count">№ ${i.number} · ${i.items.length} stories</span></a>`;
+    }).join("") +
+    `</div>`;
+}
+
+// text size toggle
+(function(){
+  var key="tdr-poster-text";
+  var cur="std"; try{cur=localStorage.getItem(key)||"std"}catch(e){}
+  function apply(v){cur=v;try{localStorage.setItem(key,v)}catch(e){}
+    document.body.classList.toggle("bigtext",v==="big");
+    document.getElementById("sz-std").classList.toggle("on",v==="std");
+    document.getElementById("sz-big").classList.toggle("on",v==="big")}
+  document.getElementById("sz-std").onclick=function(){apply("std")};
+  document.getElementById("sz-big").onclick=function(){apply("big")};
+  apply(cur);
+})();
+
+fetch("../content.json", {cache:"no-store"})
+  .then(r => r.json())
+  .then(data => {
+    const issues = data.issues; // newest first
+    const params = new URLSearchParams(location.search);
+    const want = params.get("date");
+    const issue = (want && issues.find(i => i.date === want)) || issues[0];
+    const read = store.get();
+    const doneIds = new Set(read[issue.date]||[]);
+    const firstUnread = issue.items.findIndex(it => !doneIds.has(it.id));
+    render(issue, firstUnread === -1 ? issue.items.length : firstUnread);
+    renderArchive(issues, issue.date);
+  })
+  .catch(() => {
+    document.getElementById("main").innerHTML =
+      `<div class="done-page"><h2>The presses are warming up.</h2><p>Today's edition could not be loaded. Try again in a moment.</p></div>`;
+  });
+</script>
+</body>
+</html>

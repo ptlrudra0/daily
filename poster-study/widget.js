@@ -90,16 +90,25 @@ async function buildWidget(issue, state) {
   }
 
   const idx = issue.items.indexOf(lead) + 1;
-  w.addSpacer(2);
+  w.addSpacer(4);
 
-  // poster headline + plate panel
+  // poster composition: giant story number, condensed headline, plate thumb
   const mid = w.addStack();
   mid.layoutHorizontally();
   mid.centerAlignContent();
+  const numCol = mid.addStack();
+  numCol.layoutVertically();
+  const num = numCol.addText(String(idx).padStart(2, "0"));
+  num.font = new Font("AvenirNextCondensed-Bold", 46);
+  num.textColor = INK;
+  const ofTot = numCol.addText("/ " + String(issue.items.length).padStart(2, "0"));
+  ofTot.font = Font.monospacedSystemFont(8, 0);
+  ofTot.textColor = SOFT;
+  mid.addSpacer(10);
   const left = mid.addStack();
   left.layoutVertically();
   const head = left.addText(lead.headline.toUpperCase());
-  head.font = new Font("AvenirNextCondensed-Bold", 26);
+  head.font = new Font("AvenirNextCondensed-Bold", 22);
   head.textColor = INK;
   head.lineLimit = 4;
   head.minimumScaleFactor = 0.55;
@@ -108,7 +117,7 @@ async function buildWidget(issue, state) {
     try {
       const img = await new Request(PAGE + lead.image).loadImage();
       const pic = mid.addImage(img);
-      pic.imageSize = new Size(96, 64);
+      pic.imageSize = new Size(84, 58);
       pic.cornerRadius = 14;
       pic.rightAlignImage();
     } catch (e2) {}
@@ -136,12 +145,18 @@ const KIND_VERB = {
   "TRY THIS": "Practice desk", "ON SCREEN": "Screen desk"
 };
 function esc(s) { return String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
-function hlClass(h) {
-  const n = (h || "").length;
-  if (n <= 14) return "hl-xl";
-  if (n <= 24) return "hl-l";
-  if (n <= 38) return "hl-m";
-  return "hl-s";
+function splitHead(h) {
+  const w = String(h || "").split(/\s+/);
+  if (w.length < 4) return [h, ""];
+  const m = Math.ceil(w.length / 2);
+  return [w.slice(0, m).join(" "), w.slice(m).join(" ")];
+}
+function hsClass(part) {
+  const n = (part || "").length;
+  if (n <= 12) return "hs-xl";
+  if (n <= 20) return "hs-l";
+  if (n <= 30) return "hs-m";
+  return "hs-s";
 }
 
 function pageCSS() {
@@ -155,32 +170,36 @@ function pageCSS() {
   .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;text-transform:uppercase;letter-spacing:.14em}
   .mast{display:flex;justify-content:space-between;align-items:baseline;font-size:10px;border-bottom:2px solid #141412;padding-bottom:10px}
   .mast .brand{font-weight:600}
-  .metaline{border-bottom:1px solid rgba(20,20,18,.9);padding:12px 0;font-size:10px;color:#6E6A5E}
-  .metaline b{color:#141412;font-weight:600}
-  .dots{display:flex;gap:6px;margin:24px 0 0}
+  .dots{display:flex;gap:6px;margin:16px 0 0}
   .dots a{flex:1;padding:10px 0;text-decoration:none}
-  .dots a i{display:block;height:4px;border-radius:4px;background:rgba(20,20,18,.18)}
-  .dots a.read i{background:rgba(20,20,18,.45)}
+  .dots a i{display:block;height:3px;border-radius:3px;background:rgba(20,20,18,.16)}
+  .dots a.read i{background:rgba(20,20,18,.4)}
   .dots a.cur i{background:#141412}
-  .story{padding-top:38px}
-  h1{font-family:"Anton",Impact,sans-serif;font-weight:400;text-transform:uppercase;line-height:.98;margin:0 0 14px}
-  .hl-xl{font-size:76px} .hl-l{font-size:58px} .hl-m{font-size:44px} .hl-s{font-size:34px}
-  .deck{font-size:16.5px;line-height:1.55;color:#3A382F;margin-bottom:18px;max-width:34em}
-  .panel{position:relative;background:#fff;border-radius:26px;padding:11px;border:1.5px solid #141412;margin:24px 0 6px}
-  .panel img{display:block;width:100%;height:auto;border-radius:18px}
-  .panel .over{position:absolute;left:16px;bottom:15px;font-size:9px;font-weight:600;color:#F4F1EA;background:rgba(20,20,18,.82);border-radius:8px;padding:5px 9px}
-  .pcap{display:flex;justify-content:space-between;gap:10px;font-size:9px;color:#6E6A5E;margin:8px 0 20px}
-  .body{font-size:16.5px;line-height:1.68;max-width:38em;margin-top:32px}
-  .sec{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#6E6A5E;margin:26px 0 2px}
-  .points{list-style:none}
+  .story{padding-top:44px}
+  .kicker{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:10px;color:#6E6A5E}
+  .kicker b{color:#141412;font-weight:600}
+  .bignum{font-family:"Anton",Impact,sans-serif;font-size:110px;line-height:.82;color:#141412;margin:22px 0 0 -4px}
+  .bignum span{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;letter-spacing:.2em}
+  .headline{font-family:"Anton",Impact,sans-serif;font-weight:400;text-transform:uppercase;line-height:.94;letter-spacing:.005em}
+  .hl-a{margin-top:10px}
+  .hl-b{margin-top:6px}
+  .hs-xl{font-size:76px} .hs-l{font-size:58px} .hs-m{font-size:44px} .hs-s{font-size:34px}
+  .plate{margin:10px 0;position:relative}
+  .plate img{display:block;width:100%;height:auto;border-radius:26px}
+  .plate .over{position:absolute;left:16px;bottom:16px;font-size:9px;font-weight:600;color:#F4F1EA;background:rgba(20,20,18,.82);border-radius:8px;padding:5px 9px}
+  .pcap{font-size:9px;color:#6E6A5E;margin:8px 2px 0}
+  .deck{font-style:italic;font-size:17.5px;line-height:1.5;color:#3A382F;max-width:24em;margin:30px 0 0 12%}
+  .body{font-size:16.5px;line-height:1.7;margin-top:36px;max-width:34em}
+  .sec{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#6E6A5E;margin:28px 0 2px}
+  .points{list-style:none;max-width:34em}
   .points li{position:relative;padding:10px 0 4px 24px}
   .points li::before{content:"";position:absolute;left:2px;top:1.5em;width:8px;height:8px;background:#141412}
   .points li p{font-size:15.5px;line-height:1.6}
-  .why{margin-top:22px;padding:2px 0 2px 16px;border-left:3px solid #141412;font-size:15px;line-height:1.6}
+  .why{margin:26px 0 0 12%;padding:2px 0 2px 16px;border-left:3px solid #141412;font-size:15px;line-height:1.6;max-width:30em}
   .why span{display:block;font-family:"IBM Plex Mono",monospace;font-size:9px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#6E6A5E;margin-bottom:6px}
-  .source{margin-top:16px;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6E6A5E}
+  .source{margin-top:18px;font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#6E6A5E}
   .source a{color:#141412;text-underline-offset:3px}
-  .tickrow{margin-top:34px;border-top:2px solid #141412;padding-top:16px;display:flex;justify-content:space-between;align-items:center}
+  .tickrow{margin-top:38px;border-top:2px solid #141412;padding-top:16px;display:flex;justify-content:space-between;align-items:center}
   .tick{display:flex;align-items:center;gap:12px;text-decoration:none;color:#141412}
   .tick .box{width:24px;height:24px;border:1.5px solid #141412;border-radius:8px;background:#fff;display:inline-block}
   .tick .lbl{font:600 11px "IBM Plex Mono",monospace;letter-spacing:.2em;text-transform:uppercase}
@@ -189,9 +208,9 @@ function pageCSS() {
   .paper-link{display:block;text-align:center;margin-top:26px;font:10px "IBM Plex Mono",monospace;letter-spacing:.18em;text-transform:uppercase;color:#6E6A5E}
   .done{text-align:center;padding:44px 0 20px}
   .done .stamp{display:inline-block;font-family:"Anton",Impact,sans-serif;text-transform:uppercase;font-size:40px;line-height:1.05;border:4px solid #141412;border-radius:18px;padding:12px 26px;transform:rotate(-6deg);margin-bottom:24px}
-  .done h1{font-size:28px;margin-bottom:10px}
+  .done h1{font-family:"Anton",Impact,sans-serif;font-weight:400;text-transform:uppercase;font-size:28px;margin:0 0 10px}
   .done p{color:#6E6A5E;font-size:15px;line-height:1.6;max-width:320px;margin:0 auto}
-  .lab{margin-top:36px;padding:18px 16px 16px;border-radius:24px;background:#fff;border:1.5px solid #141412}
+  .lab{margin-top:40px;padding:20px 16px 16px;border-radius:26px;background:#fff;border:1.5px solid #141412}
   .lab h3{font-family:"Anton",Impact,sans-serif;font-weight:400;text-transform:uppercase;font-size:24px;margin-bottom:4px}
   .lab .sub{font-size:13.5px;color:#6E6A5E;margin-bottom:12px;line-height:1.5}
   .acts{display:grid;grid-template-columns:1fr;gap:8px}
@@ -288,15 +307,18 @@ function storyHTML(issue, it, idx, state) {
     const cls = ((state && isRead(state, issue.date, x.id)) ? "read " : "") + (i === idx ? "cur" : "");
     return `<a class="${cls.trim()}" href="tdr://goto/${i}"><i></i></a>`;
   }).join("");
+  const parts = splitHead(it.headline);
   return `<!DOCTYPE html><html><head>${pageCSS()}</head><body>
   <div class="mast mono"><span class="brand">The Daily Draft</span><span>Vol. I</span></div>
-  <div class="metaline mono"><b>№ ${issue.number}</b> &nbsp;·&nbsp; NO. <b>${String(idx + 1).padStart(2, "0")}/${String(total).padStart(2, "0")}</b> &nbsp;·&nbsp; ${esc(it.kind)} &nbsp;·&nbsp; ${esc((it.reading_time || "1 min").toUpperCase())}</div>
   <div class="dots">${dots}</div>
   <div class="story">
-    <h1 class="${hlClass(it.headline)}">${esc(it.headline)}</h1>
+    <div class="kicker mono"><span><b>№ ${issue.number}</b> · ${esc(dayStr.toUpperCase())}</span><span>${esc(it.kind)} · ${esc((it.reading_time || "1 min").toUpperCase())}</span></div>
+    <div class="bignum">${String(idx + 1).padStart(2, "0")}<span> / ${String(total).padStart(2, "0")}</span></div>
+    <h1 class="headline hl-a ${hsClass(parts[0])}">${esc(parts[0])}</h1>
+    ${it.image ? `<div class="plate"><img src="${PAGE + esc(it.image)}" alt="${esc(it.image_alt || it.headline)}"><span class="over mono">Plate № ${idx + 1}</span></div>
+    <div class="pcap mono">${it.image_caption ? esc(it.image_caption) : "Illustration · The Daily Draft"}</div>` : ""}
+    ${parts[1] ? `<h1 class="headline hl-b ${hsClass(parts[1])}">${esc(parts[1])}</h1>` : ""}
     <p class="deck">${esc(it.deck)}</p>
-    ${it.image ? `<div class="panel"><img src="${PAGE + esc(it.image)}" alt="${esc(it.image_alt || it.headline)}"><span class="over mono">Plate № ${idx + 1}</span></div>
-    <div class="pcap mono"><span>${it.image_caption ? esc(it.image_caption) : "Illustration · The Daily Draft"}</span><span>Poster study</span></div>` : ""}
     <p class="body">${esc(it.body || "")}</p>
     ${pts ? `<div class="sec">The key points</div>
     <ol class="points">${pts.map(p => `<li><p>${esc(p)}</p></li>`).join("")}</ol>` : ""}

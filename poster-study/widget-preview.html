@@ -17,8 +17,11 @@
   .mrow .vol{color:#6E6A5E;font-weight:400}
   .hair{border-bottom:calc(min(987px,96vw)*0.003) solid #141412;margin:calc(min(987px,96vw)*0.012) 0 calc(min(987px,96vw)*0.03)}
     .mid{flex:1;display:flex;align-items:center;gap:calc(min(987px,96vw)*0.024);min-height:0}
-  .head{font-family:"Anton",Impact,sans-serif;text-transform:uppercase;line-height:.96;font-size:calc(min(987px,96vw)*0.079);flex:1;min-width:0}
-  .thumb{width:calc(min(987px,96vw)*0.291);height:calc(min(987px,96vw)*0.194);border-radius:calc(min(987px,96vw)*0.0425);object-fit:cover;flex:none}
+  .numcol{display:flex;flex-direction:column;flex:none}
+  .num{font-family:"Anton",Impact,sans-serif;font-size:calc(min(987px,96vw)*0.14);line-height:.85;color:#141412}
+  .oftot{font-family:"IBM Plex Mono",monospace;font-size:calc(min(987px,96vw)*0.024);color:#6E6A5E;margin-top:calc(min(987px,96vw)*0.012)}
+  .head{font-family:"Anton",Impact,sans-serif;text-transform:uppercase;line-height:.96;font-size:calc(min(987px,96vw)*0.066);flex:1;min-width:0}
+  .thumb{width:calc(min(987px,96vw)*0.255);height:calc(min(987px,96vw)*0.176);border-radius:calc(min(987px,96vw)*0.0425);object-fit:cover;flex:none}
   .foot{display:flex;justify-content:space-between;font-family:"IBM Plex Mono",monospace;font-size:calc(min(987px,96vw)*0.0243);color:#6E6A5E}
   .foot .go{color:#141412;font-weight:600}
 </style>
@@ -29,6 +32,7 @@
   <div class="mrow"><span>THE DAILY DRAFT</span><span class="vol">VOL. I</span></div>
   <div class="hair"></div>
   <div class="mid">
+    <div class="numcol"><div class="num" id="num">01</div><div class="oftot" id="oftot">/ 06</div></div>
     <div class="head" id="head">The model that writes all at once</div>
     <img class="thumb" id="thumb" src="../img/2026-10-31-4.jpg" alt="story plate thumbnail in colour">
   </div>
@@ -41,7 +45,9 @@
     var h=it.headline.toUpperCase();
     var el=document.getElementById("head");
     el.textContent=h;
-    el.style.fontSize="calc(min(987px,96vw)*"+(h.length<=14?0.079:h.length<=24?0.062:h.length<=38?0.05:0.042)+")";
+    el.style.fontSize="calc(min(987px,96vw)*"+(h.length<=14?0.066:h.length<=24?0.054:h.length<=38?0.044:0.038)+")";
+    document.getElementById("num").textContent=String(idx).padStart(2,"0");
+    document.getElementById("oftot").textContent="/ "+String(issue.items.length).padStart(2,"0");
     if(it.image)document.getElementById("thumb").src="../"+it.image;
     var dt=new Date(issue.date+"T12:00:00").toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"}).toUpperCase();
     document.getElementById("footl").textContent="NO. 0"+idx+"/0"+issue.items.length+" · "+dt;
