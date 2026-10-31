@@ -2,6 +2,101 @@
   "paper": "The Daily Draft",
   "issues": [
     {
+      "number": 14,
+      "date": "2026-10-31",
+      "items": [
+        {
+          "id": "2026-10-31-1",
+          "kind": "AI TIP",
+          "headline": "Put every ingredient in its own bag",
+          "deck": "XML tags tell the model which words are orders and which are ingredients.",
+          "body": "Bro, your prompt is a kitchen, and right now you're throwing the recipe, the groceries and your life story into one bowl. Anthropic's own prompting guide has a fix so simple it hurts: wrap every ingredient in its own XML tag. Instructions in one tag, context in another, examples in a third, the user's actual question in a fourth. The docs say it flat out - tags help the model parse complex prompts unambiguously, especially when instructions, context, examples and variable inputs collide. It's not decoration, it's lanes on a highway. When the model never has to guess which paragraph is the order and which is the raw material, it stops treating your data like your demands. Label the lanes, and the machine drives straighter.",
+          "why": "This is the same separation that keeps agents safe: when instructions and data are clearly fenced, a hostile document has a much harder time impersonating you. Start tagging now and every agent you build inherits the habit.",
+          "source_name": "Anthropic Docs",
+          "source_url": "https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/use-xml-tags",
+          "image": "img/2026-10-31-1.jpg",
+          "image_alt": "Three stacked cut-paper trays in ink, cobalt and vermilion, each neatly holding one different paper shape",
+          "reading_time": "2 min"
+        },
+        {
+          "id": "2026-10-31-2",
+          "kind": "DESIGN",
+          "headline": "People read your page like an F",
+          "deck": "Two horizontal sweeps, one vertical scan. Design for the eyes people actually use.",
+          "body": "Nielsen Norman Group strapped eye-tracking gear on 232 people and watched them read thousands of web pages. The verdict, confirmed in a follow-up study eleven years later: almost nobody reads top to bottom. Eyes sweep across the top in one horizontal bar, come back for a second, shorter bar, then drop into a vertical scan down the left edge - a shape like the letter F. Your beautiful middle-paragraph argument? Structurally invisible. The fix is free: put the most important words in your first two lines, front-load every heading with its keyword, and treat the left edge as prime real estate. You are not designing for readers, bro. You are designing for scanners who might, if the F treats them well, become readers.",
+          "why": "Your reel titles are the top bar of someone's F. If the hook word isn't in the first two words, the sweep never reaches it - lead with the strongest word you own.",
+          "source_name": "Nielsen Norman Group",
+          "source_url": "https://www.nngroup.com/articles/f-shaped-pattern-reading-web-content-discovered/",
+          "image": "img/2026-10-31-2.jpg",
+          "image_alt": "Abstract cut-paper composition of two horizontal cobalt and vermilion strips and one vertical ink strip, like a reading path",
+          "reading_time": "2 min"
+        },
+        {
+          "id": "2026-10-31-3",
+          "kind": "ON SCREEN",
+          "headline": "Build the office from a kid's memory",
+          "deck": "Severance designer Jeremy Hindle made Lumon feel wrong on purpose - playful desks, old-new machines, no single era.",
+          "body": "How do you design an office that makes viewers' skin crawl without a single jump scare? Jeremy Hindle - who just won an Emmy for Severance and built worlds for Top Gun: Maverick and Zero Dark Thirty - answered with kindergarten logic. The severed workers are corporate newborns, so his team treated them like children: playful desks, bright carpets, and computers that look forty years old yet secretly pack touchscreens and trackballs. Nothing on Lumon's floor belongs to one decade, because the place 'had to make no sense to anyone in their right mind.' He even cites the 1967 film Playtime as a reference, and every single prop got camera-tested before it earned screen time. The lesson: unease isn't built from darkness - it's built from things that almost fit, mixed so carefully the audience can't name what's wrong.",
+          "why": "One deliberately 'wrong' object in your reel background - a toy next to your keyboard, a vintage phone beside your laptop - makes viewers pause and rewatch. Confusion, used carefully, is retention.",
+          "source_name": "Film Independent",
+          "source_url": "https://www.filmindependent.org/blog/creating-the-singular-disquieting-aesthetic-of-severance-with-emmy-winning-production-designer-jeremy-hindle/",
+          "image": "img/2026-10-31-3.jpg",
+          "image_alt": "A boxy retro ink-black computer with a glowing amber screen beside a trackball mouse with a vermilion ball",
+          "reading_time": "2 min"
+        },
+        {
+          "id": "2026-10-31-4",
+          "kind": "AI NEWS",
+          "headline": "The model that writes all at once",
+          "deck": "DiffuSpace's Clover-35B-A3B drafts answers in parallel like an image generator - and still out-codes its rivals.",
+          "body": "Every chatbot you've used writes like a typewriter - one word, then the next, no going back. DiffuSpace, founded by members of the Hong Kong University NLP group behind Dream 7B, just shipped the alternative: Clover-35B-A3B-Preview, an open-weights diffusion language model that drafts the whole answer in rough, then refines it in passes, exactly like an image model sharpening noise into a picture. It's a 35-billion-parameter mixture-of-experts that only activates about 3 billion parameters per token, comes with a thinking mode, and according to its release post out-scores the similarly sized Qwen3.6-35B-A3B while generating significantly faster - leading all six agent benchmarks in their comparison, including 73.6 on SWE-bench Verified. Text that appears all at once, bro. The typewriter era just got a challenger.",
+          "points": [
+            "35B total, about 3B active per token - roughly 1 in 12.",
+            "73.6 on SWE-bench Verified, top of its comparison class.",
+            "Open weights, from the team behind Dream 7B."
+          ],
+          "why": "Parallel generation means agents that answer in bursts instead of drips - cheaper, faster building blocks for every project you'll ship this year.",
+          "source_name": "DiffuSpace",
+          "source_url": "https://huggingface.co/blog/Diffuspace/clover-35b-a3b-preview",
+          "image": "img/2026-10-31-4.jpg",
+          "image_alt": "One long cut-paper ink bar with a small cobalt sliver at its left end, in honest proportion to the active-parameter share",
+          "image_caption": "Cobalt sliver: ~3B active parameters of the 35B total (ink) - about 1 in 12 per token",
+          "reading_time": "2 min"
+        },
+        {
+          "id": "2026-10-31-5",
+          "kind": "AI NEWS",
+          "headline": "The browser inside your coding tool got hacked",
+          "deck": "One team broke the embedded browsers in Cursor, Copilot, Codex, VS Code and Claude Desktop - all with a single root cause.",
+          "body": "Security firm Forever Security published research this week that should sit next to your keyboard: they looked at the browsers embedded inside five desktop AI coding tools - Cursor, GitHub Copilot, Codex, VS Code and Claude Desktop - and broke all five with one shared flaw they call EMBRACE. Each tool runs a browser that is trusted like a real browser but given powers no real browser has, and that contradiction collapses the whole security model. Their demos are not theoretical: a web page in Cursor could run code on the host machine, a page in Copilot could repaint the address bar to fake a login site, and local files could escape their project folder. Cursor patched its issue on October 1; Codex and VS Code were still unpatched at publication. Here's why the stakes are personal: these agents already hold your tokens, credentials and file access, so every page they render is attack surface.",
+          "points": [
+            "Five tools affected; Codex and VS Code unpatched at publication.",
+            "One root cause: an embedded browser trusted like a real one.",
+            "Agents hold your tokens and files - the blast radius is yours."
+          ],
+          "why": "You code inside these tools every day. Keep them updated, treat every page your agent opens as hostile, and never let an agent browse inside a logged-in session you can't afford to lose.",
+          "source_name": "Forever Security",
+          "source_url": "https://forever.security/blog/embrace-hacking-5-ai-assistants-embedded-browsers/",
+          "image": "img/2026-10-31-5.jpg",
+          "image_alt": "A cobalt cut-paper browser window with a torn hole through its center revealing ink black paper behind",
+          "reading_time": "2 min"
+        },
+        {
+          "id": "2026-10-31-6",
+          "kind": "TRY THIS",
+          "headline": "The F-order audit",
+          "deck": "Rewrite one title so the hook lands in the first two words.",
+          "body": "Tonight, pull up your three most recent reel or video titles. Read only the first two words of each, out loud. Do those two words alone make anyone curious? That's the top bar of the F - the only bar every scanner actually reads. Rewrite each title so the strongest word leads: not 'My thoughts on the new model' but 'This model writes whole answers at once.' Then open your profile grid and scan just the left column of thumbnails - that's your vertical stripe, so make sure each one can carry the page alone. Ten minutes, three titles, one permanent habit.",
+          "why": "You publish on a schedule; titles are your top bar. This drill pays out on every future post, starting with the next one.",
+          "source_name": null,
+          "source_url": null,
+          "image": "img/2026-10-31-6.jpg",
+          "image_alt": "A blank cut-paper card with a vermilion starburst bursting from its top-left corner and thin ink strips trailing right",
+          "reading_time": "1 min"
+        }
+      ]
+    },
+    {
       "number": 13,
       "date": "2026-10-30",
       "items": [
