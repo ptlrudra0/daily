@@ -16,7 +16,18 @@
           "source_url": "https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/use-xml-tags",
           "image": "img/2026-10-31-1.jpg",
           "image_alt": "Three stacked cut-paper trays in ink, cobalt and vermilion, each neatly holding one different paper shape",
-          "reading_time": "2 min"
+          "reading_time": "2 min",
+          "example": "Sloppy: 'Summarize this for me:' followed by 500 pasted lines. Tagged: <instructions>Summarize the document in three bullets.</instructions> <document>500 pasted lines</document>. Same words, but the model can never again confuse your order with your raw material.",
+          "questions": [
+            {
+              "q": "Your prompt mixes one instruction with a long pasted article. How do you tag it?",
+              "a": "Put the instruction in <instructions> and the article in <document> - one lane per ingredient, so nothing gets read as something else."
+            },
+            {
+              "q": "Why does tagging also make agents safer?",
+              "a": "When instructions and data are clearly fenced, a hostile document has a much harder time impersonating you."
+            }
+          ]
         },
         {
           "id": "2026-10-31-2",
@@ -29,7 +40,18 @@
           "source_url": "https://www.nngroup.com/articles/f-shaped-pattern-reading-web-content-discovered/",
           "image": "img/2026-10-31-2.jpg",
           "image_alt": "Abstract cut-paper composition of two horizontal cobalt and vermilion strips and one vertical ink strip, like a reading path",
-          "reading_time": "2 min"
+          "reading_time": "2 min",
+          "example": "'Tips for better mobile reading experiences' sweeps past unseen. Front-load it - 'Mobile reading: eyes scan, they don't read' - and the first two words do all the work.",
+          "questions": [
+            {
+              "q": "What shape do eyes trace on a text-heavy page?",
+              "a": "Two horizontal sweeps across the top, then a vertical scan down the left edge - like the letter F."
+            },
+            {
+              "q": "Where do a heading's most important words belong?",
+              "a": "At the very start. Scanners judge the whole line by its first two words."
+            }
+          ]
         },
         {
           "id": "2026-10-31-3",
@@ -42,7 +64,18 @@
           "source_url": "https://www.filmindependent.org/blog/creating-the-singular-disquieting-aesthetic-of-severance-with-emmy-winning-production-designer-jeremy-hindle/",
           "image": "img/2026-10-31-3.jpg",
           "image_alt": "A boxy retro ink-black computer with a glowing amber screen beside a trackball mouse with a vermilion ball",
-          "reading_time": "2 min"
+          "reading_time": "2 min",
+          "example": "Try it in one frame: a reel about your editing setup, but with a bright plastic toy next to the keyboard. Viewers pause, rewatch, comment. The almost-fits object does the work.",
+          "questions": [
+            {
+              "q": "What made Lumon's office unsettling without a single jump scare?",
+              "a": "Everyday things that almost fit - playful desks, bright carpets, decade-mixed computers - mixed so carefully the audience can't name what's wrong."
+            },
+            {
+              "q": "What film did Jeremy Hindle cite, and what did every prop go through?",
+              "a": "The 1967 film Playtime, and a camera test before any prop earned screen time."
+            }
+          ]
         },
         {
           "id": "2026-10-31-4",
@@ -61,7 +94,22 @@
           "image": "img/2026-10-31-4.jpg",
           "image_alt": "One long cut-paper ink bar with a small cobalt sliver at its left end, in honest proportion to the active-parameter share",
           "image_caption": "Cobalt sliver: ~3B active parameters of the 35B total (ink) - about 1 in 12 per token",
-          "reading_time": "2 min"
+          "reading_time": "2 min",
+          "example": "Think crossword versus typewriter. A regular chatbot fills the grid left to right, one letter at a time. Clover pencils in the whole grid rough, then inks it cleaner pass after pass.",
+          "questions": [
+            {
+              "q": "How is a diffusion language model different from a normal chatbot?",
+              "a": "It drafts the whole answer rough, then refines it in passes - like an image model sharpening noise - instead of writing one word at a time."
+            },
+            {
+              "q": "How many of Clover-35B-A3B's parameters work on each token?",
+              "a": "About 3 billion of the 35 billion total - roughly 1 in 12."
+            },
+            {
+              "q": "What did it score on SWE-bench Verified?",
+              "a": "73.6 - top of its comparison class, leading all six agent benchmarks in the release post's comparison."
+            }
+          ]
         },
         {
           "id": "2026-10-31-5",
@@ -79,7 +127,18 @@
           "source_url": "https://forever.security/blog/embrace-hacking-5-ai-assistants-embedded-browsers/",
           "image": "img/2026-10-31-5.jpg",
           "image_alt": "A cobalt cut-paper browser window with a torn hole through its center revealing ink black paper behind",
-          "reading_time": "2 min"
+          "reading_time": "2 min",
+          "example": "This is not theory: a page opened inside Cursor ran code on the host machine, and one in Copilot repainted the address bar to fake a login site. Both demos worked.",
+          "questions": [
+            {
+              "q": "What is the EMBRACE flaw in one line?",
+              "a": "Each tool's embedded browser is trusted like a real browser but given powers no real browser has - and that contradiction collapses the security model."
+            },
+            {
+              "q": "Which tools were named, and which were still unpatched at publication?",
+              "a": "Cursor, GitHub Copilot, Codex, VS Code and Claude Desktop. Cursor patched on October 1; Codex and VS Code were unpatched."
+            }
+          ]
         },
         {
           "id": "2026-10-31-6",
@@ -92,7 +151,17 @@
           "source_url": null,
           "image": "img/2026-10-31-6.jpg",
           "image_alt": "A blank cut-paper card with a vermilion starburst bursting from its top-left corner and thin ink strips trailing right",
-          "reading_time": "1 min"
+          "reading_time": "1 min",
+          "questions": [
+            {
+              "q": "What is the two-word test?",
+              "a": "Read only the first two words of your title out loud. If they alone don't create curiosity, a scanner's eye never reaches the rest."
+            },
+            {
+              "q": "Which column of your profile grid matters most?",
+              "a": "The left column - it is the vertical stripe of the F, so every thumbnail there must carry the page alone."
+            }
+          ]
         }
       ]
     },

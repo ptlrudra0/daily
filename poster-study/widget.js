@@ -57,7 +57,7 @@ async function buildWidget(issue, state) {
   name.font = Font.monospacedSystemFont(9, 2);
   name.textColor = INK;
   top.addSpacer();
-  const vol = top.addText("VOL. I");
+  const vol = top.addText("№ " + issue.number);
   vol.font = Font.monospacedSystemFont(9, 0);
   vol.textColor = SOFT;
 
@@ -179,7 +179,7 @@ function pageCSS() {
   .kicker{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:10px;color:#6E6A5E}
   .kicker b{color:#141412;font-weight:600}
   .bignum{font-family:"Anton",Impact,sans-serif;font-size:110px;line-height:.82;color:#141412;margin:22px 0 0 -4px}
-  .bignum span{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;letter-spacing:.2em}
+  .bignum span{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;letter-spacing:.18em;color:#6E6A5E}
   .headline{font-family:"Anton",Impact,sans-serif;font-weight:400;text-transform:uppercase;line-height:.94;letter-spacing:.005em}
   .hl-a{margin-top:10px}
   .hl-b{margin-top:6px}
@@ -190,14 +190,20 @@ function pageCSS() {
   .pcap{font-size:9px;color:#6E6A5E;margin:8px 2px 0}
   .deck{font-style:italic;font-size:17.5px;line-height:1.5;color:#3A382F;max-width:24em;margin:30px 0 0 12%}
   .body{font-size:16.5px;line-height:1.7;margin-top:36px;max-width:34em}
-  .sec{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#6E6A5E;margin:28px 0 2px}
-  .points{list-style:none;max-width:34em}
+  .example{font-style:italic;font-size:15.5px;line-height:1.6;color:#3A382F;margin:24px 0 0 12%;max-width:30em}
+  .points{list-style:none;max-width:34em;margin-top:26px}
   .points li{position:relative;padding:10px 0 4px 24px}
   .points li::before{content:"";position:absolute;left:2px;top:1.5em;width:8px;height:8px;background:#141412}
   .points li p{font-size:15.5px;line-height:1.6}
   .why{margin:26px 0 0 12%;padding:2px 0 2px 16px;border-left:3px solid #141412;font-size:15px;line-height:1.6;max-width:30em}
-  .why span{display:block;font-family:"IBM Plex Mono",monospace;font-size:9px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#6E6A5E;margin-bottom:6px}
-  .source{margin-top:18px;font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#6E6A5E}
+  .quiz{margin-top:28px;max-width:34em}
+  .quiz details{padding:12px 0;border-top:1px solid rgba(20,20,18,.18)}
+  .quiz details:first-child{border-top:0}
+  .quiz summary{cursor:pointer;font-weight:600;font-size:15px;list-style:none;position:relative;padding-right:26px;line-height:1.45}
+  .quiz summary::after{content:"+";position:absolute;right:2px;top:-2px;font-size:20px;font-weight:400;color:#6E6A5E}
+  .quiz details[open] summary::after{content:"\\2212"}
+  .quiz details p{margin-top:8px;color:#3d3d39;font-size:14px;line-height:1.6}
+  .source{margin-top:20px;font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#6E6A5E}
   .source a{color:#141412;text-underline-offset:3px}
   .tickrow{margin-top:38px;border-top:2px solid #141412;padding-top:16px;display:flex;justify-content:space-between;align-items:center}
   .tick{display:flex;align-items:center;gap:12px;text-decoration:none;color:#141412}
@@ -286,7 +292,6 @@ async function act(kind,question){
       res.appendChild(mk("div","rh",label));qs.forEach(function(q){var d=mk("details");d.appendChild(mk("summary",null,q.q));d.appendChild(mk("p",null,q.a));res.appendChild(d)})}
     else{var ps=validPts(o);if(!ps)throw new Error("The reply was not in the expected format, so nothing is shown. Try again.");
       res.appendChild(mk("div","rh",label));var ul=mk("ul");ps.forEach(function(p){ul.appendChild(mk("li",null,p))});res.appendChild(ul)}
-    res.appendChild(mk("p","fine2","AI-written from this story. It can be wrong."))
   }catch(e){lstat("",undefined);res.appendChild(mk("p","err",e.message))}
   setBusy(false)}
 var actBtns=document.querySelectorAll(".lab .acts button");
@@ -308,25 +313,25 @@ function storyHTML(issue, it, idx, state) {
     return `<a class="${cls.trim()}" href="tdr://goto/${i}"><i></i></a>`;
   }).join("");
   const parts = splitHead(it.headline);
+  const dShort = d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" });
   return `<!DOCTYPE html><html><head>${pageCSS()}</head><body>
-  <div class="mast mono"><span class="brand">The Daily Draft</span><span>Vol. I</span></div>
+  <div class="mast mono"><span class="brand">The Daily Draft</span><span>№ ${issue.number} · ${esc(dShort)}</span></div>
   <div class="dots">${dots}</div>
   <div class="story">
-    <div class="kicker mono"><span><b>№ ${issue.number}</b> · ${esc(dayStr.toUpperCase())}</span><span>${esc(it.kind)} · ${esc((it.reading_time || "1 min").toUpperCase())}</span></div>
-    <div class="bignum">${String(idx + 1).padStart(2, "0")}<span> / ${String(total).padStart(2, "0")}</span></div>
+    <div class="bignum">${String(idx + 1).padStart(2, "0")}<span> / ${String(total).padStart(2, "0")} &middot; ${esc(it.kind)}</span></div>
     <h1 class="headline hl-a ${hsClass(parts[0])}">${esc(parts[0])}</h1>
-    ${it.image ? `<div class="plate"><img src="${PAGE + esc(it.image)}" alt="${esc(it.image_alt || it.headline)}"><span class="over mono">Plate № ${idx + 1}</span></div>
-    <div class="pcap mono">${it.image_caption ? esc(it.image_caption) : "Illustration · The Daily Draft"}</div>` : ""}
+    ${it.image ? `<div class="plate"><img src="${PAGE + esc(it.image)}" alt="${esc(it.image_alt || it.headline)}"></div>
+    ${it.image_caption ? `<div class="pcap mono">${esc(it.image_caption)}</div>` : ""}` : ""}
     ${parts[1] ? `<h1 class="headline hl-b ${hsClass(parts[1])}">${esc(parts[1])}</h1>` : ""}
     <p class="deck">${esc(it.deck)}</p>
     <p class="body">${esc(it.body || "")}</p>
-    ${pts ? `<div class="sec">The key points</div>
-    <ol class="points">${pts.map(p => `<li><p>${esc(p)}</p></li>`).join("")}</ol>` : ""}
-    ${it.why ? `<div class="why"><span>Why it matters</span>${esc(it.why)}</div>` : ""}
+    ${it.example ? `<p class="example">${esc(it.example)}</p>` : ""}
+    ${pts ? `<ol class="points">${pts.map(p => `<li><p>${esc(p)}</p></li>`).join("")}</ol>` : ""}
+    ${it.why ? `<div class="why"><p>${esc(it.why)}</p></div>` : ""}
+    ${(it.questions && it.questions.length) ? `<div class="quiz">${it.questions.map(q => `<details><summary>${esc(q.q)}</summary><p>${esc(q.a)}</p></details>`).join("")}</div>` : ""}
     ${it.source_url ? `<p class="source">Source: <a href="${esc(it.source_url)}">${esc(it.source_name || it.source_url)}</a> ↗</p>` : ""}
     <section class="lab">
       <h3>Try it on this story</h3>
-      <p class="sub">Pick one, or ask your own question. An AI model is told to use this story only, but it can still be wrong.</p>
       <div class="acts">
         <button data-a="simple">Explain simply<small>3 quick points</small></button>
         <button data-a="example">Show an example<small>2 everyday cases</small></button>
@@ -335,8 +340,6 @@ function storyHTML(issue, it, idx, state) {
       <div class="askrow"><input type="text" id="q" maxlength="200" placeholder="Ask about this story..." autocomplete="off" enterkeyhint="send"><button class="go" id="askgo">Ask</button></div>
       <div class="lstat" id="lstat"></div><div class="lbar" id="lbar" hidden><i id="lbari"></i></div>
       <div class="res" id="res"></div>
-      <details class="fine"><summary>How this works and its limits</summary>
-        <p>Your tap sends this story's text and your question to a free AI service (Pollinations, no account). One request at a time, so there can be a wait of up to 30 seconds, and it can fail. Answers are AI-written, can be wrong, and are not checked. Reading the story and ticking it off need no AI. Do not type anything private. <a href="https://pollinations.ai/privacy">Privacy</a>.</p></details>
     </section>
     <div class="tickrow">
       <a class="tick" href="tdr://read/${encodeURIComponent(it.id)}"><span class="box"></span><span class="lbl">MARK AS READ</span></a>
