@@ -29,7 +29,7 @@
 <body>
 <div class="note"><b>Browser approximation of the Scriptable widget face</b> (medium size), poster-study direction.<br>Device stand-in: Anton here stands in for iOS Avenir Next Condensed Bold. Plates show in full colour per the current direction. The true render only exists on the phone.</div>
 <div class="frame"><div class="face">
-  <div class="mrow"><span>THE DAILY DRAFT</span><span class="vol">VOL. I</span></div>
+  <div class="mrow"><span>THE DAILY DRAFT</span><span class="vol" id="vol">VOL. I</span></div>
   <div class="hair"></div>
   <div class="mid">
     <div class="numcol"><div class="num" id="num">01</div><div class="oftot" id="oftot">/ 06</div></div>
@@ -48,6 +48,7 @@
     el.style.fontSize="calc(min(987px,96vw)*"+(h.length<=14?0.066:h.length<=24?0.054:h.length<=38?0.044:0.038)+")";
     var ne=document.getElementById("num");ne.textContent=String(idx).padStart(2,"0");ne.style.color=it.accent||"#141412";
     document.getElementById("oftot").textContent="/ "+String(issue.items.length).padStart(2,"0");
+    document.getElementById("vol").textContent="\u2116 "+issue.number;
     if(it.image)document.getElementById("thumb").src="../"+it.image;
     var dt=new Date(issue.date+"T12:00:00").toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"}).toUpperCase();
     document.getElementById("footl").textContent="NO. 0"+idx+"/0"+issue.items.length+" · "+dt;
