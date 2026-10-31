@@ -41,7 +41,8 @@
     .hs-xl{font-size:118px} .hs-l{font-size:92px} .hs-m{font-size:72px} .hs-s{font-size:56px}
   }
   .plate{margin:10px 0}
-  .infofig{margin:26px 0 0}
+  .infofig{margin:26px 0 0;position:relative}
+  .infolbl{position:absolute;transform:translate(-50%,-50%);font:600 9px "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:rgba(250,250,248,.94);border:1.5px solid #141412;border-radius:8px;padding:3px 6px;max-width:44%;text-align:center;line-height:1.35}
   .plate img{display:block;width:100%;height:auto;border-radius:26px}
   .pcap{font-size:9px;color:var(--soft);margin:8px 2px 0}
   .deck{font-style:italic;font-size:18px;line-height:1.5;color:#3A382F;max-width:24em;margin:34px 0 0 12%}
@@ -158,7 +159,7 @@ function itemHTML(it, idx, total, issue){
     <p class="sbody">${esc(it.body||"")}</p>
     ${it.example ? `<p class="example">${esc(it.example)}</p>` : ""}
     ${pts ? `<ol class="points">${pts.map(function(p){return "<li><p>"+esc(p)+"</p></li>"}).join("")}</ol>` : ""}
-    ${it.info_image ? `<div class="plate infofig"><img src="../${esc(it.info_image)}" alt="${esc(it.info_alt||'Explanatory diagram')}" loading="lazy">${it.info_caption?'<div class="pcap mono">'+esc(it.info_caption)+'</div>':''}</div>` : ""}
+    ${it.info_image ? `<div class="plate infofig"><img src="../${esc(it.info_image)}" alt="${esc(it.info_alt||'Explanatory diagram')}" loading="lazy">${(it.info_labels||[]).map(function(l){return `<span class="infolbl" style="left:${l.x}%;top:${l.y}%;border-color:${l.c||'#141412'}">${esc(l.t)}</span>`}).join("")}</div>${it.info_caption?'<div class="pcap mono">'+esc(it.info_caption)+'</div>':''}` : ""}
     ${it.why ? `<div class="why"><p>${esc(it.why)}</p></div>` : ""}
     ${(it.questions&&it.questions.length) ? `<div class="quiz">${it.questions.map(function(q){return `<details><summary>${esc(q.q)}</summary><p>${esc(q.a)}</p></details>`}).join("")}</div>` : ""}
     ${it.source_url ? `<p class="source-line mono">Source: <a href="${esc(it.source_url)}" target="_blank" rel="noopener">${esc(it.source_name||it.source_url)}</a> ↗</p>` : ""}

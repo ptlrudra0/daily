@@ -185,7 +185,8 @@ function pageCSS() {
   .hl-b{margin-top:6px}
   .hs-xl{font-size:76px} .hs-l{font-size:58px} .hs-m{font-size:44px} .hs-s{font-size:34px}
   .plate{margin:10px 0;position:relative}
-  .infofig{margin:24px 0 0}
+  .infofig{margin:24px 0 0;position:relative}
+  .infolbl{position:absolute;transform:translate(-50%,-50%);font:600 9px "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:#141412;background:rgba(250,250,248,.94);border:1.5px solid #141412;border-radius:8px;padding:3px 6px;max-width:44%;text-align:center;line-height:1.35}
   .plate img{display:block;width:100%;height:auto;border-radius:26px}
   .plate .over{position:absolute;left:16px;bottom:16px;font-size:9px;font-weight:600;color:#F4F1EA;background:rgba(20,20,18,.82);border-radius:8px;padding:5px 9px}
   .pcap{font-size:9px;color:#6E6A5E;margin:8px 2px 0}
@@ -255,7 +256,7 @@ function storyHTML(issue, it, idx, state) {
     <p class="body">${esc(it.body || "")}</p>
     ${it.example ? `<p class="example">${esc(it.example)}</p>` : ""}
     ${pts ? `<ol class="points">${pts.map(p => `<li><p>${esc(p)}</p></li>`).join("")}</ol>` : ""}
-    ${it.info_image ? `<div class="plate infofig"><img src="${PAGE + esc(it.info_image)}" alt="${esc(it.info_alt || 'Explanatory diagram')}">${it.info_caption ? `<div class="pcap">${esc(it.info_caption)}</div>` : ""}</div>` : ""}
+    ${it.info_image ? `<div class="plate infofig"><img src="${PAGE + esc(it.info_image)}" alt="${esc(it.info_alt || 'Explanatory diagram')}">${(it.info_labels || []).map(l => `<span class="infolbl" style="left:${l.x}%;top:${l.y}%;border-color:${l.c || '#141412'}">${esc(l.t)}</span>`).join("")}</div>${it.info_caption ? `<div class="pcap">${esc(it.info_caption)}</div>` : ""}` : ""}
     ${it.why ? `<div class="why"><p>${esc(it.why)}</p></div>` : ""}
     ${(it.questions && it.questions.length) ? `<div class="quiz">${it.questions.map(q => `<details><summary>${esc(q.q)}</summary><p>${esc(q.a)}</p></details>`).join("")}</div>` : ""}
     ${it.source_url ? `<p class="source">Source: <a href="${esc(it.source_url)}">${esc(it.source_name || it.source_url)}</a> ↗</p>` : ""}

@@ -36,7 +36,45 @@
           ],
           "info_image": "img/2026-10-31-1-schematic.jpg",
           "info_alt": "Four separate containers - instructions, context, example, question - each flowing along its own arrow into one merged prompt",
-          "info_caption": "Diagram: four tagged containers, four arrows merging into one - wrap every ingredient in its own tag"
+          "info_caption": "Diagram: instructions, context, example and question each travel in their own tag, merging into one prompt the model can parse",
+          "info_labels": [
+            {
+              "t": "instructions",
+              "x": 13,
+              "y": 6,
+              "c": "#E8480C"
+            },
+            {
+              "t": "context",
+              "x": 13,
+              "y": 34,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "example",
+              "x": 13,
+              "y": 59,
+              "c": "#F2C200"
+            },
+            {
+              "t": "question",
+              "x": 13,
+              "y": 82,
+              "c": "#141412"
+            },
+            {
+              "t": "each in its own tag",
+              "x": 46,
+              "y": 41,
+              "c": "#141412"
+            },
+            {
+              "t": "one prompt the model can parse",
+              "x": 81,
+              "y": 22,
+              "c": "#141412"
+            }
+          ]
         },
         {
           "id": "2026-10-31-2",
@@ -68,7 +106,39 @@
           ],
           "info_image": "img/2026-10-31-2-schematic.jpg",
           "info_alt": "An F-shaped arrow path over lines of text: long top sweep, shorter second sweep, then down the left edge",
-          "info_caption": "Diagram: the F pattern - sweep the top bar, a shorter second bar, then scan down the left edge"
+          "info_caption": "Diagram: eyes sweep the top bar, come back for a shorter second bar, then scan down the left edge - the hook belongs in the top bar",
+          "info_labels": [
+            {
+              "t": "1st sweep",
+              "x": 52,
+              "y": 6,
+              "c": "#E8480C"
+            },
+            {
+              "t": "your hook lives here",
+              "x": 52,
+              "y": 19,
+              "c": "#141412"
+            },
+            {
+              "t": "2nd sweep, shorter",
+              "x": 28,
+              "y": 31,
+              "c": "#E8480C"
+            },
+            {
+              "t": "left-edge scan",
+              "x": 22,
+              "y": 62,
+              "c": "#E8480C"
+            },
+            {
+              "t": "barely read",
+              "x": 78,
+              "y": 85,
+              "c": "#141412"
+            }
+          ]
         },
         {
           "id": "2026-10-31-3",
@@ -101,7 +171,27 @@
           ],
           "info_image": "img/2026-10-31-3-schematic.jpg",
           "info_alt": "A row of era-consistent office objects with one tilted toy ringed and arrowed as the deliberate wrong object",
-          "info_caption": "Diagram: one deliberate oddity, ringed and arrowed - the wrong object is what holds the viewer"
+          "info_caption": "Diagram: a set built from one era plus one deliberate wrong object - the oddity is what makes viewers pause",
+          "info_labels": [
+            {
+              "t": "era-consistent set",
+              "x": 20,
+              "y": 10,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "one deliberate wrong object",
+              "x": 58,
+              "y": 15,
+              "c": "#F2C200"
+            },
+            {
+              "t": "viewers pause + rewatch",
+              "x": 58,
+              "y": 90,
+              "c": "#141412"
+            }
+          ]
         },
         {
           "id": "2026-10-31-4",
@@ -178,7 +268,45 @@
           ],
           "info_image": "img/2026-10-31-5-schematic.jpg",
           "info_alt": "Five torn browser windows above one cracked shape, with arrows from the single flaw up into each window",
-          "info_caption": "Diagram: one shared root cause reaching all five embedded browsers"
+          "info_caption": "Diagram: one shared flaw - EMBRACE - reaches the embedded browser inside Cursor, Copilot, Codex, VS Code and Claude Desktop",
+          "info_labels": [
+            {
+              "t": "Cursor",
+              "x": 10,
+              "y": 4,
+              "c": "#141412"
+            },
+            {
+              "t": "Copilot",
+              "x": 30,
+              "y": 4,
+              "c": "#141412"
+            },
+            {
+              "t": "Codex",
+              "x": 50,
+              "y": 4,
+              "c": "#141412"
+            },
+            {
+              "t": "VS Code",
+              "x": 70,
+              "y": 4,
+              "c": "#141412"
+            },
+            {
+              "t": "Claude Desktop",
+              "x": 88,
+              "y": 4,
+              "c": "#141412"
+            },
+            {
+              "t": "one shared flaw: EMBRACE",
+              "x": 50,
+              "y": 91,
+              "c": "#E8480C"
+            }
+          ]
         },
         {
           "id": "2026-10-31-6",
@@ -209,7 +337,27 @@
           ],
           "info_image": "img/2026-10-31-6-schematic.jpg",
           "info_alt": "Three title strips with only the first two word-segments solid; an arrow touches only those segments",
-          "info_caption": "Diagram: the audit - a scanner reads only the first two words of each title, skipping the rest"
+          "info_caption": "Diagram: the scanner reads the first two words of each title and skips the rest - two words must hook on their own",
+          "info_labels": [
+            {
+              "t": "read",
+              "x": 45,
+              "y": 19,
+              "c": "#E8480C"
+            },
+            {
+              "t": "skipped",
+              "x": 78,
+              "y": 19,
+              "c": "#141412"
+            },
+            {
+              "t": "two words must hook on their own",
+              "x": 50,
+              "y": 93,
+              "c": "#141412"
+            }
+          ]
         }
       ]
     },
