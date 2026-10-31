@@ -1,14 +1,14 @@
 // The Daily Draft - POSTER STUDY widget + reader (Scriptable)
 // Design-study variant of widget.js in the TV/poster direction:
 // off-white canvas, oversized condensed poster headline, IBM-Plex-Mono-style
-// metadata rows, strongly rounded plate panel, monochrome reader plates.
+// metadata rows, strongly rounded plate panel, full-colour plates.
 // Install: copy this whole file into a new script in the Scriptable app,
 // name it "The Daily Draft - poster", then point a Medium Scriptable
 // widget at it with "When Interacting" = "Run Script".
 // Stand-ins, flagged honestly: Scriptable cannot load Anton, so the widget
 // face uses iOS's Avenir Next Condensed Bold; the reader loads real Anton.
-// Scriptable widgets cannot recolour images, so the widget-face thumbnail
-// stays in colour; reader plates are true black-and-white via CSS.
+// Scriptable widgets cannot recolour images; plates are shown in their
+// original colour in both the widget face and the reader.
 
 const FEED = "https://ptlrudra0.github.io/daily/content.json";
 const PAGE = "https://ptlrudra0.github.io/daily/";
@@ -183,7 +183,7 @@ function pageCSS() {
   .hl-xl{font-size:76px} .hl-l{font-size:58px} .hl-m{font-size:44px} .hl-s{font-size:34px}
   .deck{font-size:16.5px;line-height:1.55;color:#3A382F;margin-bottom:18px;max-width:34em}
   .panel{position:relative;background:#fff;border-radius:26px;padding:9px;border:1.5px solid #141412;margin:18px 0 6px}
-  .panel img{display:block;width:100%;height:auto;border-radius:18px;filter:grayscale(1) contrast(1.06)}
+  .panel img{display:block;width:100%;height:auto;border-radius:18px}
   .panel .over{position:absolute;left:16px;bottom:15px;font-size:9px;font-weight:600;color:#F4F1EA;background:rgba(20,20,18,.82);border-radius:8px;padding:5px 9px}
   .pcap{display:flex;justify-content:space-between;gap:10px;font-size:9px;color:#6E6A5E;margin:8px 0 20px}
   .body{font-size:16.5px;line-height:1.68;max-width:38em}
@@ -319,7 +319,7 @@ function storyHTML(issue, it, idx, state) {
     <h1 class="${hlClass(it.headline)}">${esc(it.headline)}</h1>
     <p class="deck">${esc(it.deck)}</p>
     ${it.image ? `<div class="panel"><img src="${PAGE + esc(it.image)}" alt="${esc(it.image_alt || it.headline)}"><span class="over mono">Plate № ${idx + 1}</span></div>
-    <div class="pcap mono"><span>${it.image_caption ? esc(it.image_caption) : "Illustration · The Daily Draft"}</span><span>B/W study</span></div>` : ""}
+    <div class="pcap mono"><span>${it.image_caption ? esc(it.image_caption) : "Illustration · The Daily Draft"}</span><span>Poster study</span></div>` : ""}
     <p class="body">${esc(it.body || "")}</p>
     ${pts ? `<div class="sec">The key points</div>
     <ol class="points">${pts.map(p => `<li><p>${esc(p)}</p></li>`).join("")}</ol>` : ""}

@@ -55,7 +55,7 @@
   }
   .deck{font-size:17px;line-height:1.55;color:#3A382F;max-width:34em}
   .panel{position:relative;background:var(--panel);border-radius:30px;padding:10px;border:1.5px solid var(--ink)}
-  .panel img{display:block;width:100%;height:auto;border-radius:22px;filter:grayscale(1) contrast(1.06)}
+  .panel img{display:block;width:100%;height:auto;border-radius:22px}
   .panel .over{position:absolute;left:18px;bottom:18px;font-size:9px;font-weight:600;color:#F4F1EA;background:rgba(20,20,18,.82);border-radius:8px;padding:5px 9px}
   .pcap{display:flex;justify-content:space-between;gap:10px;font-size:9px;color:var(--soft);margin-top:8px}
   .pcap .pno{color:var(--ink);font-weight:600;white-space:nowrap}
@@ -215,7 +215,7 @@ function itemHTML(it, plateNo){
       </div>
       ${it.image ? `<div>
         <div class="panel"><img src="../${esc(it.image)}" alt="${esc(it.image_alt||it.headline)}" loading="lazy"><span class="over mono">Plate № ${plateNo}</span></div>
-        <div class="pcap mono"><span>${esc(it.image_caption || 'Illustration · The Daily Draft')}</span><span class="pno">B/W study</span></div>
+        <div class="pcap mono"><span>${esc(it.image_caption || 'Illustration · The Daily Draft')}</span><span class="pno">Poster study</span></div>
       </div>` : ""}
     </div>
     <p class="sbody">${esc(it.body||"")}</p>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daily Draft poster widget - browser approximation</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#2a2a28;font-family:"Inter",sans-serif;color:#F4F1EA;padding:34px 20px 60px;display:flex;flex-direction:column;align-items:center;gap:18px}
+  .note{max-width:640px;font-size:12.5px;line-height:1.6;color:#b9b5a9;text-align:center}
+  .note b{color:#F4F1EA}
+  .frame{background:#F4F1EA;border-radius:44px;padding:0;width:987px;max-width:96vw;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+  /* medium Scriptable widget face, 329x155pt rendered at 3x = 987x465 */
+  .face{width:100%;height:calc(min(987px,96vw)*465/987);background:#F4F1EA;color:#141412;padding:calc(min(987px,96vw)*0.0425) calc(min(987px,96vw)*0.0485);display:flex;flex-direction:column}
+  .mrow{display:flex;justify-content:space-between;font-family:"IBM Plex Mono",monospace;font-size:calc(min(987px,96vw)*0.0273);letter-spacing:.12em;color:#141412;font-weight:600}
+  .mrow .vol{color:#6E6A5E;font-weight:400}
+  .hair{border-bottom:calc(min(987px,96vw)*0.003) solid #141412;margin:calc(min(987px,96vw)*0.012) 0 calc(min(987px,96vw)*0.03)}
+  .meta{display:flex;gap:calc(min(987px,96vw)*0.024);font-family:"IBM Plex Mono",monospace;font-size:calc(min(987px,96vw)*0.0243)}
+  .meta .no{font-weight:600}
+  .meta .desk{color:#6E6A5E}
+  .mid{flex:1;display:flex;align-items:center;gap:calc(min(987px,96vw)*0.024);min-height:0}
+  .head{font-family:"Anton",Impact,sans-serif;text-transform:uppercase;line-height:.96;font-size:calc(min(987px,96vw)*0.079);flex:1;min-width:0}
+  .thumb{width:calc(min(987px,96vw)*0.291);height:calc(min(987px,96vw)*0.194);border-radius:calc(min(987px,96vw)*0.0425);object-fit:cover;flex:none}
+  .foot{display:flex;justify-content:space-between;font-family:"IBM Plex Mono",monospace;font-size:calc(min(987px,96vw)*0.0243);color:#6E6A5E}
+  .foot .go{color:#141412;font-weight:600}
+</style>
+</head>
+<body>
+<div class="note"><b>Browser approximation of the Scriptable widget face</b> (medium size), poster-study direction.<br>Device stand-in: Anton here stands in for iOS Avenir Next Condensed Bold. Plates show in full colour per the current direction. The true render only exists on the phone.</div>
+<div class="frame"><div class="face">
+  <div class="mrow"><span>THE DAILY DRAFT</span><span class="vol">VOL. I</span></div>
+  <div class="hair"></div>
+  <div class="meta"><span class="no">NO. 04/06</span><span class="desk">AI NEWS · 2 MIN</span></div>
+  <div class="mid">
+    <div class="head" id="head">The model that writes all at once</div>
+    <img class="thumb" id="thumb" src="../img/2026-10-31-4.jpg" alt="story plate thumbnail in colour">
+  </div>
+  <div class="foot"><span>SATURDAY, 31 OCTOBER · № 14</span><span class="go">READ &amp; TICK →</span></div>
+</div></div>
+<script>
+  // pull today's first story live so the mock shows real content shape
+  fetch("../content.json",{cache:"no-store"}).then(r=>r.json()).then(d=>{
+    var issue=d.issues[0], it=issue.items[0], idx=1;
+    document.querySelector(".meta .no").textContent="NO. 0"+idx+"/0"+issue.items.length;
+    document.querySelector(".meta .desk").textContent=(it.kind+" · "+(it.reading_time||"1 MIN")).toUpperCase();
+    var h=it.headline.toUpperCase();
+    var el=document.getElementById("head");
+    el.textContent=h;
+    el.style.fontSize="calc(min(987px,96vw)*"+(h.length<=14?0.079:h.length<=24?0.062:h.length<=38?0.05:0.042)+")";
+    if(it.image)document.getElementById("thumb").src="../"+it.image;
+    var dt=new Date(issue.date+"T12:00:00").toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"}).toUpperCase();
+    document.querySelector(".foot span").textContent=dt+" · № "+issue.number;
+  }).catch(()=>{});
+</script>
+</body>
+</html>
