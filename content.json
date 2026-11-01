@@ -2,6 +2,346 @@
   "paper": "The Daily Draft",
   "issues": [
     {
+      "date": "2026-11-01",
+      "number": 15,
+      "items": [
+        {
+          "id": "2026-11-01-1",
+          "kind": "AI TIP",
+          "headline": "Tell it what day it is",
+          "deck": "The model has no clock. Lend it yours.",
+          "lead": "Bro, your model doesn't know what day it is - it froze the day training ended, so every 'latest' and 'recent' you type gets judged by old news. One dated line at the top of your prompt hands it a watch.",
+          "body": "Bro, your model doesn't know what day it is - it froze the day training ended, so every 'latest' and 'recent' you type gets judged by old news. One dated line at the top of your prompt hands it a watch. There's no internal clock in there: models are trained on static snapshots, so GPT-4o's world ends in October 2023 and Llama 4's in August 2024, and without a date they just guess from whatever felt current back then. Chat apps hide this from you by quietly injecting 'Today is...' into the system prompt; the raw API injects nothing. So inject it yourself, but like a pro: date only, in ISO format, as the FIRST line of the system prompt - research on date-sensitive queries shows position up front improves temporal reasoning. Never a per-second timestamp: that changes the prompt on every call and murders the prompt cache - one team watched response times jump from a few seconds to over 50, and another traced exactly zero cache reads to a single timestamp line. Time-of-day and timezone belong in the user message instead, and for sessions that can cross midnight, give the agent a get-current-time tool rather than trusting a stamp gone stale. Two more suit-up details: state the knowledge cutoff with a two-month buffer (the last training months are sparsely represented, so the model is shakier there than it admits), and assassinate the fuzzy words - replace 'recent', 'latest' and 'current' with explicit windows like 'the past 30 days', because even with today's date stamped, 'recent' is still undefined.",
+          "ptrs": [
+            "No clock inside: models are frozen snapshots - GPT-4o's training ends October 2023 (a 29-month gap by early 2026), Llama 4's August 2024 - so an unstamped model interprets 'recent' through training-era vibes, confidently and wrongly.",
+            "Chat apps secretly inject 'Today is...' for you; the raw API doesn't. Stamp it yourself as the FIRST line of the system prompt - the date anchors everything after it, and the beginning position reasons about time measurably better.",
+            "Date only, never seconds: a per-second timestamp busts the prompt cache every call (one team's latency went from seconds to 50+; another found zero cache reads from one timestamp line). Time-of-day and timezone go in the user message.",
+            "Kill the fuzzy words - swap 'recent', 'latest', 'current' for explicit windows like 'the past 30 days'. For sessions that cross midnight use a get-current-time tool, and declare the cutoff with a two-month buffer, since the last training months are thin."
+          ],
+          "why": "You're going to ship a bot one of these days, and the confident-wrong-date bug fails silently - nobody notices until the output is embarrassingly stale. f\"Today is {date.today()}\" is the cheapest insurance policy in all of AI. Buy it on day one.",
+          "example": "Weak: 'Summarize the latest AI funding news.' Stamped: 'Today is 2026-11-01. Summarize AI funding news from the past 7 days.' Same model, same request - but now 'latest' has an address in time and the answer can't quietly time-travel to 2023.",
+          "questions": [
+            {
+              "q": "Why not inject the full timestamp, seconds and all?",
+              "a": "It changes the prompt on every call and busts the prompt cache - one team saw response times balloon past 50 seconds. Inject the date only; put time-of-day in the user message."
+            },
+            {
+              "q": "Where should the date line sit in the system prompt?",
+              "a": "First line, before the other instructions. The date anchors how the model reads everything after it, and date-sensitive queries are handled more accurately that way."
+            },
+            {
+              "q": "The chat app already feels current - why stamp the API yourself?",
+              "a": "Chat interfaces quietly inject the date behind the scenes; the raw API injects nothing. The model itself is frozen at its training cutoff either way."
+            }
+          ],
+          "source_name": "Tian Pan - tianpan.co",
+          "source_url": "https://tianpan.co/blog/2026/04/20/temporal-context-injection-llm",
+          "image": "img/2026-11-01-1.jpg",
+          "image_alt": "A bold vermilion cut-paper clock face beside a torn cobalt calendar page, amber paper confetti scattered around",
+          "reading_time": "2 min",
+          "accent": "#E8480C",
+          "accents": [
+            "#E8480C",
+            "#2B4BE0",
+            "#F2C200"
+          ],
+          "info_image": "img/2026-11-01-1-schematic.jpg",
+          "info_alt": "A cobalt arrow carries a small amber calendar page over a tall ink wall toward a vermilion gear-shaped head",
+          "info_caption": "Diagram: the model sits frozen behind its training-cutoff wall - your dated prompt line carries today over the wall to it",
+          "info_labels": [
+            {
+              "t": "training cutoff",
+              "x": 6,
+              "y": 8,
+              "c": "#141412"
+            },
+            {
+              "t": "today's date",
+              "x": 44,
+              "y": 3,
+              "c": "#A67C00"
+            },
+            {
+              "t": "the model",
+              "x": 74,
+              "y": 27,
+              "c": "#E8480C"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-01-2",
+          "kind": "DESIGN",
+          "headline": "The ruler lies. Trust the eye.",
+          "deck": "Software aligns by numbers; people see by weight. When they disagree, the eye wins.",
+          "lead": "Your alignment tool centres things by math - equal pixels on both sides - and your brain still calls it crooked. Bro, that's not pickiness, that's optical alignment, and the pros nudge until it LOOKS right, not until it measures right.",
+          "body": "Your alignment tool centres things by math - equal pixels on both sides - and your brain still calls it crooked. Bro, that's not pickiness, that's optical alignment, and the pros nudge until it LOOKS right, not until it measures right. Measured alignment is what the software does: identical numbers, job done. Optical alignment is what the human eye reports, and the eye doesn't count pixels - it weighs focal point, the occupied area inside the bounding box, visual weight, colour and fill, the whole Gestalt package. That's why a mathematically centred play triangle reads as leaning left (its mass sits left) and only 'clicks' once you scoot it a few pixels right. Now the grown-up caveat from Liferay Design's Naoki Hisamoto: optical alignment is painstaking manual work, and in code - especially responsive layouts - it can become a money pit. So the goal is not perfection everywhere; it's minimizing glaring distractions. Pick your battles: spend the effort on the elements people notice most, like big headings and banners. Judge text and icons in context, next to their real neighbours, never in isolation. And when you draw icons, leave room around the focal point so future-you has space to shift it optically.",
+          "ptrs": [
+            "Measured alignment = equal pixels both sides. Optical alignment = what the eye reports. They disagree constantly, because the eye weighs focal point, filled area, visual weight and colour - not bounding boxes.",
+            "Classic case: a play triangle centred by the align button looks left-heavy because its mass leans left; nudge it a few pixels right and it suddenly clicks - same numbers, fixed perception.",
+            "Don't fix everything: optical tuning is hand-work and gets brutal in responsive code. Liferay's advice - pick your battles and spend it on the loud elements: big headings, banners, hero icons.",
+            "Judge in context, not isolation - text and icons read against their neighbours. And when building icons, leave breathing room around the focal point so there's space to nudge later."
+          ],
+          "why": "Your thumbnails get judged at 300px in a feed, bro - nobody's measuring your grid, they're FEELING it. Centre a title by the numbers and it can look drunk. Nudge till it looks locked, then ship. That's the whole game.",
+          "example": "Centre a triangle in a circle with your tool's align button, screenshot it, then scoot the triangle right by 4-6% of the circle's width and screenshot again. Show a friend both: the 'wrong' one will read as centred. That delta is your optical correction - bank it.",
+          "questions": [
+            {
+              "q": "Your icon is mathematically centred but looks off. What's broken?",
+              "a": "Nothing - the eye weighs focal point and filled area, not bounding boxes. Nudge it until it looks right; optical alignment beats measured alignment."
+            },
+            {
+              "q": "Should you optically align every element on a page?",
+              "a": "No - it's slow manual work, especially in responsive code. Pick your battles: fix the big, noticeable pieces like headings and banners first, where the distraction is loudest."
+            }
+          ],
+          "source_name": "Liferay Design",
+          "source_url": "https://design.liferay.com/articles/best-practices/measured-vs-optical-alignment/",
+          "image": "img/2026-11-01-2.jpg",
+          "image_alt": "A vermilion cut-paper play triangle sits clearly right of an amber dotted centre line inside a thin ink circle",
+          "reading_time": "2 min",
+          "accent": "#E8480C",
+          "accents": [
+            "#E8480C",
+            "#141412"
+          ],
+          "info_image": "img/2026-11-01-2-schematic.jpg",
+          "info_alt": "Two stacked rows: a triangle centred by a ruler inside a circle, then an arrow down to the same triangle nudged right with a bold eye watching",
+          "info_caption": "Diagram: top - centred by measurement; bottom - nudged until the eye agrees. The numbers lost, perception won",
+          "info_labels": [
+            {
+              "t": "measured: centred by numbers",
+              "x": 4,
+              "y": 4,
+              "c": "#141412"
+            },
+            {
+              "t": "optical: nudged by eye",
+              "x": 4,
+              "y": 56,
+              "c": "#E8480C"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-01-3",
+          "kind": "ON SCREEN",
+          "headline": "Let the house choose the colours",
+          "deck": "Verity's production designer didn't decorate a location - she took dictation from it.",
+          "lead": "For Verity, production designer Amy Williams found a never-filmed lakeside house by Jens Quistgaard - a Danish homewares legend - and let its materials run the whole production's palette. Bro, the set wasn't decorated. It took dictation from the house.",
+          "body": "For Verity, production designer Amy Williams found a never-filmed lakeside house by Jens Quistgaard - a Danish homewares legend - and let its materials run the whole production's palette. Bro, the set wasn't decorated. It took dictation from the house. Location manager Elizabeth Krekel found the place unconventionally - through design and architecture magazine listings, not a database - and landed Beckoning Path in Westchester, New York, which had never been filmed. Quistgaard, known for his sculptural Dansk homewares, designed the house as a shipwrecked boat crashed into the landscape; Williams calls it 'monastic and maniacal with claws reaching into the sky', and it came pre-loaded with the story's needs - a home on a lake, deep in nature, where dark secrets can happen. Then came the discipline: the real house had zebra-wood floors, hard pine walls and copper detailing, so the stage sets were built to match those wood tones, and the colours of the exterior stone and floor tile were pulled into the interiors - location and build read as one continuous world, with the team playing shape, colour and nature versus humanity. And the reality-stacking gets better: the publisher's office scenes were shot inside Colleen Hoover's ACTUAL publisher, Hachette Book Group, re-dressed with Verity book covers - the building that made the book plays the building that publishes it.",
+          "ptrs": [
+            "Found through taste, not databases: location manager Elizabeth Krekel scoured design and architecture magazines and surfaced Beckoning Path in Westchester - a Jens Quistgaard house that had never been filmed.",
+            "The house arrived with a concept: Quistgaard designed it as a shipwrecked boat crashed into the landscape. Williams calls it 'monastic and maniacal with claws reaching into the sky' - narrative built into the beams.",
+            "Honour the materials: zebra-wood floors, hard pine walls, copper detailing - stage sets matched the real wood tones, and the exterior stone and floor-tile colours were pulled inside, so set and location read as one world.",
+            "Reality stacking: the publisher's office was shot inside Colleen Hoover's actual publisher, Hachette Book Group, re-dressed with Verity book covers - the building that made the book plays the building that publishes it."
+          ],
+          "why": "For your reels: you don't need a set budget, you need ONE strong place and the discipline to steal its palette. The canteen's steel tables and wall paint will grade your footage better than any LUT pack, legend.",
+          "example": "Next reel: pick one distinctive spot, sample three real colours from the location - wall, furniture, floor - and force your titles, overlays and grade to use exactly those three. The footage instantly belongs to the place. Same trick as Verity, zero dollars.",
+          "questions": [
+            {
+              "q": "How did Verity's team find the main house?",
+              "a": "Location manager Elizabeth Krekel scoured design and architecture magazines and found a listing - Beckoning Path in Westchester, a Jens Quistgaard-designed house that had never been filmed."
+            },
+            {
+              "q": "What did 'honouring the house' mean in practice?",
+              "a": "Stage sets matched its real materials - zebra wood, hard pine, copper - and the exterior stone and tile colours were pulled into the interiors, so built sets and the location read as one world."
+            }
+          ],
+          "source_name": "Pushing Pixels",
+          "source_url": "https://www.pushing-pixels.org/2026/09/28/production-design-of-verity-interview-with-amy-williams.html",
+          "image": "img/2026-11-01-3.jpg",
+          "image_alt": "An ink cut-paper house with claw-like roof beams stands on rocks beside a cobalt lake under an amber sun",
+          "reading_time": "2 min",
+          "accent": "#141412",
+          "accents": [
+            "#141412",
+            "#2B4BE0",
+            "#F2C200"
+          ],
+          "info_image": "img/2026-11-01-3-schematic.jpg",
+          "info_alt": "Three arrows in vermilion, cobalt and amber flow from a house's roof, walls and lake into one painter's palette",
+          "info_caption": "Diagram: roof, walls and water each donate their colour - the location itself writes the production's palette",
+          "info_labels": [
+            {
+              "t": "the place",
+              "x": 6,
+              "y": 8,
+              "c": "#141412"
+            },
+            {
+              "t": "its colours become the palette",
+              "x": 55,
+              "y": 6,
+              "c": "#E8480C"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-01-4",
+          "kind": "AI NEWS",
+          "headline": "Even OpenAI's ask got a haircut",
+          "deck": "The biggest lab in AI trimmed its raise from ~$30B to $20B - the market is counting its chips.",
+          "lead": "OpenAI cut its new funding target from about 30 billion dollars to 20 billion, CNBC confirmed Saturday - the round is still open and chasing a 1.25 trillion dollar post-money valuation. Bro, when the hottest name in the room negotiates DOWN, the whole casino is recounting its chips.",
+          "body": "OpenAI cut its new funding target from about 30 billion dollars to 20 billion, CNBC confirmed Saturday - the round is still open and chasing a 1.25 trillion dollar post-money valuation. Bro, when the hottest name in the room negotiates DOWN, the whole casino is recounting its chips. The Financial Times reported the 10-billion trim first, adding that investors were given a Friday deadline to commit and that some chose to shrink their allocations; CNBC's source, a person directly familiar with the deal, stressed the round hasn't closed so the numbers can still move. Investors from the United Arab Emirates are leading the round alongside Coatue, and OpenAI didn't comment. Context matters, and this week's context was a wobble: the market spent the week asking whether the AI data-centre and GPU spending blitz will ever pay back. Friday alone, Intel sank 25% on weak revenue guidance, Micron fell 5.5% and Nvidia dropped 4%. Alphabet had its worst trading day EVER on Thursday after search revenue missed expectations - partly, said chief business officer Philipp Schindler, because of lower monetization inside AI Mode. Meanwhile Microsoft, Google and Amazon all posted capex figures or forecasts below analyst estimates.",
+          "ptrs": [
+            "The numbers: target down from ~$30B to $20B, at a sought $1.25 trillion post-money valuation per the FT, which reported the $10B trim first; the round is open and terms can move.",
+            "Investors got a Friday deadline to commit, and some reduced their allocations; UAE investors are leading the round alongside Coatue. OpenAI declined to comment.",
+            "Same-week wobble: Intel sank 25% on soft guidance Friday, Micron fell 5.5%, Nvidia 4% - and Alphabet had its worst trading day ever Thursday after search revenue missed, partly on weaker AI Mode monetization.",
+            "Underneath it all: Microsoft, Google and Amazon have spent big on AI infrastructure, and all three guided capex below analyst estimates - the Street is openly asking when the spending pays back."
+          ],
+          "why": "File this under 'hype has a credit limit'. If you build skills and a small audience, a funding winter is weather; if you build ON hype, it's climate. Keep learning the craft - tools get cheaper when the market gets sober, bro.",
+          "example": "Quick finance vocab, using today's numbers: post-money valuation is the company's value INCLUDING the new cash. 20 billion into 1.25 trillion post-money means this round's investors are buying roughly 1.6% of OpenAI.",
+          "questions": [
+            {
+              "q": "How much is OpenAI seeking now, and at what valuation?",
+              "a": "Up to $20 billion at a $1.25 trillion post-money valuation, down from a ~$30 billion target. The round is still open, so terms can change."
+            },
+            {
+              "q": "What spooked the market the same week?",
+              "a": "AI-spending doubts: Intel fell 25% on weak guidance, Alphabet had its worst trading day ever after a search-revenue miss, and Microsoft, Google and Amazon all came in below capex estimates."
+            },
+            {
+              "q": "Did OpenAI confirm the cut?",
+              "a": "No comment from OpenAI. CNBC confirmed the lower target via a person directly familiar with the deal; the Financial Times reported the trim and the valuation first."
+            }
+          ],
+          "source_name": "CNBC",
+          "source_url": "https://www.cnbc.com/2026/10/31/openai-fundraising-20-billion-valuation.html",
+          "image": "img/2026-11-01-4.jpg",
+          "image_alt": "A tall vermilion paper bar beside a cobalt bar two-thirds its height, a small ink down arrow floating between their tops",
+          "image_caption": "To scale, left to right: the original ~$30B ask vs the new $20B target",
+          "reading_time": "2 min",
+          "accent": "#E8480C",
+          "accents": [
+            "#E8480C",
+            "#2B4BE0"
+          ]
+        },
+        {
+          "id": "2026-11-01-5",
+          "kind": "AI NEWS",
+          "headline": "The agent that held the needle",
+          "deck": "A Claude agent picked a gene therapy and injected it into a living mouse's brain - while a bigger model refused.",
+          "lead": "A San Francisco startup handed an AI agent a surgical rig, and the agent chose a gene therapy, aimed it, and injected a living mouse's brain - while the heavier model flat-out refused the job. Bro, agents just left the chat window. Safeguards and all.",
+          "body": "A San Francisco startup handed an AI agent a surgical rig, and the agent chose a gene therapy, aimed it, and injected a living mouse's brain - while the heavier model flat-out refused the job. Bro, agents just left the chat window. Safeguards and all. Exin Therapeutics, a startup developing epilepsy drugs, connected an agent to a rig with a motorized frame, a camera and an injector. The agent picked one of 19 candidate therapies from a spreadsheet, chose the brain region and the injection coordinates, then controlled the robotic arms, the needle, the volume and the speed - a veterinary surgeon performed the craniotomy first. Here's the plot twist: Claude Opus 5.5 did the experimental planning but refused to guide the needle, saying 'something on my output is telling me I shouldn't do this' - a mid-surgery stop could endanger the animal - so the team switched to Claude Sonnet 5, which proceeded. The safeguards were the real engineering: the agent had to propose its injection plan for human approval, a human-held emergency button could cut the motors, and the agent was barred from editing the equipment's code. When a glitch broke the coordinate system, the agent correctly flagged the wrong position but REFUSED to fix the code, exactly as instructed - a second agent running Opus 5, never told a surgery was live, made the repair. The run took about an hour versus the usual 45 minutes, the mouse is recovering well, and the team is waiting to assess seizure impact. Results are not peer-reviewed and Anthropic didn't comment. Zoom out: Anthropic published a real-world agent framework in August, and elsewhere engineers put GPT, Claude and Grok in charge of a car for an In-N-Out lunch run - only one model made it.",
+          "ptrs": [
+            "The rig: Exin Therapeutics' motorized frame, camera and injector. The agent picked 1 of 19 candidate therapies, chose brain region and coordinates, then drove the needle, volume and speed - a vet surgeon did the craniotomy first.",
+            "The refusals are the spine of the story: Opus 5.5 planned but wouldn't guide the needle - 'something on my output is telling me I shouldn't do this' - so Sonnet 5 took over and completed it.",
+            "Safeguards held: human-approved injection plan, an emergency motor cut-off, and no write-access to equipment code. When a coordinate glitch hit, the agent flagged it but refused to touch the code; a second agent (Opus 5), not told a surgery was live, made the fix.",
+            "Cost and caveats: ~1 hour versus the typical 45 minutes; the mouse is recovering well; seizure impact is still being assessed; results are NOT peer-reviewed and Anthropic didn't comment.",
+            "Zoom out: Anthropic shipped a real-world agent framework in August; elsewhere, GPT, Claude and Grok were each put in charge of a car on an In-N-Out run - only one succeeded. Physical-world agents are here, and wobbling."
+          ],
+          "why": "You're studying AIML while agents grow hands, legend. The lesson isn't 'robots do surgery' - it's that the interesting engineering was the brakes: plan approval, kill switches, least-privilege code access. Guardrails ARE the product. Build that instinct now and you'll never be unemployed.",
+          "example": "Building any agent that touches the real world? Steal Exin's pattern: the agent proposes, a human approves, hardware gets a physical kill switch, and the agent can never edit its own operating rules. Permission before motion, every time.",
+          "questions": [
+            {
+              "q": "Which model ran the injection - and which refused?",
+              "a": "Claude Sonnet 5 ran it. Claude Opus 5.5 did the planning but refused to guide the needle, warning that stopping mid-procedure could endanger the animal."
+            },
+            {
+              "q": "Name two safeguards the team used.",
+              "a": "The agent had to submit its injection plan for human approval, and a human-held emergency button could disconnect the rig's motors. It was also barred from modifying the equipment code - and obeyed, even when that slowed the fix."
+            },
+            {
+              "q": "Does this mean agents are ready for human surgery?",
+              "a": "No. The results aren't peer-reviewed, the team itself says it's far too soon for human brains, and even their next step - agent-run craniotomies - waits on safety proof."
+            }
+          ],
+          "source_name": "Wired",
+          "source_url": "https://www.wired.com/story/an-ai-agent-did-brain-surgery-on-live-mouse/",
+          "image": "img/2026-11-01-5.jpg",
+          "image_alt": "A cobalt cut-paper robotic arm with amber joints lowers a small gear toward a brain assembled from interlocking vermilion and ink paper pieces",
+          "reading_time": "3 min",
+          "accent": "#E8480C",
+          "accents": [
+            "#E8480C",
+            "#141412",
+            "#2B4BE0"
+          ],
+          "info_image": "img/2026-11-01-5-schematic.jpg",
+          "info_alt": "A grid of ink squares with one vermilion pick flows via arrows to an amber shield with a checkmark, then to a cobalt robotic arm",
+          "info_caption": "Diagram: the agent picks one of 19 options, a human approves the plan, then the rig moves - permission before motion",
+          "info_labels": [
+            {
+              "t": "19 therapy options",
+              "x": 4,
+              "y": 22,
+              "c": "#141412"
+            },
+            {
+              "t": "human approval",
+              "x": 39,
+              "y": 20,
+              "c": "#A67C00"
+            },
+            {
+              "t": "agent drives the rig",
+              "x": 66,
+              "y": 16,
+              "c": "#2B4BE0"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-01-6",
+          "kind": "TRY THIS",
+          "headline": "The ruler-off pass",
+          "deck": "Fifteen minutes, one screen, zero grids - train the eye the pros bill for.",
+          "lead": "Today's drill: finish one design with the alignment tools OFF. Hide the grids and guides, nudge three elements until they LOOK locked, then measure what you did - those deltas are your personal optical-correction cheat sheet.",
+          "body": "Today's drill: finish one design with the alignment tools OFF. Hide the grids and guides, nudge three elements until they LOOK locked, then measure what you did - those deltas are your personal optical-correction cheat sheet. Here's the protocol, suit up: pick one piece you're finishing today - a reel cover, a poster, a slide. Hide every grid, guide and smart-alignment crutch before the final polish. Choose the three loudest elements - the headline, the icon, the hero image - and nudge each one until it looks right next to its real neighbours: weight and focal point over bounding boxes, exactly like today's design lesson. THEN turn the measurements back on and record each delta, direction and distance: 'triangle 5px right', 'title 3px up'. Those numbers are YOUR optical corrections, and they repeat - after a month of passes you'll nudge first and measure never, because the eye is trained. That's the skill the align button will never give a client.",
+          "ptrs": [
+            "Pick one piece you're finishing today - reel cover, poster, slide - and hide every grid, guide and smart-alignment aid before final polish.",
+            "Choose the three loudest elements (headline, icon, hero image) and nudge each until it LOOKS right against its real neighbours - weight and focal point over bounding boxes.",
+            "Turn measurements back on and record each delta: direction and distance. 'Play triangle +5px right', 'title -3px up' - these are your personal optical corrections.",
+            "Keep the note and reuse it: after a month of passes you'll nudge first and measure never - the eye gets trained, and that's the skill no align button sells."
+          ],
+          "why": "Cheapest portfolio upgrade on the internet: free, fifteen minutes, and it compounds. Your thumbnails stop looking templated and start looking intentional - that's the difference between a scroller and a follower.",
+          "example": "Run it like this: the tool says your title is centred - nudge until it sits right, note 'title +6px up'. Icon next, note '+4px right'. Hero image last. Whatever the ruler says afterwards, the note is the deliverable, not the pixels.",
+          "questions": [
+            {
+              "q": "What do you do AFTER the elements look right?",
+              "a": "Turn measurements back on and record each delta - direction and distance. That note is your personal optical-correction cheat sheet."
+            },
+            {
+              "q": "Why only the three loudest elements?",
+              "a": "Optical tuning is slow hand-work, so pick the battles where the distraction is loudest - headline, icon, hero image. Perfection everywhere is procrastination in a suit."
+            }
+          ],
+          "image": "img/2026-11-01-6.jpg",
+          "image_alt": "A bold vermilion folk-art eye with an ink pupil, a tilted ink ruler pushed aside below it and loose amber tick marks floating free",
+          "reading_time": "1 min",
+          "accent": "#E8480C",
+          "accents": [
+            "#E8480C",
+            "#141412"
+          ],
+          "info_image": "img/2026-11-01-6-schematic.jpg",
+          "info_alt": "An ink ruler, an arrow to a cobalt eye, an arrow to a stack of amber note cards",
+          "info_caption": "Diagram: measure first, then look, then write down the difference - that's the whole drill",
+          "info_labels": [
+            {
+              "t": "measure",
+              "x": 8,
+              "y": 32,
+              "c": "#141412"
+            },
+            {
+              "t": "then look",
+              "x": 45,
+              "y": 28,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "note the delta",
+              "x": 72,
+              "y": 26,
+              "c": "#A67C00"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "number": 14,
       "date": "2026-10-31",
       "items": [
