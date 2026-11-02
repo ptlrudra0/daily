@@ -12,21 +12,62 @@
           "deck": "An agent with no stop rule does not know when to go home.",
           "lead": "Bro, an agent loop left to itself runs until the model gets bored or your wallet does - whichever comes first. Set a curfew: one explicit stop condition is the difference between a helper and a meter running.",
           "body": "An agent loop only ends four ways: the model finishes without calling tools, a tool call has no execute function, a tool call needs approval, or your stop condition fires. Three of those are the agent's choice - only one is yours. And the defaults are wildly uneven: in Vercel's AI SDK, ToolLoopAgent caps itself at 20 steps as a runaway-cost safety, while WorkflowAgent ships with NO built-in limit and loops until the model voluntarily stops calling tools. Built-in conditions like isStepCount(n) and hasToolCall('sendEmail') stack in an array and stop the loop the moment ANY one trips - a steering message, by contrast, deliberately keeps it going one more step. Set stopWhen explicitly even if you keep the default twenty: the explicit version skips the warning log, and one day you'll tighten it to eight for a cheap task and thank yourself.",
-          "ptrs": "[\"The loop ends only four ways: the model finishes without calling tools, a tool has no execute function, a tool call needs approval, or YOUR stop condition fires. Three of those are the agent's choice - one is yours.\", \"Defaults differ wildly: AI SDK's ToolLoopAgent caps at 20 steps as cost safety, but WorkflowAgent has NO built-in limit - it loops until the model voluntarily stops calling tools. Know which one you're running.\", \"Built-in curfews: isStepCount(n) caps steps, hasToolCall('sendEmail') stops the loop when a specific tool fires, and you can stack them - an array stops when ANY condition trips.\", \"Set stopWhen explicitly even if you keep the default 20 - explicit conditions skip the warning, and one day you'll lower it to 8 for a cheap task and thank yourself.\"]",
+          "ptrs": [
+            "The loop ends only four ways: the model finishes without calling tools, a tool has no execute function, a tool call needs approval, or YOUR stop condition fires. Three of those are the agent's choice - one is yours.",
+            "Defaults differ wildly: AI SDK's ToolLoopAgent caps at 20 steps as cost safety, but WorkflowAgent has NO built-in limit - it loops until the model voluntarily stops calling tools. Know which one you're running.",
+            "Built-in curfews: isStepCount(n) caps steps, hasToolCall('sendEmail') stops the loop when a specific tool fires, and you can stack them - an array stops when ANY condition trips.",
+            "Set stopWhen explicitly even if you keep the default 20 - explicit conditions skip the warning, and one day you'll lower it to 8 for a cheap task and thank yourself."
+          ],
           "why": "You are building agents right now, and the runaway loop is the one bug that bills you by the minute. A stop rule costs one line and saves the whole afternoon.",
           "example": "Building a 'research this topic' agent? stopWhen: [isStepCount(15), hasToolCall('sendReport')] - it quits after 15 steps or the moment it sends the report, whichever comes first. Without those two lines, a confused agent will happily browse in circles through your entire budget.",
-          "questions": "[{\"q\": \"What stops an agent loop if you set nothing?\", \"a\": \"Depends on the runner: AI SDK's ToolLoopAgent stops at a default of 20 steps; WorkflowAgent has no built-in limit and runs until the model stops calling tools on its own.\"}, {\"q\": \"How do you stop an agent the instant it calls a specific tool?\", \"a\": \"Add hasToolCall('toolName') to stopWhen. Conditions in an array are OR-ed - the loop ends when any one of them is met.\"}, {\"q\": \"Can you keep the loop alive deliberately?\", \"a\": \"Yes - a steering message extends the loop by one more step, which is the documented way to nudge an agent without restarting it.\"}]",
+          "questions": [
+            {
+              "q": "What stops an agent loop if you set nothing?",
+              "a": "Depends on the runner: AI SDK's ToolLoopAgent stops at a default of 20 steps; WorkflowAgent has no built-in limit and runs until the model stops calling tools on its own."
+            },
+            {
+              "q": "How do you stop an agent the instant it calls a specific tool?",
+              "a": "Add hasToolCall('toolName') to stopWhen. Conditions in an array are OR-ed - the loop ends when any one of them is met."
+            },
+            {
+              "q": "Can you keep the loop alive deliberately?",
+              "a": "Yes - a steering message extends the loop by one more step, which is the documented way to nudge an agent without restarting it."
+            }
+          ],
           "source_name": "AI SDK Docs - ai-sdk.dev",
           "source_url": "https://ai-sdk.dev/docs/agents/loop-control",
           "image": "img/2026-11-02-1.jpg",
           "image_alt": "A cut-paper agent figure looping in a circle of cobalt arrows, stopped by a tall vermilion octagon wall, with a small amber result card beyond it",
           "reading_time": "2 min",
           "accent": "#141412",
-          "accents": "[\"#141412\", \"#E8480C\", \"#F2C200\"]",
+          "accents": [
+            "#141412",
+            "#E8480C",
+            "#F2C200"
+          ],
           "info_image": "img/2026-11-02-1-schematic.jpg",
           "info_alt": "Diagram of a circular cobalt arrow loop leading into a vermilion octagon stop wall, with an amber result card waiting behind it",
           "info_caption": "Diagram: the agent loops until it hits your curfew wall - then it hands over the result",
-          "info_labels": "[{\"t\": \"the loop\", \"x\": 6, \"y\": 14, \"c\": \"#141412\"}, {\"t\": \"your stop rule\", \"x\": 52, \"y\": 12, \"c\": \"#E8480C\"}, {\"t\": \"result, on budget\", \"x\": 64, \"y\": 80, \"c\": \"#A67C00\"}]"
+          "info_labels": [
+            {
+              "t": "the loop",
+              "x": 6,
+              "y": 14,
+              "c": "#141412"
+            },
+            {
+              "t": "your stop rule",
+              "x": 52,
+              "y": 12,
+              "c": "#E8480C"
+            },
+            {
+              "t": "result, on budget",
+              "x": 64,
+              "y": 80,
+              "c": "#A67C00"
+            }
+          ]
         },
         {
           "id": "2026-11-02-2",
@@ -35,21 +76,54 @@
           "deck": "Scale is relative size - and relatives argue. Let one element win.",
           "lead": "Bro, in 1959 Volkswagen put a tiny car in a sea of white paper and called the ad 'Think small' - it became one of the greatest print campaigns ever. Scale is a dare: make one element dramatically bigger or smaller than expected and the eye has no choice but to attend.",
           "body": "Scale is simply the relative size of one element compared to another - Steven Bradley's line: 'A single object has no scale until it's seen in comparison with something else.' In 1959, DDB's 'Think small' pulled the lens AWAY from the product: a tiny Beetle floating in white space while rival car ads shouted full-bleed chrome, and the unexpected shrink drew more attention, not less, helping turn a small, slow, foreign car into an American icon. Scale is not just for pictures - in that same ad the headline 'Think small' was set huge relative to the body copy. And the hierarchy pays out as reading order: Leo Burnett Dubai's McDonald's all-day coffee posters shrank the famous logo so that time - the actual news - could be the hero. Size tells viewers what to look at first, second and third; it carries meaning, tone and composition all at once.",
-          "ptrs": "[\"1959, 'Think small': DDB pulled the lens AWAY from the product - a tiny Beetle in a sea of white while rival car ads shouted full-bleed chrome. The shrink drew MORE attention, not less, and helped turn an unloved foreign car into an American icon.\", \"Scale only exists in comparison - Steven Bradley: 'A single object has no scale until it's seen in comparison with something else.' Big versus small, never big alone.\", \"Type plays too: in the VW ad the headline 'Think small' was huge against the body copy. Scale is not just for pictures - it is for words.\", \"Hierarchy is the payout: size tells viewers what to look at first, second, third. Leo Burnett's McDonald's coffee posters shrank the logo so TIME could be the hero - all-day coffee, said by size.\"]",
+          "ptrs": [
+            "1959, 'Think small': DDB pulled the lens AWAY from the product - a tiny Beetle in a sea of white while rival car ads shouted full-bleed chrome. The shrink drew MORE attention, not less, and helped turn an unloved foreign car into an American icon.",
+            "Scale only exists in comparison - Steven Bradley: 'A single object has no scale until it's seen in comparison with something else.' Big versus small, never big alone.",
+            "Type plays too: in the VW ad the headline 'Think small' was huge against the body copy. Scale is not just for pictures - it is for words.",
+            "Hierarchy is the payout: size tells viewers what to look at first, second, third. Leo Burnett's McDonald's coffee posters shrank the logo so TIME could be the hero - all-day coffee, said by size."
+          ],
           "why": "Your thumbnails and reel covers get judged at 300 pixels in a feed. One huge element survives the shrink; five medium ones turn to mud.",
           "example": "Next thumbnail: pick ONE element - the number, the keyword, the cutout - and make it three times bigger than feels comfortable, letting everything else shrink to support. If it feels safe, it is not scale, it is decoration.",
-          "questions": "[{\"q\": \"What is scale in design, exactly?\", \"a\": \"The relative size of one element compared to another. A single object has no scale until it is seen next to something else - big is meaningless without small.\"}, {\"q\": \"How did 'Think small' beat bigger, flashier car ads?\", \"a\": \"By doing the opposite: a tiny product in a sea of white space. The unexpected proportion broke the pattern of every rival ad, so it pulled the eye harder.\"}, {\"q\": \"Does scale apply to text as well as images?\", \"a\": \"Yes - the VW headline was huge relative to its body copy. Sizing your words against each other builds the same hierarchy as sizing pictures.\"}]",
+          "questions": [
+            {
+              "q": "What is scale in design, exactly?",
+              "a": "The relative size of one element compared to another. A single object has no scale until it is seen next to something else - big is meaningless without small."
+            },
+            {
+              "q": "How did 'Think small' beat bigger, flashier car ads?",
+              "a": "By doing the opposite: a tiny product in a sea of white space. The unexpected proportion broke the pattern of every rival ad, so it pulled the eye harder."
+            },
+            {
+              "q": "Does scale apply to text as well as images?",
+              "a": "Yes - the VW headline was huge relative to its body copy. Sizing your words against each other builds the same hierarchy as sizing pictures."
+            }
+          ],
           "source_name": "Canva Design School",
           "source_url": "https://www.canva.com/learn/principle-of-scale-in-graphic-design/",
           "image": "img/2026-11-02-2.jpg",
           "image_alt": "One enormous vermilion circle dominating the page while a row of tiny ink squares huddles beneath it, riso texture",
           "reading_time": "2 min",
           "accent": "#E8480C",
-          "accents": "[\"#E8480C\"]",
+          "accents": [
+            "#E8480C"
+          ],
           "info_image": "img/2026-11-02-2-schematic.jpg",
           "info_alt": "Diagram of three equal ink squares with an arrow to one giant vermilion square watched by a small cobalt eye",
           "info_caption": "Diagram: three equals in a row say nothing - make one huge and the eye knows exactly where to go",
-          "info_labels": "[{\"t\": \"all equal, all ignored\", \"x\": 5, \"y\": 84, \"c\": \"#141412\"}, {\"t\": \"one huge: instant hierarchy\", \"x\": 52, \"y\": 10, \"c\": \"#E8480C\"}]"
+          "info_labels": [
+            {
+              "t": "all equal, all ignored",
+              "x": 5,
+              "y": 84,
+              "c": "#141412"
+            },
+            {
+              "t": "one huge: instant hierarchy",
+              "x": 52,
+              "y": 10,
+              "c": "#E8480C"
+            }
+          ]
         },
         {
           "id": "2026-11-02-3",
@@ -58,21 +132,57 @@
           "deck": "Pixar plans a movie's feelings as a strip of colours before animating a frame.",
           "lead": "Bro, before Pixar animates a single frame, the film already exists - as a strip of tiny paintings called a colour script, mapping the story's emotional arc in hues. It is the whole movie read as paint swatches: blue for the calm, red for the fire, beat by beat.",
           "body": "A colour script is a visual roadmap of a film told through strategic colour: a sequence of miniature paintings, one per key scene, that conveys the emotional arc, establishes narrative rhythm and visualizes scene transitions before production begins. Pixar pioneered the practice, laying it down with A Bug's Life in 1998, and it has since spread from animation into live-action filmmaking. It is a working tool, not decoration: lighting, sets, costumes and VFX all align to the same strip, so every department's choices serve the same feeling at the same moment. Colour carries the emotion - cool blues read calm or sad, warm reds read anger or love - and the process is disciplined: understand the story's emotional beats, sketch the key scenes, select a colour per mood, then review and refine the strip iteratively.",
-          "ptrs": "[\"Definition: a colour script is a sequence of small paintings - one per key scene - mapping the film's colour and mood BEFORE production, so the emotional arc is visible at a glance.\", \"Pixar pioneered the practice with A Bug's Life in 1998; the technique has since spread from animation into live-action filmmaking.\", \"It is a working tool, not decoration: lighting, sets, costumes and VFX all align to the same strip, so every department serves the same feeling at the same moment.\", \"Colour carries the emotion: cool blues read calm or sad, warm reds read anger or love. The process: understand the beats, sketch key scenes, pick a colour per mood, refine iteratively.\"]",
+          "ptrs": [
+            "Definition: a colour script is a sequence of small paintings - one per key scene - mapping the film's colour and mood BEFORE production, so the emotional arc is visible at a glance.",
+            "Pixar pioneered the practice with A Bug's Life in 1998; the technique has since spread from animation into live-action filmmaking.",
+            "It is a working tool, not decoration: lighting, sets, costumes and VFX all align to the same strip, so every department serves the same feeling at the same moment.",
+            "Colour carries the emotion: cool blues read calm or sad, warm reds read anger or love. The process: understand the beats, sketch key scenes, pick a colour per mood, refine iteratively."
+          ],
           "why": "You shoot reels, and a 30-second reel is a three-beat film. Planning the colour of each beat before you shoot is the cheapest production-design upgrade that exists.",
           "example": "Your next 30-second reel: pick three beats - hook, build, payoff - and assign each ONE colour family before you shoot. Cool for the setup, warm for the payoff, then grade each section toward its swatch. You have just run a colour script, Pixar-style.",
-          "questions": "[{\"q\": \"What is a colour script?\", \"a\": \"A strip of small paintings, one per key scene, that maps a film's colour and mood across the whole story - the emotional arc at a glance, made before production.\"}, {\"q\": \"Which film pioneered the practice at Pixar?\", \"a\": \"A Bug's Life, in 1998. The technique then spread from animation into live-action filmmaking.\"}, {\"q\": \"What does each colour do?\", \"a\": \"It carries the emotion of the beat: cool blues read calm or sad, warm reds read anger or love - assigned scene by scene across the strip.\"}]",
+          "questions": [
+            {
+              "q": "What is a colour script?",
+              "a": "A strip of small paintings, one per key scene, that maps a film's colour and mood across the whole story - the emotional arc at a glance, made before production."
+            },
+            {
+              "q": "Which film pioneered the practice at Pixar?",
+              "a": "A Bug's Life, in 1998. The technique then spread from animation into live-action filmmaking."
+            },
+            {
+              "q": "What does each colour do?",
+              "a": "It carries the emotion of the beat: cool blues read calm or sad, warm reds read anger or love - assigned scene by scene across the strip."
+            }
+          ],
           "source_name": "StudioBinder",
           "source_url": "https://www.studiobinder.com/blog/what-is-a-color-script-definition/",
           "image": "img/2026-11-02-3.jpg",
           "image_alt": "A filmstrip of six small cut-paper landscape panels, each keyed to a single colour mood from cobalt night to amber dawn",
           "reading_time": "2 min",
           "accent": "#141412",
-          "accents": "[\"#141412\", \"#F2C200\", \"#E8480C\", \"#2B4BE0\"]",
+          "accents": [
+            "#141412",
+            "#F2C200",
+            "#E8480C",
+            "#2B4BE0"
+          ],
           "info_image": "img/2026-11-02-3-schematic.jpg",
           "info_alt": "Diagram of a story-arc curve with five colour swatch cards hung along it from cobalt to vermilion to amber",
           "info_caption": "Diagram: the story's ups and downs get a colour each - the whole crew paints to the strip",
-          "info_labels": "[{\"t\": \"the story's beats\", \"x\": 6, \"y\": 18, \"c\": \"#141412\"}, {\"t\": \"one colour per beat\", \"x\": 36, \"y\": 82, \"c\": \"#A67C00\"}]"
+          "info_labels": [
+            {
+              "t": "the story's beats",
+              "x": 6,
+              "y": 18,
+              "c": "#141412"
+            },
+            {
+              "t": "one colour per beat",
+              "x": 36,
+              "y": 82,
+              "c": "#A67C00"
+            }
+          ]
         },
         {
           "id": "2026-11-02-4",
@@ -81,10 +191,29 @@
           "deck": "Adobe's EditAgent stops guessing and starts measuring - and failure rates fall.",
           "lead": "Bro, Adobe Research and UC San Diego built EditAgent, an image-editing agent that works like a real retoucher: generate several candidates in parallel, then judge them with close-ups and hard numbers instead of vibes. The general-purpose editor it replaced failed 42.7% of its edits.",
           "body": "EditAgent breaks an editing request into sub-steps and pairs a general editor (Flux-2-Klein-9B) with specialized tools for sharpening, rotation and zoom. In 600 edits blind-rated by five professionals, the general editor produced unusable results 42.7% of the time - and retrying the same editor barely helped, while the specialized tools fixed roughly two-thirds of those failures. Iterative refinement piles small errors onto already-altered pixels, so the pros preferred fresh parallel candidates in 78.5% of the head-to-heads where they picked a side - at half the evaluation passes. The real trick is the verification record: every candidate ships with a close-up of the edited area, a change map and measured brightness and colour stats. Without that record, none of seven ordinary LLMs could match the best fine-tuned judge; with it, all seven beat every fine-tuned model (Qwen3.8-27B hit 81.3% usable picks against EditScore-72B's 74.8%) - what a judge sees mattered more than how it was trained. It even checks history, catching later edits that silently undo earlier ones, like 'more daylight' un-frosting a window. The bill: about ten times the compute, though the verified outputs doubled as roughly 26,000 training examples for faster future editors.",
-          "ptrs": "[\"The failure that started it: in 600 edits blind-rated by five pros, the general editor (Flux-2-Klein-9B) produced unusable results 42.7% of the time - and retrying the same editor barely helped. Specialized tools fixed about two-thirds of those failures.\", \"Parallel beats polishing: pros preferred fresh parallel candidates over step-by-step refinement in 78.5% of head-to-heads, because refinement piles small errors onto already-altered pixels - and parallel needed half the evaluation passes.\", \"Judges need evidence, not training: each candidate ships a verification record - close-up crop, change map, measured brightness and colour stats. With it, all seven ordinary LLMs beat the best fine-tuned judge; without it, none did (Qwen3.8-27B 81.3% vs EditScore-72B's 74.8%).\", \"It even checks history: after each round, EditAgent verifies later edits did not undo earlier ones - catching the case where 'more daylight' silently un-frosted a window.\", \"The bill: about 10x the compute - but the verified results became roughly 26,000 training examples for cheaper, faster editors down the line.\"]",
+          "ptrs": [
+            "The failure that started it: in 600 edits blind-rated by five pros, the general editor (Flux-2-Klein-9B) produced unusable results 42.7% of the time - and retrying the same editor barely helped. Specialized tools fixed about two-thirds of those failures.",
+            "Parallel beats polishing: pros preferred fresh parallel candidates over step-by-step refinement in 78.5% of head-to-heads, because refinement piles small errors onto already-altered pixels - and parallel needed half the evaluation passes.",
+            "Judges need evidence, not training: each candidate ships a verification record - close-up crop, change map, measured brightness and colour stats. With it, all seven ordinary LLMs beat the best fine-tuned judge; without it, none did (Qwen3.8-27B 81.3% vs EditScore-72B's 74.8%).",
+            "It even checks history: after each round, EditAgent verifies later edits did not undo earlier ones - catching the case where 'more daylight' silently un-frosted a window.",
+            "The bill: about 10x the compute - but the verified results became roughly 26,000 training examples for cheaper, faster editors down the line."
+          ],
           "why": "This is the pattern for every agent you will ever build: fan out candidates, route to specialists, verify with measurements instead of vibes. It just happens to be wearing a Photoshop costume.",
           "example": "The brightening test: asked to gently brighten a photo, the general editor overexposed it and pushed the colours warm - the measured stats caught it instantly, and the specialized tone tool's version stayed within spec. Numbers saw what eyes skimmed past.",
-          "questions": "[{\"q\": \"How often did the general-purpose editor fail?\", \"a\": \"42.7% of the 600 blind-rated edits. Specialized tools then rescued roughly two-thirds of those failures.\"}, {\"q\": \"What made plain LLMs better judges than fine-tuned ones?\", \"a\": \"The verification record - close-ups, change maps and measured stats. With that evidence all seven ordinary LLMs beat the best fine-tuned judge; without it, none did.\"}, {\"q\": \"What is the catch?\", \"a\": \"About ten times the compute - though the verified outputs doubled as roughly 26,000 training examples for faster future editors.\"}]",
+          "questions": [
+            {
+              "q": "How often did the general-purpose editor fail?",
+              "a": "42.7% of the 600 blind-rated edits. Specialized tools then rescued roughly two-thirds of those failures."
+            },
+            {
+              "q": "What made plain LLMs better judges than fine-tuned ones?",
+              "a": "The verification record - close-ups, change maps and measured stats. With that evidence all seven ordinary LLMs beat the best fine-tuned judge; without it, none did."
+            },
+            {
+              "q": "What is the catch?",
+              "a": "About ten times the compute - though the verified outputs doubled as roughly 26,000 training examples for faster future editors."
+            }
+          ],
           "source_name": "The Decoder",
           "source_url": "https://the-decoder.com/adobe-is-testing-how-well-ai-agents-can-use-editing-tools-like-a-photoshop-professional-would/",
           "image": "img/2026-11-02-4.jpg",
@@ -92,7 +221,10 @@
           "image_caption": "100 squares, one per percent: the 43 vermilion ones are the edits the general-purpose editor failed - 42.7%, across 600 pro-rated edits",
           "reading_time": "3 min",
           "accent": "#E8480C",
-          "accents": "[\"#E8480C\", \"#141412\"]"
+          "accents": [
+            "#E8480C",
+            "#141412"
+          ]
         },
         {
           "id": "2026-11-02-5",
@@ -101,21 +233,63 @@
           "deck": "Britain is building its biggest substation ever - because one datacentre asked.",
           "lead": "Bro, National Grid just bought 73 acres on Teesside for what would be Britain's biggest electricity substation, built to feed the giant AI datacentre planned next door. The AI race has officially moved from the app store to the power grid.",
           "body": "National Grid agreed to buy 29.5 hectares (73 acres) at Dorman Point on the Teesworks site - a deal first reported by Sky News - as a step toward Britain's biggest-ever substation, next to a planned AI datacentre spanning nearly 500,000 square metres. Tees Valley mayor Ben Houchen says the site could host up to 3.2 gigawatts of capacity: 'Everyone who has tried to build a datacentre in this country knows the biggest problem is getting enough power to the site quickly' - and he would 'much rather that was Teesside than Texas or Abu Dhabi.' A draft national policy statement published days earlier called datacentres 'as fundamental to our economy as the railways and electricity networks.' Not everyone is cheering: protests have hit datacentre projects from Auchtertool, north of Edinburgh, to Brick Lane in east London, and AI companies have told ministers they have about twelve months to head off US-style public opposition. The models you use rent compute by the watt - the AI story is quietly becoming an energy story.",
-          "ptrs": "[\"The deal: National Grid is buying 29.5 hectares (73 acres) at Dorman Point on the Teesworks site for Britain's biggest-ever substation, next to a planned AI datacentre of nearly 500,000 square metres. Sky News broke it; planning applications are in.\", \"The scale: up to 3.2 gigawatts of potential capacity, says Tees Valley mayor Ben Houchen - his pitch: 'I'd much rather that was Teesside than Texas or Abu Dhabi.'\", \"The blocker everyone names: power. Houchen says everyone who tries to build a UK datacentre hits the same wall - getting enough electricity to the site fast enough, while the US, the Gulf and Europe hoover up the investment.\", \"The friction: a draft national policy statement just called datacentres 'as fundamental to our economy as the railways', even as protests hit projects from Auchtertool to Brick Lane - and AI firms have warned ministers they have about 12 months to calm public opposition.\"]",
+          "ptrs": [
+            "The deal: National Grid is buying 29.5 hectares (73 acres) at Dorman Point on the Teesworks site for Britain's biggest-ever substation, next to a planned AI datacentre of nearly 500,000 square metres. Sky News broke it; planning applications are in.",
+            "The scale: up to 3.2 gigawatts of potential capacity, says Tees Valley mayor Ben Houchen - his pitch: 'I'd much rather that was Teesside than Texas or Abu Dhabi.'",
+            "The blocker everyone names: power. Houchen says everyone who tries to build a UK datacentre hits the same wall - getting enough electricity to the site fast enough, while the US, the Gulf and Europe hoover up the investment.",
+            "The friction: a draft national policy statement just called datacentres 'as fundamental to our economy as the railways', even as protests hit projects from Auchtertool to Brick Lane - and AI firms have warned ministers they have about 12 months to calm public opposition."
+          ],
           "why": "The tools you use rent compute by the watt, and compute is now gated by substations, not GPUs. Watch the power stories - they decide which AI capabilities exist at all.",
           "example": "Next time you read 'AI company X raises billions', ask the boring follow-up: where is the substation? This week the boring follow-up WAS the headline - Britain's biggest, bought for one datacentre.",
-          "questions": "[{\"q\": \"What did National Grid buy, and why?\", \"a\": \"73 acres at Dorman Point, Teesside, for what would be Britain's biggest substation - to power the planned ~500,000 square metre AI datacentre next door.\"}, {\"q\": \"How big could the site get?\", \"a\": \"Up to 3.2 gigawatts of capacity, per the Tees Valley mayor - pitched as enough to compete with the US and the Gulf for mega-projects.\"}, {\"q\": \"Is everyone on board?\", \"a\": \"No - protests are hitting datacentre projects from Auchtertool to Brick Lane, and AI companies have warned ministers they have about 12 months to head off US-style opposition.\"}]",
+          "questions": [
+            {
+              "q": "What did National Grid buy, and why?",
+              "a": "73 acres at Dorman Point, Teesside, for what would be Britain's biggest substation - to power the planned ~500,000 square metre AI datacentre next door."
+            },
+            {
+              "q": "How big could the site get?",
+              "a": "Up to 3.2 gigawatts of capacity, per the Tees Valley mayor - pitched as enough to compete with the US and the Gulf for mega-projects."
+            },
+            {
+              "q": "Is everyone on board?",
+              "a": "No - protests are hitting datacentre projects from Auchtertool to Brick Lane, and AI companies have warned ministers they have about 12 months to head off US-style opposition."
+            }
+          ],
           "source_name": "The Guardian",
           "source_url": "https://www.theguardian.com/business/2026/nov/01/national-grid-to-site-biggest-substation-on-teesside-near-planned-ai-datacentre",
           "image": "img/2026-11-02-5.jpg",
           "image_alt": "A cut-paper electricity pylon in ink with a vermilion lightning bolt feeding a blocky cobalt datacentre building, amber accents",
           "reading_time": "3 min",
           "accent": "#2B4BE0",
-          "accents": "[\"#2B4BE0\", \"#141412\", \"#F2C200\", \"#E8480C\"]",
+          "accents": [
+            "#2B4BE0",
+            "#141412",
+            "#F2C200",
+            "#E8480C"
+          ],
           "info_image": "img/2026-11-02-5-schematic.jpg",
           "info_alt": "Diagram of a pylon feeding a lightning bolt into a datacentre block, the new AI supply chain drawn in three shapes",
           "info_caption": "Diagram: grid, bolt, datacentre - the new AI supply chain is measured in watts",
-          "info_labels": "[{\"t\": \"the grid\", \"x\": 5, \"y\": 16, \"c\": \"#141412\"}, {\"t\": \"up to 3.2 GW\", \"x\": 38, \"y\": 62, \"c\": \"#A67C00\"}, {\"t\": \"the datacentre\", \"x\": 72, \"y\": 16, \"c\": \"#2B4BE0\"}]"
+          "info_labels": [
+            {
+              "t": "the grid",
+              "x": 5,
+              "y": 16,
+              "c": "#141412"
+            },
+            {
+              "t": "up to 3.2 GW",
+              "x": 38,
+              "y": 62,
+              "c": "#A67C00"
+            },
+            {
+              "t": "the datacentre",
+              "x": 72,
+              "y": 16,
+              "c": "#2B4BE0"
+            }
+          ]
         },
         {
           "id": "2026-11-02-6",
@@ -124,21 +298,62 @@
           "deck": "Ten minutes, one element, three times bigger. Watch the design snap into focus.",
           "lead": "Bro, today's drill takes ten minutes: open whatever you are finishing, find the one element that carries the message, and triple it. Uncomfortably big. Then shrink everything else to support it.",
           "body": "Open your current piece - thumbnail, poster, slide - and find the ONE element that carries the message: the number, the keyword, the image. Triple it. Uncomfortably big, because scale only exists in comparison, so mute and shrink the supporting cast until the hierarchy is unmistakable. Now the phone test: hold it at arm's length and give yourself two seconds - can a stranger tell you what matters? If not, the giant is not giant enough. And remember that scale cuts both ways: VW won by shrinking the car into white space, so if huge feels wrong, make the hero tiny and the emptiness enormous - same principle, opposite direction. Save the before and after side by side; the comparison teaches faster than any article.",
-          "ptrs": "[\"Open whatever you are finishing - thumbnail, poster, slide - and find the ONE element that carries the message: the number, the keyword, the image.\", \"Triple it. Uncomfortably big. Scale only exists in comparison, so shrink and mute the supporting cast until the hierarchy is unmistakable.\", \"Phone test at arm's length: two seconds, one glance - can a stranger tell you what matters? If not, the giant is not giant enough.\", \"Scale cuts both ways: VW won by shrinking the car into white space. If huge feels wrong, make the hero tiny and the emptiness enormous - same principle, opposite direction.\"]",
+          "ptrs": [
+            "Open whatever you are finishing - thumbnail, poster, slide - and find the ONE element that carries the message: the number, the keyword, the image.",
+            "Triple it. Uncomfortably big. Scale only exists in comparison, so shrink and mute the supporting cast until the hierarchy is unmistakable.",
+            "Phone test at arm's length: two seconds, one glance - can a stranger tell you what matters? If not, the giant is not giant enough.",
+            "Scale cuts both ways: VW won by shrinking the car into white space. If huge feels wrong, make the hero tiny and the emptiness enormous - same principle, opposite direction."
+          ],
           "why": "Design theory you cannot use by tonight is trivia. This is scale practice you can finish before your chai goes cold - and it upgrades every thumbnail after it.",
           "example": "Watch it work: your reel cover has a title, a photo and three badges, all medium. Triple the keyword, mute the badges, let the photo breathe - suddenly it reads in one glance instead of three. Same elements, new hierarchy.",
-          "questions": "[{\"q\": \"How big is 'scale' big?\", \"a\": \"Big enough to feel slightly uncomfortable. If it feels safe, it is decoration, not hierarchy.\"}, {\"q\": \"Does scale only mean making things bigger?\", \"a\": \"No - it is relative size. 'Think small' won by shrinking the product into a sea of white; tiny can shout as loud as huge.\"}, {\"q\": \"How do you check it worked?\", \"a\": \"The arm's-length phone test: two seconds, one glance. If a stranger can name what matters, the hierarchy is doing its job.\"}]",
+          "questions": [
+            {
+              "q": "How big is 'scale' big?",
+              "a": "Big enough to feel slightly uncomfortable. If it feels safe, it is decoration, not hierarchy."
+            },
+            {
+              "q": "Does scale only mean making things bigger?",
+              "a": "No - it is relative size. 'Think small' won by shrinking the product into a sea of white; tiny can shout as loud as huge."
+            },
+            {
+              "q": "How do you check it worked?",
+              "a": "The arm's-length phone test: two seconds, one glance. If a stranger can name what matters, the hierarchy is doing its job."
+            }
+          ],
           "source_name": "Daily Draft drill",
           "source_url": "",
           "image": "img/2026-11-02-6.jpg",
           "image_alt": "A cobalt magnifying glass enlarging one vermilion square among plain ink squares on white, riso texture",
           "reading_time": "1 min",
           "accent": "#2B4BE0",
-          "accents": "[\"#2B4BE0\", \"#E8480C\", \"#141412\"]",
+          "accents": [
+            "#2B4BE0",
+            "#E8480C",
+            "#141412"
+          ],
           "info_image": "img/2026-11-02-6-schematic.jpg",
           "info_alt": "Diagram of a small ink square doubling, then tripling into a radiant vermilion hero square with an amber checkmark",
           "info_caption": "Diagram: small, doubled, tripled - grow the hero until the message can't be missed",
-          "info_labels": "[{\"t\": \"the element\", \"x\": 4, \"y\": 62, \"c\": \"#141412\"}, {\"t\": \"2x\", \"x\": 30, \"y\": 62, \"c\": \"#141412\"}, {\"t\": \"3x: the hero\", \"x\": 62, \"y\": 92, \"c\": \"#E8480C\"}]"
+          "info_labels": [
+            {
+              "t": "the element",
+              "x": 4,
+              "y": 62,
+              "c": "#141412"
+            },
+            {
+              "t": "2x",
+              "x": 30,
+              "y": 62,
+              "c": "#141412"
+            },
+            {
+              "t": "3x: the hero",
+              "x": 62,
+              "y": 92,
+              "c": "#E8480C"
+            }
+          ]
         }
       ]
     },
