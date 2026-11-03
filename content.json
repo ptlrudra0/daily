@@ -2,6 +2,347 @@
   "paper": "The Daily Draft",
   "issues": [
     {
+      "date": "2026-11-03",
+      "number": 17,
+      "items": [
+        {
+          "id": "2026-11-03-1",
+          "kind": "AI TIP",
+          "headline": "Your prompt has a five-minute memory",
+          "deck": "Prompt caching turns repeated context into a discount - if you beat the clock.",
+          "lead": "Bro, every time your app re-sends the same giant system prompt, you pay full price for deja vu. Prompt caching lets the API remember your prefix - but the memory lasts five minutes, and the clock is ruthless.",
+          "body": "Anthropic's prompt caching lets you reuse the front part of a prompt - tools, system prompt and message history, in that order - instead of reprocessing it on every call. You turn it on with one top-level cache_control field (automatic caching, which moves the breakpoint forward as a conversation grows) or place cache_control on individual blocks for exact control. Cached reads cost a fraction of normal input tokens - 0.1x the base price on most models, as low as 0.025x on the newest ones - while a five-minute cache write costs 1.25x and the one-hour option 2x. The default lifetime is five minutes, refreshed free every time the prefix is reused, but the clock starts when the request STARTS, not when it ends: if a response takes four minutes to stream, your follow-up must begin within about a minute of it finishing or the cache is gone. It shines on prompts with many examples, big background context, repetitive instructions and long multi-turn conversations.",
+          "ptrs": [
+            "What gets cached: the full prefix - tools, system prompt and messages, in that order - up to your breakpoint. Same prefix, reused; different prefix, full price.",
+            "Two ways in: one top-level cache_control field for automatic caching (best for growing chats), or cache_control on individual blocks for exact control.",
+            "The discount: cached reads cost 0.1x base input price on most models - as low as 0.025x on the newest ones. Writes cost 1.25x for a 5-minute cache, 2x for the 1-hour option.",
+            "The clock is sneaky: the 5-minute lifetime starts when the request STARTS, not when the response ends. A 4-minute streaming answer leaves about 1 minute to follow up before the cache dies. Each reuse refreshes it free.",
+            "Best targets: prompts with many examples, big background docs, repetitive instructions, long multi-turn conversations."
+          ],
+          "why": "You are building agents, and every loop iteration re-sends the same context; uncached, you are tipping the API 90% extra on every single call.",
+          "example": "A support bot with a 10,000-token policy doc in its system prompt: without caching, every user question re-bills those 10k tokens at full price. With one cache_control line and traffic every few minutes, each question reads them at a tenth of the cost - the write premium pays for itself on the second call.",
+          "questions": [
+            {
+              "q": "How long does a cached prefix live?",
+              "a": "Five minutes by default, refreshed free on every reuse - or one hour at a higher write price. The clock starts at request start, not response end."
+            },
+            {
+              "q": "What exactly gets cached?",
+              "a": "The full prompt prefix, in order - tools, then system prompt, then messages - up to your cache breakpoint."
+            },
+            {
+              "q": "What is the cheapest way to enable it?",
+              "a": "One top-level cache_control field turns on automatic caching; the breakpoint moves forward as the conversation grows."
+            }
+          ],
+          "source_name": "Claude Docs - Prompt Caching",
+          "source_url": "https://platform.claude.com/docs/en/build-with-claude/prompt-caching",
+          "image": "img/2026-11-03-1.jpg",
+          "image_alt": "A cut-paper sheet with a faint ghost copy behind it, held by one big vermilion thumbtack, an amber wall clock floating nearby",
+          "reading_time": "2 min",
+          "accent": "#F2C200",
+          "accents": [
+            "#F2C200"
+          ],
+          "info_image": "img/2026-11-03-1-schematic.jpg",
+          "info_alt": "Diagram of three stacked prompt blocks with a cobalt bracket wrapping the top two and a vermilion arrow looping back into them",
+          "info_caption": "Diagram: your prompt is a stack - the bracket marks the cached prefix, the arrow is the cheap reuse",
+          "info_labels": [
+            {
+              "t": "tools + system + messages",
+              "x": 5,
+              "y": 8,
+              "c": "#141412"
+            },
+            {
+              "t": "cached prefix",
+              "x": 52,
+              "y": 40,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "reused, cheaper",
+              "x": 60,
+              "y": 78,
+              "c": "#E8480C"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-03-2",
+          "kind": "DESIGN",
+          "headline": "Closeness is a claim",
+          "deck": "Things near each other get read as family - no labels required.",
+          "lead": "Bro, your layout is gossiping behind your back: whatever sits close together, the brain files as one group, no matter what you intended. That is the Gestalt principle of proximity - whitespace is doing the talking.",
+          "body": "Gestalt psychologists worked out in the early 20th century how people decide which elements belong together, and proximity is one of the strongest rules: items close together are perceived as a group sharing functionality or traits - and it can overpower competing cues like colour or shape. Whitespace is the mechanism: extra space between groups marks them as separate, the way paragraphs and headings chunk text, or a search button spaced away from navigation reads as a different function. It cuts workload too - a form of 12 fields looks daunting, but the same 12 fields in 3 chunks of 4 feels simple, assuming the groups are meaningful. Get it wrong and things hide: an Add button parked among unrelated buttons gets camouflaged, and a Skip link far from the main action gets missed by task-focused users with tunnel vision. And beware responsive layouts: columns sitting side by side on desktop can stack far apart on mobile, quietly destroying the grouping.",
+          "ptrs": [
+            "The rule: items close together are perceived as one group sharing function or traits - proximity can overpower even colour and shape similarity.",
+            "Whitespace is the mechanism: extra space between groups marks them as separate, like paragraphs chunking text or a search box spaced away from the nav.",
+            "Chunking cuts effort: 12 form fields in one blob feels taxing; the same 12 in 3 meaningful groups of 4 feels simple.",
+            "Misplaced things vanish: an unrelated button inside a group gets camouflaged; a 'skip' link far from the action gets missed by tunnel-visioned users.",
+            "Responsive warning: side-by-side columns on desktop can stack far apart on mobile and silently break your groupings - check both."
+          ],
+          "why": "Every reel cover, carousel and landing page you ship is a grouping decision; proximity is free hierarchy - no extra colours, no borders, just spacing.",
+          "example": "Your link-in-bio page: do not spread 'Watch', 'Shop' and 'Contact' evenly. Cluster the two money links tight together, then a big gap, then the socials - visitors read the groups before they read a single word.",
+          "questions": [
+            {
+              "q": "What is the proximity principle?",
+              "a": "Items placed close together are perceived as belonging to the same group; spaced apart, they read as unrelated - and proximity can beat colour or shape similarity."
+            },
+            {
+              "q": "Why do chunked forms feel easier?",
+              "a": "Grouping related fields - 12 fields into 3 meaningful chunks of 4 - makes the form scan as a few small tasks instead of one big one."
+            },
+            {
+              "q": "What can break proximity groups on mobile?",
+              "a": "Responsive stacking: columns side by side on desktop end up far apart vertically, destroying the perceived grouping."
+            }
+          ],
+          "source_name": "Nielsen Norman Group",
+          "source_url": "https://www.nngroup.com/articles/gestalt-proximity/",
+          "image": "img/2026-11-03-2.jpg",
+          "image_alt": "Two tight clusters of cut-paper shapes on a huge white field: vermilion squares huddled left, cobalt circles huddled right, a wide empty gap between",
+          "reading_time": "2 min",
+          "accent": "#2B4BE0",
+          "accents": [
+            "#2B4BE0",
+            "#E8480C"
+          ],
+          "info_image": "img/2026-11-03-2-schematic.jpg",
+          "info_alt": "Diagram of twelve dots spread evenly on the left, an arrow, and the same twelve dots in three tight groups of four on the right",
+          "info_caption": "Diagram: same twelve dots - spread out they say nothing, grouped in fours they say everything",
+          "info_labels": [
+            {
+              "t": "no groups, no meaning",
+              "x": 5,
+              "y": 84,
+              "c": "#141412"
+            },
+            {
+              "t": "three groups, instant structure",
+              "x": 55,
+              "y": 84,
+              "c": "#E8480C"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-03-3",
+          "kind": "ON SCREEN",
+          "headline": "The cut that time-travels",
+          "deck": "One shared shape between two shots, and the audience leaps a million years without a word.",
+          "lead": "Bro, a match cut is the cheapest magic trick in cinema: cut between two shots that share one thing - a shape, a sound, a movement - and the audience's brain sutures the gap for free. Kubrick turned a thrown bone into a satellite and covered millions of years in one edit.",
+          "body": "A match cut joins two shots through something they share, and it comes in three types. Graphic match cuts hold one visual element - an object, shape or colour - while everything else changes: James Cameron matched the Titanic wreck to the same ship in its 1912 glory, telling you 'flashback, same ship' with no title card. Audio match cuts swap the picture but bridge with sound - a hammer becoming a knock on the door, a scream becoming sirens. Movement match cuts carry the same camera or actor motion across the cut, sewing locations together. But the technique's real power is metaphor: in 2001: A Space Odyssey (1968), Kubrick cut from an ape's thrown bone to an orbiting satellite - one tool to another, millions of years later, the whole arc of civilisation in seconds. Pixar's Up cuts from a funeral to an empty home to make loneliness visible, and Chaplin's Modern Times (1936) cut from a herd of sheep to workers shuffling to dead-end jobs. It never happens by accident - the simplest cut carries the most planning.",
+          "ptrs": [
+            "The trick: cut between two shots that share one element - the shared thing anchors the eye and the brain accepts the leap.",
+            "Three types: graphic (shared shape, object or colour), audio (shared sound or dialogue), movement (shared camera or actor motion).",
+            "Graphic example: Cameron matched the Titanic wreck to the ship in its 1912 glory - flashback established, no title card needed.",
+            "Metaphor examples: 2001 (1968) cuts a thrown bone to an orbiting satellite - tool to tool, millions of years, zero words; Chaplin's Modern Times cut sheep to commuting workers; Up cut a funeral to an empty home.",
+            "It is never an accident: the simplicity is the point - plan the shared element, and the cut does storytelling dialogue cannot."
+          ],
+          "why": "You cut reels every week - a match cut between your hook and your payoff is the difference between a montage and a story, and it costs nothing but planning.",
+          "example": "Your next before-and-after reel: end the 'before' on a close-up of the plain mug, open the 'after' on the identical framing of the styled mug - one graphic match cut and the transformation feels inevitable instead of edited.",
+          "questions": [
+            {
+              "q": "What is a match cut?",
+              "a": "An edit joining two shots through a shared element - a shape, sound or movement - so the audience bridges the change automatically."
+            },
+            {
+              "q": "Name the three types.",
+              "a": "Graphic (shared visual), audio (shared sound or dialogue) and movement (shared camera or actor motion)."
+            },
+            {
+              "q": "Why is the 2001 bone-to-satellite cut famous?",
+              "a": "It leaps millions of years in seconds - one tool becoming another - telling the story of civilisation as pure visual metaphor, no words."
+            }
+          ],
+          "source_name": "No Film School",
+          "source_url": "https://nofilmschool.com/match-cuts-to-tell-stories",
+          "image": "img/2026-11-03-3.jpg",
+          "image_alt": "Two cut-paper film frames sharing one identical vermilion circle, ink waves in the left frame and amber sun rays in the right, a cobalt arrow between them",
+          "reading_time": "2 min",
+          "accent": "#141412",
+          "accents": [
+            "#141412",
+            "#E8480C",
+            "#F2C200"
+          ],
+          "info_image": "img/2026-11-03-3-schematic.jpg",
+          "info_alt": "Diagram of a frame with a vermilion circle and ink bone, an arrow, and a frame with the identical circle and an amber satellite",
+          "info_caption": "Diagram: hold the circle, change the world - bone to satellite in one cut",
+          "info_labels": [
+            {
+              "t": "frame A: the bone",
+              "x": 6,
+              "y": 10,
+              "c": "#141412"
+            },
+            {
+              "t": "the cut",
+              "x": 44,
+              "y": 44,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "frame B: the satellite",
+              "x": 58,
+              "y": 10,
+              "c": "#E8480C"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-03-4",
+          "kind": "AI NEWS",
+          "headline": "Anthropic goes public, Tokyo first",
+          "deck": "The Claude maker's IPO opens with up to $3.5 billion earmarked for Japan.",
+          "lead": "Bro, Anthropic has filed to sell up to $3.5 billion of new shares to Japanese investors as part of its US IPO - more than SpaceX's entire Japan slice. The biggest AI listing yet is being built one tranche at a time.",
+          "body": "A regulatory filing on Monday shows Anthropic plans to offer up to 552.9 billion yen - about $3.5 billion - in new stock to Japanese investors, with Mizuho Securities managing the Japanese portion and Goldman Sachs among the banks handling orders. For scale: when SpaceX went public in June, Japanese investors received about $2.2 billion in allocations, part of its record $75 billion raise at a $1.77 trillion valuation - so Anthropic's Japan tranche alone would top it. Japan is hungry: first-time offerings there have dried up to a 14-year low, and investors in Australia, Canada and parts of Europe also get access to the sale. Media reports suggest the listing could come as soon as mid-November, with valuation talk centering near $1.5 trillion, down from roughly $2 trillion floated earlier in autumn; Anthropic brings second-quarter revenue of $11.6 billion and its first quarterly operating profit to the table. The proceeds are earmarked for working capital, operating expenses and capital expenditures - read: compute. And it lands in a market already braced for Meta seeking up to $95 billion and Alphabet up to $85 billion in equity financing.",
+          "ptrs": [
+            "The filing: up to 552.9 billion yen (~$3.5B) of new shares for Japanese investors, filed Monday; Mizuho Securities manages the Japan portion, Goldman Sachs among the banks handling orders.",
+            "The comparison: SpaceX's June IPO allocated about $2.2B to Japanese investors (part of a record $75B raise at a $1.77T valuation) - Anthropic's Japan slice alone would top that.",
+            "Why Japan: first-time offerings there are at a 14-year low, so a mega IPO gets rare direct access; Australia, Canada and parts of Europe are in too.",
+            "The shape of the deal: listing possibly mid-November; valuation talk around $1.5T, down from ~$2T earlier in autumn; Q2 revenue $11.6B with Anthropic's first quarterly operating profit.",
+            "Context: proceeds fund working capital, opex and capex (read: compute) - and it lands alongside Meta seeking up to $95B and Alphabet up to $85B in equity raises."
+          ],
+          "why": "The tools you learn on are becoming public-market infrastructure; IPO pricing sets the reference point for every AI lab's budget - including which features stay free.",
+          "example": "Watch the tranche mechanics: Japan gets a dedicated slice because local IPO supply is at a 14-year low - when distribution is scarce, even a $1.5 trillion company sells market by market, like a creator dropping merch region by region.",
+          "questions": [
+            {
+              "q": "How much is Anthropic raising from Japanese investors?",
+              "a": "Up to 552.9 billion yen - about $3.5 billion - per Monday's regulatory filing, with Mizuho managing the Japan portion."
+            },
+            {
+              "q": "How does that compare to SpaceX?",
+              "a": "SpaceX's June IPO allocated about $2.2 billion to Japanese investors; Anthropic's Japan tranche alone would exceed it."
+            },
+            {
+              "q": "When is the listing, and at what valuation?",
+              "a": "Reports suggest as soon as mid-November, with valuation discussions near $1.5 trillion - down from roughly $2 trillion floated earlier in autumn."
+            }
+          ],
+          "source_name": "NDTV - Bloomberg",
+          "source_url": "https://www.ndtv.com/world-news/mega-anthropic-ipo-may-raise-up-to-3-5-billion-from-japanese-investors-12270541",
+          "image": "img/2026-11-03-4.jpg",
+          "image_alt": "An honest cut-paper bar chart on a shared ink baseline: a shorter cobalt bar and a taller vermilion bar about 1.6 times its height",
+          "image_caption": "Bars to scale: SpaceX's Japan IPO slice $2.2B (June) vs Anthropic's planned Japan tranche $3.5B",
+          "reading_time": "3 min",
+          "accent": "#E8480C",
+          "accents": [
+            "#E8480C",
+            "#2B4BE0"
+          ]
+        },
+        {
+          "id": "2026-11-03-5",
+          "kind": "AI NEWS",
+          "headline": "Science data gets an AI makeover",
+          "deck": "Hugging Face's Project ProtoStar wants public research readable by machines - with a contest to prove it.",
+          "lead": "Bro, the US spends about $190 billion a year on research, then parks the data in formats neither humans nor AI can reuse. Hugging Face's new Project ProtoStar is out to fix that - and its first challenge is one you can enter this week.",
+          "body": "Project ProtoStar, announced by Hugging Face with Carnegie Mellon, Purdue, Georgia Tech, Arizona State and George Washington universities working through the Open Forum for AI, plus the Astera Institute and the Open Research Community Accelerator, pushes institutions to release publicly funded datasets, models and code in AI-ready, machine-actionable formats. The gap is real: agencies like NIH and NSF now require public sharing of funded research, but files sit in legacy formats with thin documentation - and on Hugging Face, 90% of dataset downloads come from fully documented datasets, so documentation is literally the product. The hub already hosts more than 17,000 public science datasets (29,000 counting medicine and mathematics), NCBI's 18 repositories have passed 11 million downloads, and researchers shared three times as many new science datasets in the first nine months of 2026 as in the same period of 2025. The first open challenge - Carnegie Mellon's Climate Risk Intelligence Challenge, running November 2-13 - hands you historical weather from 210 US cities through 2018 and asks you to forecast four indicators for 2019-2026 (average annual temperature, total annual precipitation, hottest day of the year, cooling degree days), scored against observed weather and simple statistical baselines on a public leaderboard, plus a short climate adaptation policy idea. Final results publish in early 2027.",
+          "ptrs": [
+            "The problem: ~$190B a year of US federal R&D produces data scattered in legacy formats with thin documentation - public, but unusable by humans or AI.",
+            "The proof documentation matters: 90% of dataset downloads on Hugging Face come from fully documented datasets.",
+            "The momentum: 17,000+ public science datasets on the hub (29,000 with medicine and math); 3x as many new science datasets shared in the first nine months of 2026 as in 2025; NCBI's 18 repos have 11M+ downloads.",
+            "Who is in: CMU, Purdue, Georgia Tech, ASU and GWU via the Open Forum for AI, plus the Astera Institute, ORCA, and Hugging Face as infrastructure partner.",
+            "The contest: CMU's Climate Risk Intelligence Challenge (Nov 2-13) - weather records from 210 US cities through 2018, forecast 4 indicators for 2019-2026, scored against observed weather and statistical baselines on a public leaderboard, plus a short policy idea; final results early 2027."
+          ],
+          "why": "You are a first-year AIML student - this is a graded-on-reality challenge with real data and a public leaderboard, and a documented dataset is a portfolio piece people can actually check.",
+          "example": "The twist that makes it honest: you forecast 2019-2026, years that already happened - so your model gets graded against observed weather, not vibes. Beat the historical-average baseline and you have a result worth linking.",
+          "questions": [
+            {
+              "q": "What is Project ProtoStar?",
+              "a": "A Hugging Face-led initiative with five universities, the Astera Institute and ORCA to make publicly funded research datasets, models and code AI-ready and machine-actionable."
+            },
+            {
+              "q": "What proves documentation matters?",
+              "a": "90% of dataset downloads on Hugging Face come from fully documented datasets."
+            },
+            {
+              "q": "What is the first challenge?",
+              "a": "CMU's Climate Risk Intelligence Challenge (Nov 2-13): forecast four climate indicators for 2019-2026 from 210 US cities' records through 2018, scored against observed weather on a public leaderboard."
+            }
+          ],
+          "source_name": "Hugging Face Blog",
+          "source_url": "https://huggingface.co/blog/announcing-project-protostar",
+          "image": "img/2026-11-03-5.jpg",
+          "image_alt": "A waffle chart of one hundred twenty small squares in ten rows, the top nine rows amber and the bottom row ink black",
+          "image_caption": "9 of every 10 rows amber: 90% of dataset downloads on Hugging Face go to fully documented datasets",
+          "reading_time": "3 min",
+          "accent": "#F2C200",
+          "accents": [
+            "#F2C200",
+            "#141412"
+          ]
+        },
+        {
+          "id": "2026-11-03-6",
+          "kind": "TRY THIS",
+          "headline": "Forecast the past",
+          "deck": "A machine-learning drill with a built-in answer key - predict years that already happened.",
+          "lead": "Bro, today's drill is ML practice with the answer key included: predict years that already happened. The CMU ProtoStar challenge opened yesterday - you are entering.",
+          "body": "Go to the CMU Climate Risk Intelligence Challenge on Hugging Face (story 5) - it runs November 2-13, so the window is open right now. Download the data: historical weather for 210 US cities through 2018, and spend ten minutes just reading how it is documented, because that is half the lesson. Then build the dumbest baseline first: predict each city's 2019-2026 average annual temperature as its historical average, and write down the error. Now beat it: a per-city linear trend is one line of fitting - compare its error to your baseline, and that gap is your first honest ML result. Submit if you like - the public leaderboard scores predictions against observed weather - but the real prize is the loop: baseline, model, measure. It is the same loop every ML project you ever ship will run.",
+          "ptrs": [
+            "Go to the CMU Climate Risk Intelligence Challenge on Hugging Face (story 5) - it runs November 2-13, so the window is open NOW.",
+            "Download the data: historical weather for 210 US cities through 2018. Spend ten minutes reading how it is documented - that is half the lesson.",
+            "Build the dumbest baseline first: predict each city's 2019-2026 average annual temperature as its historical average. Write down its error.",
+            "Now beat it: a linear trend per city is one line of fitting - compare its error to your baseline. That gap is your first honest ML result.",
+            "Submit if you like - the leaderboard scores against observed weather - but the real prize is the loop: baseline, model, measure. Same loop as every ML project you will ever ship."
+          ],
+          "why": "Reading about ML is swimming theory; this is the pool - real data, real scoring, deadline included.",
+          "example": "Baseline versus trend, one city: if the historical average misses 2019-2026 by 1.2 degrees and your trend line misses by 0.8, you just did science - hypothesis, test, measurement. Save that number; it is your first leaderboard-grade result.",
+          "questions": [
+            {
+              "q": "Why forecast years that already happened?",
+              "a": "Because the answers exist - your predictions get scored against observed weather, so the feedback is real."
+            },
+            {
+              "q": "What should your first model be?",
+              "a": "The dumbest baseline: the historical average. You build it to have something honest to beat."
+            },
+            {
+              "q": "What is the actual lesson?",
+              "a": "The loop every ML project runs - baseline, model, measure. The challenge is just a deadline wrapped around it."
+            }
+          ],
+          "source_name": "Daily Draft drill",
+          "source_url": "",
+          "image": "img/2026-11-03-6.jpg",
+          "image_alt": "A cobalt thermometer and an ink calendar page with a bold vermilion arrow leaping to a big amber checkmark",
+          "reading_time": "1 min",
+          "accent": "#F2C200",
+          "accents": [
+            "#F2C200",
+            "#141412",
+            "#2B4BE0"
+          ],
+          "info_image": "img/2026-11-03-6-schematic.jpg",
+          "info_alt": "Diagram of a solid ink timeline segment and a dashed cobalt segment, a vermilion arrow leaping from one to an amber checkmark",
+          "info_caption": "Diagram: known years solid, prediction dashed - leap, then check against reality",
+          "info_labels": [
+            {
+              "t": "data you have",
+              "x": 5,
+              "y": 16,
+              "c": "#141412"
+            },
+            {
+              "t": "your forecast",
+              "x": 40,
+              "y": 84,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "graded vs reality",
+              "x": 66,
+              "y": 16,
+              "c": "#E8480C"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "date": "2026-11-02",
       "number": 16,
       "items": [
