@@ -67,7 +67,8 @@
               "y": 88,
               "c": "#F2C200"
             }
-          ]
+          ],
+          "plain": "Normally an AI replies with ordinary sentences, and your app has to hunt through that text to find the answer. With structured outputs you hand the AI an empty form - say, boxes named 'shop' and 'total' - and it only fills in the boxes. Small example: send a photo of a receipt, and instead of a paragraph you get back shop: 'CCD', total: 340 - ready to drop straight into an expense app."
         },
         {
           "id": "2026-11-04-2",
@@ -133,7 +134,8 @@
               "y": 90,
               "c": "#2B4BE0"
             }
-          ]
+          ],
+          "plain": "When a line of text runs too long, your eye loses its way back to the start of the next line, so reading gets tiring. Too short and your eye keeps jumping back like a stutter. The comfortable zone is about 45 to 90 characters - roughly two to three alphabets on one line. Small example: newspaper columns are narrow for exactly this reason."
         },
         {
           "id": "2026-11-04-3",
@@ -196,7 +198,8 @@
               "y": 86,
               "c": "#E8480C"
             }
-          ]
+          ],
+          "plain": "When filming two people talking, the camera stays on one side of an imaginary line between them, so one person always sits on the left of the screen and the other on the right. If the camera jumps across the line, they suddenly swap sides and your brain goes 'wait, what?'. Small example: in a TV interview, the host always facing right and the guest always facing left - that consistency is this rule quietly working."
         },
         {
           "id": "2026-11-04-4",
@@ -262,7 +265,8 @@
               "y": 92,
               "c": "#E8480C"
             }
-          ]
+          ],
+          "plain": "An app on your computer updated itself and, while doing so, quietly added its own instructions inside your AI tools - like a plumber you hired for one tap also leaving a note in your diary saying 'for all future plumbing, call me first'. Nobody's files were reported stolen; the problem is it did this without asking. Small example: one user found their AI coding tool suddenly had a rule telling it to always use Postman's helper."
         },
         {
           "id": "2026-11-04-5",
@@ -303,7 +307,8 @@
             "#E8480C",
             "#2B4BE0"
           ],
-          "image_caption": "Bars to scale: off-balance-sheet AI debt at five US tech majors - $1.65T, then $3.2T six months later (Nikkei compilation)"
+          "image_caption": "Bars to scale: off-balance-sheet AI debt at five US tech majors - $1.65T, then $3.2T six months later (Nikkei compilation)",
+          "plain": "Big tech companies are borrowing huge sums to build AI data centres, but often through side companies so the loans do not appear on their own report cards. Nikkei added up these hidden loans: about $1.65 trillion, then $3.2 trillion six months later - nearly double. Small example: it is like buying a house in a cousin's name so your own bank statement still looks clean."
         },
         {
           "id": "2026-11-04-6",
@@ -361,7 +366,8 @@
               "y": 86,
               "c": "#E8480C"
             }
-          ]
+          ],
+          "plain": "Apps on your machine can quietly change each other's settings. This drill is simply opening your AI tool's settings file and asking: did I put this here, or did some other app? Small example: if you find a note saying 'always use this company's helper' and you never wrote it, delete it - something added it without asking."
         }
       ]
     },
