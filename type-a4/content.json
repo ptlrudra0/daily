@@ -2,6 +2,370 @@
   "paper": "The Daily Draft",
   "issues": [
     {
+      "date": "2026-11-04",
+      "number": 18,
+      "items": [
+        {
+          "id": "2026-11-04-1",
+          "kind": "AI TIP",
+          "headline": "Stop parsing prose",
+          "deck": "Structured outputs make the model fill in your form instead of writing you an essay.",
+          "lead": "Gemini's structured output mode constrains the model to a JSON Schema you supply, so responses come back as predictable, type-safe JSON instead of prose you then have to parse. Declare the shape once and every response fits it.",
+          "body": "Gemini's structured output mode lets you pass a JSON Schema with the request - response mime type application/json plus the schema - and the model adheres to it. The Python SDK takes a Pydantic model, the JS SDK takes a Zod schema, and the SDK serializes it into the call. Google positions it for data extraction, structured classification, and agentic workflows, where the model's answer is an input to another tool or API. Fields exist, types hold, and downstream code stops defensive-parsing a chatbot's mood.",
+          "ptrs": [
+            "You pass the schema with the request: response mime type application/json plus your schema. The Python SDK takes a Pydantic model; the JS SDK takes a Zod schema.",
+            "The model adheres to the provided schema - fields exist and types hold, so the response is predictable and type-safe.",
+            "Google's named use cases: data extraction, structured classification, and agentic workflows where the output feeds tools and APIs.",
+            "The schema becomes the contract: name fields well and the model fills them; leave it vague and you are back to hoping."
+          ],
+          "why": "Because 'strip the preamble, fix the quotes, pray' is not a parsing strategy.",
+          "example": "Pulling line items from an invoice: declare vendor, total, and an items array with name, qty and price - and every response arrives ready to insert, with no 'Sure! Here is the JSON:' to strip first.",
+          "questions": [
+            {
+              "q": "Which schema formats do the SDKs accept?",
+              "a": "Pydantic models in Python and Zod schemas in JavaScript - you write the model once and the SDK serializes it into the request."
+            },
+            {
+              "q": "What mime type does a structured request use?",
+              "a": "application/json, set on the response format together with your schema."
+            },
+            {
+              "q": "Where does Google say to use it?",
+              "a": "Data extraction, structured classification, and agentic workflows - anywhere the response is an input to another tool or API."
+            }
+          ],
+          "source_name": "Google AI for Developers - Structured output",
+          "source_url": "https://ai.google.dev/gemini-api/docs/structured-output",
+          "image": "img/2026-11-04-1.jpg",
+          "image_alt": "Cut-paper plate: a black scribble fed through a blue funnel emerges as three tidy amber blocks",
+          "reading_time": "2 min",
+          "accent": "#141412",
+          "accents": [
+            "#141412",
+            "#2B4BE0",
+            "#F2C200"
+          ],
+          "info_image": "img/2026-11-04-1-schematic.jpg",
+          "info_alt": "Diagram: a scribble passes through a funnel and comes out as three neat blocks with a checkmark",
+          "info_caption": "Diagram: messy prose goes in, your schema is the funnel, type-safe JSON comes out",
+          "info_labels": [
+            {
+              "t": "messy prose in",
+              "x": 5,
+              "y": 88,
+              "c": "#141412"
+            },
+            {
+              "t": "your schema shapes it",
+              "x": 36,
+              "y": 88,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "clean JSON out",
+              "x": 70,
+              "y": 88,
+              "c": "#F2C200"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-04-2",
+          "kind": "DESIGN",
+          "headline": "45 to 90 characters is the whole game",
+          "deck": "Butterick's line-length rule: one measurement decides whether anyone actually reads your page.",
+          "lead": "Butterick's rule is a single number: keep lines between 45 and 90 characters, spaces included. Shorter and the eye trips back to the left edge every few words; longer and the return sweep loses which line comes next.",
+          "body": "Butterick's Practical Typography puts line length at the center of readable pages: aim for 45 to 90 characters per line, spaces included. His quick check needs no word count - a good line holds two to three lowercase alphabets, which works on the web where you rarely know the text. Measure in characters, not inches, so the rule holds at any point size. Long lines hurt twice: the eye tires crossing, then loses the vertical track back to the next line. Newspaper columns are narrow for the same reason. Set the measure with page margins rather than paragraph indents, and remember his verdict on responsive design: layouts that flex the box but neglect the line are its major flaw.",
+          "ptrs": [
+            "The quick test needs no counting: a readable line holds two to three lowercase alphabets. Handy on the web, where you never know the word count.",
+            "Measure in characters, not inches - the rule holds at any point size.",
+            "Long lines hurt twice: tiring across, then losing the eye's vertical track back to the next line.",
+            "Newspaper columns are narrow for exactly this reason.",
+            "Set the measure with page margins, not paragraph indents.",
+            "Butterick's verdict: neglecting line length is the major flaw of responsive layouts - the box flexes, the line does not."
+          ],
+          "why": "Because nobody abandons an article on purpose; the line length abandons them first.",
+          "example": "Your blog post looks 'fine' but reads slow? Count one line. If it carries four alphabets, widen the margins until it carries two and a half - same words, twice the stamina.",
+          "questions": [
+            {
+              "q": "What is the alphabet test?",
+              "a": "Run the lowercase alphabet along one line - a readable line holds two to three of them. No word count needed."
+            },
+            {
+              "q": "Why characters and not inches?",
+              "a": "Inches change with point size; characters do not. 45-90 characters works at any size."
+            },
+            {
+              "q": "How should you set the measure?",
+              "a": "With page margins, not paragraph indents - indents belong to paragraphs, not the column."
+            }
+          ],
+          "source_name": "Butterick's Practical Typography - Line length",
+          "source_url": "https://practicaltypography.com/line-length.html",
+          "image": "img/2026-11-04-2.jpg",
+          "image_alt": "Cut-paper plate: a wide amber text block beside a narrow cobalt one, with a ruler marking the comfortable width",
+          "reading_time": "2 min",
+          "accent": "#141412",
+          "accents": [
+            "#141412",
+            "#F2C200",
+            "#2B4BE0"
+          ],
+          "info_image": "img/2026-11-04-2-schematic.jpg",
+          "info_alt": "Diagram: an eye follows a long wavy arrow and a short straight arrow",
+          "info_caption": "Diagram: the eye's trip - a long line makes the return sweep wander, a short line brings it straight back",
+          "info_labels": [
+            {
+              "t": "the eye",
+              "x": 4,
+              "y": 78,
+              "c": "#141412"
+            },
+            {
+              "t": "long line: the return gets lost",
+              "x": 52,
+              "y": 24,
+              "c": "#E8480C"
+            },
+            {
+              "t": "short line: easy return",
+              "x": 8,
+              "y": 90,
+              "c": "#2B4BE0"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-04-3",
+          "kind": "ON SCREEN",
+          "headline": "Draw a line, then don't cross it",
+          "deck": "The 180-degree rule: one invisible axis keeps viewers oriented - until a director breaks it on purpose.",
+          "lead": "Imagine a line through the middle of the scene and keep the camera on one side of it. That is the 180-degree rule: characters stay grounded on their side of the screen, and every cut still makes spatial sense.",
+          "body": "The 180-degree rule keeps the camera on one side of an imaginary axis of action, so each character holds a consistent screen side - left stays left, right stays right. It exists for lighting consistency and continuity between shots, and it works because viewers read the geometry: cross the line and characters seem to swap places. Modern filmmakers re-establish the axis with each sequence, or break it deliberately - Wong Kar-Wai, Kubrick and Aronofsky all use the jolt to unnerve. The working advice from PremiumBeat: learn it, use it early, then challenge it.",
+          "ptrs": [
+            "The rule: the camera stays on one side of the axis of action, so each character keeps a consistent screen side.",
+            "It exists for lighting consistency and continuity between shots.",
+            "Brains read the geometry - cross the line and characters seem to swap places, and the scene stops making spatial sense.",
+            "Modern filmmakers re-establish the axis per sequence, or break it on purpose - Wong Kar-Wai, Kubrick, Aronofsky - to unnerve.",
+            "The advice: learn it, use it early, then challenge it."
+          ],
+          "why": "Because viewers never notice screen direction - until you flip it and they feel lost without knowing why.",
+          "example": "Two people at a table: keep the camera on one side of the line between them and every cut holds. Jump across for a single reverse and the same conversation suddenly feels backwards.",
+          "questions": [
+            {
+              "q": "What is the axis of action?",
+              "a": "The imaginary line between the subjects in a scene. The camera works one side of it so screen direction stays consistent."
+            },
+            {
+              "q": "Why do directors break it on purpose?",
+              "a": "Crossing the line disorients - Kubrick, Wong Kar-Wai and Aronofsky use the jolt deliberately, to unnerve rather than confuse by accident."
+            },
+            {
+              "q": "How do long scenes stay fresh under the rule?",
+              "a": "Re-establish the axis each sequence - the rule is a foundation, not a cage."
+            }
+          ],
+          "source_name": "PremiumBeat - The 180-Degree Rule in Cinematography",
+          "source_url": "https://www.premiumbeat.com/blog/180-degree-rule-cinematography/",
+          "image": "img/2026-11-04-3.jpg",
+          "image_alt": "Cut-paper plate: a dashed axis line splitting a circle, a camera on the blue side and an X on the vermilion side",
+          "reading_time": "2 min",
+          "accent": "#2B4BE0",
+          "accents": [
+            "#2B4BE0"
+          ],
+          "info_image": "img/2026-11-04-3-schematic.jpg",
+          "info_alt": "Diagram: a circle split by a dashed axis - camera allowed on one half, X on the other",
+          "info_caption": "Diagram: the axis of action - the camera works the blue half; the red half is the forbidden crossing",
+          "info_labels": [
+            {
+              "t": "camera stays here",
+              "x": 8,
+              "y": 86,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "axis of action",
+              "x": 40,
+              "y": 6,
+              "c": "#141412"
+            },
+            {
+              "t": "cross it and left swaps with right",
+              "x": 52,
+              "y": 86,
+              "c": "#E8480C"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-04-4",
+          "kind": "AI NEWS",
+          "headline": "Your API client installed itself a skill",
+          "deck": "An open issue says Postman's desktop app quietly added plugins, a self-approved hook and a remote MCP server to users' AI tools.",
+          "lead": "An open GitHub issue reports that Postman desktop 12.33.4 ran an automatic script that installed Claude Code and Codex plugins, rewrote a global agent config and registered a session-start hook steering API work to Postman's own skill - without being asked.",
+          "body": "A GitHub issue filed October 25 reports that Postman desktop 12.33.4 logged an 'auto-existing-upgrade' script that installed claude-code and codex plugins automatically. According to the report it modified the global ~/.codex/config.toml, added a session-start hook instructing the agent to route all non-trivial API work through Postman's api-engineer skill, and the installer code attempts to approve its own hook by writing a trusted hash into the config. It also enabled a remote MCP server, mcp.postman.com, without working auth, and installed a CLI into ~/.local/bin. The reporter explicitly does not claim data exfiltration - the complaint is unwanted integration and instruction changes - and asks Postman to stop the auto-install, remove the self-approval and ship a full rollback path. The issue is open.",
+          "ptrs": [
+            "The log records an 'auto-existing-upgrade' script installing claude-code and codex plugins automatically.",
+            "It modified the global ~/.codex/config.toml and added a session-start hook routing all non-trivial API work through Postman's api-engineer skill.",
+            "The installer code attempts to approve its own hook - writing its trusted hash into the config instead of asking.",
+            "It also enabled the remote MCP server mcp.postman.com without working auth, and dropped a CLI into ~/.local/bin.",
+            "The reporter explicitly does not claim data exfiltration - the complaint is unwanted integration and instruction changes. The asks: stop the auto-install, remove the self-approval, provide a full rollback path, narrow the installed instructions.",
+            "Community colour, not fact: the story drew 1025 points and 343 comments on Hacker News - 'Postman is a virus', legal and corporate-risk worries, and a run of switch-to-Bruno-or-Insomnia sentiment. One commenter claims the downloads page changed after the fact, with a Wayback link - their claim, unverified."
+          ],
+          "why": "Because a tool that edits your other tools' instructions is no longer just a tool.",
+          "example": "Open your own agent config: if a session-start hook you never wrote mentions a vendor's skill, something on your machine made itself at home.",
+          "questions": [
+            {
+              "q": "Does the report claim Postman stole data?",
+              "a": "No - the reporter is explicit: unwanted integration and instruction changes, not exfiltration. That distinction matters."
+            },
+            {
+              "q": "What is the self-approval trick?",
+              "a": "The installer writes a trusted hash for its own hook into the config - approving itself instead of asking you."
+            },
+            {
+              "q": "What does the issue ask Postman to do?",
+              "a": "Stop the auto-install, remove the self-approval mechanism, ship a full rollback path, and narrow what the installed instructions may say."
+            }
+          ],
+          "source_name": "GitHub - postman-app-support issue #14370",
+          "source_url": "https://github.com/postmanlabs/postman-app-support/issues/14370",
+          "image": "img/2026-11-04-4.jpg",
+          "image_alt": "Cut-paper plate: a sneaky toolbox planting a small flag inside a browser window, with a warning triangle",
+          "reading_time": "3 min",
+          "accent": "#141412",
+          "accents": [
+            "#141412",
+            "#2B4BE0",
+            "#F2C200"
+          ],
+          "info_image": "img/2026-11-04-4-schematic.jpg",
+          "info_alt": "Diagram: a wrench in one box sends dashed arrows into three other boxes - a gear, an X and a package",
+          "info_caption": "Diagram: one app's installer reaches past its own box into your other tools",
+          "info_labels": [
+            {
+              "t": "its installer",
+              "x": 6,
+              "y": 18,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "your other tools",
+              "x": 70,
+              "y": 10,
+              "c": "#141412"
+            },
+            {
+              "t": "a hook it approved itself",
+              "x": 52,
+              "y": 92,
+              "c": "#E8480C"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-04-5",
+          "kind": "AI NEWS",
+          "headline": "The AI bill hiding off the books",
+          "deck": "Nikkei counts about $3.2 trillion of off-balance-sheet AI debt at five US tech majors - up roughly 90% in six months.",
+          "lead": "Nikkei's compilation puts off-balance-sheet AI debt at roughly $3.2 trillion across five major US tech companies, up about 90% in six months from $1.65 trillion - borrowing raised through joint ventures, SPVs and lease-like structures that keep it off the parent's balance sheet.",
+          "body": "Nikkei Asia compiled the off-balance-sheet borrowing behind the AI build-out at five major US tech companies and puts it at roughly $3.2 trillion, up about 90% in six months from an earlier $1.65 trillion figure. The structures doing the hiding: joint ventures, special-purpose vehicles and lease-like arrangements that keep the obligation at arm's length from the parent. Treat it as a Nikkei-compiled estimate, not an audited total - the direction matters more than the decimal. What to watch: rating-agency commentary, filing disclosures, and whether any of this debt migrates back onto parents with recourse.",
+          "ptrs": [
+            "The pair: $1.65 trillion, then $3.2 trillion six months later - roughly plus 90%.",
+            "The structures: joint ventures, special-purpose vehicles and lease-like arrangements keep the borrowing off the parent's balance sheet.",
+            "It is a Nikkei-compiled estimate, not an audited total - the direction is more actionable than the exact figure.",
+            "What to watch: rating-agency commentary, filing disclosures, and whether debt migrates back to parents with recourse."
+          ],
+          "why": "Because the capex you can see is only the part someone agreed to show you.",
+          "example": "When a company announces a $50B data-center 'partnership', ask whose balance sheet carries the debt - the answer is increasingly an SPV you have never heard of.",
+          "questions": [
+            {
+              "q": "How much hidden AI debt does Nikkei count?",
+              "a": "Roughly $3.2 trillion across five major US tech companies - up about 90% in six months from $1.65 trillion."
+            },
+            {
+              "q": "How does debt stay off the balance sheet?",
+              "a": "Through joint ventures, special-purpose vehicles and lease-like structures that keep the obligation at arm's length from the parent."
+            },
+            {
+              "q": "Is $3.2T an exact figure?",
+              "a": "No - it is a Nikkei compilation. Treat the fast growth as the signal, not the decimal."
+            }
+          ],
+          "source_name": "Nikkei Asia - US tech giants' hidden AI debt",
+          "source_url": "https://asia.nikkei.com/business/technology/artificial-intelligence/us-tech-giants-hidden-ai-debt-swells-90-to-3.2tn-in-6-months",
+          "image": "img/2026-11-04-5.jpg",
+          "image_alt": "Cut-paper bar chart: a short cobalt bar and a vermilion bar nearly twice its height on a shared baseline",
+          "reading_time": "2 min",
+          "accent": "#E8480C",
+          "accents": [
+            "#E8480C",
+            "#2B4BE0"
+          ],
+          "image_caption": "Bars to scale: off-balance-sheet AI debt at five US tech majors - $1.65T, then $3.2T six months later (Nikkei compilation)"
+        },
+        {
+          "id": "2026-11-04-6",
+          "kind": "TRY THIS",
+          "headline": "Audit your own machine",
+          "deck": "Fifteen minutes to find which apps installed plugins, hooks and instructions into your other tools.",
+          "lead": "The Postman report is a good excuse for a drill: spend fifteen minutes checking what your own tools have added to each other while you were not looking.",
+          "body": "The drill, grounded in the Postman report: open your agent config files - ~/.codex/config.toml is the one in the report - and read every hook and instruction block. Did you write them, or at least opt into them? List which apps have installed plugins or extensions into other apps. Check your MCP connections for any server you do not recognize, especially remote ones. Remove what you never opted into, and note which app put it there - that is the one to watch after its next update.",
+          "ptrs": [
+            "Open your agent config files (the report names ~/.codex/config.toml) and read every hook and instruction block - did you write them, or opt into them?",
+            "List which apps have installed plugins or extensions into other apps, and when.",
+            "Check your MCP connections - any server you do not recognize, especially remote ones, is a finding.",
+            "Remove what you never opted into, and note which app put it there - that is the one to watch on its next update."
+          ],
+          "why": "Because defaults accrete - the only settings that count are the ones you actually chose.",
+          "example": "Find a session-start hook pointing at a vendor's skill? Delete it, then watch whether the next update puts it back.",
+          "questions": [
+            {
+              "q": "Where do agent hooks usually live?",
+              "a": "In the agent's config files - for example ~/.codex/config.toml - alongside instructions and trusted hashes."
+            },
+            {
+              "q": "What is a red flag in an MCP list?",
+              "a": "A remote server you never added, especially one with auth that does not work - someone enabled it for you."
+            },
+            {
+              "q": "How often is this worth doing?",
+              "a": "After any big tool update. The Postman report exists because someone read their own logs."
+            }
+          ],
+          "source_name": "GitHub - postman-app-support issue #14370",
+          "source_url": "https://github.com/postmanlabs/postman-app-support/issues/14370",
+          "image": "img/2026-11-04-6.jpg",
+          "image_alt": "Cut-paper plate: a magnifying glass revealing a tiny hidden flag inside the middle of three browser windows",
+          "reading_time": "1 min",
+          "accent": "#F2C200",
+          "accents": [
+            "#F2C200",
+            "#2B4BE0",
+            "#141412"
+          ],
+          "info_image": "img/2026-11-04-6-schematic.jpg",
+          "info_alt": "Diagram: three app windows in a row with a stop sign blocking a connection between two of them",
+          "info_caption": "Diagram: inspect every connection between your tools - anything you never opted into gets blocked",
+          "info_labels": [
+            {
+              "t": "read your configs",
+              "x": 5,
+              "y": 86,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "unknown connection? block it",
+              "x": 48,
+              "y": 86,
+              "c": "#E8480C"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "date": "2026-11-03",
       "number": 17,
       "items": [
