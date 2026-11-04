@@ -68,7 +68,7 @@
               "c": "#F2C200"
             }
           ],
-          "plain": "Normally an AI replies with ordinary sentences, and your app has to hunt through that text to find the answer. With structured outputs you hand the AI an empty form - say, boxes named 'shop' and 'total' - and it only fills in the boxes. Small example: send a photo of a receipt, and instead of a paragraph you get back shop: 'CCD', total: 340 - ready to drop straight into an expense app."
+          "plain": "Normally an AI replies with ordinary sentences, and your app has to hunt through that text to find the answer. With structured outputs you hand the AI an empty form - boxes named 'shop' and 'total' - and the answer always comes back in exactly that shape. It guarantees the shape, not that the values are right: the AI still reads the receipt itself, so check what it filled in. Small example: you get back shop: 'CCD', total: 340 - tidy enough for your expense app to verify and save."
         },
         {
           "id": "2026-11-04-2",
@@ -266,7 +266,7 @@
               "c": "#E8480C"
             }
           ],
-          "plain": "An app on your computer updated itself and, while doing so, quietly added its own instructions inside your AI tools - like a plumber you hired for one tap also leaving a note in your diary saying 'for all future plumbing, call me first'. Nobody's files were reported stolen; the problem is it did this without asking. Small example: one user found their AI coding tool suddenly had a rule telling it to always use Postman's helper."
+          "plain": "One user reports that an app on their computer updated itself and, while doing so, quietly added its own instructions inside their AI tools - like a plumber you hired for one tap also leaving a note in your diary saying 'for all future plumbing, call me first'. Nobody's files were reported stolen; the problem, if confirmed, is that it did this without asking. Small example: the user found their AI coding tool suddenly had a rule telling it to always use Postman's helper."
         },
         {
           "id": "2026-11-04-5",
@@ -308,7 +308,7 @@
             "#2B4BE0"
           ],
           "image_caption": "Bars to scale: off-balance-sheet AI debt at five US tech majors - $1.65T, then $3.2T six months later (Nikkei compilation)",
-          "plain": "Big tech companies are borrowing huge sums to build AI data centres, but often through side companies so the loans do not appear on their own report cards. Nikkei added up these hidden loans: about $1.65 trillion, then $3.2 trillion six months later - nearly double. Small example: it is like buying a house in a cousin's name so your own bank statement still looks clean."
+          "plain": "Big tech companies are borrowing huge sums to build AI data centres, and much of it is raised through separate project companies and partnerships, so those loans sit off the parent's own balance sheet. That is legal and common - but Nikkei's own compilation estimates this less-visible borrowing at about $1.65 trillion, then $3.2 trillion six months later, nearly double. Small example: instead of borrowing $10 billion itself, a company and a partner create a separate project company that borrows for the data centre - the project owes it, not the parent directly."
         },
         {
           "id": "2026-11-04-6",
