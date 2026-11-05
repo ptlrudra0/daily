@@ -2,6 +2,388 @@
   "paper": "The Daily Draft",
   "issues": [
     {
+      "date": "2026-11-05",
+      "number": 19,
+      "items": [
+        {
+          "id": "2026-11-05-1",
+          "kind": "AI TIP",
+          "headline": "Your graphics card is a free chatbot",
+          "deck": "Ollama puts real AI models on your own PC - no subscription, no queue, no stranger reading your prompts.",
+          "lead": "Ollama is a free, open-source (MIT) app that runs AI models directly on your own machine. On a Windows PC with a 6GB RTX 40-series card, the smaller current models download once and then chat at zero cost per message - and your prompts never leave the house.",
+          "body": "Ollama is a free, open-source (MIT-licensed) app that runs AI models directly on your own hardware. On Windows it installs with one PowerShell line (irm https://ollama.com/install.ps1 | iex) or a manual download, and 'ollama run qwen3:4b' fetches the model and drops you into a chat. Fit check for a 6GB RTX 40-series card: qwen3:4b is a 2.5GB download and sits comfortably; qwen3:8b (5.2GB) is tight against 6GB of VRAM - the comfortable bigger models are what the planned 32GB RAM upgrade unlocks. Ollama officially supports Nvidia RTX 40-series GPUs (compute capability 8.9) with recent drivers. The honest trade: a 4B local model is noticeably less capable than frontier paid bots, knows nothing past its training data, and cannot browse - it replaces everyday drafts, explanations and practice, not everything. The cost comparison: ChatGPT Plus is $20/month per OpenAI's own help center; Ollama and its models are free, and the only meter running is your electricity. And because everything runs locally, your prompts and its answers stay on your machine - the whole point for client work and personal notes.",
+          "ptrs": [
+            "Install on Windows: one PowerShell line - irm https://ollama.com/install.ps1 | iex - or the manual download. Then 'ollama run qwen3:4b' downloads the model and drops you into chat.",
+            "Fit check for your 6GB card: qwen3:4b is a 2.5GB download and sits comfortably; qwen3:8b (5.2GB) is tight against 6GB of VRAM. Your 16GB of RAM helps today; the planned 32GB upgrade is what unlocks comfortable bigger models.",
+            "Ollama officially supports Nvidia RTX 40-series GPUs (compute capability 8.9) with driver 550 or newer.",
+            "The honest trade: a 4B local model is less capable than frontier paid bots, knows nothing past its training data, and can't browse. It replaces everyday drafts, explanations and practice - not everything.",
+            "The cost comparison: ChatGPT Plus is $20/month (OpenAI's help center). Ollama and the models are free - the only meter running is your electricity.",
+            "Privacy: prompts and answers stay on your machine - the whole point for client work and personal notes."
+          ],
+          "why": "Bro, you just got a PC with an actual GPU - this is the first suit it should try on. A free private study buddy for DAA midnights is sitting one install away.",
+          "example": "Tonight: install, run qwen3:4b, and ask it to explain this week's hardest lecture concept in simpler words. Zero rupees spent, and nobody's server ever sees the question.",
+          "questions": [
+            {
+              "q": "What does Ollama cost?",
+              "a": "Nothing - it is free and open-source (MIT license), and the models it runs are free downloads. The only cost is your own hardware and electricity."
+            },
+            {
+              "q": "Will an 8B model fit a 6GB RTX card?",
+              "a": "Tight - qwen3:8b is a 5.2GB download against 6GB of VRAM. The 4b (2.5GB) is the comfortable pick today; bigger models are where the 32GB RAM upgrade helps."
+            },
+            {
+              "q": "What do you give up versus a paid bot?",
+              "a": "Frontier capability, current knowledge and browsing. Local models cover everyday drafting and learning, plus anything you want kept private."
+            }
+          ],
+          "source_name": "Ollama - model library & GPU docs",
+          "source_url": "https://ollama.com/library/qwen3",
+          "image": "img/2026-11-05-1.jpg",
+          "image_alt": "Cut-paper plate: a cobalt graphics card with a vermilion speech-bubble flower growing out of it",
+          "reading_time": "2 min",
+          "accent": "#2B4BE0",
+          "accents": [
+            "#2B4BE0",
+            "#141412",
+            "#E8480C"
+          ],
+          "plain": "A chatbot like ChatGPT usually lives on a company's computers far away - you send your question over the internet and pay monthly for the good version. Ollama puts a smaller AI brain directly on your own PC: it downloads once, then answers with no subscription and nobody else reading your questions. Small example: asking it to explain your notes at 2am costs nothing and works even if the Wi-Fi is down.",
+          "info_image": "img/2026-11-05-1-schematic.jpg",
+          "info_alt": "Diagram: a question dot chooses between a paid cloud with a coin slot and a free loop inside a house with a computer",
+          "info_caption": "Diagram: one question, two paths - the dashed road leads to a cloud with a coin slot, the solid loop stays inside your own house",
+          "info_labels": [
+            {
+              "t": "your question",
+              "x": 10,
+              "y": 62,
+              "c": "#F2C200"
+            },
+            {
+              "t": "paid cloud",
+              "x": 66,
+              "y": 8,
+              "c": "#141412"
+            },
+            {
+              "t": "free loop, at home",
+              "x": 58,
+              "y": 90,
+              "c": "#2B4BE0"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-05-2",
+          "kind": "DESIGN",
+          "headline": "Every option is a tax",
+          "deck": "Hick's Law: decision time grows with the number and complexity of choices. Spend your user's decision budget like it's your own money.",
+          "lead": "Hick's Law is one sentence: the time it takes to make a decision increases with the number and complexity of choices. Every option you add to a screen is a small tax on every user who looks at it.",
+          "body": "Hick's Law states that the time it takes to make a decision increases with the number and complexity of choices. The Laws of UX takeaways: minimize choices when response times are critical; break complex tasks into smaller steps to decrease cognitive load; highlight recommended options so users are not overwhelmed; use progressive onboarding so new users meet features gradually instead of all at once; and be careful not to simplify to the point of abstraction - too little choice is its own failure. The classic examples: Google's homepage keeps the decisions needed to type a keyword at zero; the Apple TV remote stays nearly buttonless by moving complexity into on-screen menus; Slack's onboarding shows new users only the message box, then reveals features progressively once messaging clicks.",
+          "ptrs": [
+            "The law: decision time increases with the number AND the complexity of choices - both axes cost.",
+            "Minimize choices when response time is critical; break complex tasks into smaller steps to cut cognitive load.",
+            "Highlight recommended options so users are not overwhelmed; use progressive onboarding - Slack shows new users only the message box first.",
+            "The counter-rule: don't simplify to the point of abstraction. Too little choice is its own failure.",
+            "Classic examples: Google's bare homepage (zero decisions before typing) and the Apple TV remote (complexity moved into on-screen menus)."
+          ],
+          "why": "Your TechBlast reels end with 'link in bio for everything' - everything is twelve choices. One clear next step converts; a menu of them taxes the viewer into scrolling on.",
+          "example": "Your college fest app's home screen has 14 buttons. Hick's Law says each one slows every user. Keep 3 actions on top, group the rest one tap deeper, and watch complaints turn into signups.",
+          "questions": [
+            {
+              "q": "What does Hick's Law actually claim?",
+              "a": "Decision time increases with the number and complexity of choices - more options, slower decisions."
+            },
+            {
+              "q": "How does the Apple TV remote apply it?",
+              "a": "It stays nearly buttonless by transferring complexity into the TV interface's menus, so the remote itself demands almost no decisions."
+            },
+            {
+              "q": "Can you over-apply Hick's Law?",
+              "a": "Yes - the source warns against simplifying to the point of abstraction. Cutting choices past clarity creates its own confusion."
+            }
+          ],
+          "source_name": "Laws of UX - Hick's Law",
+          "source_url": "https://lawsofux.com/hicks-law/",
+          "image": "img/2026-11-05-2.jpg",
+          "image_alt": "Cut-paper plate: an amber dot exploding into a tangled fan of ink arrows above, and a second dot with one clean cobalt arrow below",
+          "reading_time": "2 min",
+          "accent": "#141412",
+          "accents": [
+            "#141412",
+            "#2B4BE0"
+          ],
+          "plain": "Every time an app shows you ten buttons, your brain quietly checks all ten before choosing - that checking is the slowness you feel. Fewer, clearer choices mean faster decisions. Small example: a restaurant menu with 200 items takes ten minutes to order from; the chef's-special card takes ten seconds.",
+          "info_image": "img/2026-11-05-2-schematic.jpg",
+          "info_alt": "Diagram: three arrows lead to a small clock, a dozen arrows lead to a much bigger clock",
+          "info_caption": "Diagram: same starting dot - three choices cost a small wait, a dozen choices cost a big one",
+          "info_labels": [
+            {
+              "t": "3 choices",
+              "x": 30,
+              "y": 6,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "12 choices",
+              "x": 26,
+              "y": 58,
+              "c": "#141412"
+            },
+            {
+              "t": "the wait grows",
+              "x": 70,
+              "y": 86,
+              "c": "#E8480C"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-05-3",
+          "kind": "ON SCREEN",
+          "headline": "The frame is the first line of dialogue",
+          "deck": "Before anyone speaks, the shape of the screen has already told you how to feel. Aspect ratio is casting, not cropping.",
+          "lead": "Same story, same actor, same room - shoot it wide and it reads as isolation, shoot it square and it reads as claustrophobia. Filmmakers pick the aspect ratio the way writers pick a tense.",
+          "body": "Film Independent's case for thinking 'inside the box': for its first fifty years cinema was shot in the boxy 4:3 Academy ratio, and widescreen (1.85:1, 2.35:1) only took over later - partly, the piece notes, as the studio system's midcentury answer to television. The geometry carries meaning. Humans are vertical, so we fill a 4:3 frame 'like a hat in a hatbox' - the person becomes the landscape. Widescreen inevitably captures space the human does not occupy. Take a theme like emotional alienation: in widescreen it reads as isolation, the character at sea in their surroundings; in 4:3 the same theme reads as claustrophobia. The format never died - Gus Van Sant's Death Trilogy and Kelly Reichardt's Meek's Cutoff used 4:3 to powerful effect, and it cameos in era-flashbacks in Kill Bill and The Grand Budapest Hotel. And the next shape is already here: 4:5, taller than Academy, is Instagram's default and drove music-video looks like Kendrick Lamar's 'King Kunta' - social media pushing formal innovation, as cinema has always answered competing screens.",
+          "ptrs": [
+            "For cinema's first ~50 years the standard was the boxy 4:3 'Academy' ratio; widescreen (1.85:1, 2.35:1) took over later, partly as the studios' answer to TV.",
+            "Humans are vertical: we fill a 4:3 frame 'like a hat in a hatbox' - in the box, the person IS the landscape. Widescreen photographs space we don't occupy.",
+            "The meaning flip: 'emotional alienation' reads as isolation in widescreen (at sea in surroundings) and as claustrophobia in 4:3. Same actor, same room - the frame decides.",
+            "Modern 4:3 revivals: Gus Van Sant's Death Trilogy, Kelly Reichardt's Meek's Cutoff; era-flashback cameos in Kill Bill and The Grand Budapest Hotel.",
+            "The next shape is 4:5 - taller than Academy, Instagram's default, used in videos like Kendrick Lamar's 'King Kunta'. Social media is now pushing frame innovation."
+          ],
+          "why": "You shoot vertical reels every week - you're already making aspect-ratio decisions. Make them on purpose and your TechBlast frames start saying what you mean before you speak.",
+          "example": "Shoot your next reel two ways: the tight 4:5 vertical (close, intense, personal) and a wide crop of the same take (small figure, big room). Same words, different movie - pick the one that matches the point.",
+          "questions": [
+            {
+              "q": "What does a wide frame do to a character?",
+              "a": "It dwarfs them in space they don't occupy - alienation reads as isolation, the character at sea in their surroundings."
+            },
+            {
+              "q": "Why does 4:3 feel intimate?",
+              "a": "Humans are vertical and fill the boxy frame 'like a hat in a hatbox' - the person becomes the landscape, and closeness turns to claustrophobia when the theme darkens."
+            },
+            {
+              "q": "Where did the tall 4:5 shape come from?",
+              "a": "Social media - it is Instagram's default, and videos like Kendrick Lamar's 'King Kunta' turned it into a deliberate filmmaking choice."
+            }
+          ],
+          "source_name": "Film Independent - Rethinking the Modern Aspect Ratio",
+          "source_url": "https://www.filmindependent.org/blog/rethinking-modern-aspect-ratio-filmmakers-think-inside-box/",
+          "image": "img/2026-11-05-3.jpg",
+          "image_alt": "Cut-paper plate: a tiny amber circle alone in a wide cobalt frame beside a huge amber circle pressed tight inside a square vermilion frame",
+          "reading_time": "2 min",
+          "accent": "#F2C200",
+          "accents": [
+            "#F2C200",
+            "#2B4BE0",
+            "#E8480C"
+          ],
+          "plain": "The shape of the screen changes what a shot means before anyone speaks. The same person in a wide frame looks alone; in a square frame, trapped. Small example: a selfie cropped tight feels intense and personal; the same photo with lots of background feels distant.",
+          "info_image": "img/2026-11-05-3-schematic.jpg",
+          "info_alt": "Diagram: a small circle in a wide frame becomes a huge circle pressing the edges of a square frame",
+          "info_caption": "Diagram: the same moon in two frames - wide makes it lonely, square makes it trapped",
+          "info_labels": [
+            {
+              "t": "wide: alone",
+              "x": 12,
+              "y": 88,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "same moon",
+              "x": 40,
+              "y": 12,
+              "c": "#141412"
+            },
+            {
+              "t": "square: trapped",
+              "x": 72,
+              "y": 88,
+              "c": "#E8480C"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-05-4",
+          "kind": "AI NEWS",
+          "headline": "Open weights, frontier scores",
+          "deck": "Moonshot's Kimi K3.1 Pro is out: a 2.8-trillion-parameter open-weight model that only wakes 104 billion of them per token - and it trades blows with the paid giants.",
+          "lead": "Moonshot AI has released Kimi K3.1 Pro with open weights: a 2.8-trillion-parameter mixture-of-experts model, multimodal, with a 1-million-token context window. Its vendor-run benchmarks put it within touching distance of the best proprietary models.",
+          "body": "Moonshot AI has released Kimi K3.1 Pro, the first model in its K3.1 series, with the full weights published by Nov 4 as promised. The architecture is the story: 2.8 trillion total parameters, but a mixture-of-experts design that activates only 104 billion per token - about 1 of every 27 - plus a 1-million-token context window and vision input via a MoonViT-V2 encoder. On the vendor's own benchmark sheet, it scores 65.7% on Terminal-Bench 4.0, ahead of GPT-6 Astra (58.2%) and a hair behind Claude Opus 5.5 (66.4%) - read those as Moonshot's best self-report until independent scores land. The release is open-weight under Moonshot's own Kimi K3.1 Pro License, not MIT. Access starts today on Kimi.ai and the Kimi API: the free plan includes limited K3.1 Pro usage, paid tiers start at $15/month (annual rate), and a Highspeed variant delivers 2-3x the speed on paid plans. Reality check for a 6GB GPU: 2.8 trillion parameters will never fit on your card - the download is for datacenters and serious workstations; normal humans use the front desk at kimi.ai. Hacker News colour: the release thread pulled 373 points and 100+ comments - community reaction, not verified claims.",
+          "ptrs": [
+            "Architecture: 2.8T total parameters in a mixture-of-experts design, but only 104B activated per token - about 1 of every 27 - which is how something this big stays runnable at all. Multimodal (text + image), 1M-token context.",
+            "Scores (vendor-reported): Terminal-Bench 4.0 65.7% - ahead of GPT-6 Astra (58.2%), a hair behind Claude Opus 5.5 (66.4%). Best self-report until independent benchmarks land.",
+            "License: open-weight under Moonshot's own Kimi K3.1 Pro License - not MIT; read it before commercial use.",
+            "Access: free plan on kimi.ai includes limited K3.1 Pro usage; paid tiers from $15/month (annual rate); Highspeed variant runs 2-3x faster on paid plans; API billed separately.",
+            "Reality check for your 6GB card: 2.8T parameters will never fit - this one lives in the cloud. The download is for datacenters and serious workstations.",
+            "HN colour: the release thread pulled 373 points and 100+ comments - community reaction, not verified claims."
+          ],
+          "why": "The gap between 'free to try' and 'frontier class' just got thin, bro. When a no-rupee tab on kimi.ai can spar with the $20/month bots, your study stack gets cheaper and your excuses get fewer.",
+          "example": "Try it free tonight: the kimi.ai free plan includes limited K3.1 Pro usage - enough to throw one genuinely hard assignment question at a frontier-class open model and judge the answer yourself.",
+          "questions": [
+            {
+              "q": "How big is Kimi K3.1 Pro, really?",
+              "a": "2.8 trillion total parameters, but mixture-of-experts activates only 104 billion per token - roughly 1 in 27 wakes up per question."
+            },
+            {
+              "q": "Is it free?",
+              "a": "The weights are free to download under Moonshot's own license, and kimi.ai's free plan includes limited usage; paid tiers start at $15/month and the API is billed separately. Running the weights yourself needs datacenter-scale hardware."
+            },
+            {
+              "q": "Should you trust the benchmark chart?",
+              "a": "Treat it as the vendor's self-report - Terminal-Bench 65.7% edges GPT-6 Astra and sits just behind Claude Opus 5.5, but independent scores will have the final word."
+            }
+          ],
+          "source_name": "Kimi - K3.1 Pro tech blog",
+          "source_url": "https://www.kimi.ai/blog/kimi-k3-1-pro",
+          "image": "img/2026-11-05-4.jpg",
+          "image_alt": "Cut-paper bar chart: a tiny cobalt bar beside a towering vermilion bar on a shared baseline",
+          "reading_time": "2 min",
+          "accent": "#E8480C",
+          "accents": [
+            "#E8480C"
+          ],
+          "plain": "This AI is like an office building with 27 floors where only one floor's lights switch on per question - that's how it can be giant and still answer fast. The blueprints are free for anyone to download. Small example: you can walk up to the front desk (kimi.ai) and ask a question free; building your own copy of the whole office would take a warehouse of computers, so normal people use the front desk.",
+          "image_caption": "Bars to scale: parameters Kimi K3.1 Pro activates per token (104B) vs its total (2.8T) - about 1 of every 27 wakes up"
+        },
+        {
+          "id": "2026-11-05-5",
+          "kind": "AI NEWS",
+          "headline": "Forty years of 'we'll fix it later' just came due",
+          "deck": "An AI turned a two-year-old PHP bug report into a server takeover - and half the internet runs PHP. The canary is singing.",
+          "lead": "The PHP2Shell vulnerability put sites like NASA's, Wikipedia's and the White House's at risk before a patch landed. IEEE Spectrum calls it the canary in the coal mine: AI is now good enough to collect on 40 years of technical debt.",
+          "body": "In late October, the PHP2Shell vulnerability put a plethora of major websites - NASA's, Wikipedia's, the White House's, and everything else running WordPress or Drupal - at risk of exploits that could read sensitive data and run malicious code on the host. Disaster was averted: researchers found it, reported it to the PHP Foundation, and a patch shipped before bad actors got there. But IEEE Spectrum frames it as the canary. The underlying bug - an out-of-memory error - was reported back in 2024 and sat waiting, because crash-only bugs don't look dangerous; as Columbia's Suman Jana notes, most people don't take them seriously. Earlier this year, security firm Calif, running an independent PHP audit sponsored by OpenAI, used AI tools to turn that crash bug into arbitrary code execution. Jana's quote: exploiting it is 'not really rocket science', just very specific reasoning that is painful to do - 'and AI, I think, has done a very good job at that.' He is equally clear that AI can't do it alone - it amplifies the top 0.1% of experts and lets the tier just below punch up. Four PHP engineers then spent two months building the patch, which is the structural problem: finding bugs is getting cheap while fixing stays hard, because a fixer must close every attack path without breaking existing functionality. Proposed fixes: fund open-source defenders, donate frontier-model token budgets to audits, and LLM-generated patches checked by formal proof systems (Anthropic released one on Oct 22). Johns Hopkins' Matthew Green is the pessimist - nothing gets funded until something 'really bad' happens - and his advice in the meantime is brutally simple: install security updates the day they arrive. Hacker News colour: the story pulled roughly 1,066 points with 600+ comments - community reaction, not verified claims.",
+          "ptrs": [
+            "The bug: an out-of-memory error reported to the PHP Foundation in 2024 - the kind of crash-only report that waits, because crashes don't look dangerous. Until one is.",
+            "The unlock: security firm Calif (audit sponsored by OpenAI) used AI tools to turn the crash into arbitrary code execution; NASA, Wikipedia, White House and WordPress/Drupal sites were at risk before the patch.",
+            "The asymmetry, per Columbia's Suman Jana: finding bugs is getting cheap, fixing stays hard - a fix must close every path and break nothing. Four engineers spent two months on this patch.",
+            "The honest limit: Jana is explicit that AI can't do it alone - it amplifies the top 0.1% of experts and lets the next tier punch above their weight.",
+            "The fixes on the table: fund open-source defenders, donate frontier-lab token budgets to audits, and LLM-generated patches verified by formal proof checkers (Anthropic shipped one on Oct 22).",
+            "The pessimist's take (Johns Hopkins' Matthew Green): nothing gets funded until something 'really bad' happens. Meanwhile: install security updates the day they arrive.",
+            "HN colour: roughly 1,066 points and 600+ comments - community reaction, not verified claims."
+          ],
+          "why": "Plot twist for your own repos, bro: every 'harmless' warning you mute is a bug report future-you might regret. You're writing the next decade's legacy code right now - write it like someone will AI-audit it.",
+          "example": "That 'harmless' warning in your own project - the one you muted? PHP2Shell was a harmless crash report for two years. This week, open one muted warning and actually read it.",
+          "questions": [
+            {
+              "q": "Why did a two-year-old bug report matter?",
+              "a": "It was an out-of-memory crash - the kind teams deprioritize because crashes aren't dangerous. AI tools turned that exact crash into a way to run arbitrary code on the server."
+            },
+            {
+              "q": "Can AI find these exploits by itself?",
+              "a": "No - Columbia's Suman Jana is explicit: it amplifies top experts and lets the tier below punch up, but the Calif, OpenAI and Wiz researchers had deep security and PHP knowledge."
+            },
+            {
+              "q": "What's the one thing to do today?",
+              "a": "Matthew Green's advice: when your phone or laptop offers a security update, don't wait until next week - install it."
+            }
+          ],
+          "source_name": "IEEE Spectrum - PHP2Shell and AI",
+          "source_url": "https://spectrum.ieee.org/ai-in-cybersecurity-php2shell-vulnerability",
+          "image": "img/2026-11-05-5.jpg",
+          "image_alt": "Cut-paper plate: an old ink brick wall with one glowing amber crack, a cobalt magnifying glass enlarging it into a vermilion lightning bolt",
+          "reading_time": "3 min",
+          "accent": "#141412",
+          "accents": [
+            "#141412",
+            "#2B4BE0",
+            "#E8480C"
+          ],
+          "plain": "Old computer programs are full of small cracks that everyone ignores because they only cause crashes. AI has become very good at wiggling into those cracks and turning them into doors - so all the world's old software suddenly needs repairs at once. Small example: it is like a wobbly chair leg everyone lived with for years, until someone published a trick for turning any wobble into a full collapse - now every old chair needs checking.",
+          "info_image": "img/2026-11-05-5-schematic.jpg",
+          "info_alt": "Diagram: old papers, then a magnifying glass, then a warning triangle, then a bandage patch",
+          "info_caption": "Diagram: an old bug report sits in the pile - AI looks closer, it turns critical, a patch closes it",
+          "info_labels": [
+            {
+              "t": "2-year-old bug report",
+              "x": 8,
+              "y": 88,
+              "c": "#141412"
+            },
+            {
+              "t": "AI looks closer",
+              "x": 38,
+              "y": 88,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "critical",
+              "x": 62,
+              "y": 88,
+              "c": "#E8480C"
+            },
+            {
+              "t": "patch",
+              "x": 88,
+              "y": 88,
+              "c": "#F2C200"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-05-6",
+          "kind": "TRY THIS",
+          "headline": "The 20-minute local bot drill",
+          "deck": "Tonight, put an AI on your own machine and make it earn its keep. Twenty minutes, zero rupees.",
+          "lead": "Story 1 made the claim; this is the receipt. Twenty minutes from now you can have a private chatbot running on your own PC - and a personal map of what it's good for.",
+          "body": "Story 1 made the claim; this drill is the receipt. Minutes 0-5: open PowerShell and run irm https://ollama.com/install.ps1 | iex (or grab the manual Windows download). Minutes 5-10: run 'ollama run qwen3:4b' - the 2.5GB download is the long pole, and it fits a 6GB card with room to spare. Minutes 10-20: give it three real jobs - explain one concept from this week's lectures, rewrite one paragraph of your notes, then quiz you on either. Then the debrief: compare its answers with your usual chatbot. Where did the local one keep up, and where did it fall apart? That gap is your working map of what 4 billion parameters buys you for free - and it stays useful every time you wonder whether a task needs a paid model at all.",
+          "ptrs": [
+            "Minutes 0-5: open PowerShell, run irm https://ollama.com/install.ps1 | iex (or the manual Windows download from ollama.com).",
+            "Minutes 5-10: run 'ollama run qwen3:4b' - the 2.5GB download is the long pole; it fits your 6GB card with room to spare.",
+            "Minutes 10-20: three real jobs - explain one concept from this week, rewrite one paragraph of your notes, quiz you on either.",
+            "The debrief: compare answers with your usual chatbot. Where it kept up and where it fell apart is your personal map of what 4B parameters buys for free."
+          ],
+          "why": "Reps over reading, always. Twenty minutes tonight and every future 'is this worth a subscription?' question answers itself.",
+          "example": "If the quiz questions come back decent, every future quick question just stopped needing a subscription. If they don't - you learned the limit for free, which is also a win.",
+          "questions": [
+            {
+              "q": "What if the local model feels dumb?",
+              "a": "That is data, not failure - a 4B model is built for drafts and explanations. Mapping where it breaks is the point of the drill."
+            },
+            {
+              "q": "Where do my prompts go in this drill?",
+              "a": "Nowhere - local means your questions and its answers stay on your own machine."
+            }
+          ],
+          "source_name": "Ollama",
+          "source_url": "https://ollama.com",
+          "image": "img/2026-11-05-6.jpg",
+          "image_alt": "Cut-paper plate: a vermilion rocket lifting off from a cobalt retro desktop computer with amber stars",
+          "reading_time": "1 min",
+          "accent": "#2B4BE0",
+          "accents": [
+            "#2B4BE0",
+            "#E8480C",
+            "#141412"
+          ],
+          "plain": "This is a 20-minute experiment, not a commitment: install the free tool, download one small AI, and give it three real jobs from your week. Small example: if it can explain today's lecture notes decently, you now own a free study buddy that works at 2am with no internet.",
+          "info_image": "img/2026-11-05-6-schematic.jpg",
+          "info_alt": "Diagram: a download arrow into a box, then a computer window, then two speech bubbles",
+          "info_caption": "Diagram: three steps - install the tool, run one model, give it real work",
+          "info_labels": [
+            {
+              "t": "install",
+              "x": 10,
+              "y": 88,
+              "c": "#F2C200"
+            },
+            {
+              "t": "run one model",
+              "x": 42,
+              "y": 88,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "3 real jobs",
+              "x": 76,
+              "y": 88,
+              "c": "#141412"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "date": "2026-11-04",
       "number": 18,
       "items": [
