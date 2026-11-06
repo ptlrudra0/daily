@@ -2,6 +2,397 @@
   "paper": "The Daily Draft",
   "issues": [
     {
+      "date": "2026-11-06",
+      "number": 20,
+      "items": [
+        {
+          "id": "2026-11-06-1",
+          "kind": "AI TIP",
+          "headline": "One port for every tool",
+          "deck": "MCP is a free open standard that lets your AI app plug into tools and data the way USB lets gadgets plug into your PC - one config file and Claude can rummage through the folders you choose.",
+          "lead": "The Model Context Protocol (MCP) is an open standard for connecting AI apps to the tools and data they use: a small program called a server announces what it can do, the app shows that menu to the model, and when the model wants something the app calls the server and hands the result back. It is not a product you buy - it is plumbing, it is free, and on a Windows PC you can have your first server running in about ten minutes.",
+          "body": "The Model Context Protocol (MCP) is an open standard for connecting AI apps to the tools and data they use: a small program called a server announces what it can do, the app shows that menu to the model, and when the model wants something the app calls the server and hands the result back. It is not a product you buy - it is plumbing, it is free, and on a Windows PC you can have your first server running in about ten minutes. The cast, per the explainer site MCP Explained: the host is the AI app you use (Claude, Cursor, ChatGPT, an agent); the server is a small program exposing tools, data or prompts; the model decides what to use and never talks to a server directly. It is not REST, and not just JSON-RPC - JSON-RPC is only the envelope, over stdin/stdout or one HTTP endpoint, while MCP defines what goes inside: the methods, capability negotiation, transports and auth, and servers can even talk back. Setup on Windows, per the official quickstart: install Claude Desktop and the Node.js LTS release, then Claude menu, Settings, Developer, Edit Config opens %APPDATA%\\Claude\\claude_desktop_config.json. Add the official filesystem server - command npx with args -y, @modelcontextprotocol/server-filesystem and a folder like C:\\Users\\you\\Desktop - and Claude can read, create, move and search files in just the folders you list. Safety is built into the deal: every action asks for your explicit approval before it runs, and you choose exactly which directories a server can touch. No GPU needed - any PC, including a 16GB rig, is plenty. And the timing is good: MCP Explained sat on the Hacker News front page this morning (~247 points, HN discussion) - the community is treating MCP as the default way agents get tools.",
+          "ptrs": [
+            "The cast, per MCP Explained: the HOST is the AI app you use (Claude, Cursor, ChatGPT, an agent); the SERVER is a small program exposing tools, data or prompts; the MODEL decides what to use and never talks to a server directly.",
+            "Not REST, and not just JSON-RPC: JSON-RPC is only the envelope (over stdin/stdout or one HTTP endpoint) - MCP defines what goes inside: the methods, capability negotiation, transports and auth. Servers can even talk back.",
+            "Setup on Windows per the official quickstart: install Claude Desktop and the Node.js LTS release, then Claude menu -> Settings -> Developer -> Edit Config opens %APPDATA%\\Claude\\claude_desktop_config.json.",
+            "First server: the official filesystem one - command \"npx\", args \"-y\", \"@modelcontextprotocol/server-filesystem\", \"C:\\Users\\you\\Desktop\" - and Claude can read, create, move and search files in just the folders you list.",
+            "Safety by design: every action asks your explicit approval before it runs, and you choose exactly which directories a server can touch. No GPU needed - your current 16GB rig is plenty.",
+            "Why now: the explainer site MCP Explained sat on the Hacker News front page this morning (~247 points, HN discussion) - the community is treating MCP as the default way agents get tools."
+          ],
+          "why": "Bro, this is the unlock. Right now you copy-paste files into chats like it's 2023. One config file and your AI can actually DO things in the folders you pick - summarise lecture notes, sort downloads, prep reel scripts. Learn this plumbing while it's young and every project you build next gets a power-up.",
+          "example": "Tonight: wire the filesystem server to your notes folder, then ask Claude Desktop: 'Summarise everything I saved about transformers this week into one file.' It reads only that folder, asks your permission for each action, and writes the summary there. Total cost: zero rupees.",
+          "questions": [
+            {
+              "q": "In MCP, what are the host, the server and the model?",
+              "a": "The host is the AI app (Claude, Cursor, ChatGPT, an agent); the server is a small program exposing tools, data or prompts; the model decides what to use and never talks to a server directly - the app makes the call and hands back the result."
+            },
+            {
+              "q": "What file do you edit to add an MCP server to Claude Desktop on Windows?",
+              "a": "%APPDATA%\\Claude\\claude_desktop_config.json, reached via Claude menu -> Settings -> Developer -> Edit Config."
+            },
+            {
+              "q": "Can a filesystem MCP server roam your whole disk?",
+              "a": "No - it only sees the exact directories listed in its args, and every action needs your explicit approval before it runs."
+            }
+          ],
+          "source_name": "MCP Explained + official MCP quickstart",
+          "source_url": "https://mcp-explained.com",
+          "image": "img/2026-11-06-1.jpg",
+          "image_alt": "Cut-paper plate: a cobalt socket hub with three cables plugged into a vermilion folder, an amber gear and an ink cloud",
+          "reading_time": "2 min",
+          "accent": "#2B4BE0",
+          "accents": [
+            "#2B4BE0",
+            "#E8480C",
+            "#141412"
+          ],
+          "plain": "Normally every app needs its own special cord to talk to an AI, like having a different charger for every phone in the house. MCP is one shared plug: teach your AI the plug once, and any tool built for that plug - your files, a database, a calendar - just works. Example: instead of copying your notes into a chat by hand, you plug your notes folder in and the AI reads it directly, asking you first.",
+          "info_image": "img/2026-11-06-1-schematic.jpg",
+          "info_alt": "Diagram: an ink app window on the left with three arrows into cobalt, vermilion and amber server boxes, plus one curved return arrow",
+          "info_caption": "Diagram: your AI app (ink window) calls three servers (cobalt, vermilion, amber boxes) through arrows; the curved arrow is the result coming back",
+          "info_labels": [
+            {
+              "t": "your AI app (host)",
+              "x": 6,
+              "y": 30,
+              "c": "#141412"
+            },
+            {
+              "t": "servers: tools + data",
+              "x": 70,
+              "y": 10,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "result comes back",
+              "x": 30,
+              "y": 88,
+              "c": "#E8480C"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-06-2",
+          "kind": "DESIGN",
+          "headline": "The exit door is painted on",
+          "deck": "Deceptive.design maps 18 ways interfaces trick people, each tied to real laws and enforcement cases - the same design skills you are learning, pointed the wrong way.",
+          "lead": "Deceptive patterns are interface tricks that push people into things they did not mean to do, and the deceptive.design taxonomy sorts them into 18 named types, each mapped to real laws and enforcement actions. 'Hard to cancel' - easy in, brutal out - alone carries 46 laws and rules plus 135 documented examples. The uncomfortable lesson: these are the same tools as good design - hierarchy, defaults, friction - just aimed at the user instead of for them.",
+          "body": "Deceptive patterns are interface tricks that push people into things they did not mean to do, and the deceptive.design taxonomy sorts them into 18 named types, each mapped to real laws and enforcement actions. 'Hard to cancel' - easy in, brutal out, known by the older name roach motel - alone carries 46 laws and rules, 23 enforcements and 135 documented examples. Preselection is a default option already ticked for you (22 laws, 85 examples); the pre-ticked newsletter box at checkout is the classic. Hidden costs lure you with a low advertised price and grow surprise fees at checkout (17 laws), while trick wording misleads through confusing language (23 laws). Fake urgency ('only 2 hours left!') and fake scarcity ('only 1 room left!') pressure you with invented limits, 8 and 4 laws respectively. Confirmshaming guilts you on the decline link - 'No thanks, I hate saving money' - and disguised ads dress advertising as content or buttons. The uncomfortable lesson: these are the same tools as good design - hierarchy, defaults, friction - just aimed at the user instead of for them. The counter-skill is that every pattern has an honest twin: ship the default unticked, show fees up front, make cancel as easy as join.",
+          "ptrs": [
+            "Hard to cancel (the old name: roach motel): signing up is easy, cancelling is a maze - 46 laws and rules, 23 enforcements, 135 examples in the taxonomy.",
+            "Preselection: a default option already ticked for you, nudging your decision - 22 laws, 85 examples. The pre-ticked newsletter box at checkout is the classic.",
+            "Hidden costs: a low advertised price that grows surprise fees at checkout (17 laws). Trick wording: confusing language that misleads (23 laws).",
+            "Fake urgency ('only 2 hours left!') and fake scarcity ('only 1 room left!') pressure you with invented limits - 8 and 4 laws respectively.",
+            "Confirmshaming: the decline link that guilts you ('No thanks, I hate saving money'). Disguised ads: ads dressed as content or buttons. Both in the 18.",
+            "The counter-skill: every pattern has an honest twin - ship the default unticked, show fees up front, make cancel as easy as join."
+          ],
+          "why": "You're going to build products, bro - content pages, an agency site, apps. This list is your moral compass AND your audit checklist. Knowing the 18 patterns is how you make things people trust, and how you spot the moment someone else starts playing you.",
+          "example": "The pre-ticked 'Yes, add travel insurance' box during a flight checkout is preselection. The honest version of the same screen ships with the box unticked and the price shown next to it - same design effort, opposite intent.",
+          "questions": [
+            {
+              "q": "What is a 'roach motel' pattern?",
+              "a": "The old name for 'hard to cancel': easy to sign up, very hard to leave. The taxonomy ties it to 46 laws and rules and 135 documented examples."
+            },
+            {
+              "q": "A checkout arrives with the premium plan pre-ticked. Which pattern is that?",
+              "a": "Preselection - a default chosen for you in order to influence your decision."
+            },
+            {
+              "q": "Are these tricks just someone's opinion?",
+              "a": "No - deceptive.design maps each of its 18 types to real laws, rules and enforcement actions."
+            }
+          ],
+          "source_name": "Deceptive Patterns - types",
+          "source_url": "https://deceptive.design/types/",
+          "image": "img/2026-11-06-2.jpg",
+          "image_alt": "Cut-paper plate: a huge open cobalt doorway with a broad amber arrow flowing in, beside a tiny cracked-open vermilion exit",
+          "reading_time": "2 min",
+          "accent": "#2B4BE0",
+          "accents": [
+            "#2B4BE0",
+            "#F2C200",
+            "#E8480C"
+          ],
+          "plain": "Some apps are built like a maze on purpose: getting in is one tap, getting out is ten screens. Designers call these tricks 'deceptive patterns' - a cancel button that hides, a checkbox already ticked for you. Example: a gym that lets you join on your phone in a minute but makes you send a letter to quit. Once you learn the tricks' names, you see them everywhere - and you know not to build them yourself.",
+          "info_image": "img/2026-11-06-2-schematic.jpg",
+          "info_alt": "Diagram: a wide smooth cobalt road entering a box through an open gate; a tangled vermilion maze squeezing out the tiny exit",
+          "info_caption": "Diagram: the wide cobalt road is signing up; the tangled vermilion maze is cancelling - same box, very different effort",
+          "info_labels": [
+            {
+              "t": "signing up",
+              "x": 4,
+              "y": 55,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "the product",
+              "x": 40,
+              "y": 8,
+              "c": "#141412"
+            },
+            {
+              "t": "cancelling",
+              "x": 70,
+              "y": 55,
+              "c": "#E8480C"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-06-3",
+          "kind": "ON SCREEN",
+          "headline": "The actor who left mid-frame",
+          "deck": "The Texas Switch swaps an actor for a stunt double inside one unbroken shot - no cuts, no CGI, just choreography hiding behind a pillar.",
+          "lead": "The Texas Switch is an in-camera trick in which an actor is seamlessly replaced by a stunt performer (or vice versa) during a single continuous shot, with no cuts. The name likely comes from classic Westerns, and the swap hides behind whatever is at hand - a pillar, a tent, a door frame, another body. Done right, the audience's brain stitches it together and believes the actor did the dangerous thing themselves.",
+          "body": "The Texas Switch is an in-camera trick in which an actor is seamlessly replaced by a stunt performer (or vice versa) during a single continuous shot, with no cuts. The name likely comes from classic Westerns, and the swap hides behind whatever is at hand - a pillar, a tent, a door frame, another body. Done right, the audience's brain stitches it together and believes the actor did the dangerous thing themselves. The oldest charm: in The Wizard of Oz (1939), Judy Garland's double Bobbie Koshay - wearing a sepia dress in a house painted sepia - opens the door to Oz, steps out of frame, and Garland steps in already in Technicolor. In Casino Royale's parkour chase, the stunt double jumps and lands behind a tent for a millisecond, and Daniel Craig is the one who rushes out. Edgar Wright is called the king of the Texas Switch: the dance in Last Night in Soho swaps Anya Taylor-Joy and Thomasin McKenzie over and over, all in-camera, all choreography. Props switch too - in Atomic Blonde's long fight, Charlize Theron grabs a real corkscrew near the camera and swaps it for a rubber one behind her body before the stabbing. Cast Away hid its switch in a prosthetic leg; SFX supervisor John Frazier explains, 'you saw it happen, but then you didn't see it happen. What sells it is Tom really showing that pain' - performance is the glue, not the trick. The modern variation, the rooftop fall in One Battle After Another, keeps one continuous take with VFX stitching the double back to DiCaprio - CineD calls that an educated guess, not a documented making-of.",
+          "ptrs": [
+            "The oldest charm: in The Wizard of Oz (1939), Judy Garland's double Bobbie Koshay - in a sepia dress, in a house painted sepia - opens the door to Oz, steps out of frame, and Garland steps in already in Technicolor.",
+            "Casino Royale's parkour chase: the stunt double jumps and lands behind a tent for a millisecond; Daniel Craig is the one who rushes out.",
+            "Edgar Wright is called the king of the Texas Switch: the dance in Last Night in Soho swaps Anya Taylor-Joy and Thomasin McKenzie over and over, all in-camera, all choreography.",
+            "Props switch too: in Atomic Blonde's long fight, Charlize Theron grabs a real corkscrew near the camera and swaps it for a rubber one behind her body before the stabbing.",
+            "Cast Away hid its switch in a prosthetic leg - SFX supervisor John Frazier: 'you saw it happen, but then you didn't see it happen. What sells it is Tom really showing that pain.' Performance is the glue, not the trick.",
+            "Modern variation: the rooftop fall in One Battle After Another keeps one continuous take with VFX stitching the double back to DiCaprio - CineD calls it an educated guess, not a documented making-of."
+          ],
+          "why": "Bro, you shoot reels - this is literally a free special effect. One friend, one doorway, one phone, and you've got movie magic for zero rupees. Watching for it also rewires how you read every action scene: the cut isn't where the magic is, the hiding is.",
+          "example": "Rewatch the opening parkour chase in Casino Royale and freeze on the tent jump: the landing behind the tent is the stunt double; the man who sprints out is Daniel Craig. Once you see it, you'll spot the same trick in half the action scenes you watch.",
+          "questions": [
+            {
+              "q": "What is a Texas Switch?",
+              "a": "An in-camera technique where an actor is invisibly swapped for a stunt double (or back) inside one continuous, uncut shot - hidden behind an object, the frame edge, or choreography."
+            },
+            {
+              "q": "Which film swapped Judy Garland into Technicolor with this trick?",
+              "a": "The Wizard of Oz - double Bobbie Koshay in a sepia dress opens the door; Garland steps into frame already in colour."
+            },
+            {
+              "q": "What actually sells the illusion, per Cast Away's SFX supervisor?",
+              "a": "The performance - the actor's reaction must stay authentic and in sync with the stunt, or no technical trick saves it."
+            }
+          ],
+          "source_name": "CineD - Famous Texas Switches",
+          "source_url": "https://www.cined.com/famous-texas-switch-in-classic-and-modern-films-invisible-stunt-magic-on-screen/",
+          "image": "img/2026-11-06-3.jpg",
+          "image_alt": "Cut-paper plate: a vermilion star slides behind an ink pillar and emerges as an identical cobalt star",
+          "reading_time": "2 min",
+          "accent": "#141412",
+          "accents": [
+            "#141412",
+            "#E8480C",
+            "#2B4BE0"
+          ],
+          "plain": "Imagine a relay race where the runners swap the baton behind a tree, so the crowd thinks one person ran the whole way. Movies do exactly that: the star walks behind a pillar, and the stunt double walks out the other side - in the same unbroken shot. Example: an actor jumps through a window, but it's really the double mid-air. No editing, no computers - just clever hiding.",
+          "info_image": "img/2026-11-06-3-schematic.jpg",
+          "info_alt": "Diagram: an unbroken amber arrow above a film strip; a cobalt circle rolls behind an ink column and an identical vermilion circle rolls out",
+          "info_caption": "Diagram: the cobalt circle (actor) disappears behind the column; the vermilion circle (double) exits - the amber arrow (the take) never breaks",
+          "info_labels": [
+            {
+              "t": "actor",
+              "x": 18,
+              "y": 80,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "hiding spot",
+              "x": 44,
+              "y": 30,
+              "c": "#141412"
+            },
+            {
+              "t": "stunt double",
+              "x": 70,
+              "y": 80,
+              "c": "#E8480C"
+            },
+            {
+              "t": "one unbroken take",
+              "x": 36,
+              "y": 6,
+              "c": "#A67C00"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-06-4",
+          "kind": "AI NEWS",
+          "headline": "Your coding agent handed out your email",
+          "deck": "A fresh GitHub issue says Claude Code sent a user's email address to websites in its User-Agent header while web-searching - the fix is a privacy mod that blocks it, on by default.",
+          "lead": "A bug report opened on November 5 (issue #107757, labelled bug and security, state open) says Claude Code divulged the reporter's email address to third-party websites in the User-Agent request header while conducting web searches - the reporter says he now receives dozens of scam emails a day. An Anthropic maintainer replied that nobody implemented email-sharing as a feature: models are unpredictable, and sites like Wikipedia ask scripted clients to identify themselves with a contact email, so the model put the user's email into its curl call. The fix is a built-in mod called cc-plugin-privacy that deterministically blocks the behaviour in v2.1.317 and later, enabled by default, now source-available.",
+          "body": "A bug report opened on November 5 (issue #107757, labelled bug and security, state open) says Claude Code divulged the reporter's email address to third-party websites in the User-Agent request header while conducting web searches - the reporter says he now receives dozens of scam emails a day and argues the behaviour should be removed entirely, not made a setting. An Anthropic maintainer replied that nobody implemented email-sharing as a feature: models are unpredictable, and sites like Wikipedia ask scripted clients to identify themselves with a contact email, so when asked to research on Wikipedia the model put the user's email into its curl call. The fix is a built-in mod called cc-plugin-privacy that deterministically blocks the behaviour in v2.1.317 and later, enabled by default, toggleable via /plugins, and now source-available for inspection. The issue references #101659, a subagent variant that sent the user's email from session context, and a commenter dug up the original report #81138 from July - roughly a five-month turnaround to a fix. On Hacker News (~517 points, community colour, not verified claims) the thread filled with 'me too' posts, jokes about blaming the agent, and practical advice: own your harness, or add User-Agent rules to your CLAUDE.md. The takeaway for anyone running coding agents: agents carry pieces of your identity around the web, so update to the latest version and treat deterministic guardrails as non-negotiable.",
+          "ptrs": [
+            "The mechanism: the User-Agent header is a line of text every web request carries saying who is asking; per the maintainer, sites like Wikipedia ask scripted clients to identify with a contact email - so the model filled it with the user's address during web searches.",
+            "The fix: cc-plugin-privacy, a built-in mod in v2.1.317+, deterministically blocks the behaviour; it is on by default, toggleable via /plugins, and its source is now available.",
+            "The trail: the issue references #101659 ('subagent sent the user's email from session context'), and a commenter dug up the original report #81138 from July - roughly a five-month turnaround to a fix.",
+            "The reporter's stance: this should not be an opt-out or opt-in setting but removed entirely; he says he is migrating his company to Pi with OpenRouter. Issue state: open.",
+            "HN discussion (~517 points, community colour): 'me too' posts, jokes ('blame the agent'), and practical advice - own your harness, or add User-Agent rules to your CLAUDE.md.",
+            "The takeaway: agents carry pieces of your identity; update to the latest version and treat deterministic guardrails around model behaviour as non-negotiable."
+          ],
+          "why": "You run coding agents, bro - this is your reminder that when an agent browses the web, it's walking around with YOUR business card in its pocket. Update your tools, and when you build agents yourself, remember: hard rules around what a model can leak beat good intentions every time.",
+          "example": "If you use Claude Code: update to the latest version and run /plugins to confirm cc-plugin-privacy is on - the maintainer says it is enabled by default in v2.1.317 and later, and the check takes ten seconds.",
+          "questions": [
+            {
+              "q": "What did Claude Code leak, and how?",
+              "a": "The user's email address, placed by the model into the User-Agent header of web requests - e.g. when a site like Wikipedia asks scripted clients to identify with a contact email, per the maintainer."
+            },
+            {
+              "q": "What is the fix, and is it on?",
+              "a": "cc-plugin-privacy, a built-in mod in v2.1.317 and later that deterministically blocks the behaviour - enabled by default, toggleable via /plugins, source-available."
+            },
+            {
+              "q": "Was the email-sharing built as a feature?",
+              "a": "Anthropic's maintainer says no - models are unpredictable, which is why deterministic checks around model behaviour matter."
+            }
+          ],
+          "source_name": "GitHub - claude-code issue #107757",
+          "source_url": "https://github.com/anthropics/claude-code/issues/107757",
+          "image": "img/2026-11-06-4.jpg",
+          "image_alt": "Cut-paper plate: an amber envelope flying out of an ink terminal window on a vermilion wind trail into a cobalt spider web",
+          "reading_time": "2 min",
+          "accent": "#141412",
+          "accents": [
+            "#141412",
+            "#2B4BE0",
+            "#E8480C"
+          ],
+          "plain": "When your computer visits a website, it says hello with a little name tag called a User-Agent. An AI coding tool accidentally wrote the user's email address on that name tag, so every site it visited - and later, scammers - got the address. Example: like an assistant who walks into every shop and hands over your business card without asking. The maker has now added an automatic guard that stops it, switched on by default.",
+          "info_image": "img/2026-11-06-4-schematic.jpg",
+          "info_alt": "Diagram: a laptop sends an envelope along a solid cobalt arrow to a globe; a dashed vermilion arrow leaks a second envelope into a net",
+          "info_caption": "Diagram: the solid cobalt arrow is the request you meant to send; the dashed vermilion leak is your email riding along into the net",
+          "info_labels": [
+            {
+              "t": "your agent",
+              "x": 4,
+              "y": 18,
+              "c": "#141412"
+            },
+            {
+              "t": "the request",
+              "x": 40,
+              "y": 10,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "the website",
+              "x": 76,
+              "y": 10,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "your email, leaked",
+              "x": 28,
+              "y": 82,
+              "c": "#E8480C"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-06-5",
+          "kind": "AI NEWS",
+          "headline": "Two brothers, 64 GPUs, $21K",
+          "deck": "Linum, a two-person lab, trained a genuinely decent text-to-image model for $21,038 of compute - and put the Apache 2.0 weights on Hugging Face for everyone.",
+          "lead": "Linum, a research lab of two brothers (Sahil and Manu Chopra), trained a 2-billion-parameter text-to-image model called P-JiT 21K for $21,038 of compute: $20,348 of pretraining (8,139 H100 GPU-hours) plus $690 of post-training (276 hours) at $2.50 per H100-hour on 64 H100s. The weights are out under Apache 2.0 as an experimental research checkpoint - and the Show HN post pulled ~156 points on Hacker News.",
+          "body": "Linum, a research lab of two brothers (Sahil and Manu Chopra), trained a 2-billion-parameter text-to-image model called P-JiT 21K for $21,038 of compute: $20,348 of pretraining (8,139 H100 GPU-hours) plus $690 of post-training (276 hours) at $2.50 per H100-hour on 64 H100s. The weights are out under Apache 2.0 as an experimental research checkpoint - and the Show HN post pulled ~156 points on Hacker News. The trick is the architecture: P-JiT is pixel-space with no VAE, using 32x32 token reduction where most models (e.g. FLUX-2) use 16x16 - a 4x smaller attention context - and it converges in 11x fewer samples than their previous model. Training saw 660M samples total, 610.27M at 512px then 49.97M at 1024px, with a frozen Qwen3.5-4B as the text encoder and 2.18B parameters at sampling. The team is blunt about limits: it cannot render text (that data was filtered out on purpose), and it struggles with full bodies, crowds, multi-person scenes and world knowledge; it is a research checkpoint, not a production model. Why cheap matters: they argue video models are too slow and expensive to be useful creative tools - learning nouns (images) cheaply is the stepping stone to learning verbs (video). Running it locally is not casual: the DiT alone is an 8.7GB fp32 file - bigger than a 6GB-VRAM card - plus a roughly 4B-parameter text encoder, so a 16GB/6GB rig needs quantization or offloading experiments rather than a quick download. The code repo ships a generator and an optional prompt upsampler that needs an OpenRouter key. A fun meta-fact: the model card and repo were drafted by Claude Opus 5.5 from Linum's internal experiment repo - while the blog's words are the humans'.",
+          "ptrs": [
+            "The trick is the architecture: P-JiT is pixel-space with no VAE, using 32x32 token reduction where most models (e.g. FLUX-2) use 16x16 - a 4x smaller attention context, converging in 11x fewer samples than their previous model.",
+            "Training: 660M samples total - 610.27M at 512px, then 49.97M at 1024px - with a frozen Qwen3.5-4B text encoder; 2.18B parameters at sampling.",
+            "Honest limits, per the team: it cannot render text (filtered from training data on purpose), and struggles with full bodies, crowds, multi-person scenes and world knowledge. A research checkpoint, not a production model.",
+            "Why cheap matters: they argue video models are too slow and expensive to be useful creative tools - learning nouns (images) cheaply is the stepping stone to learning verbs (video).",
+            "Can you run it? The DiT alone is an 8.7GB fp32 file - bigger than your 6GB VRAM - plus a ~4B text encoder, so your current 16GB/6GB rig would need quantization or offloading experiments, not a casual download. The code repo ships a generator and an optional prompt upsampler that needs an OpenRouter key.",
+            "Fun meta-fact: the model card and repo were drafted by Claude Opus 5.5 from Linum's internal experiment repo - the blog's words are the humans'."
+          ],
+          "why": "Two brothers. Twenty-one grand. A model whose outputs people liked. Bro, the barrier to 'training your own model' just dropped from movie-budget to car-budget. You won't retrain this tonight (your 6GB card says hi), but reading how they did it is a free masterclass in doing more with less - the exact muscle your projects need.",
+          "example": "Skim their cost table like a receipt: 8,139 H100-hours at $2.50 for pretraining, 276 hours for post-training. If you ever budget a training run for a college project, this is the shape of the math - GPU-hours times price, stage by stage.",
+          "questions": [
+            {
+              "q": "How much did P-JiT 21K cost to train?",
+              "a": "$21,038 total: $20,348 pretraining (8,139 H100-hours) plus $690 post-training (276 hours), at $2.50 per H100-hour on 64 H100s."
+            },
+            {
+              "q": "What makes the architecture efficient?",
+              "a": "It is pixel-space with no VAE and uses 32x32 token reduction (vs the typical 16x16), cutting the attention context 4x and converging in 11x fewer samples than their previous model."
+            },
+            {
+              "q": "Under what license are the weights released?",
+              "a": "Apache 2.0, on Hugging Face - as an experimental research checkpoint, not a production model."
+            }
+          ],
+          "source_name": "Linum Field Notes",
+          "source_url": "https://www.linum.ai/field-notes/pjit-21k",
+          "image": "img/2026-11-06-5.jpg",
+          "image_alt": "Cut-paper bar chart: a very long vermilion bar beside a tiny cobalt sliver on a shared baseline, an amber coin-dot nearby",
+          "image_caption": "Bars to scale: H100 GPU-hours Linum spent pretraining (8,139 h, $20,348) vs post-training (276 h, $690) - $21,038 all in",
+          "reading_time": "2 min",
+          "accent": "#E8480C",
+          "accents": [
+            "#E8480C"
+          ],
+          "plain": "Making a big image AI usually costs as much as making a movie. Two brothers built a decent one for the price of a small car, by designing it to need far less computer time. Example: it's like shooting a film on one reel instead of twenty - you plan every shot. They shared the model free, so anyone can study how."
+        },
+        {
+          "id": "2026-11-06-6",
+          "kind": "TRY THIS",
+          "headline": "The 15-minute roach-motel hunt",
+          "deck": "Tonight's drill: pick one thing you pay for, count the taps to subscribe versus the taps to cancel, and name the pattern you find.",
+          "lead": "Take 15 minutes and audit one subscription you actually pay for - music, OTT, an app. Count how many taps it took to subscribe back then, and how many screens stand between you and the cancel button now. Don't actually cancel - just walk the path, then name what you find using the deceptive.design taxonomy from today's design story.",
+          "body": "Take 15 minutes and audit one subscription you actually pay for - music, OTT, an app. Count how many taps it took to subscribe back then, and how many screens stand between you and the cancel button now. Don't actually cancel - just walk the path, then name what you find using the deceptive.design taxonomy from today's design story. Step 1: pick one paid app or service you use. Step 2: from the home screen, count the taps to reach the cancellation flow - and stop before confirming anything. Step 3: compare with subscribing; if joining was 2-3 taps and leaving is 6+ screens, you have found 'hard to cancel' - 135 documented examples in the taxonomy. Step 4: read the decline buttons - 'No thanks, I hate free money' guilt text is confirmshaming, and surprise fees at the last screen are hidden costs. Step 5: write one sentence naming each pattern you found; naming it is the skill, because designers who can name the trick can refuse to build it. Bonus: check whether cancelling requires a different device than signup - a phone call or a desktop site. That asymmetry is obstruction, another named type.",
+          "ptrs": [
+            "Step 1: pick one paid app or service you use. Step 2: from the home screen, count taps to reach the cancellation flow - stop before confirming anything.",
+            "Step 3: compare with subscribing. If joining was 2-3 taps and leaving is 6+ screens, you've found 'hard to cancel' - 135 documented examples in the taxonomy.",
+            "Step 4: read the decline buttons. 'No thanks, I hate free money' guilt text is confirmshaming. Surprise fees at the last screen are hidden costs.",
+            "Step 5: write one sentence naming each pattern you found. Naming it is the skill - designers who can name the trick can refuse to build it.",
+            "Bonus: check whether cancelling needs a different device than signup (a phone call, a desktop site) - that asymmetry is obstruction, another named type."
+          ],
+          "why": "Bro, companies bet you won't look. Fifteen minutes of looking and you'll never read a checkout screen the same way again - plus it's free UX training for everything you'll ever design.",
+          "example": "A classic find: the app lets you subscribe inside the app in three taps, but the cancel path is Settings -> Plan -> Manage -> a survey -> a discount offer -> a hidden link - 'hard to cancel', with confirmshaming on the buttons.",
+          "questions": [
+            {
+              "q": "What is the core test of the roach-motel hunt?",
+              "a": "Compare the effort to subscribe with the effort to cancel - a big gap means 'hard to cancel'."
+            },
+            {
+              "q": "Do you need to actually cancel anything?",
+              "a": "No - walk the path and count the screens, then stop before confirming."
+            }
+          ],
+          "source_name": "Deceptive Patterns - hard to cancel",
+          "source_url": "https://deceptive.design/types/hard-to-cancel/",
+          "image": "img/2026-11-06-6.jpg",
+          "image_alt": "Cut-paper plate: a stopwatch whose face is a doorway - wide open in cobalt on one side, bricked up in vermilion on the other",
+          "reading_time": "2 min",
+          "accent": "#141412",
+          "accents": [
+            "#141412",
+            "#E8480C",
+            "#2B4BE0"
+          ],
+          "plain": "This is a tiny game: open an app you pay for and pretend you want to cancel. Count how many screens it takes, compared to how easy joining was. Example: if joining took one tap but leaving means climbing six flights of stairs, you've caught the app playing a trick - and catching tricks is how you learn to design honest ones.",
+          "info_image": "img/2026-11-06-6-schematic.jpg",
+          "info_alt": "Diagram: a short two-block cobalt path with a straight amber arrow beside a tall zigzag vermilion path under a magnifying glass",
+          "info_caption": "Diagram: the cobalt column is subscribing (two easy steps); the vermilion zigzag is cancelling (six) - the amber magnifier is you, counting",
+          "info_labels": [
+            {
+              "t": "subscribing",
+              "x": 8,
+              "y": 18,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "cancelling",
+              "x": 58,
+              "y": 10,
+              "c": "#E8480C"
+            },
+            {
+              "t": "you, counting",
+              "x": 52,
+              "y": 82,
+              "c": "#A67C00"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "date": "2026-11-05",
       "number": 19,
       "items": [
