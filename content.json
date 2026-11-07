@@ -2,6 +2,333 @@
   "paper": "The Daily Draft",
   "issues": [
     {
+      "date": "2026-11-07",
+      "number": 21,
+      "items": [
+        {
+          "id": "2026-11-07-1",
+          "kind": "AI TIP",
+          "headline": "Send the intern, keep the expert on call",
+          "deck": "Hightouch graded data with a cheap model first and escalated only the unsure cases to Claude Opus - near-Opus accuracy at over 4x lower cost. The recipe works way beyond their use case.",
+          "lead": "Hightouch tested whether cheap, fast 'decision models' could grade identity-resolution results as well as frontier LLMs, and found the winning setup is a hybrid: let the cheap model (Jev) judge everything, and forward only the cases where its confidence lands in a middle band (30-90%, about 22% of cases) to Claude Opus for a second opinion. The hybrid hit 98.8% accuracy at $0.88 per 1,000 judgements - versus Opus alone at 99.0% and $3.86. On a harder test set the hybrid actually edged Opus alone, 95.3% to 95.1%, at roughly half the cost.",
+          "body": "Hightouch tested whether cheap, fast 'decision models' could grade identity-resolution results as well as frontier LLMs, and found the winning setup is a hybrid: let the cheap model (Jev) judge everything, and forward only the cases where its confidence lands in a middle band (30-90%, about 22% of cases) to Claude Opus for a second opinion. The hybrid hit 98.8% accuracy at $0.88 per 1,000 judgements - versus Opus alone at 99.0% and $3.86. On a harder test set the hybrid actually edged Opus alone, 95.3% to 95.1%, at roughly half the cost. The cast: decision models like Jev and GPT-6 Luna return a 0-1 confidence that a condition is true, cost $0.05-0.10 per 1,000 identities, and answer in about 0.15-0.17 seconds - up to 90x cheaper and 10x+ faster than frontier models, but about 6 percentage points behind on harder benchmarks (88.8-89.1%). The twist is calibration: Jev's mistakes arrive with LOW confidence (honest uncertainty), while Luna is spectacularly overconfident - so a hybrid built on Luna can't find the cases it should escalate and stayed mediocre (91.6%) on hard data. The benchmark itself: 1,000 synthetic identities generated with pseudopeople (a University of Washington tool), half noisy one-person records, half over-merges - no real people - and Hightouch notes costs and latencies are from their own setup and will vary. Their conclusion generalises, in their words, beyond this domain: a calibrated cheap model first, an expensive model as the appeal court, and the system automatically spends more when the data gets harder.",
+          "ptrs": [
+            "The recipe: cheap calibrated model judges everything; only cases with confidence in the 30-90% band (22% of cases) go to Claude Opus - 98.8% accuracy at $0.88/1,000 vs Opus alone's 99.0% at $3.86.",
+            "On harder data the hybrid Jev BEAT Opus alone, 95.3% vs 95.1%, at $2.94 vs $5.39 per 1,000 - it escalated more cases automatically as difficulty rose.",
+            "Decision models (Jev, GPT-6 Luna) return a 0-1 confidence score, cost $0.05-0.10 per 1,000 judgements, answer in ~0.15s - up to 90x cheaper and 10x+ faster than frontier models, trailing ~6 points on hard benchmarks.",
+            "Calibration is the whole game: Jev's mistakes come with low confidence (findable), Luna's come with high confidence (invisible) - so hybrid Luna stayed mediocre (91.6%) on the hard set despite looking better out of the box.",
+            "The test was honest: 1,000 synthetic identities from pseudopeople (University of Washington), no real people; Hightouch says its costs and latencies are from their own setup and will vary.",
+            "HN discussion (~337 points): the post rode the front page as an example of model routing done with receipts - treat the pattern, not the specific models, as the takeaway."
+          ],
+          "why": "Bro, this is how you build AI pipelines on a student budget. Stop paying frontier prices for easy questions. Cheap model handles the pile, expensive model handles the edge cases - your wallet and your accuracy both win. File this under 'things that make your first SaaS affordable.'",
+          "example": "Their concrete dial: run the cheap judge on all 1,000 identities, then forward only the ones with confidence between 30% and 90% to Opus. That 22% slice is where almost all the risk lived - sending everything would have cost $3.86, sending just that slice cost $0.88 for 98.8% of Opus-level accuracy.",
+          "questions": [
+            {
+              "q": "What is a hybrid (cascade) judging setup?",
+              "a": "A cheap, fast model scores everything first; only the cases where its confidence sits in a middle band get escalated to an expensive frontier model for a second opinion."
+            },
+            {
+              "q": "Why did hybrid Jev beat hybrid Luna on hard data?",
+              "a": "Calibration. Jev's mistakes come with low confidence, so the harness can find and escalate them; Luna is overconfident, so its worst mistakes look certain and never get escalated."
+            },
+            {
+              "q": "How much cheaper was the hybrid than Opus alone?",
+              "a": "On the easier test: $0.88 vs $3.86 per 1,000 judgements (over 4x lower) for 98.8% vs 99.0% accuracy; on the harder test, $2.94 vs $5.39 - and the hybrid was slightly MORE accurate."
+            }
+          ],
+          "source_name": "Hightouch blog",
+          "source_url": "https://hightouch.com/blog/llm-judges-identity-resolution",
+          "image": "img/2026-11-07-1.jpg",
+          "image_alt": "Cut-paper plate: a flock of cobalt darts streams through a wide channel while a vermilion gate diverts a few up a narrow path to a large amber star",
+          "reading_time": "2 min",
+          "accent": "#2B4BE0",
+          "accents": [
+            "#2B4BE0",
+            "#F2C200"
+          ],
+          "plain": "Imagine marking exam papers with a friend who's fast but sometimes unsure. He marks everything, and only the papers he's unsure about go to the professor. You get professor-level results without paying the professor for every paper. AI models can work the same way: a cheap one answers everything, a pricey one checks only the doubtful cases - and the trick is picking a cheap model that honestly says 'I'm not sure.'",
+          "info_image": "img/2026-11-07-1-schematic.jpg",
+          "info_alt": "Diagram: ink dots enter a wide cobalt box; most flow straight to a dark outcome circle, a few loop up through a small amber box and rejoin",
+          "info_caption": "Diagram: the cheap model (cobalt box) judges everything; only the unsure dots loop up to the expert (amber box) and rejoin the answers",
+          "info_labels": [
+            {
+              "t": "every question",
+              "x": 2,
+              "y": 45,
+              "c": "#141412"
+            },
+            {
+              "t": "cheap model",
+              "x": 22,
+              "y": 12,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "only the unsure",
+              "x": 48,
+              "y": 2,
+              "c": "#A67C00"
+            },
+            {
+              "t": "expert model",
+              "x": 62,
+              "y": 8,
+              "c": "#A67C00"
+            },
+            {
+              "t": "answers",
+              "x": 84,
+              "y": 45,
+              "c": "#141412"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-07-2",
+          "kind": "DESIGN",
+          "headline": "Repeat yourself, then break it once",
+          "deck": "Rhythm and repetition are how a page teaches its own rules - and the single element that breaks the pattern is the one everyone looks at.",
+          "lead": "The Noun Project's design-principles series puts rhythm, repetition and pattern in one family: repetition of shapes, colours and motifs anchors a design and lends the mind instant familiarity, because the brain is wired to read identical elements as belonging to the same idea. Rhythm is that repetition with pacing - consistent spacing, alignment and placement that guides the eye through a composition like a melody. And the payoff move: once a pattern establishes the rules, breaking it - one different colour, weight or alignment - creates instant hierarchy and demands attention.",
+          "body": "The Noun Project's design-principles series puts rhythm, repetition and pattern in one family. Repetition of shapes, colours and motifs anchors a design and lends the mind instant familiarity, because the brain is wired to read identical elements as belonging to the same idea - a repeated heading style with matching icons makes a whole page more scannable. Rhythm is that repetition with pacing: consistent spacing, alignment and the strategic placement of focal points guide the viewer's gaze through the composition like a melody through a song. Their concrete example is a textbook timeline where every entry, however varied its content, stays evenly spaced, aligned on the same axes, and stylistically consistent in headings, copy, shapes and icons - the consistency lets the mind chunk the information automatically. Pattern, the third sibling, weaves elements into backgrounds, borders and textures that can even suggest endless repetition in all directions. And the payoff move: once a pattern establishes the rules of the visual world, breaking it - one different colour, effect, alignment or visual weight - creates instant hierarchy and demands attention, because the brain swiftly notices an established rule being broken.",
+          "ptrs": [
+            "Repetition anchors: repeated shapes, colours or motifs create unity, and the brain reads identical elements as one concept - like bold headings with matching icons making a resume scannable.",
+            "Rhythm = repetition + pacing: consistent spacing, alignment and focal-point placement pull the eye through the layout like a melody.",
+            "Their timeline example: whatever the content, keep every entry evenly spaced, aligned on the same axes, and stylistically consistent - the mind chunks the information automatically.",
+            "Pattern is the third sibling: repeated motifs as backgrounds, borders and textures can add depth and even a sense of endless expanse.",
+            "The break is the point: after the pattern sets the rules, ONE disrupted element (different colour, weight, alignment) grabs instant attention - that is hierarchy you didn't have to shout for."
+          ],
+          "why": "Bro, your reels and carousel covers live or die on this. Same layout, same type, same colours every post = people recognise you mid-scroll. Then the ONE slide that breaks the pattern? That's where the punchline lands. Consistency builds the brand; the break delivers the hit.",
+          "example": "Their resume example: repeat one bold heading colour with a matching icon for every section - the page becomes scannable in seconds. Then make the ONE section you want recruiters to read first break the pattern (a filled colour block instead of an outline) - it pulls the eye before any reading starts.",
+          "questions": [
+            {
+              "q": "What does repetition actually do for a design?",
+              "a": "It anchors the composition and lends instant familiarity - the brain reads repeated shapes, colours and motifs as parts of one concept, which makes pages scannable and cohesive."
+            },
+            {
+              "q": "How is rhythm different from repetition?",
+              "a": "Rhythm is repetition with pacing - consistent spacing, alignment and placement of focal points that move the eye through the layout like a melody."
+            },
+            {
+              "q": "Why break a pattern you worked to establish?",
+              "a": "Because the brain notices rule-breaking instantly - one disrupted element becomes an automatic focal point, creating hierarchy without shouting."
+            }
+          ],
+          "source_name": "The Noun Project blog",
+          "source_url": "https://blog.thenounproject.com/graphic-design-principles-rhythm-repetition-and-pattern/",
+          "image": "img/2026-11-07-2.jpg",
+          "image_alt": "Cut-paper plate: a row of identical cobalt leaves on thin stems, with one vermilion leaf breaking the rhythm in the middle",
+          "reading_time": "2 min",
+          "accent": "#2B4BE0",
+          "accents": [
+            "#2B4BE0",
+            "#E8480C"
+          ],
+          "plain": "Think of a song with a steady beat - your foot taps along without trying. Pages work the same way: when headings, colours and spacing repeat, your eyes learn the beat and relax. And when one thing suddenly breaks the beat - one red word in a row of black ones - you look straight at it. Designers use the beat to comfort you and the break to point at what matters.",
+          "info_image": "img/2026-11-07-2-schematic.jpg",
+          "info_alt": "Diagram: an amber arrow glides smoothly over a row of identical cobalt blocks, then rises sharply over one taller vermilion block",
+          "info_caption": "Diagram: the eye (amber arrow) cruises the even cobalt rhythm - and jumps at the one vermilion break",
+          "info_labels": [
+            {
+              "t": "steady rhythm",
+              "x": 6,
+              "y": 40,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "the break = attention",
+              "x": 60,
+              "y": 8,
+              "c": "#E8480C"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-07-3",
+          "kind": "ON SCREEN",
+          "headline": "The face didn't change. You did.",
+          "deck": "A century ago Lev Kuleshov proved the same expressionless face reads as hungry, sad or in love depending on the shot next to it - editing writes the emotion, not the actor.",
+          "lead": "The Kuleshov effect is the principle that two shots in sequence create more meaning than either shot alone - the audience derives emotion from the interaction between them. Lev Kuleshov, a Russian filmmaker and one of film's earliest theorists, demonstrated it by cutting the SAME shot of an expressionless man against a child in a casket, a bowl of soup, and a woman on a couch - and audiences read sadness, hunger and lust into a face that never changed.",
+          "body": "The Kuleshov effect is the principle that two shots in sequence create more meaning than either shot alone - the audience derives emotion from the interaction between them. Lev Kuleshov, a Russian filmmaker and one of film's earliest theorists (he posed his question about what makes cinema distinct in 1910, directed his first film in 1917, and taught early Soviet film courses), demonstrated it by cutting the same shot of an expressionless man against a child in a casket, a bowl of soup, and a woman on a couch - and audiences read sadness, hunger and lust into a face that never changed. He believed this interaction of shots is what separates cinema from photography. Hitchcock built on it as 'pure cinema' - close-up, point-of-view, reaction: Rear Window cuts between Jimmy Stewart and what he sees until Stewart complained his performed character read differently on screen, and Psycho's shower scene shows only three frames of a knife piercing flesh, with the cutting between Leigh and the killer creating the horror. Spielberg's signature is the 'Spielberg Face' - a close-up reaction to something unseen, from Close Encounters to Jurassic Park, where reaction shots sell the dinosaurs' scale. The effect also subverts: in Raiders of the Lost Ark, Indy's shocked scan pays off as a sea of baskets identical to the one Marion was taken in. Se7en's box scene, Silence of the Lambs, Inside Out, Arrival and The Dark Knight Rises all lean on the same machine: shots sewn together can manipulate time, space and the viewer's reaction.",
+          "ptrs": [
+            "The demo: the SAME expressionless man cut against a child in a casket, a bowl of soup, and a woman on a couch - audiences swore the face showed sadness, hunger and lust.",
+            "Who: Lev Kuleshov, Russian filmmaker and one of cinema's earliest theorists - posed the question in 1910, first film 1917, taught at the National Film School; he argued the interaction of shots is what separates cinema from photography.",
+            "Hitchcock's upgrade ('pure cinema'): close-up, point-of-view, reaction. Rear Window runs on it (Jimmy Stewart complained the edit changed his performance); Psycho's shower scene shows only three frames of knife meeting flesh.",
+            "Spielberg's version: the 'Spielberg Face' reaction close-up (Close Encounters, Jurassic Park) - reaction shots sell scale and wonder; Raiders subverts it with the sea-of-baskets reveal.",
+            "More proof: Se7en's box scene cuts between contents and wildly different reactions; Inside Out, Arrival, The Dark Knight Rises and Silence of the Lambs all mine the same seam - the edit manipulates time, space and emotion."
+          ],
+          "why": "Bro, this is the cheapest VFX in your reel toolkit: you don't need the thing, you need the REACTION to the thing. Shoot your face once, cut it against two different inserts, and you've directed two different emotions without acting, budget or plugins. Editors are the real puppet masters.",
+          "example": "Kuleshov's own recipe still works as a viewing exercise: watch the Se7en box scene and notice you learn more from each character's reaction than from the box - the sequence is built as reaction, reaction, reaction, and your imagination does the gore.",
+          "questions": [
+            {
+              "q": "What is the Kuleshov effect?",
+              "a": "The principle that two shots in sequence create more meaning than either alone - viewers derive emotion from the interaction, reading feelings into an unchanged face based on the neighbouring shot."
+            },
+            {
+              "q": "What were Kuleshov's three pairings, and what did audiences read?",
+              "a": "The same man's face with a child in a casket (sadness), a bowl of soup (hunger), and a woman on a couch (lust)."
+            },
+            {
+              "q": "What was Hitchcock's 'pure cinema' formula?",
+              "a": "Close-up, point-of-view, reaction - implying the emotion comes less from the actor's blank slate and more from what the character is shown to see."
+            }
+          ],
+          "source_name": "Nashville Film Institute",
+          "source_url": "https://www.nfi.edu/kuleshov-effect/",
+          "image": "img/2026-11-07-3.jpg",
+          "image_alt": "Cut-paper plate: one identical ink frame shown twice - beside one an amber steaming bowl, beside the other a drooping vermilion flower, cobalt swirls linking each pair",
+          "reading_time": "2 min",
+          "accent": "#F2C200",
+          "accents": [
+            "#F2C200",
+            "#141412",
+            "#E8480C"
+          ],
+          "plain": "Show someone a photo of your blank face next to a pizza, and they'll swear you look hungry. Show the SAME photo next to a rainy window, and they'll say you look sad. Filmmakers discovered this a hundred years ago: the meaning isn't in the face, it's in what sits next to it. Editing is how movies put feelings in your head.",
+          "info_image": "img/2026-11-07-3-schematic.jpg",
+          "info_alt": "Diagram: the same ink square appears in two rows - joined with an amber bowl it points to a warm circle, joined with a vermilion wilted flower it points to a cool circle",
+          "info_caption": "Diagram: same first shot (ink square) both rows - pair it with the bowl and you get one meaning (amber), with the flower another (cobalt)",
+          "info_labels": [
+            {
+              "t": "same shot, both rows",
+              "x": 2,
+              "y": 45,
+              "c": "#141412"
+            },
+            {
+              "t": "shot B: soup",
+              "x": 40,
+              "y": 8,
+              "c": "#A67C00"
+            },
+            {
+              "t": "meaning: hunger",
+              "x": 76,
+              "y": 12,
+              "c": "#A67C00"
+            },
+            {
+              "t": "shot B: wilted flower",
+              "x": 38,
+              "y": 78,
+              "c": "#E8480C"
+            },
+            {
+              "t": "meaning: sadness",
+              "x": 76,
+              "y": 80,
+              "c": "#2B4BE0"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-07-4",
+          "kind": "AI NEWS",
+          "headline": "Fifteen seconds, thirty percent off",
+          "deck": "Google's Gemini Omni 1.2 Flash stretches AI video to 15-second clips, cuts the price 30% to $0.07 a second, and lets you edit a clip by chatting instead of re-generating.",
+          "lead": "Google has made Gemini Omni 1.2 Flash generally available on the Gemini API and Google Cloud: native 15-second video generation (up from 10 seconds on Omni 1.1), a 30% price cut to $0.07 per second for 720p, and multi-turn conversational editing so you fix a detail in the same clip instead of starting over. It also promises stronger reference adherence - faces, garments, packaging typography and brand colours staying consistent across camera angles - and outputs carry an imperceptible SynthID watermark.",
+          "body": "Google has made Gemini Omni 1.2 Flash generally available on the Gemini API and Google Cloud: native 15-second video generation (up from 10 seconds on Omni 1.1, settable in one-second increments from 3 to 15), a 30% price cut to $0.07 per second for 720p, and multi-turn conversational editing so you fix a detail in the same clip instead of starting over. Reference adherence is the headline capability: you can guide generation with character, product or style images, short motion clips up to three seconds, and audio cues - and faces, garments, packaging typography and brand colours hold across camera angles, enabling virtual try-ons, catalog spins and branded ad variants. Google also claims stronger frame-to-frame consistency with less drift, more natural multi-speaker dialogue with clearer lip-sync, and more controllable camera moves (sweeping FPV flythroughs with fewer unwanted jump cuts). The cost workflow is draft-at-360p-or-720p, fix-by-follow-up, then upscale winners to 1080p or 4K; outputs carry an imperceptible SynthID watermark, and Provisioned Throughput is available for enterprises. Where to use it: prototype in Google AI Studio, direct in Flow, generate 15-second clips at no additional cost in Google Vids with a Google account or Workspace subscription, in the Gemini app for AI Ultra subscribers, and in Google Ads. Google's own honesty box: fast sports action, rapid script changes and complex physics are still being improved. The launch post rode the Hacker News front page (~297 points, community colour).",
+          "ptrs": [
+            "The numbers: clips up to 15 seconds natively (Omni 1.1 topped at 10), settable in 1-second steps from 3-15; price cut 30% to $0.07 per second for 720p - so a full 15-second 720p clip works out to $1.05 by simple multiplication.",
+            "Multi-turn conversational editing: swap a product, background, lighting, weather or aspect ratio in the SAME clip turn by turn, instead of re-generating - cheaper and faster iterations.",
+            "Reference adherence: feed character, product or style images, motion clips up to 3 seconds, and audio cues - faces, garments, packaging typography and brand colours stay consistent across angles (virtual try-ons, catalog spins, ad variants).",
+            "Also claimed: stronger first-to-last-frame consistency with less morphing, more natural multi-speaker dialogue and lip-sync, and cinematic camera moves (FPV flythroughs) with fewer jump cuts.",
+            "Where you can touch it: Google AI Studio (prototype), Flow (directing), Google Vids (15s clips at no additional cost with a Google account or Workspace), the Gemini app (AI Ultra subscribers), Google Ads; outputs carry an invisible SynthID watermark.",
+            "Honesty box, from Google itself: fast sports action, rapid script changes and complex physics are still works in progress. HN discussion: ~297 points on the front page (community colour, not verified claims)."
+          ],
+          "why": "Bro, 15 seconds is EXACTLY reel length, and Google Vids lets a regular Google account generate clips at no additional cost - that's a free ticket to test AI B-roll for your content tonight. The paid API math is friendly too: $0.07 a second means a full 15-second 720p clip is about a dollar. The creator-tool arms race just handed you a new weapon.",
+          "example": "A concrete workflow from Google's own playbook: draft your clip at 360p or 720p, fix the one wrong detail with a follow-up chat edit ('make the background a forest') instead of re-generating, then upscale the winner to 1080p or 4K - the cheapest path from idea to finished shot.",
+          "questions": [
+            {
+              "q": "What's new about clip length in Omni 1.2 Flash?",
+              "a": "Native generation up to 15 seconds, up from 10 seconds in Omni 1.1 - settable in one-second increments from 3 to 15."
+            },
+            {
+              "q": "What does it cost?",
+              "a": "$0.07 per second for 720p (a 30% cut from Omni 1.1) on the API; Google Vids offers 15-second clips at no additional cost with a Google account or Workspace subscription."
+            },
+            {
+              "q": "What is multi-turn conversational editing?",
+              "a": "Refining the same clip turn by turn - swap a product, background, lighting or aspect ratio by chatting - instead of starting the generation over from scratch."
+            }
+          ],
+          "source_name": "Google Keyword blog",
+          "source_url": "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash/",
+          "image": "img/2026-11-07-4.jpg",
+          "image_alt": "Cut-paper bar chart: a cobalt bar beside a vermilion bar exactly one and a half times as long, with a small amber film-strip motif",
+          "image_caption": "Bars to scale: max clip length - cobalt: Omni 1.1, 10 s · vermilion: Omni 1.2 Flash, 15 s (price also cut 30% to $0.07/s)",
+          "reading_time": "2 min",
+          "accent": "#E8480C",
+          "accents": [
+            "#E8480C",
+            "#2B4BE0"
+          ],
+          "plain": "Making a video with AI used to mean paying for a whole new clip every time you wanted a small change - like re-shooting a scene because one prop was wrong. Google's new model lets you just tell the same clip what to fix, keeps clips consistent for 15 seconds, and charges less per second. Example: change the background from a beach to a forest by typing one sentence, no re-do."
+        },
+        {
+          "id": "2026-11-07-5",
+          "kind": "TRY THIS",
+          "headline": "The three-shot face test",
+          "deck": "Tonight's drill: recreate Kuleshov's century-old experiment with your phone - one neutral clip, two different neighbours, two different emotions.",
+          "lead": "Run the Kuleshov demonstration yourself in about ten minutes. Film one 3-second clip of your own neutral, expressionless face (or use a still photo). Then cut it into two mini-sequences: face, then a shot of food; and face, then a shot of something gloomy like rain on a window. Show both to a friend without explanation and ask what the face is 'feeling' in each.",
+          "body": "Run the Kuleshov demonstration yourself in about ten minutes. Film one 3-second clip of your own neutral, expressionless face (or use a still photo). Then cut it into two mini-sequences: face, then a shot of food; and face, then a shot of something gloomy like rain on a window. Show both to a friend without explanation and ask what the face is 'feeling' in each. Step 1: shoot the neutral clip - same framing, same lighting, zero expression, looking just past the lens. Step 2: shoot or find two inserts, one appetising (a plate of food, echoing Kuleshov's soup bowl) and one sombre (rain, a wilting plant, an empty chair). Step 3: in any free editor - your phone's built-in one is fine - assemble clip A: face, insert one; clip B: face, insert two. Step 4: screen both for a friend separately and ask one question: 'what's he feeling?' Compare the answers. Kuleshov's audiences read hunger and sadness into a face that never changed - watch how close your friend's readings land to the inserts you chose. Step 5: keep the clips - they're a two-minute portfolio piece proving you understand that editing, not acting, wrote the emotion.",
+          "ptrs": [
+            "Step 1: shoot one 3-second neutral clip of your face - same framing, same light, zero expression, eyes just past the lens (a still photo works too).",
+            "Step 2: get two inserts - one appetising (a plate of food, echoing Kuleshov's soup bowl) and one sombre (rain on a window, a wilting plant, an empty chair).",
+            "Step 3: in any free phone editor, cut clip A (face, food) and clip B (face, gloom) - same face in both.",
+            "Step 4: show a friend each version cold and ask 'what's he feeling?' Kuleshov's audiences read hunger and sadness into an unchanged face - see where your friend's readings land.",
+            "Step 5: keep the pair as a two-minute portfolio piece - proof you understand that the edit, not the actor, wrote the emotion."
+          ],
+          "why": "Bro, this is a party trick AND a directing credential in one. Ten minutes, zero rupees, and you've demonstrated the deepest idea in editing - on your own phone, with your own face. Try it before the next family dinner; thank me after.",
+          "example": "The structure mirrors Kuleshov's original: his same-face-plus-soup read as hunger and same-face-plus-casket read as sadness. Your version swaps in a plate of food and a rainy window - the modern fridge-to-window edition of the same experiment.",
+          "questions": [
+            {
+              "q": "What do you need for the three-shot face test?",
+              "a": "One neutral 3-second face clip (or still photo), two contrasting inserts (appetising and sombre), any free phone editor, and one unsuspecting friend."
+            },
+            {
+              "q": "What proves the effect worked?",
+              "a": "If your friend reads different emotions into the SAME face depending on which insert follows it - hunger near food, sadness near rain - the edit, not the acting, did the work."
+            }
+          ],
+          "source_name": "Nashville Film Institute",
+          "source_url": "https://www.nfi.edu/kuleshov-effect/",
+          "image": "img/2026-11-07-5.jpg",
+          "image_alt": "Cut-paper plate: a cobalt smartphone on an ink tripod filming a tabletop with a steaming amber bowl and a drooping flower in a vermilion pot",
+          "reading_time": "2 min",
+          "accent": "#2B4BE0",
+          "accents": [
+            "#2B4BE0",
+            "#F2C200",
+            "#141412"
+          ],
+          "plain": "This is a ten-minute magic trick. Film your blank face once, then put it next to a pizza shot in one video and a rainy-window shot in another. Ask a friend what you're feeling in each - the answers will be different even though your face never changed. You just directed an emotion with scissors.",
+          "info_image": "img/2026-11-07-5-schematic.jpg",
+          "info_alt": "Diagram: a cobalt phone on the left splits into two film strips - the top strip pairs an ink square with an amber bowl, the bottom pairs the same square with a vermilion flower",
+          "info_caption": "Diagram: one phone clip, two cuts - top strip pairs your face with the bowl, bottom strip with the flower; each ends in a different reading",
+          "info_labels": [
+            {
+              "t": "one neutral clip",
+              "x": 2,
+              "y": 45,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "cut A: face + food",
+              "x": 38,
+              "y": 12,
+              "c": "#A67C00"
+            },
+            {
+              "t": "cut B: face + gloom",
+              "x": 38,
+              "y": 80,
+              "c": "#E8480C"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "date": "2026-11-06",
       "number": 20,
       "items": [
