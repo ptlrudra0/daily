@@ -2,6 +2,374 @@
  "paper": "The Daily Draft",
  "issues": [
   {
+   "date": "2026-11-09",
+   "number": 23,
+   "items": [
+    {
+     "id": "2026-11-09-1",
+     "kind": "AI TIP",
+     "headline": "Your RAM is the GPU you forgot",
+     "deck": "A new open-source project runs a 284-billion-parameter model on a plain 64GB CPU box - no GPU at all - and 30B models on ordinary 16-32GB machines. The trick is savage quantization plus CPU-cache wizardry. One of its models fits your rig TODAY.",
+     "lead": "llama-modchip, a brand-new open-source project (Apache 2.0), patches llama.cpp to run sparse Mixture-of-Experts models entirely in system RAM: its headline act squeezes DeepSeek-V4-Flash's 284.33B parameters (only 13.17B active per token) into a 56.56 GiB file that runs on a 64GB CPU-only machine at 9.1-14.7 tokens/second. More relevant to you: its 30B model tier targets ordinary 16-32GB machines, and its 8B model fits comfortably today.",
+     "body": "llama-modchip, a brand-new open-source project (Apache 2.0), patches llama.cpp to run sparse Mixture-of-Experts models entirely in system RAM: its headline act squeezes DeepSeek-V4-Flash's 284.33B parameters (only 13.17B active per token) into a 56.56 GiB file that runs on a 64GB CPU-only machine at 9.1-14.7 tokens/second. More relevant to you: its 30B model tier targets ordinary 16-32GB machines, and its 8B model fits comfortably today. The recipe has three parts. First, brutal but careful quantization: the 284B checkpoint is compressed to 1.71 bits per weight on average (routed experts at 1.5625 bpw, sensitive layers kept higher), shrinking it from 76.87 GiB to 56.56 GiB so model plus a 256K-token context lock into 64GB of RAM with zero swap. Second, CPU kernel patches that tile the math across registers and L1/L2/L3 caches, lifting prompt processing on a 16-core Zen 5 from 25.0 to 44.36 tok/s (+77%). Third, a tiny 1.64 MB n-gram 'drafter' (borrowed from chess-engine thinking) that guesses tokens ahead for the big model to verify, plus 13-32 millisecond snapshots that restore a whole agent session's memory near-instantly. The model menu by hardware: Nemotron-H-8B (dense, 4.60-8.00 GiB) fits your current 16GB RAM easily, and its 4.6 GiB Q4 file is smaller than your 6GB of VRAM - though the project's verified all-GPU setups are 8-11GB cards. The 30B MoEs (Nemotron-3.5-30B, Qwen3-30B at 14.35-17.6 GiB) are classed for 16-32GB machines: on your current 16GB with Windows running that's the razor's edge, and on the 32GB you're considering it becomes comfortable - author-reported speeds are 25.0-60.4 tok/s on a 16-core Ryzen 9 9955HX. The 284B needs 64GB, beyond even your planned upgrade. There's a Windows 10/11 pack that auto-detects cores, RAM and VRAM and splits the model between GPU and CPU RAM. Caveats: the custom Fractal-64 quantization uses a tensor type stock llama.cpp, Ollama and LM Studio refuse, so you must use the project's own binary; it's a one-month-old, mostly single-author repo, so treat its benchmarks as author-reported; and your CPU is unknown, so expect slower than the Zen 5 numbers.",
+     "ptrs": [
+      "The headline trick: DeepSeek-V4-Flash (284.33B params, 13.17B active) quantized to 56.56 GiB (1.71 bits/weight avg) runs on 64GB CPU-only at 9.1-14.7 tok/s decode, 43-44 tok/s prefill - zero GPUs, zero swap, 256K context.",
+      "How: aggressive quantization (routed experts at 1.5625 bpw, sensitive layers preserved higher), 4-level register/L1/L2/L3 cache-tiled CPU kernels (+77% prefill), a 1.64 MB speculative 'drafter', and 13-32ms session restore snapshots.",
+      "What fits YOUR rig today: Nemotron-H-8B at 4.60-8.00 GiB slides into 16GB RAM easily; the 4.6 GiB Q4 file is under your 6GB VRAM, though the project's verified all-GPU setups are 8-11GB cards.",
+      "The 30B MoEs (14.35-17.6 GiB) are the 16-32GB tier: razor's edge on your current 16GB Windows setup, comfortable on the 32GB you're considering. The 284B needs 64GB - beyond the planned upgrade.",
+      "Windows is supported: a Windows 10/11 pack detects cores, RAM and VRAM and splits the model across GPU and CPU RAM automatically.",
+      "Caveats: Fractal-64 files use a custom tensor type that stock llama.cpp/Ollama/LM Studio reject (use the project's binary); the repo is one month old and mostly single-author, so benchmarks are author-reported; speeds quoted are from a 16-core Zen 5 and yours will vary. HN discussion: ~365 points."
+     ],
+     "why": "Bro, everyone told you local AI needs a fat GPU. This project says the RAM you already have is the real playground - an 8B model runs on your machine tonight, free, no API bill, no queue. And if you do bump to 32GB, a whole 30B tier unlocks. That's not an upgrade, that's an unlockable character.",
+     "example": "Concrete tonight experiment: grab the Nemotron-H-8B build (4.6 GiB), run the project's Windows pack, and you have a private chat model answering from your own machine - the same file size as two phone photos per parameter-short model, zero API key.",
+     "questions": [
+      {
+       "q": "How does a 284B model fit in 64GB of RAM?",
+       "a": "Two tricks: only 13.17B of its parameters are active per token (Mixture-of-Experts), and the whole checkpoint is quantized to about 1.71 bits per weight - a 56.56 GiB file that locks into RAM with zero swap."
+      },
+      {
+       "q": "Which tier fits Rudy's current 16GB RAM and 6GB VRAM?",
+       "a": "The 8B dense model (4.60-8.00 GiB) fits easily in RAM; the 30B tier is the razor's edge on 16GB and comfortable on 32GB; the 284B needs 64GB."
+      },
+      {
+       "q": "Why can't you just load these files in Ollama?",
+       "a": "The custom Fractal-64 quantization uses a tensor type (Q2_0, ID 40) that stock llama.cpp, Ollama and LM Studio reject - you need the project's own patched binary."
+      }
+     ],
+     "plain": "Big AI models are like libraries: you don't need every book open at once, just the right shelf. These models keep most 'books' compressed tiny and only pull out the shelf needed for each word. That's why a huge model can live in ordinary computer memory instead of an expensive graphics card.",
+     "source_name": "llama-modchip (GitHub)",
+     "source_url": "https://github.com/synchopate/llama-modchip",
+     "reading_time": "2 min",
+     "image_caption": "Bars to scale (model file size): Nemotron-H-8B 4.6 GiB - Nemotron-3.5-30B 14.35 GiB - DeepSeek-V4-Flash 284B 56.56 GiB",
+     "accent": "#141412",
+     "accents": [
+      "#141412",
+      "#E8480C"
+     ],
+     "image": "img/2026-11-09-1.jpg",
+     "image_alt": "Cut-paper bar chart: a small cobalt bar, a vermilion bar three times taller, and an ink bar towering off the top of the frame."
+    },
+    {
+     "id": "2026-11-09-2",
+     "kind": "DESIGN",
+     "headline": "Measure twice, cut once, render first",
+     "deck": "KetchUp is a free, open-source 3D modeling app for furniture and woodworking - draw a rectangle, pull it into a board, orbit around your table before you buy a single plank. Runs in your browser or as a Windows app, no account, MIT license.",
+     "lead": "KetchUp is a free, open-source 3D modeling app (MIT license, written in Rust) for planning woodworking and furniture projects with exact measurements before you build. It runs in a desktop browser (WebGPU or WebGL2) or as a native Windows, macOS or Linux app - no account, no cloud, no subscription.",
+     "body": "KetchUp is a free, open-source 3D modeling app (MIT license, written in Rust) for planning woodworking and furniture projects with exact measurements before you build. It runs in a desktop browser (WebGPU or WebGL2) or as a native Windows, macOS or Linux app - no account, no cloud, no subscription. The workflow is deliberately simple: draw lines, rectangles, circles or freehand outlines on the ground plane; use Push/Pull to turn faces into solid forms; then move, scale, offset and paint. Precision is the point: you snap to geometry and axes, type exact lengths, and check the result with Tape Measure and Dimensions tools. Bigger projects stay organized with groups, reusable components and tags, and you orbit around the assembly to review proportions before taking it to the workshop. Your work autosaves locally on your device, and File > Save downloads a portable .ketchup project you can keep (clearing browser data can erase autosaved work, so download what matters). It imports SketchUp (.skp) geometry - textures, scenes and some model features aren't supported - and exports Wavefront OBJ geometry without materials, so it slots into a bigger 3D pipeline. The name is a wink at SketchUp, and the HN crowd (~199 points) received it as an open-source SketchUp alternative; the tradeoffs are real too - it's early (v0.6.5), aimed at desktop with mouse and keyboard, and focused on furniture-scale work rather than everything SketchUp does. For a first project, the site's own starter is three steps: draw a rectangle, Push/Pull it into depth, then Orbit (press F to fit) and look at your creation from every side.",
+     "ptrs": [
+      "What it is: free, open-source (MIT, Rust) 3D modeling for woodworking and furniture - shelves, tables, cabinets, workbenches - with exact measurements.",
+      "Where it runs: desktop browser with WebGPU/WebGL2, or native Windows, macOS and Linux apps; no account, no cloud; autosaves locally, download portable .ketchup files to keep.",
+      "Core workflow: draw rectangles/lines/circles, Push/Pull faces into solid forms, move/scale/offset/paint; snap to axes, type exact lengths, check with Tape Measure and Dimensions.",
+      "Organization: groups, reusable components, tags; orbit the assembly to check proportions before cutting anything.",
+      "Interop and limits: imports SketchUp .skp geometry (textures/scenes/some features unsupported), exports OBJ without materials; early version (v0.6.5), desktop + mouse focused.",
+      "HN received it (~199 points) as an open-source SketchUp alternative - the free price is real, the feature gap versus full SketchUp is too."
+     ],
+     "why": "You keep designing in 2D, bro - flat layouts, flat thumbnails. This is your free ticket to thinking in 3D space, which shows up everywhere: game assets, product mockups, agency pitch visuals. Zero rupees, no signup, runs on your PC tonight.",
+     "example": "The site's own starter project: draw one rectangle on the ground plane, choose Push/Pull and drag it into a solid block, then Orbit (press F to fit) - three steps from empty canvas to a 3D object you can inspect from every angle.",
+     "questions": [
+      {
+       "q": "What does KetchUp cost and what does it need to run?",
+       "a": "It's free and open source (MIT). It runs in a desktop browser with WebGPU/WebGL2 or as a native Windows/macOS/Linux app - no account needed."
+      },
+      {
+       "q": "What is Push/Pull?",
+       "a": "KetchUp's core move: draw a flat face (like a rectangle), then pull it outward to give it thickness and turn it into a solid 3D form."
+      },
+      {
+       "q": "Can it open SketchUp files?",
+       "a": "It imports .skp geometry, but textures, scenes and some model features aren't supported; it exports OBJ geometry without materials."
+      }
+     ],
+     "plain": "Imagine drawing a square on paper, then grabbing its edge and pulling it up into a real cardboard box - that's the whole idea of 3D modeling here. You sketch flat shapes, stretch them into solid boards, and walk around your furniture on screen before spending money on wood.",
+     "source_name": "KetchUp",
+     "source_url": "https://ketchup3d.github.io/app/",
+     "reading_time": "2 min",
+     "info_caption": "Diagram: draw a flat rectangle, pull it into a solid board, orbit to inspect - the three-step starter.",
+     "accent": "#E8480C",
+     "accents": [
+      "#E8480C",
+      "#2B4BE0",
+      "#F2C200"
+     ],
+     "image": "img/2026-11-09-2.jpg",
+     "image_alt": "Cut-paper workshop with a half-assembled table, a finished chair, a leaning ruler, a handsaw and boards.",
+     "info_image": "img/2026-11-09-2-schematic.jpg",
+     "info_alt": "Diagram of three steps: a flat rectangle outline, an arrow to it pulled into a solid box, an arrow to the box orbited at an angle.",
+     "info_labels": [
+      {
+       "t": "draw",
+       "x": 10,
+       "y": 84,
+       "c": "#141412"
+      },
+      {
+       "t": "push/pull",
+       "x": 40,
+       "y": 84,
+       "c": "#E8480C"
+      },
+      {
+       "t": "orbit",
+       "x": 72,
+       "y": 84,
+       "c": "#2B4BE0"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-09-3",
+     "kind": "ON SCREEN",
+     "headline": "Tilt the camera, tilt the mood",
+     "deck": "One small rotation - camera rolled off level - and a normal room feels wrong. The Dutch angle is cinema's cheapest unease machine, and its name is a 100-year-old translation mistake. Here's when it works and when it just looks like a tripod accident.",
+     "lead": "The Dutch angle - also called Dutch tilt, canted or oblique angle - is a shot where the camera is rolled off its level axis so the whole frame sits off-kilter, making viewers feel like their heads are tilted. Filmmakers use it to pour unease, tension and disorientation into a scene without changing anything else.",
+     "body": "The Dutch angle - also called Dutch tilt, canted or oblique angle - is a shot where the camera is rolled off its level axis so the whole frame sits off-kilter, making viewers feel like their heads are tilted. Filmmakers use it to pour unease, tension and disorientation into a scene without changing anything else. The name is a historical accident: Soviet filmmaker Dziga Vertov used the tilt famously in 1929's Man With a Movie Camera, and German Expressionist horror The Cabinet of Dr. Caligari (1920) made it part of its twisted visual style - 'Deutsch' (German) got mistranslated into 'Dutch', and the wrong name stuck for a century. What it does to an audience: portrays uneasiness and tension, puts viewers on edge, builds a dark or ominous mood, and heightens emotion, especially in close-up - a character in peril or discovering something disturbing feels abstract, subjective, disoriented, all from slanting the camera a little. It's also a deliberate exception to Roger Deakins' rule that the best cinematography doesn't stand out but fits within the movie: the Dutch angle wants to push viewers out of their comfort zone. The craft rules: use it sparingly, because the shot loses weight in every extra scene; vary the degrees of tilt - a small cant reads as quietly uncanny, a steep one as full chaos; try different focal lengths (wide, medium, close) and don't be afraid to move the camera while tilted; test the frame, because tilting picks up background you didn't plan; and think about the shots before and after, since the tilt only lands if the edit makes it disruptive. Famous uses: 1966's Batman ran it as a visual pun - every villain's lair sat crooked; Sam Raimi sells Ash's chaos with it in Evil Dead II; Brian De Palma's Mission: Impossible (1996) steepens the tilts mid-conversation as things turn worse; Inception tilted a whole hallway fight; Fear and Loathing in Las Vegas weaponized it for drug sequences.",
+     "ptrs": [
+      "Definition: camera rolled off its level axis - the frame sits canted and viewers feel like their own head is tilted; also called Dutch tilt, canted or oblique angle.",
+      "Effect: unease, tension, ominous mood, disorientation - strongest in close-up, when a character is in peril or discovering something disturbing.",
+      "Name origin: used famously by Dziga Vertov (Man With a Movie Camera, 1929) and German Expressionism (The Cabinet of Dr. Caligari, 1920) - 'Deutsch' (German) was mistranslated as 'Dutch'.",
+      "Craft rules: use sparingly; vary tilt degrees (small = uncanny, steep = chaos); try wide/medium/close focal lengths; movement while tilted adds to it; test for surprise background; consider the shots before and after in the edit.",
+      "Canon examples: Batman (1966) tilted every villain lair as a visual pun; Evil Dead II sells chaos; Mission: Impossible (1996) steepens the tilt as a conversation turns; Inception's hallway fight; Fear and Loathing's drug scenes.",
+      "The Deakins tension: his rule says the best cinematography fits the movie without standing out - the Dutch angle is the sanctioned exception."
+     ],
+     "why": "Bro, your reels cut fast but they all sit LEVEL. One 15-degree tilt on the frame where the tutorial goes wrong - 'the bug appears' - and your viewers FEEL it before you say a word. Free production value, zero plugins, just rotate the phone.",
+     "example": "Mission: Impossible (1996): a conversation between Ethan Hunt and his handler starts with a mild tilt and the angle gets steeper as the news gets worse - the camera's lean IS the rising dread, no dialogue needed.",
+     "questions": [
+      {
+       "q": "What is a Dutch angle?",
+       "a": "A shot where the camera is rolled off its level axis so the frame sits off-kilter - used to create unease, tension and disorientation."
+      },
+      {
+       "q": "Why is it called 'Dutch'?",
+       "a": "It's a mistranslation: the style came from German cinema ('Deutsch'), and 'Deutsch' was mistranslated as 'Dutch'."
+      },
+      {
+       "q": "What's the main craft rule?",
+       "a": "Use it sparingly - the shot loses its weight if it appears in too many scenes, so save it for genuinely heightened moments."
+      }
+     ],
+     "plain": "Hold your phone perfectly straight and film a doorway - it looks normal. Now tilt your hand sideways and film it again: same doorway, but suddenly it feels like something is wrong. Filmmakers use that tilt on purpose to make you nervous without any monsters at all.",
+     "source_name": "Backstage",
+     "source_url": "https://www.backstage.com/magazine/article/what-is-a-dutch-angle-75629/",
+     "reading_time": "2 min",
+     "info_caption": "Diagram: level camera, level horizon - tilt the camera and every line in the frame leans with it.",
+     "accent": "#141412",
+     "accents": [
+      "#141412",
+      "#E8480C",
+      "#2B4BE0"
+     ],
+     "image": "img/2026-11-09-3.jpg",
+     "image_alt": "An upright picture frame containing a steeply tilted room with slanted door, lamp and rug.",
+     "info_image": "img/2026-11-09-3-schematic.jpg",
+     "info_alt": "Diagram of two panels: a level camera over a straight horizon, then a tilted camera with rotation arrow over a slanted horizon.",
+     "info_labels": [
+      {
+       "t": "level",
+       "x": 16,
+       "y": 88,
+       "c": "#2B4BE0"
+      },
+      {
+       "t": "tilted",
+       "x": 64,
+       "y": 88,
+       "c": "#E8480C"
+      },
+      {
+       "t": "camera",
+       "x": 30,
+       "y": 8,
+       "c": "#141412"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-09-4",
+     "kind": "AI NEWS",
+     "headline": "Nvidia's board opens an investigation",
+     "deck": "Nvidia's board has launched an independent investigation after reports that CEO Jensen Huang was the target of a foreign intelligence effort - and an email to staff, seen by Axios, in which Huang admits a relationship with a suspected spy. He stays CEO; the board says nothing was compromised. Here's what's confirmed versus claimed.",
+     "lead": "Nvidia's Board of Directors announced on November 8 that it is initiating an independent investigation 'in light of recent reporting that founder and CEO Jensen Huang has been the target of a foreign intelligence effort.' The same day, Axios published what it says is Huang's email to staff, in which he admits being unfaithful to his wife in a relationship with someone Axios describes as a suspected Chinese spy, apologizes to his family, and pledges to cooperate with the investigation.",
+     "body": "Nvidia's Board of Directors announced on November 8 that it is initiating an independent investigation 'in light of recent reporting that founder and CEO Jensen Huang has been the target of a foreign intelligence effort.' The same day, Axios published what it says is Huang's email to staff, in which he admits being unfaithful to his wife in a relationship with someone Axios describes as a suspected Chinese spy, apologizes to his family, and pledges to cooperate with the investigation. The board's statement says a committee of independent directors, assisted by outside independent counsel, will oversee the inquiry, and that while it 'has no reason to believe that either national security or NVIDIA secrets were compromised,' it will examine all available information. It adds that Huang fully supports the review and that the board 'has confidence in Jensen and his leadership team.' In the email Axios quotes, Huang tells staff the board has opened the investigation, says 'I support the investigation and will cooperate fully,' declares 'I love our country and our company... I am proud and grateful to be an American,' and asks for privacy for his family, who he says bear no responsibility. Nvidia spokesperson John Rizzo told Axios: 'Today's news will not slow NVIDIA. Jensen is committed to continuing to lead NVIDIA as CEO without interruption.' So the state of play: what is confirmed is the board's investigation and its stated confidence; what is reported-but-not-proven is the intelligence angle, which the board attributes to 'recent reporting'; and the personal admission rests on an email Axios says it has seen. Two HN threads (~383 and ~349 points) debated what this means for Nvidia and for CEO security vetting generally - community reaction, not verified fact.",
+     "ptrs": [
+      "Confirmed by Nvidia's board (Nov 8): an independent investigation - independent directors plus outside counsel - into reporting that Jensen Huang 'has been the target of a foreign intelligence effort.'",
+      "The board says it has 'no reason to believe' national security or NVIDIA secrets were compromised, that Huang supports and will cooperate with the review, and that it 'has confidence in Jensen and his leadership team.'",
+      "Reported by Axios: an email to staff in which Huang admits an extramarital relationship with someone Axios describes as a suspected Chinese spy, apologizes to his family, and pledges full cooperation - Axios says it has seen the email.",
+      "Nvidia spokesperson John Rizzo: 'Today's news will not slow NVIDIA. Jensen is committed to continuing to lead NVIDIA as CEO without interruption.'",
+      "Read the layers carefully: the investigation and board confidence are official; the intelligence-effort claim is attributed to 'recent reporting'; the personal admission rests on Axios's seen-but-unpublished email.",
+      "HN ran two threads (~383 and ~349 points) debating implications for Nvidia and executive security vetting - community colour, not confirmation."
+     ],
+     "why": "This is the biggest company in AI hardware having its biggest governance moment, and it's a masterclass in reading corporate statements, bro: notice how every sentence in the board's note is lawyered - 'no reason to believe' is not 'did not happen'. Learning to parse that language is a life skill for following this industry.",
+     "example": "Compare the two documents side by side: the board statement attributes the intelligence claim to 'recent reporting' and emphasizes confidence in Huang, while the Axios email carries his personal admission and apology - same day, two different documents, two very different jobs.",
+     "questions": [
+      {
+       "q": "What did Nvidia's board actually announce?",
+       "a": "An independent investigation - run by independent directors with outside counsel - into reporting that Jensen Huang was the target of a foreign intelligence effort, while stating no reason to believe security or secrets were compromised."
+      },
+      {
+       "q": "Is Jensen Huang still CEO?",
+       "a": "Yes - spokesperson John Rizzo says he is committed to leading NVIDIA without interruption, and the board states confidence in him."
+      },
+      {
+       "q": "Which claims are confirmed versus reported?",
+       "a": "The investigation and board confidence are official; the 'foreign intelligence effort' is attributed to reporting; the personal admission comes from an email Axios says it has seen."
+      }
+     ],
+     "plain": "The company that makes the chips behind most AI says its boss was reportedly targeted by foreign spies, so its board hired outside lawyers to investigate. The board also says it trusts him and that nothing secret was lost - those are its words, and the investigation is what will test them.",
+     "source_name": "NVIDIA Newsroom",
+     "source_url": "https://nvidianews.nvidia.com/news/statement-from-nvidia-board-of-directors",
+     "reading_time": "2 min",
+     "accent": "#141412",
+     "accents": [
+      "#141412",
+      "#F2C200",
+      "#2B4BE0"
+     ],
+     "image": "img/2026-11-09-4.jpg",
+     "image_alt": "A computer microchip with circuit traces, a large magnifying glass hovering over one corner."
+    },
+    {
+     "id": "2026-11-09-5",
+     "kind": "AI NEWS",
+     "headline": "The 3,000-token breakup letter",
+     "deck": "A longtime Claude Code user publicly switched to Pi, an open-source coding harness - and his receipts are specific: 244 releases this year, three-quarters of them silently rewiring the system's behaviour, and a default tool description that burns 3,000 tokens. HN made it the day's top story.",
+     "lead": "Developer Caleb's post 'Goodbye Claude, Hello Pi' - a public retirement of Claude Code as his main coding harness in favour of Pi, an open-source alternative - rode to the top of Hacker News with about 702 points. It's a one-user account, not a benchmark, but the frustrations it lists are unusually specific and checkable.",
+     "body": "Developer Caleb's post 'Goodbye Claude, Hello Pi' - a public retirement of Claude Code as his main coding harness in favour of Pi, an open-source alternative - rode to the top of Hacker News with about 702 points. It's a one-user account, not a benchmark, but the frustrations it lists are unusually specific and checkable. His receipt list: the CLAUDE.md versus AGENTS.md split means copying or symlinking config files between tools (Anthropic announced AGENTS.md support a day after his decision - 'too little, too late,' he writes); the VSCode integration only lets one session receive text selections at a time, a bug he says was reported back in December 2025 and closed as a duplicate of an unrelated issue; the official GUI extension has half its slash commands broken, no custom status line, and subagent outputs dumped chronologically into one thread; and there have been 244 Claude Code releases this year, over three-quarters of which changed the system prompt or tool descriptions - silent rewiring of how the model behaves against your prompts. His most quotable complaint: even after Anthropic chopped 80% of the system prompt, the default Bash tool description alone is almost 3,000 tokens of git advice the model already knows - and he calculates that trimming 1,000 tokens across a million daily users making 100M requests a day would save millions of dollars in inference a year (his estimate). His verdict on the category, though, is generous: he calls Claude Code 'a really cool piece of software' from the first innovator in a very new space, and says later tools like Pi simply have the benefit of hindsight. What he prizes in Pi: stability, a minimalist approach, and extreme customizability - he wrote an extension restoring multi-tab IDE selection sharing in about 20 minutes. The HN discussion treated it as a referendum on feature-creep versus stability in AI coding tools - community sentiment, worth reading as one loud signal rather than a market verdict.",
+     "ptrs": [
+      "The story: a longtime Claude Code user (since it shipped with Claude Pro) publicly switched his main coding harness to open-source Pi; HN sent it to ~702 points.",
+      "His receipts: CLAUDE.md/AGENTS.md file juggling; a one-session-only VSCode selection bug he says was reported in Dec 2025 and closed as a duplicate; a GUI extension with half its slash commands broken.",
+      "The churn number: 244 releases this year, over 3/4 changing the system prompt or tool descriptions - the harness's behaviour shifts under your feet.",
+      "The overhead number: the default Bash tool description alone is ~3,000 tokens; he estimates trimming 1,000 tokens at scale would save millions in inference per year (his back-of-envelope, not an audit).",
+      "He's fair about it: calls Claude Code a genuinely cool product from a first mover; says Pi benefits from hindsight; praises its stability, minimalism and extensions - he rebuilt his favourite IDE feature in ~20 minutes.",
+      "Read it as one developer's well-documented account plus a big community reaction, not a verdict that Claude Code is broken."
+     ],
+     "why": "You build with these harnesses every day, bro - this post is your reminder that the tool around the model is a choice, not a marriage. Know what your harness costs you in tokens and churn, and keep your config portable. The day you outgrow a tool, you should be able to walk in 20 minutes like he did.",
+     "example": "His 20-minute flex: after switching to Pi, he wrote an extension that shares IDE text selections across multiple open sessions - the exact feature whose absence (a bug open since December 2025, he says) pushed him away from Claude Code.",
+     "questions": [
+      {
+       "q": "What is the post's main complaint about Claude Code's releases?",
+       "a": "Volume with side effects: 244 releases this year, over three-quarters changing the system prompt or tool descriptions, which silently changes how the model behaves against your prompts."
+      },
+      {
+       "q": "What does he like about Pi?",
+       "a": "Stability, a minimalist approach and extreme customizability - he wrote an extension for multi-tab IDE selection sharing in about 20 minutes."
+      },
+      {
+       "q": "Is this proof Claude Code is bad?",
+       "a": "No - it's one developer's account; he himself calls Claude Code a cool first-mover product and says later tools benefit from hindsight."
+      }
+     ],
+     "plain": "Imagine your favourite bicycle getting a 'free upgrade' every week that secretly moves the brakes. That's his complaint: the AI coding tool kept changing its hidden instructions, so it behaved differently without him changing anything. He switched to a simpler open-source bike he can fix himself.",
+     "source_name": "caleb.software",
+     "source_url": "https://caleb.software/posts/claude-to-pi.html",
+     "reading_time": "2 min",
+     "info_caption": "Diagram: an overstuffed heavy trunk (many add-ons, big hidden manual) traded for a slim case you can rebuild yourself.",
+     "accent": "#141412",
+     "accents": [
+      "#141412",
+      "#E8480C",
+      "#F2C200"
+     ],
+     "image": "img/2026-11-09-5.jpg",
+     "image_alt": "A huge overstuffed trunk spilling belongings beside a slim clean valise with a small bird perched on it.",
+     "info_image": "img/2026-11-09-5-schematic.jpg",
+     "info_alt": "Diagram of a bulging trunk spilling squares, arrows to a slim valise and the extras looping away.",
+     "info_labels": [
+      {
+       "t": "overstuffed",
+       "x": 6,
+       "y": 90,
+       "c": "#141412"
+      },
+      {
+       "t": "shed the extras",
+       "x": 52,
+       "y": 6,
+       "c": "#E8480C"
+      },
+      {
+       "t": "slim + yours",
+       "x": 70,
+       "y": 90,
+       "c": "#2B4BE0"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-09-6",
+     "kind": "TRY THIS",
+     "headline": "Who's phoning home from your PC?",
+     "deck": "Tonight's drill, bro: install a free 'ask me first' outbound firewall on your Windows PC, use the computer normally for one hour, and count how many apps try to call the internet without asking you. PacketHound is the Windows answer to the Mac's paid Little Snitch.",
+     "lead": "Install PacketHound - a free outbound firewall for Windows 10 and 11 - and spend one normal hour on your PC while it intercepts every app's first attempt to connect to the internet. Each new connection prompts an Allow or Block, and it remembers your answer.",
+     "body": "Install PacketHound - a free outbound firewall for Windows 10 and 11 - and spend one normal hour on your PC while it intercepts every app's first attempt to connect to the internet. Each new connection prompts an Allow or Block, and it remembers your answer. The drill: download the free app (v1.2.0, 68.2 MB), let it run, then just do your normal thing - browse, open your editor, launch a game. The first time each app tries to connect, a prompt shows who made it, where it's going and on which port; click Allow or Block for the whole app or just one address, host or domain, forever or only until the app quits. Design details that make it safe to try: Windows' own components are allowed automatically - but only if a program genuinely lives in a Windows folder, is owned by the system and carries a valid Microsoft signature, so copying something into System32 doesn't get a free pass; the risky built-ins malware loves (PowerShell, curl, certutil, mshta, rundll32) still get asked about; every decision is an ordinary Windows Firewall rule you can inspect in wf.msc and it keeps working even when PacketHound is closed - no hidden kernel driver; and prompts appear on top without stealing keyboard focus, so you can't accidentally answer one while typing. Your scorecard after an hour: how many apps asked (most people are surprised), which one you blocked, and whether anything actually broke. If a blocked app misbehaves, flip its rule to Allow in wf.msc or in the app - every decision is reversible.",
+     "ptrs": [
+      "The drill: install PacketHound (free, v1.2.0, 68.2 MB, Windows 10/11), use your PC normally for one hour, count the prompts.",
+      "Each prompt shows the app, the destination and the port; Allow or Block per app or per address/host/domain, permanently or until the app quits.",
+      "Windows components are auto-allowed only with a valid Microsoft signature, system ownership and a real Windows folder - System32 squatters don't pass.",
+      "PowerShell, curl, certutil, mshta and rundll32 still trigger prompts - they're favourite malware downloaders.",
+      "Everything it does is an ordinary Windows Firewall rule visible in wf.msc; rules keep working when the app is closed, and every choice is reversible.",
+      "Prompts never steal keyboard focus, so you can't misclick an answer while typing."
+     ],
+     "why": "This is the most eye-opening hour you'll spend on your PC this month, bro. You will MEET software you forgot you installed. Every app you catch quietly calling home is a tiny win for your privacy - and 'check what's talking' is a habit every security-minded dev has.",
+     "example": "A normal first hour: your browser, editor and game launcher ask and get Allowed; then some updater you never knew existed asks - you Block it until the app quits, keep working, and nothing breaks. That one block is the drill working.",
+     "questions": [
+      {
+       "q": "What is an outbound firewall?",
+       "a": "Instead of watching what comes in, it watches what goes out - the first time an app tries to connect to the internet, it asks you to Allow or Block and remembers your answer."
+      },
+      {
+       "q": "Does PacketHound install a hidden driver?",
+       "a": "No - every decision is an ordinary Windows Firewall rule you can see in wf.msc, and the rules keep working even when PacketHound is closed."
+      },
+      {
+       "q": "Why does it still ask about PowerShell and curl?",
+       "a": "Because malware loves using those built-in Windows tools to download payloads, so they get prompted even though they're part of Windows."
+      }
+     ],
+     "plain": "Your PC is like a house where apps keep walking out the door to make phone calls. This tool puts a polite guard at the door who stops each app the first time and asks you: allow or block? After one hour you'll know exactly who in your house has been making calls.",
+     "source_name": "PacketHound",
+     "source_url": "https://packethound.app/",
+     "reading_time": "2 min",
+     "info_caption": "Diagram: an app walks to the gate, the guard dog checks, one path opens (allow), one closes (block).",
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0",
+      "#F2C200",
+      "#E8480C"
+     ],
+     "image": "img/2026-11-09-6.jpg",
+     "image_alt": "A guard dog sitting at a picket-fence gate checking a line of envelopes and parcels walking from a house.",
+     "info_image": "img/2026-11-09-6-schematic.jpg",
+     "info_alt": "Diagram of an app box walking to a dog-guarded gate, one arrow continuing to a cloud, one ending in an X.",
+     "info_labels": [
+      {
+       "t": "app calls out",
+       "x": 2,
+       "y": 82,
+       "c": "#2B4BE0"
+      },
+      {
+       "t": "the guard asks",
+       "x": 30,
+       "y": 84,
+       "c": "#141412"
+      },
+      {
+       "t": "allow",
+       "x": 70,
+       "y": 12,
+       "c": "#2B4BE0"
+      },
+      {
+       "t": "block",
+       "x": 68,
+       "y": 92,
+       "c": "#E8480C"
+      }
+     ]
+    }
+   ]
+  },
+  {
    "date": "2026-11-08",
    "number": 22,
    "items": [
