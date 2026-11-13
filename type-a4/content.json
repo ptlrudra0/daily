@@ -2,6 +2,368 @@
  "paper": "The Daily Draft",
  "issues": [
   {
+   "date": "2026-11-13",
+   "number": 27,
+   "items": [
+    {
+     "id": "2026-11-13-1",
+     "kind": "AI TIP",
+     "headline": "A 16B model on 1 GB of RAM",
+     "deck": "The smolmaxxing project runs 16-billion-parameter models on a TV box and a 2013 iPad - with custom 1-bit kernels, a vocabulary diet, and a trick that pages model 'experts' from flash like a books-on-demand library.",
+     "lead": "smolmaxxing is an open-source project with one mission: run the biggest language model possible on the smallest hardware you own. Its patched version of llama.cpp runs a 16B-parameter mixture-of-experts model on a Xiaomi TV box with 1.9 GB of RAM at 5.1 tokens per second - and even on a 2013 iPad Air with 1 GB of RAM.",
+     "body": "smolmaxxing is an open-source project with one mission: run the biggest language model possible on the smallest hardware you own. Its patched version of llama.cpp runs a 16B-parameter mixture-of-experts model on a Xiaomi TV box with 1.9 GB of RAM at 5.1 tokens per second - and even on a 2013 iPad Air with 1 GB of RAM. The scoreboard is absurd: the TV box (an Amlogic chip with about 1 GB of usable RAM, Android 14, no root) runs Qwen3.5-2B at 7.7 tokens/s as its everyday model, and the jailbroken iPad (an Apple A7 from 2013, about 700 MB usable) runs a 1-bit 1.7B model at 24-26 tokens/s. Four techniques do the heavy lifting. First, kernels built for each chip: a 1-bit lookup-table kernel, plus repacked 2-bit and ternary formats for the TV's Cortex-A55, and special versions for the iPad's A7, which lacks dot-product instructions. Second, a vocabulary diet: most of a small model's vocabulary is rarely used, so those output rows get dropped - and on the TV a 'headless' mode kills the launcher and Google services while a model runs. Third, the star move: mixture-of-experts models only use a few 'expert' sub-networks per token, so the popular experts stay in RAM while the rest are read from flash on demand, with the next layer's experts prefetched - that is how 8B and 16B models run on 1 GB. Fourth, dense models bigger than RAM get streamed from flash at full speed. The catches are honest: you need their patched llama.cpp (stock builds can't load the repacked models), the iPad must be jailbroken, and every number is measured on the device itself across a 160-experiment public lab notebook, failures included.",
+     "ptrs": [
+      "The project: smolmaxxing (MIT license) - a patch on llama.cpp that runs the biggest LLM a device can truly handle; every number measured on the device itself.",
+      "Scoreboard: Xiaomi TV Box S (1.9 GB RAM, ~1 GB usable, Android 14, no root) runs Qwen3.5-2B at 7.7 tok/s daily and a 16B MoE model at 5.1 tok/s; a 2013 iPad Air (1 GB RAM, ~700 MB usable, jailbroken) runs a 1-bit 1.7B model at 24-26 tok/s and the same 16B at 2.6-4.5 tok/s.",
+      "Technique 1 - kernels per chip: a 1-bit lookup-table kernel plus repacked 2-bit and ternary formats, with special builds for chips lacking dot-product instructions.",
+      "Technique 2 - shrink the model's footprint: drop rarely-used vocabulary output rows; on the TV, 'headless' mode stops the launcher and Google services while the model runs.",
+      "Technique 3 - page experts from flash: MoE models use only a few experts per token, so hot experts live in RAM and cold ones stream from flash on demand, prefetched a layer ahead - the key to 16B on 1 GB.",
+      "Technique 4 - stream dense models bigger than RAM at the flash's full speed.",
+      "Catches: the repacked models need the patched llama.cpp (stock can't load them); the iPad path needs a jailbreak; the repo's EXPERIMENT.md logs all 160 experiments, failures included."
+     ],
+     "why": "You keep thinking local AI needs a monster rig, bro - these folks ran a 16B model on a TV box. Your 16GB PC is a supercomputer by their standards, and the same tricks (quantized small models, llama.cpp) are exactly how you squeeze it. Legendary constraint-hacking.",
+     "example": "The repo's own receipt: on the TV box, keeping only the popular experts in RAM and paging the rest from flash is what lets the 16B Ling-mini-2.0 model generate at 5.1 tokens/s in about 1 GB of usable memory - and the same box plays Qwen3.5-2B at 7.7 tok/s as the daily driver.",
+     "questions": [
+      {
+       "q": "How can a 16B model fit in 1 GB of RAM?",
+       "a": "It's a mixture-of-experts model: only a few expert sub-networks fire per token, so the popular experts stay in RAM and the rest are read from flash on demand, with the next layer's prefetched."
+      },
+      {
+       "q": "What two tricks shrink a small model's RAM use further?",
+       "a": "Dropping rarely-used vocabulary output rows, and on the TV a 'headless' mode that stops the launcher and Google services while the model runs."
+      },
+      {
+       "q": "Can you load these models in stock llama.cpp?",
+       "a": "No - the repacked 1-bit, 2-bit and ternary formats need the project's patched llama.cpp."
+      }
+     ],
+     "plain": "Big AI models are like huge libraries that normally need a mansion. This project keeps only the most-used books in the house and sends a super-fast runner to the warehouse for the rest, right when each is needed. That's how a TV box with the memory of a budget phone can 'think' with a giant model.",
+     "source_name": "smolmaxxing (GitHub)",
+     "source_url": "https://github.com/hyperionaidev/smolmaxxing/",
+     "reading_time": "3 min",
+     "image_alt": "A tiny paper TV set and an old tablet, each with a giant brain-shaped cloud compressed into it by a paper press.",
+     "info_alt": "Diagram: a small RAM box holding two glowing expert blocks; arrows stream more expert blocks from a large flash-storage box below, one arrow prefetches ahead.",
+     "info_caption": "Hot experts stay in RAM - cold experts stream from flash on demand - the next layer's experts are prefetched before they're needed.",
+     "info_labels": [
+      {
+       "t": "RAM: hot experts",
+       "x": 14,
+       "y": 34,
+       "c": "#141412"
+      },
+      {
+       "t": "flash: cold experts",
+       "x": 14,
+       "y": 86,
+       "c": "#2B4BE0"
+      },
+      {
+       "t": "prefetch",
+       "x": 70,
+       "y": 55,
+       "c": "#E8480C"
+      }
+     ],
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0",
+      "#E8480C",
+      "#F2C200"
+     ],
+     "image": "img/2026-11-13-1.jpg",
+     "info_image": "img/2026-11-13-1-info.jpg"
+    },
+    {
+     "id": "2026-11-13-2",
+     "kind": "DESIGN",
+     "headline": "60-30-10: the color budget",
+     "deck": "Designer Stefano Peschiera's rule: give 60% of your layout to a neutral main color, 30% to a contrasting secondary, and 10% to the loudest accent you own - reserved for the buttons that matter.",
+     "lead": "The 60-30-10 rule budgets color like money: your main color covers 60% of the design, a secondary color takes 30%, and an accent gets just 10%. In the Dribbble design blog's guide, designer Stefano Peschiera shares the workflow he built around it - and why the smallest slice should be the most vibrant.",
+     "body": "The 60-30-10 rule budgets color like money: your main color covers 60% of the design, a secondary color takes 30%, and an accent gets just 10%. In the Dribbble design blog's guide, designer Stefano Peschiera shares the workflow he built around it - and why the smallest slice should be the most vibrant. The roles are strict: the 60% main color should be a neutral that's easy on the eyes, the 30% secondary should contrast nicely with the main to create visual interest, and the 10% accent should be the most vibrant of the three, because its job is to emphasize critical items like call-to-action buttons. Distributing colors in these proportions visually organizes the design and adds balance. His palette-hunting trick: browse nature photos on Unsplash and extract three main colors that already match the ratio, taking the most vibrant as the accent - mother nature is the best designer to steal from. His process trick: wireframe in grayscale first - spacing and layout before color, with gray tones keeping the wireframe from looking dead - then apply the palette and iterate. And his favorite color-theory trick: stay away from pure grayscale and pure black, because pure grays barely exist in real life; always add a bit of saturation so colors feel natural and familiar.",
+     "ptrs": [
+      "The budget: 60% main color, 30% secondary, 10% accent - the proportions visually organize and balance a design.",
+      "Casting: main = neutral, easy on the eyes; secondary = contrasts with the main for visual interest; accent = the most vibrant, saved for critical items like call-to-action buttons.",
+      "Palette hunting: extract three colors matching the ratio from nature photos (his source: Unsplash); the most vibrant becomes the accent.",
+      "Process: wireframe in grayscale first - spacing and layout before color - then apply the palette and iterate.",
+      "Bonus rule: avoid pure gray and pure black - they barely exist in real life; add a little saturation so colors feel natural."
+     ],
+     "why": "Your reel covers and thumbnails need this, bro: pick a chill background (60), a supporting color (30), and let ONE loud color (10) scream 'tap here'. It's the difference between a designed post and a sticker explosion.",
+     "example": "Peschiera's own workflow: pull three colors off a nature photo that already follows 60-30-10, wireframe the whole page in grays first, then pour the palette on - vibrant color lands only on the call-to-action, which is exactly why people click it.",
+     "questions": [
+      {
+       "q": "Which color gets only 10% - and why?",
+       "a": "The accent: it's the most vibrant of the three and its job is emphasizing critical items like call-to-action buttons, so a small dose keeps it loud."
+      },
+      {
+       "q": "What kind of color should own the 60%?",
+       "a": "A neutral that's easy on the eyes - it covers most of the design, so it must never tire the viewer."
+      },
+      {
+       "q": "Why design in grayscale first?",
+       "a": "It forces spacing and layout decisions before color, a constraint Peschiera calls productive - the palette is applied and iterated afterwards."
+      }
+     ],
+     "plain": "Think of an outfit: mostly one calm color (your suit), a second color for support (your shirt), and one small loud piece (a bright tie). Websites work the same way - 60% calm, 30% support, 10% loud - and the loud 10% is where the 'buy' button lives.",
+     "source_name": "Dribbble Design Blog",
+     "source_url": "https://dribbble.com/stories/2018/12/19/choosing-colors-for-web-design-a-practical-ui-color-application-guide",
+     "reading_time": "2 min",
+     "image_caption": "A 10x10 waffle of the color budget: 60 cells main (neutral) - 30 cells secondary - 10 cells accent (the loud one)",
+     "image_alt": "A 10 by 10 waffle grid: sixty quiet cells, thirty contrasting cells, ten loud accent cells in one corner.",
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0",
+      "#E8480C"
+     ],
+     "image": "img/2026-11-13-2.jpg"
+    },
+    {
+     "id": "2026-11-13-3",
+     "kind": "ON SCREEN",
+     "headline": "Three lamps run Hollywood",
+     "deck": "Key, fill, backlight - the three-point setup is so standard in narrative cinema it's virtually a rule. Learn what each lamp does, then break the ratio on purpose for comedy-bright or noir-dark moods.",
+     "lead": "Three-point lighting is the default grammar of filming a person: a key light provides the main illumination, a fill light softens the shadows it creates, and a backlight separates the subject from the background. Film scholar Paul Ramaeker's explainer in The Conversation shows how this convention - and the ratio between its lamps - quietly writes the mood of everything from musicals to noir.",
+     "body": "Three-point lighting is the default grammar of filming a person: a key light provides the main illumination, a fill light softens the shadows it creates, and a backlight separates the subject from the background. Film scholar Paul Ramaeker's explainer in The Conversation shows how this convention - and the ratio between its lamps - quietly writes the mood of everything from musicals to noir. The setup is so prevalent in narrative cinema that it's virtually a rule, often supplemented by a small eye-light to heighten an actor's expression; its most stylised form, glamour lighting, turned Marlene Dietrich into an icon in Josef von Sternberg's films. Then there's practical lighting: sources that seem to come from inside the story-world - a visible lamp, a window, the neon-soaked streets of Blade Runner - which cinematographers also use to pour colour into a scene with gels. The mood knob is the fill-to-key ratio. High-key lighting (lots of fill, low contrast, even brightness) dominated 1930s comedies and musicals; low-key lighting (little fill, hard light, deep defined shadows) belonged to horror and crime, and became the soul of film noir - mystery and moral darkness through concealment. A Cornell study found light levels in film have markedly declined since 1935: early arc lights were so brutal their ultraviolet radiation gave actors 'Klieg eyes', and as film stock and digital sensors grew more sensitive, sets could go darker - kinder to actors, richer for mood. Cinematographer James Wong Howe saw it coming in 1931: lighting had stopped meaning 'enough light to shoot' and become 'a visual, emotional foundation' for the film.",
+     "ptrs": [
+      "The three points: key light = main illumination; fill light = fills in shadows on face and background; backlight = separates subject from the backdrop (less critical in colour).",
+      "The extras: an eye-light to heighten expressions; 'glamour lighting' (think Dietrich in von Sternberg's films) built for star iconography.",
+      "Practical lighting: light that seems to come from inside the scene - a lamp, a window, Blade Runner's neon - often with coloured gels bathing the frame.",
+      "The mood knob: high-key = high fill-to-key ratio, low contrast, even brightness (1930s comedies and musicals); low-key = low fill-to-key, hard light, deep shadows (horror, crime, film noir).",
+      "The trend: a Cornell study found film light levels have markedly declined since 1935 - sensitive stocks and sensors let sets go darker, sparing actors the UV-burn 'Klieg eyes' of early arc lights.",
+      "The mission statement (James Wong Howe, 1931): lighting went from 'enough light to permit photography' to 'a visual, emotional foundation'."
+     ],
+     "why": "You shoot reels, bro, and this is the oldest cheat code in the game: one main lamp, one shadow-softener, one behind you. Nail that triangle and your bedroom looks like a studio; then starve the fill for instant drama.",
+     "example": "Tonight's test: face a window (key), bounce a phone flashlight off a wall onto your shadow side (fill), and put a desk lamp behind your shoulder (backlight). Then switch the fill off - same face, same room, and it suddenly reads as a crime film. That's the fill-to-key ratio doing the storytelling.",
+     "questions": [
+      {
+       "q": "What does each of the three lights do?",
+       "a": "Key provides the main illumination, fill fills in the shadows on face and background, and backlight separates the subject from the backdrop."
+      },
+      {
+       "q": "High-key vs low-key?",
+       "a": "The fill-to-key ratio: high-key means lots of fill - low-contrast, even brightness (comedies, musicals); low-key means little fill - hard light and deep shadows (horror, noir)."
+      },
+      {
+       "q": "What is practical lighting?",
+       "a": "Light that appears to come from sources inside the story-world - a visible lamp, a window, neon signs - often used with coloured gels to bathe a scene in colour."
+      }
+     ],
+     "plain": "Imagine photographing a friend with one flashlight: half their face goes black. Add a second, weaker light on the dark side and the shadows soften. Put a third behind them and they pop off the background. Movies are lit exactly like that - and how strong light two is decides if it feels like a comedy or a horror film.",
+     "source_name": "The Conversation",
+     "source_url": "https://theconversation.com/explainer-film-lighting-30658",
+     "reading_time": "3 min",
+     "image_alt": "A paper bust lit by three bold lamp beams from three sides, each beam a different flat colour.",
+     "info_alt": "Diagram: a head silhouette in the center with three lamps around it - a big key lamp from one side, a softer fill from the other, a backlight behind - arrows showing each beam's target.",
+     "info_caption": "Key lights the face - fill softens its shadows - backlight peels the subject off the background; the fill-to-key ratio sets the mood.",
+     "info_labels": [
+      {
+       "t": "key (main)",
+       "x": 12,
+       "y": 88,
+       "c": "#E8480C"
+      },
+      {
+       "t": "backlight (separate)",
+       "x": 44,
+       "y": 88,
+       "c": "#2B4BE0"
+      },
+      {
+       "t": "fill (shadows)",
+       "x": 76,
+       "y": 88,
+       "c": "#A67C00"
+      }
+     ],
+     "accent": "#E8480C",
+     "accents": [
+      "#E8480C",
+      "#F2C200",
+      "#2B4BE0"
+     ],
+     "image": "img/2026-11-13-3.jpg",
+     "info_image": "img/2026-11-13-3-info.jpg"
+    },
+    {
+     "id": "2026-11-13-4",
+     "kind": "AI NEWS",
+     "headline": "Jensen Huang resigns from Nvidia",
+     "deck": "Nvidia's co-founder and only-ever CEO resigned after admitting a romantic affair with an alleged Chinese spy, per TechCrunch; CFO Colette Kress is interim CEO, and the stock slide has erased over $855 billion since Friday.",
+     "lead": "Jensen Huang has resigned as president and CEO of Nvidia, the company he founded in 1993 and led for its entire life, after admitting to a romantic affair with an alleged Chinese spy that sparked a U.S. national security crisis, TechCrunch reports. CFO Colette Kress takes over as interim CEO while keeping her CFO role, and Nvidia's board accepted the resignation Wednesday.",
+     "body": "Jensen Huang has resigned as president and CEO of Nvidia, the company he founded in 1993 and led for its entire life, after admitting to a romantic affair with an alleged Chinese spy that sparked a U.S. national security crisis, TechCrunch reports. CFO Colette Kress takes over as interim CEO while keeping her CFO role, and Nvidia's board accepted the resignation Wednesday. The market reaction was violent: shares fell nearly 12% in early Thursday trading, and since Friday the stock dropped as much as 19% - a market-cap loss of more than $855 billion. The scale of what he leaves behind is hard to overstate: shares that traded around $15 before ChatGPT rose over 1,450% to a $243 all-time high, with market cap up $5.5 trillion to a peak of $5.88 trillion in early October; revenue grew from $5.93 billion in Q3 2023 to $96.22 billion by the second quarter, and profits nearly 88x, from $680 million in October 2023 to $59.69 billion as of July 2026. The company also named Harvey C. Jones - on the board since 1993 - as its first-ever chair of the board, who will likely lead the search for a permanent CEO. The succession problem is real: Huang ran a famously flat org with around 60 direct reports and no heir apparent, owns about 3.5% of shares with no supervoting rights, and the board had the power to vote him out at any time. Ripple effects hit the AI ecosystem fast - CoreWeave fell about 9%, Nebius about 16%, IREN 6.6% - with Nvidia holding $99 billion of investments plus $25 billion in commitments, including $30 billion in OpenAI and $10 billion in Anthropic. Nvidia reports earnings Tuesday, giving the industry its first look at life after Huang. On Hacker News, the story pulled nearly 3,000 points - community reaction there ran from shock at the personal scandal to debate about Nvidia's future, which is discussion, not verified fact.",
+     "ptrs": [
+      "What happened: Huang resigned as president and CEO days after admitting a romantic affair with an alleged Chinese spy; the board accepted Wednesday; CFO Colette Kress is interim CEO and stays CFO (TechCrunch).",
+      "Market hit: shares -12% early Thursday; as much as -19% since Friday; over $855 billion of market cap erased.",
+      "His legacy in numbers: shares ~$15 pre-ChatGPT to a $243 all-time high (+1,450%); market cap +$5.5 trillion, peaking at $5.88 trillion in early October; revenue $5.93B (Q3 2023) to $96.22B (Q2); profits ~88x to $59.69B (July 2026).",
+      "Governance: Harvey C. Jones (board member since 1993) becomes Nvidia's first-ever board chair and will likely lead the CEO search; Huang had ~60 direct reports, no succession plan, ~3.5% of shares and no supervoting rights.",
+      "Ripples: CoreWeave -9%, Nebius -16%, IREN -6.6% on Thursday; Nvidia holds $99B of investments plus $25B in commitments (incl. $30B into OpenAI, $10B into Anthropic); earnings land Tuesday.",
+      "HN colour: the story sat near 3,000 points on Hacker News - commenters debated Nvidia's future, but that's community discussion, not verified fact."
+     ],
+     "why": "The man who turned a gaming-card company into the engine of the AI boom - the reason your RTX 4050 exists, bro - just walked out mid-supercycle. Whoever steers Nvidia next shapes what you'll train on, rent, and buy for years.",
+     "example": "Watch the dependency web: Nvidia bankrolls the very cloud companies that buy its chips ($99B invested, $25B committed), so when the CEO news hit, CoreWeave, Nebius and IREN all fell the same morning - one company's gossip became an industry stress test.",
+     "questions": [
+      {
+       "q": "Who is running Nvidia right now?",
+       "a": "CFO Colette Kress, as interim CEO while keeping her CFO role; Harvey C. Jones was named the company's first-ever board chair and will likely lead the search for a permanent CEO."
+      },
+      {
+       "q": "Why did Huang resign?",
+       "a": "Days earlier he admitted to a romantic affair with an alleged Chinese spy, sparking a U.S. national security crisis, per TechCrunch's reporting; the board accepted his resignation Wednesday."
+      },
+      {
+       "q": "How big was the market reaction?",
+       "a": "Shares fell nearly 12% early Thursday and as much as 19% since Friday - over $855 billion of market value gone; AI-infrastructure partners like CoreWeave (-9%) and Nebius (-16%) dropped too."
+      }
+     ],
+     "plain": "The boss who built the company behind almost every AI chip quit after a personal scandal became a national-security problem. His finance chief is minding the store, and investors knocked off more value than most countries' economies - because the whole AI world rents its engines from this one company.",
+     "source_name": "TechCrunch",
+     "source_url": "https://techcrunch.com/2026/11/12/nvidias-jensen-huang-resigns-chipmaker-names-cfo-colette-kress-as-interim-ceo/",
+     "reading_time": "3 min",
+     "image_alt": "An empty leather jacket draped over a chair at a huge desk covered in paper microchips, a bold downward arrow above.",
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0",
+      "#E8480C",
+      "#F2C200"
+     ],
+     "image": "img/2026-11-13-4.jpg"
+    },
+    {
+     "id": "2026-11-13-5",
+     "kind": "AI NEWS",
+     "headline": "GPU fingerprints in public weights",
+     "deck": "Researchers say six frontier models from DeepSeek, Moonshot AI, MiniMax and Ant Group carry numerical traces matching export-controlled NVIDIA Blackwell chips - found not from leaks, but from the models' own published weights.",
+     "lead": "A forensic analysis by Will DePue at Unemployment Labs finds that six models released since April 2026 by DeepSeek, Moonshot AI, MiniMax and Ant Group contain numerical patterns matching NVIDIA's export-controlled Blackwell GPUs - while earlier models from the same companies match the older Hopper generation. The evidence comes entirely from the models' own published weights, not leaks or insiders.",
+     "body": "A forensic analysis by Will DePue at Unemployment Labs finds that six models released since April 2026 by DeepSeek, Moonshot AI, MiniMax and Ant Group contain numerical patterns matching NVIDIA's export-controlled Blackwell GPUs - while earlier models from the same companies match the older Hopper generation. The evidence comes entirely from the models' own published weights, not leaks or insiders. The method is genuinely clever: the researchers recover traces of the models' initial values - the random starting point of training - and then search for the hardware configurations that reproduce them, the numerical equivalent of matching a bullet to a barrel. For two models, DeepSeek-V4-Flash and Kimi K3, they confirmed the match on physical Blackwell chips. The caveats are stated plainly: the fingerprint identifies how the weights were created and supports - without proving - that Blackwell also performed the training; a specially configured AMD setup, also export-restricted, is the only alternative identified, excluded for DeepSeek-V4-Flash and considered very unlikely for the other five. And the findings show access to advanced hardware but do not establish where the chips were located, how access was obtained, or whether export controls were violated. U.S. officials and press reports had already alleged DeepSeek and Moonshot AI were using Blackwell chips - without publishing technical evidence; this report is the first public technical case. On Hacker News, commenters debated whether init traces can really pin down hardware - healthy skepticism, worth reading as community discussion rather than settled science.",
+     "ptrs": [
+      "The claim: six models from DeepSeek, Moonshot AI, MiniMax and Ant Group (released since April 2026) carry numerical patterns matching export-controlled NVIDIA Blackwell GPUs; earlier models from the same labs match older Hopper chips.",
+      "The method: recover traces of the models' initial values from published weights, then search for the hardware and initial configurations that reproduce them - no leaks, no insiders.",
+      "The receipts: for DeepSeek-V4-Flash and Kimi K3 the match was confirmed on physical Blackwell chips.",
+      "The caveats (stated by the authors): the fingerprint supports but doesn't prove Blackwell did the training; a specially configured AMD setup is the only alternative (excluded for DeepSeek-V4-Flash, very unlikely for the rest); location, access route and any export-control violation remain unestablished.",
+      "The context: U.S. officials had already alleged Blackwell use by DeepSeek and Moonshot without technical evidence - this is the first public technical case.",
+      "HN colour: commenters debated how reliable init-trace matching can be - community discussion, not settled science."
+     ],
+     "why": "This is your field's CSI moment, bro: model weights quietly remember the hardware that made them, and someone proved it in public. If you ever doubted that training details leak into artifacts, six frontier models just got read like fingerprints.",
+     "example": "The recipe, straight from the report: take a model's public weights, recover traces of its initial random values, then search hardware configurations until one reproduces those traces - for DeepSeek-V4-Flash and Kimi K3, they ran the same init on physical Blackwell chips and it matched.",
+     "questions": [
+      {
+       "q": "How can weights reveal what GPU made them?",
+       "a": "The researchers recover traces of the model's initial values from the published weights and search for the hardware configurations that reproduce those exact numerical patterns."
+      },
+      {
+       "q": "Does the fingerprint prove the chips were in China or that export law was broken?",
+       "a": "No - the authors say it shows access to the hardware class; it does not establish where chips were located, how access was obtained, or whether export controls were violated."
+      },
+      {
+       "q": "Which labs and how many models?",
+       "a": "Six models released since April 2026 from DeepSeek, Moonshot AI, MiniMax and Ant Group; earlier models from the same companies match the older Hopper generation."
+      }
+     ],
+     "plain": "Every typewriter used to leave slightly different marks on paper, so detectives could tell which machine typed a letter. This research does the same with AI: the numbers inside a published model carry tiny marks of the exact chip family that started its training - and six big models show marks of chips that aren't supposed to be exported to China.",
+     "source_name": "Unemployment Labs",
+     "source_url": "https://unemploymentlabs.com/checkpoint-forensics",
+     "reading_time": "3 min",
+     "image_alt": "A giant paper GPU chip pressing its patterned corner into a field of tiny numbers like a fingerprint stamp.",
+     "info_alt": "Diagram: a published model file, an arrow to a magnifier revealing tiny initial values, an arrow to two GPU chip shapes - old and new - with a check mark landing on the new one.",
+     "info_caption": "Published weights - recover the initial values - search hardware configs until one reproduces them: the match lands on Blackwell.",
+     "info_labels": [
+      {
+       "t": "public weights",
+       "x": 10,
+       "y": 88,
+       "c": "#141412"
+      },
+      {
+       "t": "init traces",
+       "x": 42,
+       "y": 88,
+       "c": "#2B4BE0"
+      },
+      {
+       "t": "hardware match",
+       "x": 70,
+       "y": 88,
+       "c": "#E8480C"
+      }
+     ],
+     "accent": "#E8480C",
+     "accents": [
+      "#E8480C",
+      "#F2C200",
+      "#2B4BE0"
+     ],
+     "image": "img/2026-11-13-5.jpg",
+     "info_image": "img/2026-11-13-5-info.jpg"
+    },
+    {
+     "id": "2026-11-13-6",
+     "kind": "TRY THIS",
+     "headline": "He built the app the subscription wouldn't",
+     "deck": "ZigZag is free, open-source embroidery software for Mac and Windows - SVG to stitches, visual editing, and a built-in MCP server so an AI agent can design alongside you. Born, per its Show HN post, when a $300 machine demanded a subscription.",
+     "lead": "ZigZag is a free, open-source (Apache 2.0) embroidery studio for Mac and Windows: turn SVG artwork into machine embroidery, edit stitches visually, and export PES, DST, EXP, JEF or VP3 files for almost any machine - or send designs straight to a Brother Skitch over Bluetooth. Its Show HN post frames the origin: a $300 embroidery machine needed a subscription, so the author built their own app.",
+     "body": "ZigZag is a free, open-source (Apache 2.0) embroidery studio for Mac and Windows: turn SVG artwork into machine embroidery, edit stitches visually, and export PES, DST, EXP, JEF or VP3 files for almost any machine - or send designs straight to a Brother Skitch over Bluetooth. Its Show HN post frames the origin: a $300 embroidery machine needed a subscription, so the author built their own app. The editor is built in Rust and behaves like a compact Illustrator: pen, shapes, path tools, image trace for turning PNG or JPEG logos into flat-color shapes with thread-palette snapping, lettering with arcs and paths, a stitch player, and a density map that warns where stitches pile up. The AI angle is real: the studio runs a local MCP server (127.0.0.1:7878, localhost-only, origin-checked) with tools like add_svg, trace_image, check_design, render_preview and export - and an Agent panel can run Claude Code or Codex in the background to build the design while you watch, limited to design tools only (no shell, no file edits). Setup on Windows is a zip download (Windows 10 1709+ or 11; click 'More info - Run anyway' past SmartScreen); Macs get a signed DMG (macOS 11+). There's a CLI too: zigzag convert logo.svg -o logo.pes -o preview.png does the whole conversion headlessly. The repo checks itself against the competition: full parity tables against the free Ink/Stitch and the paid Wilcom Hatch, listing what ZigZag covers and what it doesn't yet (pre-digitized fonts, 3D foam, motif fills). Every writer is verified by reading files back with identical stitch positions, and it's tested on a real Brother Skitch.",
+     "ptrs": [
+      "What it is: free, open-source (Apache 2.0) embroidery software for Mac and Windows - SVG in, stitches out, visual editing, exports PES/DST/EXP/JEF/VP3, sends to a Brother Skitch over Bluetooth.",
+      "The origin (per its Show HN post): a $300 embroidery machine needed a subscription, so the author built their own app - 300+ HN points of maker applause.",
+      "The AI part: a localhost MCP server (127.0.0.1:7878) with ~30 design tools; an Agent panel runs Claude Code or Codex on the live document - design tools only, no shell, no file edits.",
+      "Windows setup: unzip the release, run ZigZag.exe (SmartScreen: More info - Run anyway, it's unsigned); or use the CLI: zigzag convert logo.svg -o logo.pes -o preview.png.",
+      "Honest tradeoffs: parity tables vs free Ink/Stitch and paid Wilcom Hatch admit what's missing - pre-digitized fonts, monogramming, multi-hooping, 3D foam, gradient fills.",
+      "Trust markers: writers verified by reading files back with identical stitch positions; tested on a real Brother Skitch (PP1)."
+     ],
+     "why": "This is the whole vibe, bro: someone got paywalled by their own hardware and shipped a free Rust replacement - WITH an MCP server so agents can design in it. Even if you never sew, download it tonight, convert one SVG, and watch the stitch player. That's how you learn what agents-in-apps should feel like.",
+     "example": "Zero-cost drill: install the Windows zip, draw a 50 mm circle badge with your name on an arc, run check_design, then hit the stitch player to watch it sew virtually. Feeling spicy? Connect an agent: claude mcp add --transport http zigzag http://127.0.0.1:7878/mcp and ask it to 'check this design and show me the preview' - the repo's own suggested prompt.",
+     "questions": [
+      {
+       "q": "Do I need an embroidery machine to try ZigZag?",
+       "a": "No - you can import or draw a design, check it, preview every stitch in the stitch player and export machine files; the machine only matters for the final sew-out."
+      },
+      {
+       "q": "How do AI agents work inside it?",
+       "a": "The studio runs a localhost-only MCP server with design tools (add_svg, trace_image, check_design, render_preview, export...); an Agent panel can run Claude Code or Codex on the live document, restricted to design tools - no shell, no file edits."
+      },
+      {
+       "q": "What does it replace and what's still missing?",
+       "a": "It covers the core feature sets of free Ink/Stitch and paid Wilcom Hatch (per its own parity tables), but not yet pre-digitized fonts, monogramming, multi-hooping, motif fills or 3D foam."
+      }
+     ],
+     "plain": "Embroidery machines need special files that tell the needle where to go, and the software for that is expensive or locked behind subscriptions. ZigZag is a free app that turns any drawing into those needle instructions - and it even lets an AI helper do the drawing steps with you, safely inside the app.",
+     "source_name": "ZigZag (GitHub)",
+     "source_url": "https://github.com/simpsoka/zigzag",
+     "reading_time": "3 min",
+     "image_alt": "A paper embroidery hoop with a bold flower stitched in dashed thread lines, a tiny robot arm placing the last stitch.",
+     "info_alt": "Diagram: an SVG drawing, an arrow to a hoop of stitch lines, an arrow to a machine file card, and a small agent gear connected to the middle step by a dotted line.",
+     "info_caption": "SVG artwork - ZigZag plans the stitches - export PES/DST/JEF for the machine; an agent can drive every step over MCP.",
+     "info_labels": [
+      {
+       "t": "SVG in",
+       "x": 10,
+       "y": 88,
+       "c": "#141412"
+      },
+      {
+       "t": "stitch plan",
+       "x": 40,
+       "y": 8,
+       "c": "#E8480C"
+      },
+      {
+       "t": "agent via MCP",
+       "x": 72,
+       "y": 88,
+       "c": "#2B4BE0"
+      }
+     ],
+     "accent": "#F2C200",
+     "accents": [
+      "#F2C200",
+      "#2B4BE0",
+      "#E8480C"
+     ],
+     "image": "img/2026-11-13-6.jpg",
+     "info_image": "img/2026-11-13-6-info.jpg"
+    }
+   ]
+  },
+  {
    "date": "2026-11-12",
    "number": 26,
    "items": [
