@@ -2,6 +2,360 @@
  "paper": "The Daily Draft",
  "issues": [
   {
+   "date": "2026-11-14",
+   "number": 28,
+   "items": [
+    {
+     "id": "2026-11-14-1",
+     "kind": "AI TIP",
+     "headline": "Don't build a better brain. Give it stairs",
+     "deck": "After 600 experiments on LeCun-team's JEPA world model, one researcher found the model's predictions already match perfect physics - the wins came from planning tricks: subgoals every 25 steps took success from 22% to 80%, and a memory graph with priced jumps hit 85%.",
+     "lead": "Haddy Alchaer ran 600 experiments on LeWM, a JEPA world model released this year by a team including Yann LeCun, and the headline result flips the usual instinct: swapping the model's learned predictions for the simulator's perfect physics changed success from 78% to... 77%. The model wasn't the bottleneck - the way it was used for planning was, and four training-free planning methods took long-horizon success from 22% to 85%.",
+     "body": "Haddy Alchaer ran 600 experiments on LeWM, a JEPA world model released this year by a team including Yann LeCun, and the headline result flips the usual instinct: swapping the model's learned predictions for the simulator's perfect physics changed success from 78% to... 77%. The model wasn't the bottleneck - the way it was used for planning was, and four training-free planning methods took long-horizon success from 22% to 85%. JEPA - joint-embedding predictive architecture - is LeCun's answer to generative world models: instead of predicting the future in pixels, an encoder compresses each frame into an embedding, a predictor forecasts the next embedding given an action, and a planner tries hundreds of action sequences inside that embedding space, picking whichever ends closest to the goal's embedding. LeWM's benchmark is Push-T, where a robot pushes a T-shaped block to a target. The experiments: used as published, LeWM solves 22% of tasks with the goal 75 steps away, but 89.7% with the goal 25 steps away - its useful planning horizon is about 25 steps. So method one chains subgoals 25 steps apart: success jumps to 80%, while perfect physics all at once manages only 42%. Method two builds a memory graph from about 460,000 embedded demonstration states - embedding distance ranks a reachable subgoal as closer 87% of the time, so the graph doubles as a map of what's reachable. Free jumps between demonstrations let the planner cheat (318 of 1,015 plans strung 6+ jumps into physically impossible paths; 62% success); charging a cost per jump reached 85%, matching expert-provided subgoals. He also caught the standard benchmark being easier than it looks (84% of its goals already sit on demonstration flows; the official 50-episode score of 68% drops to 44% on 250 fresh episodes). Method three fills memory gaps with shifted, rotated and mirrored demonstration segments - deleting states near the goal crashed success from 93% to 32%, transforms restored it to 85%. And method four found the goal images accidentally included the robot pusher's own position: scoring block-only instead of block-plus-pusher flipped 30 of 50 hard tasks from failure to success, with zero flipping back - a split that happens by chance about twice in a billion.",
+     "ptrs": [
+      "JEPA in one breath: encoder compresses each frame into an embedding, predictor forecasts the next embedding given an action, planner searches hundreds of action sequences in embedding space for the one ending nearest the goal - no pixel prediction needed.",
+      "The shocker: with expert subgoals, vanilla LeWM scores 78% vs 77% with the simulator's perfect physics swapped in - along trained paths, its predictions are already as good as reality for planning.",
+      "Method 1 - stairs, not leaps: LeWM solves 89.7% of 25-step goals but 22% of 75-step ones; chaining 25-step subgoals scores 80%, while perfect physics on the whole 75 steps gets 42%. Extra search (4x runs) added under a point.",
+      "Method 2 - a memory graph of ~460,000 embedded demonstration states; embedding distance identifies reachable subgoals 87% of the time; pricing each jump between demonstrations took success from 62% (with 318 of 1,015 plans abusing jumps) to 85%, matching expert subgoals.",
+      "Benchmark gotcha: 84% of standard-test goals sit on demonstration flows, and the official 68% score fell to 44% on 250 fresh episodes - changing only the planner's random seed flipped 38 of 250 outcomes.",
+      "Methods 3+4: fill memory gaps with shifted/rotated/mirrored segments (93% crashed to 32% with goal states deleted; transforms restore 85%); and score the goal by the block only, not the pusher - 30 of 50 hard tasks flipped from fail to success, 0 the other way."
+     ],
+     "why": "Everyone's instinct is 'train a bigger model', bro - this guy got 4x better results by rearranging how the model THINKS at test time. When your projects hit a ceiling, check your scaffolding before your weights. It's the studious version of work smarter.",
+     "example": "The 22-to-80 jump in one line: instead of asking the model to imagine all 75 steps to the goal in one shot (22% success), hand it a checkpoint every 25 steps - the distance where it already scores 89.7% - and let it climb three short stairs (80%). Same weights, zero retraining.",
+     "questions": [
+      {
+       "q": "What are JEPA's three parts?",
+       "a": "An encoder that turns each observation into a compact embedding, a predictor that forecasts the next embedding from the current one plus an action, and a planner that searches action sequences in embedding space for the one ending closest to the goal."
+      },
+      {
+       "q": "Why did chaining 25-step subgoals beat perfect physics?",
+       "a": "LeWM's accurate planning horizon is about 25 steps (89.7% success there); chaining keeps every search inside that range, while even exact physics planning all 75 steps at once only reached 42%."
+      },
+      {
+       "q": "What was wrong with the goal images in the hard test?",
+       "a": "They included the robot pusher's position, so the planner also tried to match where the pusher stood; scoring the block's position alone flipped 30 of 50 tasks from failure to success, with none flipping back."
+      }
+     ],
+     "plain": "Imagine giving directions to a friend across town: naming every single turn from memory gets them lost, but giving them three landmarks to hit in order works. This research shows AI planners are the same - they're accurate over short stretches, so chaining short hops beats one heroic long guess, no extra training needed.",
+     "source_name": "Haddy Alchaer",
+     "source_url": "https://haddyalchaer.com/jepa",
+     "reading_time": "4 min",
+     "image_caption": "Push-T, goal 75 steps away: plan all at once 22% - exact physics 42% - subgoals every 25 steps 80%",
+     "image_alt": "Three ascending paper bars showing 22, 42 and 80 percent, the tallest one built from three stacked stair steps.",
+     "accent": "#E8480C",
+     "accents": [
+      "#E8480C",
+      "#2B4BE0"
+     ],
+     "image": "img/2026-11-14-1.jpg"
+    },
+    {
+     "id": "2026-11-14-2",
+     "kind": "DESIGN",
+     "headline": "A poster is decisions, not decorations",
+     "deck": "The Poster Manual's anatomy lesson: order the information first, find a concept (not a texture), and let hierarchy, scale, spacing and tension do the work - a small red word can beat a big gray headline.",
+     "lead": "The Poster Manual's Lesson 5 breaks a poster into the decisions that make it work: start by ordering what the viewer needs to know, find a concept that gives the visuals direction, then tune hierarchy, scale, spacing, balance and rhythm until every element relates. Great type, a beautiful image and nice colors can still make a weak poster - what matters is how they work together.",
+     "body": "The Poster Manual's Lesson 5 breaks a poster into the decisions that make it work: start by ordering what the viewer needs to know, find a concept that gives the visuals direction, then tune hierarchy, scale, spacing, balance and rhythm until every element relates. Great type, a beautiful image and nice colors can still make a weak poster - what matters is how they work together. First, write the information down and rank it: a festival's headliner, date and ticket link don't deserve equal attention, and the message ('a concert is happening') is separate from the visual idea. Second, the concept: 'rock festival' isn't one - rusty grungy type is just texture. A concept is the central idea that connects what the poster is about with how you communicate it; a desert festival and an abandoned-factory one promise different things. Hierarchy is not just size: a small red word in a black-and-white poster can outrank a large gray headline, a face steals attention from type, and the real test is whether the viewer knows where to begin - then whether they can find the date. Scale works through comparison (huge word, tiny date), and contrast can come from weight, blur, geometry or density - pick one that serves the subject. Spacing tells us what belongs together: date under venue becomes a unit, and one name with extra air reads as the headliner before you change its size. Alignment connects across distance, which is why a tiny accidental offset feels unsettled - you almost established a relationship. Balance isn't centeredness (a large pale image can balance a small heavy type block), and tension lives in the 'almost': almost touching, almost aligned - sometimes useful discomfort, sometimes move it or commit. Type is seen before it's read; try one family and change size, weight, spacing, position before blaming the font. Give the image a role (subject, mood, idea, or something for type to answer to); let one accent color link date-venue-tickets; treat empty space as shapes in the composition; and use repetition to build rhythm, then decide where it stops.",
+     "ptrs": [
+      "Order first: write down every piece of information and rank it - headliner, date, venue, ticket link don't deserve equal attention; keep the message separate from the visual idea.",
+      "Concept over texture: 'rock festival = grungy type' is a texture, not a concept - the concept is the central idea that connects subject and communication (desert festival vs abandoned factory promise different things).",
+      "Hierarchy is not size: a small red word can beat a large gray headline; a face steals attention; check what actually comes first, then whether the date and venue are findable next.",
+      "Scale and contrast work through comparison - exaggerate the difference while exploring; one well-chosen contrast (weight, blur, geometry, density) beats five random ones.",
+      "Spacing groups, alignment connects: date under venue reads as a unit; one name with extra air reads as headliner; a tiny accidental offset feels wrong because you 'almost' made a relationship.",
+      "The rest of the toolkit: balance without centering; tension in the 'almost' positions; type is seen before it's read (change size/weight/spacing before changing fonts); give the image a role; one accent color to link related info; empty space is a shape; repetition builds rhythm - decide where it stops."
+     ],
+     "why": "Your thumbnails and TechBlast covers ARE posters, bro - 2 seconds of attention, one winner-takes-all glance. Rank your info, pick ONE concept, and let a single loud accent point at the tap. That's the whole suit.",
+     "example": "The lesson's own hierarchy test: put a small red word next to a large gray headline and watch the red one win - proof that making your headline bigger doesn't guarantee it leads. Before resizing anything in your next cover, decide what should come first and check what actually does.",
+     "questions": [
+      {
+       "q": "What should you do before touching fonts or colors?",
+       "a": "Write down all the information the poster must carry and rank it - the ranking sets the hierarchy; and find the concept, the central idea connecting subject and communication."
+      },
+      {
+       "q": "Why can a small red word beat a big gray headline?",
+       "a": "Hierarchy is created by contrast, not just size - color, isolation and imagery all direct attention, so a large low-contrast headline can lose to a small high-contrast element."
+      },
+      {
+       "q": "Why does a tiny accidental offset feel unsettling in a layout?",
+       "a": "Alignment creates relationships across distance; an offset 'almost' establishes one and fails to follow through - and 'almost' positions read as unresolved unless used deliberately as tension."
+      }
+     ],
+     "plain": "A poster is like telling one friend a secret at a noisy party: you lean in and say the most important thing first, not everything at the same volume. Designers do that with size, color and spacing - the biggest or brightest thing is what you 'hear' first, and everything else queues politely behind it.",
+     "source_name": "The Poster Manual",
+     "source_url": "https://www.thepostermanual.com/course/lesson-5",
+     "reading_time": "3 min",
+     "image_alt": "A poster frame where one tiny bright word shape outshines a huge dull gray headline block, with a face silhouette pulling a third arrow of attention.",
+     "info_alt": "Diagram: an eye shape entering a poster frame, a numbered path - no, a bold arrow visiting a big shape first, then a small bright shape, then a quiet block of lines at the bottom.",
+     "info_caption": "Attention has an order: the loudest element wins the first look - the bright small thing beats the big dull thing - supporting info queues last.",
+     "info_labels": [
+      {
+       "t": "first look",
+       "x": 34,
+       "y": 88,
+       "c": "#E8480C"
+      },
+      {
+       "t": "second",
+       "x": 55,
+       "y": 88,
+       "c": "#141412"
+      },
+      {
+       "t": "supporting info",
+       "x": 76,
+       "y": 88,
+       "c": "#2B4BE0"
+      }
+     ],
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0",
+      "#E8480C"
+     ],
+     "image": "img/2026-11-14-2.jpg",
+     "info_image": "img/2026-11-14-2-info.jpg"
+    },
+    {
+     "id": "2026-11-14-3",
+     "kind": "ON SCREEN",
+     "headline": "Leave room for the nose",
+     "deck": "Composition is how you arrange the shot: eyes a third down in closeups, never crop limbs at joints, space in the direction people look or move - and backgrounds that tell the story instead of growing out of heads.",
+     "lead": "Tom Barrance's framing guide at Learn About Film teaches composition as arrangement: put things clearly off-center for a natural look, give people more space in the direction they're looking or moving, keep eyes about a third of the way down in closeups, and mind what the frame's edges and background are doing. Small arrangements, huge difference in how professional a shot feels.",
+     "body": "Tom Barrance's framing guide at Learn About Film teaches composition as arrangement: put things clearly off-center for a natural look, give people more space in the direction they're looking or moving, keep eyes about a third of the way down in closeups, and mind what the frame's edges and background are doing. Small arrangements, huge difference in how professional a shot feels. The rule of thirds gets a sensible treatment: placing important things or edges about a third of the way across, up or down the screen works, and many cameras can overlay the grid - but judging whether the image looks right matters more than following a rigid rule. For closeups, eyes sit about a third of the way down; too low or too high just looks wrong. At the edges, don't crop people's arms or legs at the joints. The space a person looks or moves into is called looking space or nose room - leave more of it in front of the face than behind it, and when two people look at each other across a cut, their looking directions should line up (that's eyeline match). Going off-natural on purpose is a tool too: centered compositions look formal, sometimes odd; symmetry can look cool; a slanted camera (the Dutch angle) makes things strange or scary - but make the angle obvious or people read it as a mistake, and really unbalanced compositions make viewers uneasy. Finally, the background: avoid lines or objects growing out of people's heads (move until they're gone), blur confusing backgrounds with a longer lens if you can, accept that plain is better than confusing but boring - and ideally pick a background that tells us about the story, like the presenter standing in front of the very building he's discussing.",
+     "ptrs": [
+      "Off-center = natural: place key things about a third across/up/down (cameras can overlay the grid) - but trust your eye over the rigid rule.",
+      "Closeups: eyes about a third of the way down the frame; too low or too high reads as wrong.",
+      "Edges: never crop arms or legs at the joints.",
+      "Looking space / nose room: more space in front of the face than behind it, in the direction of looking or moving; across a cut, two people's looking directions should line up (eyeline match).",
+      "Deliberate weirdness: centered = formal (sometimes odd), symmetry can look cool, Dutch angle = strange/scary - but make it obvious or it reads as a mistake; really unbalanced frames make viewers uneasy.",
+      "Backgrounds: nothing growing out of heads; blur or move confusing backgrounds; plain beats confusing but is boring; best is a background that tells the story."
+     ],
+     "why": "Your reels are one person talking to a phone, bro - which means composition IS your production design. Eyes a third down, nose room, nothing sticking out of your head, and a background that says something. Instant 'wait, why does this look pro now'.",
+     "example": "The guide's own before/after logic: a presenter filmed with the building he's discussing behind him beats the same presenter against a blank wall - plain is better than confusing, but a background that tells the story beats both. Same person, same camera, different arrangement.",
+     "questions": [
+      {
+       "q": "What is looking space (nose room)?",
+       "a": "Extra space left in the frame in the direction a person is looking or moving - more in front of the face than behind it."
+      },
+      {
+       "q": "Where should the eyes sit in a closeup?",
+       "a": "About a third of the way down the frame; noticeably lower or higher reads as wrong."
+      },
+      {
+       "q": "What's the background hierarchy?",
+       "a": "Best: a background that tells the story. Acceptable: plain. Avoid: confusing - and never let lines or objects grow out of people's heads."
+      }
+     ],
+     "plain": "When you photograph a friend who's looking to the left, it feels right to leave more space on the left side, as if their gaze needs somewhere to land. Film composition is a handful of arrangements like that - where the eyes sit, where limbs get cropped, what's behind the person - that quietly make a shot feel natural or awkward.",
+     "source_name": "Learn About Film",
+     "source_url": "https://learnaboutfilm.com/film-language/picture/frame-it-right/",
+     "reading_time": "3 min",
+     "image_alt": "A paper face in profile looking right, with generous empty space ahead of the nose and a cramped sliver behind the head.",
+     "info_alt": "Diagram: two frames side by side - one face squashed against the frame edge with a cross mark, one face with open space ahead of its gaze and a check mark.",
+     "info_caption": "Wrong: gaze hits the frame edge - Right: space waits where the eyes are going. The face sits off-center, eyes a third down.",
+     "info_labels": [
+      {
+       "t": "cramped (wrong)",
+       "x": 12,
+       "y": 88,
+       "c": "#E8480C"
+      },
+      {
+       "t": "nose room (right)",
+       "x": 58,
+       "y": 88,
+       "c": "#2B4BE0"
+      }
+     ],
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0",
+      "#E8480C",
+      "#F2C200"
+     ],
+     "image": "img/2026-11-14-3.jpg",
+     "info_image": "img/2026-11-14-3-info.jpg"
+    },
+    {
+     "id": "2026-11-14-4",
+     "kind": "AI NEWS",
+     "headline": "$11.4M of Nvidia gear vanishes",
+     "deck": "Six pallets of Nvidia hardware reportedly disappeared between Oakland and Fort Worth - picked up by a truck wearing a food company's logo, tracked through hours-long stops, then lost in San Bernardino County. Police confirm a grand-theft investigation.",
+     "lead": "Six pallets of Nvidia computer hardware worth a reported $11.4 million vanished during a shipment from Oakland to Fort Worth, FreightWaves reports - the truck, displaying a food transportation company's logo at pickup, made several hours-long stops before investigators lost its trail in Southern California. Oakland police confirm an ongoing grand theft investigation after a complaint filed September 13.",
+     "body": "Six pallets of Nvidia computer hardware worth a reported $11.4 million vanished during a shipment from Oakland to Fort Worth, FreightWaves reports - the truck, displaying a food transportation company's logo at pickup, made several hours-long stops before investigators lost its trail in Southern California. Oakland police confirm an ongoing grand theft investigation after a complaint filed September 13. The Mercer News-reported details: the vehicle was collected in Oakland on August 29 for delivery to Fort Worth, then traveled south with extended stops before the trail went cold in San Bernardino County. Police caveats matter: the September 13 complaint date doesn't establish when the theft occurred, and police have not confirmed the $11.4 million valuation, the specific merchandise, or identified the cargo's owner, shipper, carrier or driver; no arrests, no recovery announced, and Nvidia hadn't responded to FreightWaves' requests for comment. The disappearance lands amid reports of nearly $111 million in stolen data-center freight involving other high-value tech shipments, and a separate $12 million cargo-theft investigation in which suspects allegedly exploited established trucking identities to obtain freight - authorities haven't linked the two. It's also not the region's first: during 2025, Fremont and Union City police investigated burglaries involving more than $7.5 million in Nvidia products, and in a separate September incident thieves stole two PlusAI trailers (one Nvidia-branded) from a Fremont warehouse - which turned out to contain roughly 40,000 pounds of sand; both were recovered nearby. On Hacker News the story drew ~290 points, with commenters trading cargo-fraud lore about fictitious pickups - community color, not verified fact.",
+     "ptrs": [
+      "The report: six pallets of Nvidia hardware, a reported $11.4M, collected in Oakland Aug 29 for Fort Worth - gone; the truck showed a food-transport logo at pickup and was lost in San Bernardino County after several hours-long stops (FreightWaves, citing The Mercury News).",
+      "Police status: Oakland PD confirms a grand-theft investigation (complaint filed Sept 13) - but has NOT confirmed the valuation, the merchandise, or the owner/shipper/carrier/driver; no arrests or recovery announced.",
+      "The pattern: the case lands amid reports of ~$111M in stolen data-center freight, and a separate $12M cargo-theft probe involving suspects allegedly exploiting established trucking identities - not officially linked.",
+      "The prequels: $7.5M+ in Nvidia-product burglaries investigated in Fremont and Union City in 2025; and the thieves who stole two PlusAI trailers from Fremont got ~40,000 lbs of sand instead of GPUs (recovered).",
+      "HN colour: ~290 points; commenters swapped fictitious-pickup and cargo-fraud stories - discussion, not verified fact."
+     ],
+     "why": "GPUs are officially the new gold bars, bro - trucks full of them are getting the heist-movie treatment. When you wonder why your RTX upgrade or cloud credits cost what they do, remember: the chips are valuable enough to steal by the pallet.",
+     "example": "The alleged playbook, per the report: show up at the warehouse looking like a legitimate carrier (a food company's logo), collect the freight in broad daylight, then take the scenic route south with long stops until the trail goes cold. Carrier verification is exactly what FreightWaves' analysis says has to improve.",
+     "questions": [
+      {
+       "q": "What has police actually confirmed?",
+       "a": "That it's investigating a grand theft in East Oakland reported September 13. It has not confirmed the $11.4M valuation, the specific merchandise, the owner/shipper/carrier/driver, or made arrests."
+      },
+      {
+       "q": "How was the shipment reportedly taken?",
+       "a": "A truck displaying a food transportation company's logo collected the pallets in Oakland for delivery to Fort Worth, then made extended stops heading south before investigators lost it in San Bernardino County."
+      },
+      {
+       "q": "Is this an isolated incident?",
+       "a": "No - it lands amid reports of nearly $111M in stolen data-center freight, a separate $12M cargo-theft probe (not linked), and $7.5M+ in Nvidia-product burglaries investigated in Fremont and Union City in 2025."
+      }
+     ],
+     "plain": "Computer chips for AI are now so valuable that a whole truckload can be worth over eleven million dollars - so one reportedly got stolen like in a heist movie: a truck pretending to be a food delivery picked up the pallets and simply never arrived. Police are investigating, but many details are still unconfirmed.",
+     "source_name": "FreightWaves",
+     "source_url": "https://www.freightwaves.com/news/11-4-million-in-nvidia-hardware-vanishes-during-shipment-from-california-to-texas",
+     "reading_time": "3 min",
+     "image_alt": "A paper delivery truck with a peeled-off logo patch, six stacked pallets falling off its open back onto a winding road that fades into nothing.",
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0",
+      "#F2C200",
+      "#E8480C"
+     ],
+     "image": "img/2026-11-14-4.jpg"
+    },
+    {
+     "id": "2026-11-14-5",
+     "kind": "AI NEWS",
+     "headline": "Decider: the model that just votes",
+     "deck": "Perplexity's Decider v1.3 is an open Apache-licensed 'decision model': instead of generating text, it answers yes/no, multiple-choice and score questions with probabilities - for judging, routing, moderation and reranking - in a single forward pass.",
+     "lead": "Perplexity released Decider v1.3 and the smaller distilled Decider Flash v1.3, both under the Apache license on Hugging Face, OpenRouter and its Decisions API. Decider is a 'decision model': give it an input plus questions with possible answers, and it returns a probability distribution over each question's answers - no token-by-token generation.",
+     "body": "Perplexity released Decider v1.3 and the smaller distilled Decider Flash v1.3, both under the Apache license on Hugging Face, OpenRouter and its Decisions API. Decider is a 'decision model': give it an input plus questions with possible answers, and it returns a probability distribution over each question's answers - no token-by-token generation. It handles three question types - yes/no, multiple choice with custom labels, and ordered scores - and it's inspired by Jev, TypeSafe AI's System One Model. The target jobs are the unglamorous workhorses usually forced through LLMs: judging outputs for faithfulness, quality and safety; routing requests to smaller or larger models by difficulty; moderation and security (including detecting prompt injection in tool outputs); filtering and tagging big collections; and retrieval reranking. The trick is structural: a request is one shared context (the state) plus many question blocks, each answer option pre-assigned a label token like A, B or C; a special marker token indicates where to read out the prediction, and at that position a learned linear 'decision head' maps the hidden state to per-option scores turned into probabilities. Multiple questions about the same input get answered in a single forward pass, sharing the computation - and because it learned a shared question-answering format across diverse tasks, it can take on new tasks through plain natural-language prompts, sitting between LLMs and task-specific classifiers. The v1.3 pair improves robustness across text and vision tasks via bidirectional attention, better-curated training data and a refined recipe, and adds 'locate', which highlights the selected content for named-entity recognition, personal-information identification and extractive question answering. Perplexity says it uses Decider internally and documented training and evaluation in the release post.",
+     "ptrs": [
+      "What shipped: Decider v1.3 plus the smaller distilled Decider Flash v1.3 - Apache-licensed on Hugging Face, also via OpenRouter and the Perplexity Decisions API (Nov 12).",
+      "What a decision model is: a general-purpose classifier - input + questions with answer options in, probability distribution over each question's answers out; three question types: yes/no, multiple choice, ordered score.",
+      "What it's for: judging outputs (faithfulness, quality, safety), routing by difficulty, moderation and security (including prompt-injection detection in tool outputs), filtering/tagging, retrieval reranking.",
+      "How it works: one shared context plus question blocks with label tokens (A, B, C); a marker token marks where to read the prediction; a learned linear 'decision head' maps that hidden state to per-option probabilities - many questions, one forward pass.",
+      "Why it matters vs LLMs: tasks that never needed free-form text get probabilities without token-by-token generation, sharing compute across questions; unlike narrow classifiers it still takes new tasks via natural-language prompts. Inspired by Jev, TypeSafe AI's System One Model.",
+      "v1.3 upgrades: bidirectional attention, better-curated data, refined recipe, text + vision robustness, and 'locate' - highlighting selected content for NER, PII detection and extractive QA."
+     ],
+     "why": "Half the things people burn LLM tokens on are really just multiple-choice questions, bro - is this summary faithful, is this email phishing, which model should handle this. An open model that just VOTES with probabilities is cheaper, faster, and you can download it tonight.",
+     "example": "The post's own shape: hand Decider a document and its summary as one shared context, then ask two questions in the same request - 'is the summary faithful?' and 'is it aimed at experts or a general audience?' - and get both probability answers from a single forward pass instead of two LLM calls.",
+     "questions": [
+      {
+       "q": "How is a decision model different from a chatbot?",
+       "a": "It doesn't generate text token by token; you give it an input plus questions with predefined answer options, and it returns a probability distribution over the answers via a learned decision head."
+      },
+      {
+       "q": "What can it be used for?",
+       "a": "Judging outputs (faithfulness, quality, safety), routing requests to smaller or larger models, moderation and security like prompt-injection detection, filtering and tagging, and retrieval reranking."
+      },
+      {
+       "q": "Can you actually get it?",
+       "a": "Yes - Decider v1.3 and the smaller distilled Flash v1.3 are Apache-licensed on Hugging Face, and also available through OpenRouter and Perplexity's Decisions API."
+      }
+     ],
+     "plain": "Imagine asking a friend ten yes-or-no questions about one photo, and they answer all ten in one glance instead of describing the photo ten separate times. Decider works like that friend: it doesn't write essays - it just looks once and votes, with confidence percentages, which is exactly what filters and routers need.",
+     "source_name": "Perplexity",
+     "source_url": "https://www.perplexity.ai/hub/blog/perplexity-decider",
+     "reading_time": "3 min",
+     "image_alt": "A paper ballot box shaped like a brain, with three question cards sliding in and three percentage-bar cards sliding out.",
+     "info_alt": "Diagram: one shared document card feeds three question cards stacked together; a single arrow passes through one model box; three probability bars come out.",
+     "info_caption": "One shared context + many question blocks - one forward pass through the decision head - probabilities out for every question at once.",
+     "info_labels": [
+      {
+       "t": "shared context",
+       "x": 8,
+       "y": 88,
+       "c": "#141412"
+      },
+      {
+       "t": "one forward pass",
+       "x": 44,
+       "y": 88,
+       "c": "#2B4BE0"
+      },
+      {
+       "t": "probabilities out",
+       "x": 72,
+       "y": 88,
+       "c": "#E8480C"
+      }
+     ],
+     "accent": "#E8480C",
+     "accents": [
+      "#E8480C",
+      "#2B4BE0",
+      "#F2C200"
+     ],
+     "image": "img/2026-11-14-5.jpg",
+     "info_image": "img/2026-11-14-5-info.jpg"
+    },
+    {
+     "id": "2026-11-14-6",
+     "kind": "TRY THIS",
+     "headline": "Man in the middle of your own fan",
+     "deck": "A developer reverse-engineered his Coway air purifier to ditch its cloud: a Raspberry Pi as a Wi-Fi access point, mitmproxy reading the traffic, and an LLM doing the setup in minutes. The same toolkit shows what any device you own is phoning home.",
+     "lead": "Scott J. got tired of his Coway air purifier's cloud app and reverse-engineered it: he put a Raspberry Pi between the fan and the internet as a Wi-Fi access point, redirected its traffic through mitmproxy, and read exactly what the device sends home - with an LLM doing the network setup unattended in minutes. The full write-up is a 680-point Hacker News hit.",
+     "body": "Scott J. got tired of his Coway air purifier's cloud app and reverse-engineered it: he put a Raspberry Pi between the fan and the internet as a Wi-Fi access point, redirected its traffic through mitmproxy, and read exactly what the device sends home - with an LLM doing the network setup unattended in minutes. The full write-up is a 680-point Hacker News hit. His goal was domestic, not adversarial: tie the fan into his Apple Home 'Good Night' button so one tap kills the lights and cranks the white-noise fan. The blocker was the fan's encrypted chatter with Coway's IoCare cloud. Two things made the attempt timely: a recent security incident (October 2026) where the certificate authority eMudhra was found to have used very weak parameters for some private keys - meaning anyone could potentially mint trusted certificates for a while - and AI, because an LLM could configure the whole man-in-the-middle environment for him. He notes, with screenshots, that Claude declined the setup request under its cyber policy while ChatGPT obliged - his account, worth reading as one data point on how assistants treat dual-use networking help. The rig: a Raspberry Pi running its own isolated Wi-Fi network for the fan, nftables rules redirecting ports 80 and 443 into mitmproxy (which decrypts and logs the traffic), and - because the Pi's tiny antenna couldn't reach both the fan and his router - his laptop bridging the Pi to the home network over Ethernet. Once you sit between a device and the internet, he writes, you can see how it communicates - the first step to making it talk to you instead of the cloud. You can try the polite version tonight on your own gear: mitmproxy is free and open-source, and pointing your own phone at it reveals what your apps send, to whom, and how often.",
+     "ptrs": [
+      "The project: liberate a Coway Airmega from its cloud so an Apple Home 'Good Night' button can kill the lights and crank the fan's white noise - 680 HN points.",
+      "The rig: Raspberry Pi as an isolated Wi-Fi access point for the fan; nftables redirecting ports 80/443 into mitmproxy to decrypt and log traffic; laptop bridging the Pi to the home network (the Pi's PCB antenna was too weak to span both rooms).",
+      "The timing: an October 2026 incident where CA eMudhra used very weak parameters for some private keys (potentially forgeable trusted certs) - plus LLMs making the whole MitM setup a minutes-long job.",
+      "The colour (his account, with screenshots): Claude declined the setup request under its cyber policy; ChatGPT obliged - one data point on how assistants treat dual-use help.",
+      "The lesson: sit between a device and the internet and you can see how it communicates - the first step to making it talk to you instead of the cloud.",
+      "Tonight's version: mitmproxy is free and open-source; proxy your OWN phone through it and watch what one app sends home - domains, frequency, payloads you can read."
+     ],
+     "why": "This is the hacker version of 'you can just do things', bro: a Raspberry Pi, free software, and an LLM intern, and suddenly a 'locked' cloud gadget answers to HIM. Try the baby step - proxy your own phone tonight and read what one chatty app whispers home. You'll never look at 'free apps' the same.",
+     "example": "His concrete chain, replicable on your own devices: device - Pi access point - nftables redirect of ports 80/443 - mitmproxy logs everything. Yours: install mitmproxy on your PC, set your phone's Wi-Fi proxy to the PC's IP and port 8080, install mitmproxy's certificate on the phone, open one app, and read its requests in the mitmproxy web UI. Own devices only.",
+     "questions": [
+      {
+       "q": "What does a man-in-the-middle setup show you?",
+       "a": "Everything a device sends and receives - by sitting between it and the internet you can read its traffic and learn its protocol, the first step to controlling it yourself instead of via the vendor's cloud."
+      },
+      {
+       "q": "Why did he need a Raspberry Pi AND his laptop?",
+       "a": "The Pi ran its own isolated Wi-Fi network for the fan, but its small PCB antenna couldn't reach both the fan and the home router - so the laptop bridged the Pi to the home network over Ethernet."
+      },
+      {
+       "q": "Is this legal to try?",
+       "a": "On your own devices, inspecting your own traffic with a tool like mitmproxy is a normal security-research exercise - intercepting other people's traffic or networks is not."
+      }
+     ],
+     "plain": "Every smart gadget sends little letters home over the internet, and usually you can't read them because they're sealed. This is like making the gadget hand its letters to your own mailbox first: you open them, learn what it says, and eventually answer in the cloud's place - on gadgets you own, that's a fair and famous hobby.",
+     "source_name": "Scott J. (scottjg.com)",
+     "source_url": "https://scottjg.com/posts/2026-11-11-reverse-engineering-my-coway-air-purifier-to-ditch-the-cloud/",
+     "reading_time": "3 min",
+     "image_alt": "A paper air purifier whispering dotted letters into a tiny Raspberry Pi mailbox held open by a magnifying glass, the cloud above crossed with a slash.",
+     "info_alt": "Diagram: a fan shape, arrow into a small computer box with an eye symbol, arrow onward to a crossed-out cloud, and a branch arrow down to a phone reading the logs.",
+     "info_caption": "Fan - Pi access point + mitmproxy reads the traffic - cloud optional; the owner watches everything from their own screen.",
+     "info_labels": [
+      {
+       "t": "device",
+       "x": 8,
+       "y": 88,
+       "c": "#141412"
+      },
+      {
+       "t": "Pi + mitmproxy",
+       "x": 36,
+       "y": 88,
+       "c": "#E8480C"
+      },
+      {
+       "t": "cloud (optional)",
+       "x": 72,
+       "y": 88,
+       "c": "#2B4BE0"
+      }
+     ],
+     "accent": "#E8480C",
+     "accents": [
+      "#E8480C",
+      "#2B4BE0",
+      "#F2C200"
+     ],
+     "image": "img/2026-11-14-6.jpg",
+     "info_image": "img/2026-11-14-6-info.jpg"
+    }
+   ]
+  },
+  {
    "date": "2026-11-13",
    "number": 27,
    "items": [
