@@ -2,6 +2,367 @@
  "paper": "The Daily Draft",
  "issues": [
   {
+   "date": "2026-11-15",
+   "number": 29,
+   "items": [
+    {
+     "id": "2026-11-15-1",
+     "kind": "AI TIP",
+     "headline": "Your Prompt's Language Sets Its Power Bill",
+     "deck": "University of Michigan researchers metered the electricity LLMs burn per answer across 122 languages: Hindi cost 7.9x and Bengali 15.3x the energy of an equivalent English prompt - and 5.2 billion people's first language costs more than double.",
+     "lead": "A University of Michigan team asked three open models - Alibaba's Qwen 3, Google's Gemma 3 and Meta's Llama 3.1 - the same reading-comprehension questions in 122 languages and metered the energy each answer used. Generating non-English text burned 1.4 to 180 times more energy than English, and the languages with the highest energy cost also tended to produce less accurate answers.",
+     "body": "A University of Michigan team asked three open models - Alibaba's Qwen 3, Google's Gemma 3 and Meta's Llama 3.1 - the same reading-comprehension questions in 122 languages and metered the energy each answer used. Generating non-English text burned 1.4 to 180 times more energy than English, and the languages with the highest energy cost also tended to produce less accurate answers. Western European languages came in at roughly twice English's energy or less, and Spanish and Chinese sat around 2x even though each has more native speakers than English. Hindi needed 7.9x and Bengali 15.3x the energy of an equivalent English prompt; Urdu and several Indic languages - first languages for more than 800 million people combined - cost over 4x. The disparity is greatest in languages that don't use Latin script and have less digital training content. The team used the Belebele benchmark, measured joules with Michigan's ML.Energy framework, and cross-checked with grade-school math problems and open-ended prompts translated via Meta's No Language Left Behind. Adding demographic data from Ethnologue, they estimate about 5.2 billion people must spend more than twice the energy to generate text in their first language compared with English speakers. Their recommended fixes: route queries to models tailored to specific languages, translate prompts to English before a general model when the translation is reliable, and crowdsource native speakers to build training resources. The study was presented at EMNLP and funded in part by the NSF and DARPA.",
+     "ptrs": [
+      "Western European languages came in at roughly twice English's energy or less; Spanish and Chinese sat around 2x even though each has more native speakers than English.",
+      "Hindi needed 7.9x and Bengali 15.3x the energy of an equivalent English prompt; Urdu and several Indic languages - first languages for over 800 million people combined - cost more than 4x.",
+      "The gap is worst in languages that don't use Latin script and have less digital training content; the study ran on the Belebele dataset (122 languages), measured joules with Michigan's ML.Energy framework, and cross-checked with math word problems and open-ended prompts translated using Meta's No Language Left Behind.",
+      "About 5.2 billion people must spend more than twice the energy to generate text in their first language compared with English speakers, per the researchers' measurements plus Ethnologue demographic data.",
+      "Recommended fixes: route queries to language-specific models, translate prompts to English first when translation is reliable, and crowdsource native speakers for training resources. Presented at EMNLP; funded partly by the NSF and DARPA."
+     ],
+     "why": "Suit up, because this one is personal: you're an AIML student in India, and half your family group chat types in Hindi or Gujarati. When you build for Indian users, this double penalty - higher cost AND lower accuracy - is your design constraint, not a fun fact. An English-first pipeline is cheaper per answer today, but your users shouldn't have to switch languages to afford your app. Knowing that tokenizers charge more per word in non-Latin scripts is how you price, cache and route like a pro.",
+     "example": "Concrete playbook from the study itself: if your app serves Hindi users, one suggested architecture translates the incoming prompt to English (when translation is reliable), runs the general model, and translates back - trading a small translation overhead for a big cut in generation energy, instead of letting one user cost 7.9x another for the same answer.",
+     "questions": [
+      {
+       "q": "How much more energy did Hindi prompts use than equivalent English ones?",
+       "a": "7.9 times more; Bengali was 15.3 times more."
+      },
+      {
+       "q": "Which three open models were metered?",
+       "a": "Alibaba's Qwen 3, Google's Gemma 3 and Meta's Llama 3.1."
+      },
+      {
+       "q": "Name one fix the researchers recommend.",
+       "a": "Route queries to language-specific models - or translate prompts to English first when the translation is reliable."
+      }
+     ],
+     "plain": "AI models chop text into little pieces called tokens before they think. Languages with less online training data get chopped into more pieces for the same sentence - like paying airline fees per suitcase and watching your one bag get split into fifteen. More pieces means more computing work, so the same question literally takes more electricity to answer in Hindi or Bengali than in English.",
+     "source_name": "University of Michigan News",
+     "source_url": "https://news.umich.edu/generative-ai-uses-more-energy-on-non-english-text/",
+     "reading_time": "4 min",
+     "image_caption": "Bars, left to right - energy per answer vs an English prompt: English 1x - Spanish or Chinese ~2x - Hindi 7.9x - Bengali 15.3x",
+     "image_alt": "Cut-paper bar chart of four columns rising left to right: a tiny cobalt bar, a small amber bar, a tall vermilion bar and a very tall ink bar on a shared baseline",
+     "accent": "#E8480C",
+     "accents": [
+      "#E8480C",
+      "#F2C200",
+      "#2B4BE0"
+     ],
+     "image": "img/2026-11-15-1.jpg"
+    },
+    {
+     "id": "2026-11-15-2",
+     "kind": "DESIGN",
+     "headline": "Grids: Decide Once, Then Stop Deciding",
+     "deck": "A grid is not decoration - it is format, margins, leading, columns and fields decided once and held consistently. One step-by-step method walks from a blank A4 page to a full typographic grid in fifteen minutes.",
+     "lead": "Design studio Fengo published a start-to-finish recipe for building a grid system: pick the format first, set margins (canon or deliberate), then let the body text's line height become the ruler for everything else. From that point on, columns, image blocks and headings all snap to the same invisible rhythm - which is why gridded work reads as one coherent whole.",
+     "body": "Design studio Fengo published a start-to-finish recipe for building a grid system: pick the format first, set margins (canon or deliberate), then let the body text's line height become the ruler for everything else. From that point on, columns, image blocks and headings all snap to the same invisible rhythm - which is why gridded work reads as one coherent whole. Margins can come from a canon: the Van de Graaf construction divides the page into ninths - inner margin 1/9 of the width, outer 2/9, top 1/9 of the height, bottom 2/9 - giving the classic 2:3:4:6 ratio on a 2:3-proportioned page; Jan Tschichold popularized these constructions in the mid-1950s, though they are modern reconstructions of old book layouts, not proven historical recipes. For catalogs, flyers and screens, a canon wastes surface, so size margins from real constraints: binding eats the inner margin, bleeds change perceived width, barcodes and footers must fit, and thumbs cover the bottom. The key move: body-text leading becomes the grid unit - 10 pt type on 12 pt leading means a 12 pt (4.233 mm) baseline grid, and everything with height gets counted in whole lines so neighboring columns share a rhythm. Columns follow content: aim for 45-75 characters per line, about 66 in the comfortable middle; twelve narrow columns are a flexible division, not twelve text columns. Fields and gutters are whole numbers of lines, images occupy whole fields with edges locked to module boundaries, and you finish with a four-question check - hierarchy visible, smallest text legible on the target tech, measure right, elements returning to rhythm - then export as a DTP spec, 1:1 PDF, SVG or CSS Grid.",
+     "ptrs": [
+      "Margins by canon: the Van de Graaf construction divides the page into ninths - inner margin 1/9 of the width, outer 2/9, top 1/9 of the height, bottom 2/9 - giving the classic 2:3:4:6 ratio on a 2:3-proportioned page; Tschichold popularized these constructions in the mid-1950s, though they are modern reconstructions, not proven historical recipes.",
+      "Margins by decision: for catalogs, flyers and screens a canon wastes surface, so size margins from real constraints - binding eats the inner margin, bleeds change perceived width, barcodes and footers must fit, thumbs cover the bottom.",
+      "The key move: body-text leading becomes the grid unit - 10 pt type on 12 pt leading means a 12 pt (4.233 mm) baseline grid, and everything with height (type area, modules, images, spacing) gets counted in whole lines so neighboring columns share a rhythm.",
+      "Columns follow content: aim for 45-75 characters per line (~66 is the comfortable middle); twelve narrow columns are a flexible division - text might span 3 or 4, images any number.",
+      "Modules and images: fields and gutters are whole numbers of lines (one-line gutters are classic); images occupy whole fields like 2x1 or 3x2, edges locked to module boundaries, so an image's bottom lands on a text baseline.",
+      "Finish with a four-question check (hierarchy visible? smallest text legible on target tech? measure right? elements returning to rhythm?) and export as a DTP spec, 1:1 PDF, SVG or CSS Grid."
+     ],
+     "why": "Bro, your reel covers and carousels are a publication whether you named them one or not. A baseline grid is the difference between 'a collection of posts' and 'a brand'. Decide format, margins, leading and columns ONCE, and every thumbnail after that takes minutes and still lines up with the last forty. Consistency is what makes people trust the suit before they hear the pitch.",
+     "example": "Apply it to an Instagram carousel: phone format, symmetric margins, pick one body size and leading, set four columns, place every image across exactly two of them and keep every caption one grid line tall. Swiped end to end, the slides line up like pages of one book instead of six separate flyers.",
+     "questions": [
+      {
+       "q": "How does the Van de Graaf construction divide the page?",
+       "a": "Into ninths: inner margin 1/9 of the width, outer 2/9, top 1/9 of the height, bottom 2/9."
+      },
+      {
+       "q": "What becomes the base unit of the whole grid?",
+       "a": "The body text's leading (line height) - everything with height is counted in whole lines."
+      },
+      {
+       "q": "What line length is recommended for running text?",
+       "a": "About 45 to 75 characters per line, with roughly 66 as the comfortable middle."
+      }
+     ],
+     "plain": "A grid is an invisible ruler system under a page. The designer decides the margins and column lines once, then every photo, headline and paragraph must snap to those lines - like lining up furniture along floor tiles instead of shoving it anywhere. That is why some pages feel calm and tidy before you even read a word.",
+     "source_name": "Fengo Blog",
+     "source_url": "https://fengo.pl/en/blog/grid-systems-step-by-step",
+     "reading_time": "5 min",
+     "image_alt": "Cut-paper open book spread with ink margin frames, cobalt column strips, one vermilion image block and a small amber square",
+     "info_alt": "Four-step schematic: blank page, margin frame, column strips, then baseline rows with an image block snapped into the grid",
+     "info_caption": "Build order, left to right: blank page - margins frame the type area - columns divide it - baseline rows lock the rhythm, images snap into fields",
+     "info_labels": [
+      {
+       "t": "blank page",
+       "x": 4,
+       "y": 88,
+       "c": "#141412"
+      },
+      {
+       "t": "margins",
+       "x": 30,
+       "y": 88,
+       "c": "#141412"
+      },
+      {
+       "t": "columns",
+       "x": 56,
+       "y": 88,
+       "c": "#2B4BE0"
+      },
+      {
+       "t": "rows + snap",
+       "x": 78,
+       "y": 88,
+       "c": "#E8480C"
+      }
+     ],
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0",
+      "#E8480C"
+     ],
+     "image": "img/2026-11-15-2.jpg",
+     "info_image": "img/2026-11-15-2-info.jpg"
+    },
+    {
+     "id": "2026-11-15-3",
+     "kind": "ON SCREEN",
+     "headline": "Cross the Line, Lose the Room",
+     "deck": "One invisible line between two characters decides whether your scene reads clearly or feels wrong. Keep the camera on one side and the room stays oriented; cross it and the audience's mental map flips.",
+     "lead": "The 180 degree rule draws an imaginary axis between two characters - or a character and an object - and tells you to keep every camera setup on one side of it, so the left/right relationship on screen never flips. Follow it and the scene's geography stays readable; cross it and viewers feel disoriented - which is exactly why directors break it on purpose.",
+     "body": "The 180 degree rule draws an imaginary axis between two characters - or a character and an object - and tells you to keep every camera setup on one side of it, so the left/right relationship on screen never flips. Follow it and the scene's geography stays readable; cross it and viewers feel disoriented - which is exactly why directors break it on purpose. Each choice says something: following the rule establishes orientation, breaking it signals unease, bending it signals a gradual change. Heat's restaurant scene is the textbook follow: the line runs across the table through Pacino and De Niro, Pacino keeps looking camera right and De Niro camera left, so the viewer never loses the room. With a crowd, treat the set like a stage play and keep your setups 'in the seats' on one side; in chases, a car moving right-to-left must hold that screen direction across cuts or it looks like it turned around - Dumb and Dumber holds it from Nebraska to Aspen. Breaking with intent works: in 25th Hour, Spike Lee has Ed Norton and the detective both look camera left during the drug bust, and the flipped geography puts you inside Norton's confusion; The Shining, Requiem for a Dream, Do the Right Thing, American Beauty and Hulk also cross deliberately. And you can bend the line legally: a neutral shot straight on the axis (Ocean's Eleven), camera movement that crosses during one unbroken take (the dolly around Neil in Heat), or a cutaway to something with no orientation (used for fight geography in Hero).",
+     "ptrs": [
+      "What each choice says: following the rule establishes orientation, breaking it signals unease, bending it signals a gradual change in the scene.",
+      "Heat's restaurant scene is the textbook follow: the line runs across the table through Pacino and De Niro - Pacino keeps looking camera right, De Niro camera left, so the viewer never loses the room.",
+      "Groups and vehicles: with a crowd, treat the set like a stage play and keep your setups 'in the seats' on one side; in chases, a car moving right-to-left must hold that screen direction across cuts or it looks like it turned around (Dumb and Dumber holds it from Nebraska to Aspen).",
+      "Breaking with intent: in 25th Hour, Spike Lee has Ed Norton and the detective both look camera left during the drug bust - the flipped geography puts you inside Norton's confusion; The Shining, Requiem for a Dream, Do the Right Thing, American Beauty and Hulk also cross deliberately.",
+      "Bending resets the line legally: a neutral shot straight on the axis (Ocean's Eleven), camera movement that crosses during one unbroken take (the dolly around Neil in Heat), or a cutaway to something with no orientation (used for fight geography in Hero)."
+     ],
+     "why": "You shoot talking-head reels and two-person skits, so listen up: when an edit of two people talking feels 'weird' and you can't say why, nine times out of ten someone crossed the line. Put an imaginary rope between your subjects, keep the phone on one side, and your cuts snap together like Lego. Then, the day you WANT the audience squirming - that's when you cross it on purpose, like Spike Lee.",
+     "example": "Shooting a two-person podcast clip: draw the axis between the speakers and put both camera angles on the same side of it - speaker A always faces screen-left, speaker B screen-right, and the edit stays readable. Want the moment an argument turns hostile to feel wrong in the stomach? That's the moment you earn a line cross.",
+     "questions": [
+      {
+       "q": "What is 'the line' in the 180 degree rule?",
+       "a": "An imaginary axis between two characters (or a character and an object); the camera stays on one side of it."
+      },
+      {
+       "q": "What does deliberately crossing the line usually signal?",
+       "a": "Disorientation or unease - that something in the scene has gone wrong."
+      },
+      {
+       "q": "Name one way to bend the rule without confusing viewers.",
+       "a": "A neutral shot on the axis, camera movement across it in one unbroken take, or a cutaway that resets orientation."
+      }
+     ],
+     "plain": "Imagine two friends talking across a table while you watch from one side: the friend on your left stays on your left in every photo you take. If you walked to the other side of the table mid-conversation, they would suddenly swap sides in your photos, as if they teleported. Films keep the camera on one side of an invisible line so people never 'teleport' between cuts.",
+     "source_name": "StudioBinder",
+     "source_url": "https://www.studiobinder.com/blog/what-is-the-180-degree-rule-film/",
+     "reading_time": "4 min",
+     "image_alt": "Overhead cut-paper scene: a vermilion circle and a cobalt circle facing each other across a bold ink stripe, an amber triangle aiming at both from below",
+     "info_alt": "Overhead schematic in two halves: camera below the axis with a check mark, camera jumped above the axis with an X mark",
+     "info_caption": "Overhead: camera stays on its side of the axis and eyelines hold (check) - jump across and left/right flips (X)",
+     "info_labels": [
+      {
+       "t": "camera holds its side",
+       "x": 12,
+       "y": 88,
+       "c": "#2B4BE0"
+      },
+      {
+       "t": "crossed the axis",
+       "x": 66,
+       "y": 88,
+       "c": "#E8480C"
+      }
+     ],
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0",
+      "#E8480C",
+      "#F2C200"
+     ],
+     "image": "img/2026-11-15-3.jpg",
+     "info_image": "img/2026-11-15-3-info.jpg"
+    },
+    {
+     "id": "2026-11-15-4",
+     "kind": "AI NEWS",
+     "headline": "Vibe-Coded Apps Left the Door Open",
+     "deck": "Security researchers examined 159,041 apps built with Lovable and found thousands handing database records to anyone who asked - including 80,000 profiles, 200,000 chat messages and over 1,000 identity documents.",
+     "lead": "German security firm Crissy Field, working with Handelsblatt, analyzed 159,041 projects built on the AI app-builder Lovable and found 24,664 sites that sent database records to visitors the moment the page loaded - no login, no interaction. With read-only requests they found records containing email addresses in 10,560 tables across 7,403 of those sites, plus passports, chat logs and payment data sitting in the open.",
+     "body": "German security firm Crissy Field, working with Handelsblatt, analyzed 159,041 projects built on the AI app-builder Lovable and found 24,664 sites that sent database records to visitors the moment the page loaded - no login, no interaction. With read-only requests they found records containing email addresses in 10,560 tables across 7,403 of those sites, plus passports, chat logs and payment data sitting in the open. Using Common Crawl data, they identified projects from December 2025 to September 2026; 34,545 used the Supabase database service, which they focused on as the most widely used option - Lovable's newer built-in database was not examined. The worst cases: a German lifestyle forum exposed over 80,000 profiles (names, emails, birth dates, gender) plus more than 200,000 chat messages; a service provider exposed 1,000+ records with passport numbers, expiration dates and nationalities; another left 280,000 customer emails readable; event organizers and restaurants exposed tens of thousands of ticket and food-sale records including payment information. The researchers stress the 30% figure (7,403 of 24,664) is not a confirmed leak rate - email fields can be public contact data, email-free personal records get missed, and the Common Crawl sample isn't representative of all Lovable apps. The problem scales badly because Lovable's database integrations follow recurring patterns, so an access trick that works on one app often works on the next, while the platform's terms put responsibility for data handling on customers who may have no technical background. Their prescription: before an app touches real customer data, get access permissions, interfaces and account separation reviewed by an expert - automated checks are no substitute. Lovable was contacted through Handelsblatt before publication, and the researchers published no access details. The story drew 650+ points on Hacker News, where commenters debated whether blame sits with the platform's defaults or with users shipping without reviews - community reaction, not established fact.",
+     "ptrs": [
+      "Method: using Common Crawl data they identified projects from December 2025 to September 2026; 34,545 used Supabase, the database service they focused on; Lovable's newer built-in database was not examined.",
+      "Worst cases: a German lifestyle forum exposed 80,000+ profiles (names, emails, birth dates, gender) plus 200,000+ chat messages; a service provider exposed 1,000+ records with passport numbers, expiration dates and nationalities; another left 280,000 customer emails readable; organizers and restaurants exposed tens of thousands of sales records including payment info.",
+      "Honesty about the number: the researchers stress the 30% figure (7,403 of 24,664) is not a confirmed leak rate - email fields can be public contact data, email-free personal records get missed, and the Common Crawl sample isn't representative.",
+      "Why it scales badly: Lovable's database integrations follow recurring patterns, so an access trick that works on one app often works on the next - and the platform's terms put responsibility for data handling on customers, many with no technical background.",
+      "The fix they prescribe: before an app handles real customer data, get access permissions, interfaces and account separation reviewed by an expert - automated checks are no substitute; Lovable was contacted via Handelsblatt and no access details were published.",
+      "HN discussion (650+ points): commenters debated whether blame sits with the platform's defaults or with users shipping without security reviews - community reaction, not established fact."
+     ],
+     "why": "Challenge accepted: you WILL build with AI app builders - everyone your age with ideas will. The transfer lesson works on any stack with row-level security (Supabase, Firebase, whatever ships next): the first question is always 'can an anonymous visitor read this table?' Vibe-coding gets you to demo day; a permission review is what gets you to real users without becoming a cautionary headline.",
+     "example": "Test your own app like the researchers did: open your site logged-out, watch the database calls the page makes in dev tools, and replay them - if you can pull other people's rows without a session, your access rules are off. They needed nothing fancier than read-only requests to find passports.",
+     "questions": [
+      {
+       "q": "How many Lovable projects did the researchers examine?",
+       "a": "159,041, identified through Common Crawl data (December 2025 - September 2026)."
+      },
+      {
+       "q": "What made the leaks easy to repeat across apps?",
+       "a": "Lovable's database integrations follow recurring patterns, so one access approach works against many apps."
+      },
+      {
+       "q": "Is the 30% figure a confirmed leak rate?",
+       "a": "No - the researchers explicitly say it isn't: email fields can be public, email-free records get missed, and the sample isn't representative."
+      }
+     ],
+     "plain": "Some websites store information in a filing cabinet that answers requests. A well-built site asks 'who is asking?' before handing anything over; these apps skipped that question, so anyone walking up could read the files. It is like a hotel where every room key opens every room.",
+     "source_name": "Crissy Field GmbH",
+     "source_url": "https://www.crissyfield.de/research/lovable-en/",
+     "reading_time": "5 min",
+     "image_alt": "Cut-paper ink padlock hanging open with cobalt, vermilion and amber cards and envelopes spilling out across the page",
+     "info_alt": "Flow schematic: an app, an open gate with record cards flowing to an eye, and below it a barred gate with a shield holding records back",
+     "info_caption": "Flow: app - open gate, records reach anyone watching - the fix below: a barred, shielded gate holds records back",
+     "info_labels": [
+      {
+       "t": "your app",
+       "x": 4,
+       "y": 8,
+       "c": "#141412"
+      },
+      {
+       "t": "open gate: anyone reads",
+       "x": 62,
+       "y": 8,
+       "c": "#2B4BE0"
+      },
+      {
+       "t": "fix: locked + shielded",
+       "x": 50,
+       "y": 88,
+       "c": "#E8480C"
+      }
+     ],
+     "accent": "#E8480C",
+     "accents": [
+      "#E8480C",
+      "#F2C200",
+      "#2B4BE0"
+     ],
+     "image": "img/2026-11-15-4.jpg",
+     "info_image": "img/2026-11-15-4-info.jpg"
+    },
+    {
+     "id": "2026-11-15-5",
+     "kind": "AI NEWS",
+     "headline": "Italy's €805M Bill for Gallery Peeking",
+     "deck": "Italy's data protection authority fined Meta €805 million ($887 million) for tapping Android users' photo and video galleries through a Facebook sharing feature without specific consent - around 20 million users in Italy affected.",
+     "lead": "Italy's data protection authority fined Meta €805 million ($887 million) on Saturday after finding the company accessed Android users' photos and videos without obtaining consent or adequately informing them. The access came through a Facebook app feature that suggested content from users' personal galleries they might want to post.",
+     "body": "Italy's data protection authority fined Meta €805 million ($887 million) on Saturday after finding the company accessed Android users' photos and videos without obtaining consent or adequately informing them. The access came through a Facebook app feature that suggested content from users' personal galleries they might want to post. Meta now has 60 days to disable the feature by default and seek users' consent separately; around 20 million Android users in Italy were affected. The fine equals about 0.47% of Meta's global revenue, per the authority, and the investigation began in 2025. Meta said it will appeal: a spokesperson called the fine 'disproportionate' and said users must grant device permission before the feature can operate and can change that permission anytime in settings. Notably, the investigation did not cover whether gallery content was used to train AI models - a practice Meta denied - and the authority reserved the right to separately assess a feature launched in 2026 that processes gallery content in the cloud.",
+     "ptrs": [
+      "Meta has 60 days to disable the feature by default and seek users' consent separately; around 20 million Android users in Italy were affected.",
+      "The fine equals about 0.47% of Meta's global revenue, per the authority; the investigation began in 2025.",
+      "Meta will appeal: a spokesperson called the fine 'disproportionate' and said users must grant device permission before the feature works and can change it anytime in settings.",
+      "The investigation did not cover whether gallery content trained AI models - a practice Meta denied - and the authority reserved the right to assess a 2026 feature that processes gallery content in the cloud."
+     ],
+     "why": "File this under 'rules your future apps live under': any app you build that touches the camera roll needs specific, informed consent - not implied, not buried. And watch the reserved part: cloud processing of personal galleries is the next fight, and that one is directly an AI story. The regulators are reading the same roadmap you are.",
+     "example": "Building a meme-maker that reads the camera roll? This ruling hands you the checklist: ask consent for the exact use, keep the feature off by default, and treat 'process in the cloud' as a separate question from 'process on device' - because that is exactly how the regulator split it.",
+     "questions": [
+      {
+       "q": "How big is the fine and who issued it?",
+       "a": "€805 million (about $887 million), from Italy's data protection authority."
+      },
+      {
+       "q": "What triggered the access?",
+       "a": "A Facebook app feature that suggested photos and videos from users' personal galleries to post."
+      },
+      {
+       "q": "Did the ruling cover AI training on the photos?",
+       "a": "No - the authority said the investigation did not cover that; Meta denied the practice."
+      }
+     ],
+     "plain": "Your phone's gallery is like a drawer of printed photos. The regulator says Facebook's app kept suggesting pictures from that drawer without clearly asking first. Italy fined the company and gave it 60 days to switch the feature off unless people explicitly say yes.",
+     "source_name": "CNBC",
+     "source_url": "https://www.cnbc.com/2026/11/14/italy-fines-meta-887-million-over-android-users-data-access.html",
+     "reading_time": "3 min",
+     "image_alt": "Cut-paper balance scale: cobalt picture frames on one pan, a heavy pile of amber coins tipping the other pan down, a small vermilion diamond above",
+     "accent": "#F2C200",
+     "accents": [
+      "#F2C200",
+      "#2B4BE0"
+     ],
+     "image": "img/2026-11-15-5.jpg"
+    },
+    {
+     "id": "2026-11-15-6",
+     "kind": "TRY THIS",
+     "headline": "Raise a Spark: Watch a Brain Learn",
+     "deck": "An interactive article hands you a digital creature with a four-neuron brain and three sliders - wire it yourself, then watch an algorithm take it from stuck to expert in 2,000 tries.",
+     "lead": "'Watch a Brain Learn' by Aatish Bhatia and neuroscientist Arkarup Banerjee lets you wire a spark's tiny brain - two eye neurons, two flipper neurons, three numbers - and steer it toward light, then hands the job to a learning algorithm. After 50 tries it meanders, after 250 it (weirdly) avoids the light, after 500 it charges, and by 2,000 tries it is an expert that clings to the light and turns on a dime.",
+     "body": "'Watch a Brain Learn' by Aatish Bhatia and neuroscientist Arkarup Banerjee lets you wire a spark's tiny brain - two eye neurons, two flipper neurons, three numbers - and steer it toward light, then hands the job to a learning algorithm. After 50 tries it meanders, after 250 it (weirdly) avoids the light, after 500 it charges, and by 2,000 tries it is an expert that clings to the light and turns on a dime. Your task in the first interactive: tweak the three sliders (straight connection, crossed connection, drive) and get the score - average light encountered over 100 trials - above 0.5. The algorithm wiggles the wiring randomly before each trial; if the trial beats a running average of recent rewards, the wiring shifts toward the wiggle, otherwise away (reward = average brightness along the path, 500 time steps per trial). It is a version of REINFORCE from Ronald Williams, 1992, using weight perturbation; OpenAI used a similar idea, evolution strategies, in 2017 to play Atari. Watching hundreds of novice sparks trace jittery, non-straight paths through the space of possible brains, all converging on the same sweet spot, makes one thing visceral: learning isn't linear. Flip the reward and behavior flips - punished for seeking light, sparks learn to FLEE or FREEZE; rewarded for approaching at speed, they learn to FIGHT. The biology parallel: baby songbirds learn to sing by babbling random variations and getting dopamine bursts when a variation nears their memory of an adult's song - reinforcement with no teacher; your brain runs the same trick with about 86 billion neurons instead of 4.",
+     "ptrs": [
+      "Your task in the first interactive: tweak the three sliders (straight connection, crossed connection, drive) and get the score - average light encountered over 100 trials - above 0.5.",
+      "The algorithm: before each trial the wiring wiggles randomly; if the trial beats a running average of recent rewards, the wiring shifts toward the wiggle, otherwise away (reward = average brightness along the path, 500 time steps per trial) - a version of REINFORCE (Ronald Williams, 1992) using weight perturbation; OpenAI used a similar idea, evolution strategies, in 2017 to play Atari.",
+      "Watch the paths: hundreds of novice sparks each trace jittery, non-straight routes through the space of possible brains - and all converge on the same sweet spot. Learning isn't linear.",
+      "Flip the reward and behavior flips: punished for seeking light, sparks learn to FLEE or FREEZE; rewarded for approaching at speed, they learn to FIGHT - same algorithm, different incentive.",
+      "Biology parallel: baby songbirds learn to sing by babbling random variations and getting dopamine bursts when a variation nears their memory of an adult's song - reinforcement with no teacher; your brain runs the same trick with ~86 billion neurons instead of 4."
+     ],
+     "why": "RL is coming for you in the AIML syllabus, and reading policy-gradient equations cold is hard mode. Fifteen minutes FEELING reward shaping with sliders gives you the intuition the math later formalizes. When PPO and RLHF show up in class, you'll already know what a reward-hacked policy looks like - you watched a baby spark freeze in the dark because the incentive told it to.",
+     "example": "Do it tonight on your phone: open the article, beat 0.5 by hand first and notice how long trial-and-error takes YOU. Then run the self-learning stage and watch the 250-try 'avoiding' phase - a wrong intermediate strategy that still improved on stuck. That phase is exactly what reward-shaping bugs look like in real RL projects.",
+     "questions": [
+      {
+       "q": "Which three numbers define the spark's brain wiring?",
+       "a": "The straight and crossed connection strengths, plus drive (speed when there is no light)."
+      },
+      {
+       "q": "How does the algorithm decide which way to shift the wiring?",
+       "a": "It compares each trial's reward to a running average: better shifts toward the random wiggle, worse shifts away."
+      },
+      {
+       "q": "What happens when the reward is flipped to punish light-seeking?",
+       "a": "The same algorithm learns to flee or freeze instead - the incentive, not the code, picks the behavior."
+      }
+     ],
+     "plain": "Teaching this creature works like training a puppy with treats: try something, get a treat when it works, a stern 'no' when it doesn't. The puppy doesn't understand your words - it just does more of whatever earned treats. That treat-feedback loop is reinforcement learning, and it is one way big AI models learn too.",
+     "source_name": "Myriad - Aatish Bhatia & Arkarup Banerjee",
+     "source_url": "https://aatishb.com/myriad/how-brains-learn/",
+     "reading_time": "4 min",
+     "image_alt": "Cut-paper cobalt tadpole spark with vermilion flippers swimming toward a warm amber sun, a looping dotted ink trail behind it",
+     "info_alt": "Circular schematic: spark, random wiggle, trial path to the sun, reward plus sign feeding back; a minus sign outside the loop",
+     "info_caption": "The loop, clockwise: spark - random wiggle - trial toward the light - reward feeds back in; worse-than-usual trials push the other way",
+     "info_labels": [
+      {
+       "t": "spark",
+       "x": 42,
+       "y": 6,
+       "c": "#2B4BE0"
+      },
+      {
+       "t": "random wiggle",
+       "x": 68,
+       "y": 36,
+       "c": "#E8480C"
+      },
+      {
+       "t": "trial at the light",
+       "x": 38,
+       "y": 88,
+       "c": "#A67C00"
+      },
+      {
+       "t": "reward back in",
+       "x": 6,
+       "y": 36,
+       "c": "#141412"
+      }
+     ],
+     "accent": "#F2C200",
+     "accents": [
+      "#F2C200",
+      "#2B4BE0"
+     ],
+     "image": "img/2026-11-15-6.jpg",
+     "info_image": "img/2026-11-15-6-info.jpg"
+    }
+   ]
+  },
+  {
    "date": "2026-11-14",
    "number": 28,
    "items": [
