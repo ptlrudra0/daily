@@ -2,6 +2,357 @@
  "paper": "The Daily Draft",
  "issues": [
   {
+   "date": "2026-11-16",
+   "number": 30,
+   "items": [
+    {
+     "id": "2026-11-16-1",
+     "kind": "AI TIP",
+     "headline": "RoPE: Spin the Vectors, Keep the Distance",
+     "deck": "Sebastian Raschka's new walkthrough explains how modern LLMs know word order: instead of adding position numbers to tokens, RoPE rotates each token's query and key arrows inside attention - so what matters is how far apart two words are, not where they sit.",
+     "lead": "In a new deep-dive, Sebastian Raschka traces how LLMs encode token order, from GPT-2's learned position vectors to RoPE, the method inside most 2026 open-weight models. RoPE (Rotary Position Embedding, from Su et al.'s 2021 RoFormer paper) rotates each token's query and key vectors inside attention by an angle proportional to its position - and because only the difference between two rotations survives in the dot product, the attention score depends on how far apart two tokens are, not their absolute seats.",
+     "body": "In a new deep-dive, Sebastian Raschka traces how LLMs encode token order, from GPT-2's learned position vectors to RoPE, the method inside most 2026 open-weight models. RoPE (Rotary Position Embedding, from Su et al.'s 2021 RoFormer paper) rotates each token's query and key vectors inside attention by an angle proportional to its position - and because only the difference between two rotations survives in the dot product, the attention score depends on how far apart two tokens are, not their absolute seats. Order matters because 'the red fox jumps over the gray fox' and 'the gray fox jumps over the red fox' share every token but not their meaning. GPT-2 handled this with a learned table of 1,024 position vectors added to token embeddings - workable, but the table caps context length before training and scales terribly: in GPT-2 Medium those vectors are 0.30% of weights at 1,024 positions, yet would exceed 22% at a 100k context. The original 2017 transformer used fixed sine/cosine position vectors instead - still absolute. RoPE moves the idea inside attention: query and key features are split into pairs, and each pair rotates as a little arrow by an angle equal to the token position times that pair's frequency (frequencies follow theta_i = base^(-2i/d) with base 10,000, so a d=8 head gets 1, 0.1, 0.01, 0.001 radians per position). Rotation preserves arrow length; what changes is the angle between two tokens' arrows. His worked example: identical starting pairs score 26 unrotated and 13 after position rotation - exactly 26 x cos(60 degrees) for tokens three positions apart at 20 degrees per position. Shift both tokens by the same amount (say, a 100-token system prompt) and both arrows gain the same extra spin, so their angle - and score - is unchanged. Value vectors bypass rotation entirely. Recent models like MiniMax-M3 apply RoPE inside every attention block, and variants like partial RoPE rotate only part of each head.",
+     "ptrs": [
+      "Why positions at all: 'the red fox jumps over the gray fox' and its swapped twin share every token but not their meaning, so the model must know who sits where.",
+      "GPT-2's way: a learned table of 1,024 position vectors added to token embeddings - but the table caps context length before training, and in GPT-2 Medium it is 0.30% of weights at 1,024 positions yet would exceed 22% at 100k context. The 2017 transformer's fixed sine/cosine vectors were still absolute too.",
+      "RoPE's way: query and key features split into pairs, each pair rotates like a tiny arrow by position x frequency; frequencies follow theta_i = base^(-2i/d) with base 10,000, so a d=8 head spins its four pairs at 1, 0.1, 0.01 and 0.001 radians per position. Value vectors skip the spin.",
+      "The payoff: rotation preserves arrow length, so the dot product becomes length x length x cos(angle between) - and that angle depends only on the offset between tokens. His worked example: identical pairs score 26 unrotated and exactly 13 (= 26 x cos 60 degrees) when three positions apart at 20 degrees per position.",
+      "Prefix-proof: add a 100-token system prompt and both arrows gain the same extra rotation, so their relative score survives; that is the property absolute methods lack. Recent models like MiniMax-M3 apply RoPE inside every attention block, and partial-RoPE variants rotate only part of each head."
+     ],
+     "why": "This is the single most exam-able, interview-able building block in your syllabus, and bro, most students memorize 'RoPE good' without knowing WHY. You now know the actual mechanic: spin arrows, keep the angle. When your professor asks why long contexts don't break relative meaning, you'll answer with cosines while everyone else checks their notes. Legendary.",
+     "example": "Concrete intuition to steal: a system prompt of any length is just a shared shift - in RoPE land it rotates every token's arrows by the same extra amount, so 'fox' three seats away from 'the' still scores exactly as strongly (his example holds at 13 whether the pair sits at positions 2 and 5 or 102 and 105). That is why chat models can carry long system prompts without scrambling sentence geometry.",
+     "questions": [
+      {
+       "q": "What does RoPE rotate, and where?",
+       "a": "Each token's query and key vectors, inside the attention blocks; value vectors are not rotated."
+      },
+      {
+       "q": "Why does a shared position shift (like a long system prompt) preserve attention scores under RoPE?",
+       "a": "Both vectors gain the same extra rotation, so the angle between them - and their dot product - stays the same."
+      },
+      {
+       "q": "What capped GPT-2's context length?",
+       "a": "Its learned table of 1,024 position vectors, fixed before training; growing it to 100k positions would cost over 22% of the model's weights."
+      }
+     ],
+     "plain": "Imagine every word in a sentence holding a little compass needle. RoPE turns each needle clockwise by how far the word is from the start - word 5 turns more than word 2. When two words 'look' at each other, only the difference in their needle angles matters, so moving the whole sentence somewhere else changes nothing between them. That's how the model tracks word order without writing down seat numbers.",
+     "source_name": "Sebastian Raschka's Magazine",
+     "source_url": "https://magazine.sebastianraschka.com/p/understanding-positional-embeddings",
+     "reading_time": "5 min",
+     "image_alt": "Two cut-paper clock-hand arrows around ink dots, a cobalt arrow tilted slightly and a vermilion arrow spun far with dotted arcs showing rotation",
+     "info_alt": "Three-panel schematic: dots on a line, each sprouting a rotated hand, then all shifted with angles preserved and an equal sign",
+     "info_caption": "Left to right: token positions - each position rotates its arrow - shift everything and the angle between neighbors stays equal",
+     "info_labels": [
+      {
+       "t": "positions",
+       "x": 8,
+       "y": 88,
+       "c": "#141412"
+      },
+      {
+       "t": "rotate per seat",
+       "x": 38,
+       "y": 88,
+       "c": "#2B4BE0"
+      },
+      {
+       "t": "offset unchanged",
+       "x": 68,
+       "y": 88,
+       "c": "#E8480C"
+      }
+     ],
+     "accent": "#E8480C",
+     "accents": [
+      "#E8480C",
+      "#2B4BE0",
+      "#F2C200"
+     ],
+     "image": "img/2026-11-16-1.jpg",
+     "info_image": "img/2026-11-16-1-info.jpg"
+    },
+    {
+     "id": "2026-11-16-2",
+     "kind": "DESIGN",
+     "headline": "The Empty Space Is the Second Logo",
+     "deck": "Negative space turns the background of a mark into a hidden picture - the FedEx-style 'aha' that makes people look twice. A complete guide breaks down the principles, the five techniques and a six-step process to build your own.",
+     "lead": "Logo.app's complete guide to negative space logos argues the strongest marks carry two pictures: the one you draw (positive space) and the one hiding in the gaps you left (negative space). Done well, the hidden layer adds meaning with zero extra clutter - and the article lays out the principles, five concrete techniques and a step-by-step process to design one.",
+     "body": "Logo.app's complete guide to negative space logos argues the strongest marks carry two pictures: the one you draw (positive space) and the one hiding in the gaps you left (negative space). Done well, the hidden layer adds meaning with zero extra clutter - and the article lays out the principles, five concrete techniques and a step-by-step process to design one. The psychology is figure-ground perception (the Rubin's vase illusion): your brain decides what's figure and what's background, and shaping the background on purpose creates an 'aha' moment that makes brands stick. There's a key distinction between decorative gaps (look nice) and conceptual gaps (carry meaning). The classics prove it: Amazon's arrow runs A to Z and doubles as a smile; Formula 1 hides a '1' between the F and the speed stripes; Toyota's three ovals contain every letter of 'Toyota'; the WWF panda's white areas complete its body; Toblerone's mountain hides a bear for Bern, the City of Bears; the Guild of Food Writers merges a fountain pen nib and a spoon into one outline. The principles: simplicity first (the main shape must read even if nobody spots the trick), high contrast, pass the silhouette test in solid black, design in one color before adding any, and make gaps feel deliberate rather than accidental. The process: pick two concepts to fuse (literal + metaphorical), choose wordmark or symbol, sketch broad shapes, hunt overlaps and natural gaps (between letters, inside loops, between limbs), refine and test with non-designers, then digitize in vector tools - Illustrator, Figma, Affinity or free Inkscape. Five techniques to find the hidden shape: subtraction (carve it out), overlapping outlines that share an edge, letterform sculpting, geometric construction, and shadow-and-light tricks. Finish with the checklist: strangers should name both images within three seconds, it must survive favicon size, monochrome, reversed colors and textured backgrounds, plus a cultural check on the hidden symbol.",
+     "ptrs": [
+      "The psychology: figure-ground perception (Rubin's vase) - your brain picks a figure and a ground, and shaping the ground on purpose creates an 'aha' moment that makes the brand stick. Distinguish decorative gaps (pretty) from conceptual gaps (meaningful).",
+      "The classics: Amazon's A-to-Z arrow doubles as a smile; Formula 1 hides a '1' between the F and the stripes; Toyota's three ovals contain every letter of 'Toyota'; the WWF panda's white completes its body; Toblerone's mountain hides Bern's bear; the Guild of Food Writers merges a pen nib and a spoon into one outline.",
+      "The principles: simplicity first (the mark must work even if nobody spots the trick), high contrast, pass the silhouette test in solid black, design in one color first, and every gap must feel deliberate.",
+      "The six steps: define two concepts to fuse (literal + metaphorical), pick wordmark or symbol, sketch broad shapes, hunt overlaps and natural gaps (between letters, inside loops, between limbs), refine and test with non-designers, digitize in vectors (Illustrator, Figma, Affinity, or free Inkscape).",
+      "Five techniques: subtraction (carve the shape out), overlapping outlines that share an edge, letterform sculpting, geometric construction, and shadow-and-light tricks. Checklist to finish: strangers name both images in 3 seconds, survives favicon size, monochrome and reversed, works on textured backgrounds, passes a cultural check."
+     ],
+     "why": "Your TechBlast identity and future agency need a mark that works as a reel watermark at 60 pixels AND rewards a second look - that is exactly the negative-space brief. Two ideas, one shape, no clutter: 'video + blast', 'AI + art'. The aha moment is free memorability, bro - people who solve the puzzle feel smart and remember YOU for it.",
+     "example": "Try the guide's own exercise tonight: pick a three-letter word (say 'art') and hide a related icon inside the letters using only solid black and white - then the second exercise: sketch ten animal silhouettes and fit a second object into the gaps between legs, wings and tails. Fifteen minutes per exercise, pen and paper, no software.",
+     "questions": [
+      {
+       "q": "What is the silhouette test?",
+       "a": "Reduce the logo to solid black on white - if the identity still reads, the shape is strong enough."
+      },
+      {
+       "q": "Name two famous negative-space logos and their hidden elements.",
+       "a": "Formula 1 hides a '1' between the F and stripes; Toblerone's mountain hides a bear (Amazon's A-to-Z smile and the WWF panda also count)."
+      },
+      {
+       "q": "What is the difference between decorative and conceptual negative space?",
+       "a": "Decorative gaps just look good; conceptual gaps carry meaning, narrative or brand values."
+      }
+     ],
+     "plain": "Look at a picture of two faces staring at each other and you might also see a vase between them - that vase is the 'empty' space doing a job. Logo designers shape that emptiness on purpose, so the gap inside a picture hides a second picture. It's like folding paper and cutting one hole that turns out to be a star.",
+     "source_name": "Logo.app Blog",
+     "source_url": "https://logo.app/blog/negative-space-logos/",
+     "reading_time": "5 min",
+     "image_alt": "Cut-paper cobalt bird silhouette whose white gap between wing and body forms a hidden vermilion fish",
+     "info_alt": "Three-step schematic: two overlapping blobs, a dashed circle highlighting the gap, the gap carved into a crisp hidden bird",
+     "info_caption": "Discovery sequence: overlap two shapes - find the natural gap - carve the gap into the hidden picture",
+     "info_labels": [
+      {
+       "t": "overlap shapes",
+       "x": 6,
+       "y": 88,
+       "c": "#141412"
+      },
+      {
+       "t": "find the gap",
+       "x": 42,
+       "y": 88,
+       "c": "#2B4BE0"
+      },
+      {
+       "t": "carve it",
+       "x": 78,
+       "y": 88,
+       "c": "#E8480C"
+      }
+     ],
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0",
+      "#E8480C"
+     ],
+     "image": "img/2026-11-16-2.jpg",
+     "info_image": "img/2026-11-16-2-info.jpg"
+    },
+    {
+     "id": "2026-11-16-3",
+     "kind": "ON SCREEN",
+     "headline": "Hear the Future Before You See It",
+     "deck": "The smoothest edits in film are the ones you never notice: J-cuts and L-cuts stagger picture and sound so scenes flow like real conversation. One guide breaks down split edits, match cuts and how to build them in any editor.",
+     "lead": "DFI Rentals' editing guide unpacks the invisible machinery of scene flow: in a J-cut, the next shot's audio starts before its picture (you hear the future before you see it); in an L-cut, the previous shot's sound lingers over the new image. Together they're called split edits - and they're why well-edited dialogue feels alive instead of robotic.",
+     "body": "DFI Rentals' editing guide unpacks the invisible machinery of scene flow: in a J-cut, the next shot's audio starts before its picture (you hear the future before you see it); in an L-cut, the previous shot's sound lingers over the new image. Together they're called split edits - and they're why well-edited dialogue feels alive instead of robotic. Cut a conversation with picture and sound snapping over together and it plays like a tennis match; real people react before the other finishes talking, so editors cut to a listener while the speaker's line trails on (L-cut) or let the next line begin over the current face (J-cut). The names are literal timeline shapes: on an NLE timeline the staggered audio and video blocks form a J or an L. A practical superpower: because sound and picture are decoupled, you can pair the best-framed take with the best-read take. Rules of thumb: J-cut to set up the next scene early or ease into a new location; L-cut to hold a reaction or let emotion bleed forward; keep overlaps subtle - a few frames to a second or two, and if the audience notices the stagger it's too long. The guide also covers the match cut, which links shots by shared shape, color or movement: Lawrence of Arabia's lit match to desert sunrise (editor Anne V. Coates; the film won the 1963 editing Oscar, and Spielberg has said that transition blew him away as a youth), 2001's bone to space station (editor Ray Lovejoy), and The Graduate's pool-to-bedroom drift. The rest of the vocabulary: cutting on action (movement hides the cut), jump cut (deliberate continuity break), cross-cut/parallel editing (The Godfather's baptism), cutaway (cover an edit), smash cut (jarring contrast). To build a split edit: lay both clips back to back, unlink audio from video, drag the incoming audio left (J) or extend the outgoing audio right (L), add short crossfades, and trim by frames. And the on-set truth: split edits live or die on coverage with handles and clean separated sound.",
+     "ptrs": [
+      "J-cut: the next shot's audio starts before its picture - also called audio advance/lead/under; named for the J shape the staggered clips make on an NLE timeline. L-cut: the previous shot's sound trails over the new picture. Together: split edits.",
+      "Why they work: cutting picture-and-sound together feels like a robotic tennis match; real conversation reacts before lines finish, so trail the speaker's audio over the listener (L) or start the next line over the current face (J).",
+      "Superpower: decoupled tracks let you pair the best-framed take with the best-read take. Keep overlaps subtle - a few frames to a second or two; if the audience notices the stagger, it's too long.",
+      "Match cuts link shots by shared shape, color or movement: Lawrence of Arabia's match-flame to desert sunrise (editor Anne V. Coates; 1963 editing Oscar; Spielberg says it blew him away), 2001's bone to space station (editor Ray Lovejoy), The Graduate's pool-to-bedroom drift.",
+      "Vocabulary worth keeping: cutting on action (movement hides the cut), jump cut (deliberate break), cross-cut/parallel editing (The Godfather's baptism), cutaway, smash cut. To build one: unlink audio and video, drag the incoming audio left (J) or extend the outgoing right (L), add short crossfades, trim by frames - and shoot coverage with handles plus clean sound, because split edits are really audio edits."
+     ],
+     "why": "Your reels are 90% dialogue and reaction - this is the single cheapest upgrade to how professional they feel. Right now you probably cut picture-and-sound together, which is exactly the tennis-match stiffness this guide kills. One staggered audio drag in Premiere or Resolve and your next two-person skit breathes like TV. Suit up your timeline.",
+     "example": "Next reel with a friend: when they start their punchline, let their audio begin half a second BEFORE the picture cuts to them (J-cut) - the audience leans in. Then hold THEIR reaction face while your reply's audio starts over it (L-cut). Two drags, zero new footage, instantly less robotic.",
+     "questions": [
+      {
+       "q": "What is a J-cut?",
+       "a": "The next shot's audio starts playing before its picture appears - you hear the future before you see it."
+      },
+      {
+       "q": "What is an L-cut used for?",
+       "a": "Lingering on a reaction or letting the previous scene's emotion bleed into the next shot."
+      },
+      {
+       "q": "How long should the audio overlap be?",
+       "a": "Subtle - a few frames to a second or two; if the audience notices the stagger, it's too long."
+      }
+     ],
+     "plain": "In real life, you often hear something before you turn to look at it - a friend laughs before you see their face. Editors copy that: they let the sound from the next moment slip in a little early, or let the current sound hang on a little late, instead of switching picture and sound at the same instant. That's why movie conversations feel smooth instead of choppy.",
+     "source_name": "DFI Rentals",
+     "source_url": "https://www.dfirentals.com/news/what-is-a-j-cut-l-cuts-match-cuts-editing-guide",
+     "reading_time": "4 min",
+     "image_alt": "Cut-paper timeline: an ink strip with frame cutouts overlapping a staggered amber sound-wave strip, a vermilion diamond marking the overlap",
+     "info_alt": "Two stacked timeline schematics: sound wave slid early under the next clip (top), sound trailing late under the previous clip (bottom)",
+     "info_caption": "Top: next scene's sound starts early under current picture - Bottom: current sound trails over the next picture",
+     "info_labels": [
+      {
+       "t": "next sound early",
+       "x": 6,
+       "y": 8,
+       "c": "#2B4BE0"
+      },
+      {
+       "t": "sound trails late",
+       "x": 56,
+       "y": 88,
+       "c": "#E8480C"
+      }
+     ],
+     "accent": "#F2C200",
+     "accents": [
+      "#F2C200",
+      "#141412"
+     ],
+     "image": "img/2026-11-16-3.jpg",
+     "info_image": "img/2026-11-16-3-info.jpg"
+    },
+    {
+     "id": "2026-11-16-4",
+     "kind": "AI NEWS",
+     "headline": "Your Old Short Links Are Up for Grabs",
+     "deck": "A Bitly flaw let strangers re-register old, inactive short links and point them anywhere - a 2011 Burger King tweet suddenly led to a list of Nazi camps, and a sample of 97 old links shows 7 already hijacked.",
+     "lead": "Ransomnews found that old Bitly short links are being re-registered by strangers and redirected: a 2011 Burger King tweet about a restaurant locator suddenly pointed at Wikipedia's list of Nazi concentration camps, and a McDonald's tweet from the same year led to an article about the September 11 attacks. Nobody's account was hacked - the links changed hands on Bitly's side, and Bitly has now confirmed the issue.",
+     "body": "Ransomnews found that old Bitly short links are being re-registered by strangers and redirected: a 2011 Burger King tweet about a restaurant locator suddenly pointed at Wikipedia's list of Nazi concentration camps, and a McDonald's tweet from the same year led to an article about the September 11 attacks. Nobody's account was hacked - the links changed hands on Bitly's side, and Bitly has now confirmed the issue. The Burger King link (posted 24 July 2011) shows a creation time of 05:32 UTC on 15 November 2026 on Bitly's public info page; the McDonald's link was re-created 18 minutes earlier. A post quoting the Burger King tweet passed 2 million views within hours, and both original tweets later became unavailable. Checking 97 Bitly links in Donald Trump's tweets from 2009-2013, Ransomnews found 40 still original, 49 re-created later but still leading where the tweets suggest (48 of them in a single 17-minute run on 26 May 2023), 7 leading somewhere else - four registered on 15 November alone, opening a Roblox profile, two YouTube videos and a Wikipedia article about Trump and Jeffrey Epstein - and 1 blocked by Bitly as malicious or spam. Bitly's own help pages say a bit.ly ending cannot be reused even after the account behind it is deleted, and a similar bug was reportedly fixed in February 2025. You can audit any short link by adding a '+' to its address to see its destination and creation date. Bitly confirmed on X at 19:13 UTC that 'bad actors' repurposed 'certain old, inactive links', said it suspended the accounts involved and is disabling affected links; by 19:22 UTC the brand links showed 'Link Deactivated'. CNN reported old posts from Bill Gates, Justin Trudeau, Mike Pence, the FBI and the US Department of Defense were also affected (Ransomnews did not independently check those). The story sat at 170+ points on Hacker News, where commenters discussed link rot and whether platforms should freeze legacy short links - community reaction, not established fact.",
+     "ptrs": [
+      "The Burger King link (posted 24 July 2011) shows a creation time of 05:32 UTC on 15 November 2026 on Bitly's public info page; the McDonald's link was re-created 18 minutes earlier, at 05:14 UTC. A quoting post passed 2 million views within hours; both original tweets later became unavailable.",
+      "The 97-link sample (Trump tweets 2009-2013): 40 still original, 49 re-created later but still leading where the tweets suggest (48 in a single 17-minute run on 26 May 2023), 7 leading somewhere else, 1 blocked by Bitly as malicious or spam.",
+      "The four hijacked on 15 November (registered 07:49-09:57 UTC) opened a Roblox profile, two YouTube videos and a Wikipedia article about Trump and Jeffrey Epstein.",
+      "Bitly's own help pages say a bit.ly ending cannot be reused even after the account behind it is deleted; a similar bug was reportedly fixed in February 2025. Audit any short link yourself: add '+' to its address to see destination and creation date.",
+      "Bitly confirmed on X at 19:13 UTC that 'bad actors' repurposed 'certain old, inactive links', suspended the accounts and is disabling affected links; by 19:22 UTC the brand links showed 'Link Deactivated'. CNN reported old posts from Bill Gates, Justin Trudeau, Mike Pence, the FBI and the DoD were affected too (not independently checked by Ransomnews).",
+      "HN discussion (170+ points): commenters discussed link rot and whether platforms should freeze legacy short links - community reaction, not established fact."
+     ],
+     "why": "Every link you drop in your reel bios and video descriptions is an asset with an expiry date you don't control, bro. If you ever switch shorteners or let an account lapse, this is the failure mode: someone re-registers the slug and your old content points wherever they want. Owning your own domain for redirects isn't paranoia - it's brand insurance.",
+     "example": "Audit habit from the article itself: take any bit.ly link you've ever posted, add '+' to the end, and read the destination and creation date. If the creation date is years newer than the post it sits in, the link changed hands - exactly how researchers confirmed the 2011 tweets were carrying 2026 links.",
+     "questions": [
+      {
+       "q": "Were Burger King's or McDonald's accounts hacked?",
+       "a": "No - the old Bitly links inside their tweets were re-registered by someone else; nothing was posted from either account."
+      },
+      {
+       "q": "In the 97-link sample, how many led somewhere unintended?",
+       "a": "7 led somewhere else and 1 was blocked by Bitly; 40 were still original and 49 re-created but still correct."
+      },
+      {
+       "q": "How can you check where a bit.ly link really goes?",
+       "a": "Add a '+' to the end of the address to see Bitly's public info page with its destination and creation date."
+      }
+     ],
+     "plain": "A short link is like a mailbox number at a post office. The post office promised your number stays yours forever - but a bug let other people rent old, abandoned mailbox numbers and stuff them with their own mail. Letters (and tweets) that point to those boxes now deliver something their owners never chose.",
+     "source_name": "Ransomnews",
+     "source_url": "https://ransomnews.com/burger-king-tweet-bitly-link-hijack-2026/",
+     "reading_time": "4 min",
+     "image_caption": "97 old links checked: 40 still original - 49 re-created but correct - 7 hijacked - 1 blocked",
+     "image_alt": "Cut-paper bar chart of four columns on a baseline in proportions 40:49:7:1: tall ink, slightly taller cobalt, very short vermilion, tiny amber stub",
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0",
+      "#E8480C",
+      "#F2C200"
+     ],
+     "image": "img/2026-11-16-4.jpg"
+    },
+    {
+     "id": "2026-11-16-5",
+     "kind": "AI NEWS",
+     "headline": "Claude Fixed a Jeep Older Than Its Driver's Tools",
+     "deck": "A creator wired a $3 Arduino into his 1994 Jeep's pre-OBD2 computer and let Claude Code and Codex diagnose it, read its fuel tables, and run their own code inside the ECU - until the car finally passed California smog.",
+     "lead": "In a viral build log, Muhammad Zulali shows how he used Claude Code and OpenAI's Codex to talk to his 1994 Jeep Cherokee's computer - a machine so old it predates the OBD2 port, with no official tool worth finding. Over about a week, the agents read live sensor data through a $3 Arduino Nano, uncovered a California-specific fuel quirk, and eventually ran their own code inside the ECU - and the Jeep passed its smog test.",
+     "body": "In a viral build log, Muhammad Zulali shows how he used Claude Code and OpenAI's Codex to talk to his 1994 Jeep Cherokee's computer - a machine so old it predates the OBD2 port, with no official tool worth finding. Over about a week, the agents read live sensor data through a $3 Arduino Nano, uncovered a California-specific fuel quirk, and eventually ran their own code inside the ECU - and the Jeep passed its smog test. The car was failing California smog at 25 mph with high NOx, and a new O2 sensor made the 15 mph reading explode from around 80 to 900 - at $100 per test, guessing parts wasn't sustainable. Claude Code identified the Jeep's old, slow SCI protocol and the backwards signal wire, and walked him through wiring a $3 Arduino Nano on a breadboard as a translator (about $15 total with jumpers); the first reading came at 1:30 AM after pulling resistors that drowned the signal. Logging drives with a MacBook on the passenger seat, the agents caught the computer reporting speed doubled, a fuel-trim reading that looked like +22% added fuel but turned out to be fuel REMOVED (the old Chrysler Scanner convention misled them), and a fuel rail at a terrible 10 PSI. Claude even primed the fuel pump for about 10 seconds - its first write action - before they realized the real culprit: his California-market ECU trims fuel down at exactly the loads the smog test uses, unlike federal cars, a difference of about a quarter percent of fuel. Reflashing to federal settings was impossible - his computer was built in December 1993, four months before these ECUs became programmable. So Codex found that the 1994 computer will simply RUN a tiny program sent over the same three wires, riding its main loop about 90 times a second; when the ECU's own code overwrote RAM after a few seconds, Codex put the program on the EEPROM instead. With the agents reading everything and adding their own code, the Jeep passed smog. He's posted the full wiring and code on GitHub, and ends the video asking: what else can you plug your agent into? The story drew 339+ points on Hacker News, where commenters traded their own pre-OBD stories and debated agents controlling physical machines - community reaction, not established fact.",
+     "ptrs": [
+      "The problem: failing California smog at 25 mph with high NOx; a new O2 sensor made the 15 mph reading explode from ~80 to 900, and each smog retest costs about $100 - guessing parts was bleeding money.",
+      "The way in: Claude Code identified the Jeep's ancient SCI protocol and backwards signal wire; a $3 Arduino Nano on a breadboard (~$15 all-in) became the translator, with the first reading at 1:30 AM after pulling resistors that drowned the signal.",
+      "What the agents caught while logging drives: the ECU reporting speed doubled, a fuel-trim reading that looked like +22% added fuel but was actually fuel REMOVED (the old Chrysler Scanner convention misled them), and a fuel rail at 10 PSI; Claude also primed the fuel pump for ~10 seconds - its first write to the car.",
+      "The real culprit: his California-market ECU trims fuel down at exactly the loads the smog test uses, unlike federal cars (about a quarter percent of fuel). Reflashing was impossible - his computer was built December 1993, four months before these ECUs became programmable.",
+      "Codex's unlock: the 1994 computer runs tiny programs sent over the same three wires, riding its main loop ~90 times a second; when the ECU's own code overwrote RAM after a few seconds, Codex put the program on the EEPROM. The Jeep passed smog, and the full wiring and code are on GitHub.",
+      "HN discussion (339+ points): commenters traded their own pre-OBD2 stories and debated agents controlling physical machines - community reaction, not established fact."
+     ],
+     "why": "This is the coding-agent story of the week for you specifically: not another SaaS demo, but agents debugging a PHYSICAL system older than the tools built for it. Notice the workflow - the human did the wiring and driving, the agents did protocol archaeology, logging analysis and memory work. That division of labor is the actual skill worth copying for any hardware project you touch.",
+     "example": "Steal the pattern, not the car: point a coding agent at any obscure device protocol (an old printer, a treadmill, a scooter battery), let it identify the protocol and draft the wiring, then log real data before changing anything. The video's discipline - read-only first, weeks of logs, backups before the first write - is why it ended in a passed test instead of a bricked ECU.",
+     "questions": [
+      {
+       "q": "How did the agents talk to a car with no OBD2 port?",
+       "a": "Through the Jeep's old SCI protocol, translated by a $3 Arduino Nano on a breadboard wired to the diagnostic plug."
+      },
+      {
+       "q": "Why couldn't the ECU just be reflashed?",
+       "a": "His computer was built in December 1993, about four months before these ECUs gained the physical parts for programming mode."
+      },
+      {
+       "q": "What did Codex do that Claude hadn't?",
+       "a": "Got the 1994 computer to run their own program - first riding the main loop in RAM, then persisted on the EEPROM after RAM got overwritten."
+      }
+     ],
+     "plain": "Old cars have small computers, but this one is so old there's no normal plug to read it. The owner built a tiny translator from a cheap chip, and an AI assistant learned the car's old language, listened to its sensors while driving, and figured out why it kept failing its emissions test - like using a translator app to interview a grandpa machine about its health.",
+     "source_name": "Muhammad Zulali (YouTube)",
+     "source_url": "https://www.youtube.com/watch?v=WPj3aQ-xxpI",
+     "reading_time": "4 min",
+     "image_alt": "Cut-paper cobalt boxy 1990s SUV with a dotted cable from its hood to a tiny vermilion circuit board on an amber breadboard",
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0",
+      "#F2C200",
+      "#E8480C"
+     ],
+     "image": "img/2026-11-16-5.jpg"
+    },
+    {
+     "id": "2026-11-16-6",
+     "kind": "TRY THIS",
+     "headline": "Host Your Own Google Maps for Pocket Change",
+     "deck": "PMTiles packs an entire map into one file you can serve from cheap CDN storage - a Europe session costs about $0.00005 in bandwidth versus Mapbox's $5 per 1,000 map loads. Here's the whole setup.",
+     "lead": "Bruce Röttgers' guide shows how Protomaps' PMTiles format makes self-hosting map tiles almost trivial: the whole map ships as one single file served over HTTP Range requests, so any CDN that can cache ranges can host it - no tile server, no database. His real numbers: storing the 139GB world map runs about $5/month, and loading a map of Europe plus zooming into a city transfers ~5MB, or $0.00005.",
+     "body": "Bruce Röttgers' guide shows how Protomaps' PMTiles format makes self-hosting map tiles almost trivial: the whole map ships as one single file served over HTTP Range requests, so any CDN that can cache ranges can host it - no tile server, no database. His real numbers: storing the 139GB world map runs about $5/month, and loading a map of Europe plus zooming into a city transfers ~5MB, or $0.00005. The comparison that stings: Mapbox charges $5 per 1,000 map loads once you exhaust the free tier - at roughly $0.05 per 1,000 loads, self-hosting can be around 100x cheaper, though Mapbox's flat per-visit fee is at least predictable. The setup he documents: grab the daily world build from Protomaps' build page, or use the CLI to extract just your bounding box and zoom levels for a much smaller file; deploy to Bunny.net (it caches Range requests, is EU-based, and drops the last octet of IP addresses by default) using an S3-compatible storage zone and rclone (the HTTP API upload timed out for him at 15 minutes); then create a pull zone with 'Optimize for large object delivery' enabled so Range requests cache, restrict allowed CORS referrers so strangers can't embed your tiles, and add a 10kB/s speed limit after 10MB per request so nobody downloads the whole planet on your bill. Bandwidth costs $0.01/GB to Europe/North America ($0.005/GB on the Volume network); storage runs $0.01 to $0.055/GB/month depending on replication. Cloudflare works too but needs an edge function to translate x/y/z tile URLs into Range requests. Embedding is the standard MapLibre GL library plus the pmtiles npm package. The result: your own cost-effective, highly available map of the world (or just your city) that no pricing email can take away.",
+     "ptrs": [
+      "PMTiles: a tile format that ships in a single file, read via HTTP Range requests - any CDN that caches ranges can host it, no tile server needed; Cloudflare works too but needs an edge function to translate x/y/z URLs into ranges.",
+      "Get maps: download the daily world build from Protomaps' build page (139GB), or use the CLI to extract only your bounding box and zoom levels for a much smaller file.",
+      "Real costs on Bunny.net: bandwidth $0.01/GB to Europe/North America ($0.005/GB on the Volume network); storage $0.01-0.055/GB/month by replication; the 139GB world map at 5x replication is about $5/month; loading Europe + zooming to a city is ~5MB = $0.00005.",
+      "The comparison: Mapbox charges $5 per 1,000 map loads after the free tier - self-hosting at roughly $0.05 per 1,000 loads can be ~100x cheaper, though Mapbox's flat per-visit fee is predictable regardless of user behavior.",
+      "Setup gotchas he hit: use an S3-compatible storage zone with rclone (the HTTP API upload timed out at 15 minutes); enable 'Optimize for large object delivery' so ranges cache; restrict CORS referrers; add a 10kB/s-after-10MB speed limit so nobody downloads the whole file on your bill. Embed with MapLibre GL + the pmtiles npm package."
+     ],
+     "why": "Every travel vlog map animation, delivery tracker or 'stores near you' feature you've storyboarded pays the Google/Mapbox tax - this is the free-ish escape hatch. A city-sized extract costs you basically nothing to host, it's a legit weekend build for your portfolio, and 'self-hosted my own map stack' is a genuinely impressive line in an AIML resume. Challenge issued.",
+     "example": "Weekend build: use the Protomaps CLI to extract just Ahmedabad's bounding box at city zoom levels (a tiny file instead of 139GB), push it to a Bunny storage zone with rclone, and embed it in a plain HTML page with MapLibre GL. Total running cost: cents per month - and every future project that needs a map is now free.",
+     "questions": [
+      {
+       "q": "What makes PMTiles easy to host?",
+       "a": "The whole map is one file read via HTTP Range requests, so any CDN that caches ranges can serve it - no tile server or database."
+      },
+      {
+       "q": "What did the world map cost to store, and a Europe browsing session to serve?",
+       "a": "About $5/month to store the 139GB file (5x replication) and roughly $0.00005 for a ~5MB Europe session."
+      },
+      {
+       "q": "Which two settings protect your CDN bill?",
+       "a": "Restricting allowed CORS referrers, and limiting download speed (10kB/s) after 10MB per request so nobody pulls the whole file."
+      }
+     ],
+     "plain": "Map websites usually rent their maps by the visit, like paying a toll every time someone looks. PMTiles is like photocopying the entire atlas into one file you keep on a cheap shelf on the internet - visitors read pages straight from your copy, and the toll booth is out of the loop.",
+     "source_name": "Bruce Röttgers",
+     "source_url": "https://bruceroettgers.eu/blog/protomaps/",
+     "reading_time": "4 min",
+     "image_alt": "Cut-paper folded map with cobalt contour lines and a vermilion route, a small amber house with an ink antenna sitting on the fold",
+     "info_alt": "Three-step flow schematic: globe downloads into a single file, file goes up into a small house server, house serves a map into a browser window",
+     "info_caption": "Left to right: download one map file - put it on cheap storage - your site reads tiles straight from it",
+     "info_labels": [
+      {
+       "t": "one map file",
+       "x": 4,
+       "y": 8,
+       "c": "#141412"
+      },
+      {
+       "t": "cheap storage",
+       "x": 40,
+       "y": 8,
+       "c": "#A67C00"
+      },
+      {
+       "t": "your site reads it",
+       "x": 70,
+       "y": 8,
+       "c": "#2B4BE0"
+      }
+     ],
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0",
+      "#E8480C",
+      "#F2C200"
+     ],
+     "image": "img/2026-11-16-6.jpg",
+     "info_image": "img/2026-11-16-6-info.jpg"
+    }
+   ]
+  },
+  {
    "date": "2026-11-15",
    "number": 29,
    "items": [
