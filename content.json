@@ -2,6 +2,319 @@
  "paper": "The Daily Draft",
  "issues": [
   {
+   "date": "2026-11-17",
+   "number": 31,
+   "items": [
+    {
+     "id": "2026-11-17-1",
+     "kind": "AI TIP",
+     "headline": "Let Your Agent Drive the Browser You're Already Logged Into",
+     "deck": "OpenCode Browse is a free, open-source MCP server plus a Chromium extension that hands your coding agent your real browser - your tabs, your logins, your extensions - with a polite handoff whenever it's your turn to type a password.",
+     "lead": "OpenCode Browse, trending on Hacker News today, is a free open-source tool that lets your coding agent use your actual browser instead of a rented cloud one. It pairs an MCP server with a Chromium extension, so agents like Claude Code, Cursor, Codex or Zed can read pages, click, type and take screenshots using the sessions you are already signed into.",
+     "body": "OpenCode Browse, trending on Hacker News today, is a free open-source tool that lets your coding agent use your actual browser instead of a rented cloud one. It pairs an MCP server with a Chromium extension, so agents like Claude Code, Cursor, Codex or Zed can read pages, click, type and take screenshots using the sessions you are already signed into. The mechanics are considerate: agent tabs open in the background, grouped and collapsed out of your way. When the agent hits a moment that needs you - a login form, a 2FA prompt, a payment - it pauses, hands the tab back, and continues once you click Continue. You can also lend it a tab you already have open via the toolbar button, and restrict it to an allowed-sites list so it stays where you put it. It works with Chrome, Edge, Brave, Arc, Helium, Vivaldi, Opera and Chromium, installs from the Chrome Web Store with the extension walking you through setup, and has a PowerShell install line for Windows. Because it is any-MCP-client compatible, it plugs into whatever agent you already run. The comparison worth naming is Browserbase, the paid cloud-browser platform for agents: its free tier includes just 1 browser hour a month, the Developer plan is $20/month for 100 hours then $0.12 per hour, and Startup is $99/month. OpenCode Browse costs nothing and has no hour meter because the browser is yours. The tradeoff is real though: cloud browsers run while your machine is off and keep your accounts isolated, while Browse needs your browser open and shares your logged-in sessions - which is exactly why the allowed-sites list matters. The source is public at github.com/anomalyco/browse.",
+     "ptrs": [
+      "Two parts: an MCP server plus a Chromium extension - agents read pages, click, type, screenshot and even record tabs",
+      "Agent tabs open in the background in collapsed groups, so it works alongside you instead of taking over your screen",
+      "Handoffs: the agent pauses at logins, 2FA prompts and payments, you do that step yourself, then click Continue",
+      "Lend a tab: the toolbar button hands the agent a tab you already have open; an allowed-sites list keeps it on the sites you name",
+      "Works with any MCP client (OpenCode, Claude Code, Cursor, Codex, Zed) and with Chrome, Edge, Brave, Arc, Helium, Vivaldi, Opera and Chromium; Windows installs via irm https://opencode.ai/browse/install.ps1 | iex",
+      "Paid comparison: Browserbase's free tier is 1 browser hour/month, Developer is $20/month for 100 hours then $0.12/hour, Startup $99/month - Browse is free and unmetered, but needs your browser running and shares your logins"
+     ],
+     "why": "Bro, this is the missing piece between your agent experiments and the real internet. Every cool demo you have seen - agent fills a form, agent checks a price, agent posts a reel - needs a browser with logins, and the cloud ones charge you by the hour for a browser that knows nothing about you. This runs on your Windows PC today, no hardware upgrade, no API bill. Suit up your agent and let it fetch you a coffee-table's worth of research while you watch.",
+     "example": "You ask your agent to check whether a design tool you use has a student discount. Instead of a sandboxed cloud browser hitting a login wall, Browse opens a background tab in your own Chrome where you're already signed in, reads the pricing page, screenshots the student tier, and hands the tab to you only if a payment or login step appears - you click Continue and it finishes the job.",
+     "questions": [
+      {
+       "q": "What are the two parts of OpenCode Browse?",
+       "a": "An MCP server and a Chromium browser extension."
+      },
+      {
+       "q": "What happens when the agent reaches a login or payment step?",
+       "a": "It pauses and hands the tab back to you; you complete the step and click Continue."
+      },
+      {
+       "q": "How does its cost compare to Browserbase?",
+       "a": "Browse is free and unmetered (your own browser); Browserbase's free tier is 1 browser hour/month and paid plans start at $20/month."
+      }
+     ],
+     "plain": "AI agents can click around websites for you, but usually they use a rented browser on someone else's computer that isn't logged into anything - and you pay for every hour. This free tool lets the agent borrow YOUR browser, with your logins, like lending a friend your phone for one call. If it needs your password or card, it hands the phone back to you first.",
+     "source_name": "OpenCode Browse",
+     "source_url": "https://opencode.ai/product/browse",
+     "reading_time": 5,
+     "image_alt": "Cut-paper illustration of a cobalt browser window with an amber arrow flying from a small ink terminal box into it, vermilion circuit traces curling around",
+     "info_alt": "Schematic flow: ink terminal, amber arrow into a cobalt browser window, vermilion loop arrow returning to an amber handoff flag",
+     "info_caption": "Diagram, left to right: your agent's terminal - arrow - your real browser with your logins - loop back to you for logins and payments",
+     "info_labels": [
+      {
+       "t": "agent runs",
+       "x": 5,
+       "y": 88,
+       "c": "#141412"
+      },
+      {
+       "t": "your browser",
+       "x": 42,
+       "y": 88,
+       "c": "#2B4BE0"
+      },
+      {
+       "t": "handoff to you",
+       "x": 72,
+       "y": 88,
+       "c": "#E8480C"
+      }
+     ],
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0",
+      "#F2C200",
+      "#E8480C"
+     ],
+     "image": "img/2026-11-17-1.jpg",
+     "info_image": "img/2026-11-17-1-info.jpg"
+    },
+    {
+     "id": "2026-11-17-2",
+     "kind": "DESIGN",
+     "headline": "The Squircle: Why Your Phone's Icons Feel Softer Than a Rounded Square",
+     "deck": "A squircle is the curve family between circle and square - and the reason iOS icons look smooth instead of clipped. The math just landed in CSS itself, so you can ship one with two lines of code.",
+     "lead": "A squircle is a shape between a square and a circle, and there is no single definition - it is a family of parametrized curves. The Linebender wiki's squircle page, on Hacker News today, traces the whole family from Piet Hein's superellipse to Apple's iOS 7 icon shape to the brand-new CSS corner-shape property.",
+     "body": "A squircle is a shape between a square and a circle, and there is no single definition - it is a family of parametrized curves. The Linebender wiki's squircle page, on Hacker News today, traces the whole family from Piet Hein's superellipse to Apple's iOS 7 icon shape to the brand-new CSS corner-shape property. The best-known squircle is the superellipse, |x|^n + |y|^n = 1: at n=2 you get a circle, and it approaches a square as n grows; Piet Hein popularized it and Martin Gardner told its story in Scientific American in 1977. There are two construction approaches: one continuous analytic curve, or straight flat sides joined to smooth corners - the second adapts to any rectangle without distorting the corner. When Apple switched icons from a rounded rectangle to a squircle in iOS 7 in 2013, early analysis guessed a superellipse of exponent 5, but extracting the actual Bezier curves showed it was a flat-sided squircle - and a slightly flawed one, with an extra straight segment and a touch of asymmetry. Figma's influential 'Desperately Seeking Squircles' post produced its own three-Bezier approximation. The quality test is continuity: a plain rounded rectangle has a kink where the arc meets the straight edge, while a good squircle has G2 continuity, meaning curvature changes smoothly - only clothoid squircles and superellipses with n above 2 achieve it. The practical news: squircles are now standardized in CSS via the corner-shape property in the box decorations spec, and Chromium implements a close two-Bezier-per-quadrant approximation. An Apple-like icon shape today is: aspect-ratio: 1; border-radius: 46.2%; corner-shape: superellipse(1.585) - the parameter being log2 of the superellipse exponent 3. The wiki also defines a handy 'gauge' measurement - the midpoint coordinate 0.5^(1/n) - for comparing squircles across variants.",
+     "ptrs": [
+      "Superellipse: |x|^n + |y|^n = 1 - circle at n=2, approaches a square as n grows; popularized by Piet Hein, narrated by Martin Gardner in 1977",
+      "Two ways to build one: a single analytic curve, or flat sides plus smooth corners - the second keeps corners consistent across any aspect ratio",
+      "Apple moved icons to a squircle in iOS 7 (2013); the famous 'exponent 5 superellipse' guess was wrong - it's flat-sided, with tiny flaws (one extra straight segment, slight asymmetry)",
+      "The quality bar is G2 continuity - curvature easing smoothly with no kink; plain rounded rectangles fail it, clothoid and n>2 superellipse squircles pass",
+      "Squircles are now in CSS: corner-shape: superellipse(1.585) with border-radius: 46.2% approximates the Apple icon shape; Chromium uses a two-Bezier-per-quadrant approximation",
+      "'Gauge' = the midpoint coordinate 0.5^(1/n), a common ruler for comparing different squircle families"
+     ],
+     "why": "Legendary detail, bro: the difference between 'nice app icon' and 'why does this look cheap' is literally a curvature kink your eye catches in a millisecond. You are building interfaces and design taste is your moat - knowing WHY Apple's corner feels soft (G2 continuity, not magic) is the kind of knowledge that separates a designer from a template user. And it is two lines of CSS now. Challenge accepted?",
+     "example": "You are styling a card component for a project. border-radius: 24px gives corners that visibly snap from straight edge to arc. Switching to corner-shape: superellipse(1.585) with a matched radius eases the curvature from zero at the flat side into the corner - the same continuous-curvature trick behind the iOS icon shape - and the card instantly reads as more polished.",
+     "questions": [
+      {
+       "q": "What is a superellipse's formula and what does n=2 give?",
+       "a": "|x|^n + |y|^n = 1; at n=2 it is a circle, approaching a square as n grows."
+      },
+      {
+       "q": "Why does a plain rounded rectangle look less smooth than a squircle?",
+       "a": "Its arc meets the straight edge with a curvature kink; a good squircle has G2 continuity, so curvature changes smoothly."
+      },
+      {
+       "q": "How do you get an Apple-like icon shape in CSS today?",
+       "a": "aspect-ratio: 1, border-radius: 46.2%, corner-shape: superellipse(1.585)."
+      }
+     ],
+     "plain": "A rounded square is a square with its corners sawn off and replaced by circle arcs - look closely and there's a tiny bump where the straight part meets the curve. A squircle eases into the corner gradually, like a highway on-ramp instead of a sharp turn. That's why iPhone icons feel soft, and web pages can now do it with one CSS line.",
+     "source_name": "Linebender wiki",
+     "source_url": "https://linebender.org/wiki/curves/squircle/",
+     "reading_time": 5,
+     "image_alt": "Four cut-paper shapes morphing left to right from a cobalt circle through an amber rounded shape and vermilion squircle to an ink square",
+     "info_alt": "Schematic comparing a rounded rectangle corner with a kink, marked by a vermilion dot, to a smooth squircle corner traced by cobalt dots",
+     "info_caption": "Diagram: rounded-corner arc meets the edge with a kink (vermilion dot) - arrow - squircle corner eases in smoothly (cobalt dots trace the curve)",
+     "info_labels": [
+      {
+       "t": "rounded: kink",
+       "x": 8,
+       "y": 88,
+       "c": "#141412"
+      },
+      {
+       "t": "squircle: smooth",
+       "x": 66,
+       "y": 88,
+       "c": "#2B4BE0"
+      }
+     ],
+     "accent": "#E8480C",
+     "accents": [
+      "#E8480C",
+      "#F2C200",
+      "#2B4BE0"
+     ],
+     "image": "img/2026-11-17-2.jpg",
+     "info_image": "img/2026-11-17-2-info.jpg"
+    },
+    {
+     "id": "2026-11-17-3",
+     "kind": "ON SCREEN",
+     "headline": "Michael Mann vs Michael Mann: The 50-Year Paper Trail Behind Heat",
+     "deck": "New Regency just sued Michael Mann to kill his copyright termination notices on Heat - and the whole fight turns on whether his 1980s drafts were written by the man or by the corporation that employs him.",
+     "lead": "New Regency sued Michael Mann in Los Angeles federal court on November 13, asking a judge to declare his three copyright termination notices on Heat invalid. As Copyright Lately's breakdown explains, the case turns on a Hollywood structure every creator should understand: the loan-out company, and the question of who actually 'wrote' a screenplay - the person or his own corporation.",
+     "body": "New Regency sued Michael Mann in Los Angeles federal court on November 13, asking a judge to declare his three copyright termination notices on Heat invalid. As Copyright Lately's breakdown explains, the case turns on a Hollywood structure every creator should understand: the loan-out company, and the question of who actually 'wrote' a screenplay - the person or his own corporation. The background rule is Section 203(a) of the Copyright Act: authors can terminate copyright grants roughly 35 years after making them - a second bite at the apple once a work proves valuable - but works made for hire are exempt, because the employer is legally the author. Hollywood talent routinely works through loan-out corporations they own, which formally employ them; if Mann wrote Heat as his loan-out's employee, nobody can terminate, because the company is the author and he is not. Mann's argument is narrower and more interesting than claiming his company was a sham: he says he wrote the early Heat drafts between 1981 and 1985 on his own, as what the studio calls 'an unemployed author.' The paper trail fights him: a 1976 loan-out deal with Columbia, a 1989 L.A. Takedown contract reciting he wrote as 'an employee-for-hire,' and the 1994 Warner Bros. sale of the Heat screenplay as a work made for hire - which Mann signed twice, and whose Copyright Office registration lists the author as 'Michael Mann Company, Inc.' His termination notices target an oral October 1988 agreement with two companies he controlled - no writing exists, and New Regency says his account of it changed when pressed - plus a written 1989 assignment to another Mann company, Ajar. The stakes are live: Heat 2 starts shooting January 19 with Amazon MGM's United Artists, Leonardo DiCaprio and Christian Bale, after Warner Bros. balked at a $170 million budget - and Amazon bought sequel rights twice, once from Mann personally and once from New Regency, hedging the dispute. Timing is everything: terminating the 1994 deal couldn't happen before 2030, while a 1988 grant gets Mann to 2028 - and even a win may not return the rights, since an oral grant transfers at most a nonexclusive license while New Regency's exclusive rights trace to the written 1994 deal. The 1995 film itself is safe either way under the derivative works exception, and legal precedent cuts both ways: Marvel v. Simon held that calling a work 'made for hire' after the fact doesn't make it one, while the Martha Graham case ruled the opposite for work created on the job. Most termination fights settle.",
+     "ptrs": [
+      "Section 203(a): authors can terminate copyright grants ~35 years later; works made for hire are exempt - the employer is the legal author",
+      "The loan-out trap: write as your own corporation's employee and nobody can terminate - the company is the author, you are not",
+      "Mann's claim: he wrote the early Heat drafts personally in 1981-85, outside the loan-out - New Regency calls it an 'oral agreement with himself' it says he forgot for four decades",
+      "The paper trail: 1976 Columbia loan-out deal, 1989 'employee-for-hire' L.A. Takedown, 1994 Warner sale signed twice with the copyright registered to 'Michael Mann Company, Inc.'",
+      "Stakes: Heat 2 shoots January 19 with DiCaprio and Bale at Amazon MGM; Amazon bought sequel rights from BOTH sides; a 1988 grant terminates in 2028 vs 2030 for the written 1994 deal",
+      "Even winning may not return the rights - an oral grant conveys at most a nonexclusive license, and the studio's exclusive chain runs through the signed 1994 contract"
+     ],
+     "why": "You are building a creator business, so tattoo this on your brain: the contract structure around your work can matter more than the work. Termination rights are the law's way of giving creators a second payday 35 years on - and one 'work for hire' checkbox, signed casually, erases it. Mann made Heat and might still not own Heat. When your agency idea takes off, bro, you will remember this story every time someone hands you paperwork.",
+     "example": "Imagine you write a script tonight, then next year form a company and 'sell' it the script in an email nobody saves. Decades later you try to reclaim the rights - but the studio's file shows every contract calling you an employee-for-hire, and your early deal has no paper. Mann's fight is exactly that scenario at blockbuster scale: the drafts, the dates and the signatures decide everything, not memory.",
+     "questions": [
+      {
+       "q": "What does Section 203(a) give authors?",
+       "a": "The right to terminate copyright grants roughly 35 years after making them - unless the work was made for hire."
+      },
+      {
+       "q": "Why is Mann's loan-out company a problem for his termination claim?",
+       "a": "If he wrote Heat as his company's employee, the company is the legal author - companies can't terminate, and he wouldn't be the author."
+      },
+      {
+       "q": "Why might winning the termination fight still not get Mann the rights?",
+       "a": "An oral grant transfers at most a nonexclusive license; New Regency's exclusive rights trace through the written 1994 deal."
+      }
+     ],
+     "plain": "US law lets creators take back rights they sold after about 35 years - but not if the work was 'made for hire,' because then the employer owns it from day one. Michael Mann wrote Heat while working through a company he himself owned, so the studio says his company - not Michael Mann - was the author. He's basically arguing 'that wasn't me, that was my company,' which is hard when you signed papers for both.",
+     "source_name": "Copyright Lately",
+     "source_url": "https://copyrightlately.com/michael-mann-heat-copyright-termination/",
+     "reading_time": 5,
+     "image_alt": "Two cut-paper coffee cups facing each other across an ink table line, amber steam rising and intertwining into a knot between them",
+     "info_alt": "Schematic timeline: an ink line with an amber flag for the early drafts, a cobalt stack of contracts, vermilion flags for the termination notices, arrow pointing toward the 2028 window",
+     "info_caption": "Diagram, left to right: early drafts (amber flag) - decades of work-for-hire contracts (cobalt stack) - three termination notices (vermilion flags) - the 2028 opening",
+     "info_labels": [
+      {
+       "t": "1980s drafts",
+       "x": 4,
+       "y": 88,
+       "c": "#A67C00"
+      },
+      {
+       "t": "work-for-hire deals",
+       "x": 28,
+       "y": 88,
+       "c": "#2B4BE0"
+      },
+      {
+       "t": "termination notices",
+       "x": 58,
+       "y": 88,
+       "c": "#E8480C"
+      }
+     ],
+     "accent": "#E8480C",
+     "accents": [
+      "#E8480C",
+      "#F2C200",
+      "#2B4BE0"
+     ],
+     "image": "img/2026-11-17-3.jpg",
+     "info_image": "img/2026-11-17-3-info.jpg"
+    },
+    {
+     "id": "2026-11-17-4",
+     "kind": "AI NEWS",
+     "headline": "Windows 11 Is Tallying Which Coding Agents You Run",
+     "deck": "A reverse engineer found a Windows component that watches for codex.exe, claude.exe, copilot.exe and cursor.exe, records which ones you use as bits in a report, and queues it for upload unless you opted out of optional diagnostics.",
+     "lead": "Security researcher Xusheng Li reverse-engineered a Windows 11 component, MissionControlAggregator.dll, and found it records which coding agents and developer tools you run - and uploads that list to Microsoft if optional diagnostic data is on, which it is by default in the US setup he tested. The post hit the Hacker News front page today.",
+     "body": "Security researcher Xusheng Li reverse-engineered a Windows 11 component, MissionControlAggregator.dll, and found it records which coding agents and developer tools you run - and uploads that list to Microsoft if optional diagnostic data is on, which it is by default in the US setup he tested. The post hit the Hacker News front page today. The DLL contains explicit executable-name matchers: four CLI coding-agent slots checking copilot.exe, claude.exe, codex.exe and agy.exe, five desktop-agent slots for github.exe, claude.exe, codex.exe, cursor.exe and antigravity.exe, plus twelve broader developer-tool categories covering node.exe, python.exe, dotnet.exe, gcc.exe, clang.exe, gdb.exe, javac.exe, devenv.exe, code.exe and more - some verified by publisher (Node.js Foundation, Python Software Foundation, Microsoft). The feature flag is literally named CLICodingAgentUsage. The component does not scan your processes itself; it subscribes to existing Windows diagnostic events and notes matches. What it records is a bitmap - which tools were observed in a reporting window, not your prompts, code, or usage duration. Li confirmed the pipeline end to end on a live VM: renaming a copy of cmd.exe to codex.exe was enough to set the Codex bit, and the resulting Segments.SubCohorts report was found in DiagTrack's upload queue, marked optional diagnostic data. Because optional diagnostics default to on in the US installation he tested, most users who never changed privacy settings would be uploading it; the kill switch is Settings, Privacy & security, Diagnostics & feedback, 'Send optional diagnostic data' off. Two honest caveats from the post itself: a clean public-ISO install had the feature disabled by image default, so it is not proven active on every machine, and the report contains bits about tool names only - no prompt text or source code was found. Still, which AI agents and dev tools you run is itself revealing telemetry, and the HN discussion zeroed in on the default-on setting and the executable-name list hiding in a system DLL.",
+     "ptrs": [
+      "MissionControlAggregator.dll embeds name matchers for codex.exe, claude.exe, copilot.exe, cursor.exe, agy.exe, antigravity.exe and more, behind a feature flag named CLICodingAgentUsage",
+      "Scope: 4 CLI coding-agent slots, 5 desktop-agent slots, 12 developer-tool categories (node, python, dotnet, gcc, clang, gdb, javac, devenv, code...), some publisher-verified",
+      "It records a bitmap of which tools were observed per reporting window - no prompts, no code, no usage duration, per the reverse engineering",
+      "Proven live: renaming cmd.exe to codex.exe set the Codex bit, and the report appeared in DiagTrack's upload queue as optional diagnostic data",
+      "Optional diagnostics are on by default in the US setup tested; turn off 'Send optional diagnostic data' under Settings > Privacy & security > Diagnostics & feedback",
+      "Caveats: a clean public-ISO VM had the feature off by default, so coverage across all Windows installs is unproven"
+     ],
+     "why": "Bro, you literally run coding agents on a Windows PC - this is about YOUR machine. Whether or not you mind Microsoft knowing you use Claude Code, the lesson is bigger: operating systems watch executable names, and 'optional' telemetry defaults matter. Two-minute check tonight: Settings, Diagnostics & feedback, and make an informed choice instead of a default one. That is the difference between a user and a power user. Suit up.",
+     "example": "You install Codex CLI and run it for an afternoon. Windows' app-usage events note a process named codex.exe; the aggregator's matcher sets the 'Codex CLI' bit in its saved state; at the next reporting boundary that bit goes into a Segments.SubCohorts event, which - with optional diagnostics enabled - sits in DiagTrack's upload queue to Microsoft. Flip the diagnostics toggle off and the queue stops accepting it.",
+     "questions": [
+      {
+       "q": "What does the Windows component record about coding agents?",
+       "a": "A bitmap of which agent and tool executables were observed in a reporting window - not prompts, code or duration."
+      },
+      {
+       "q": "How did the researcher prove detection works?",
+       "a": "He renamed a copy of cmd.exe to codex.exe and the Codex slot lit up - the executable name alone triggers it."
+      },
+      {
+       "q": "How do you stop the upload?",
+       "a": "Settings > Privacy & security > Diagnostics & feedback, turn off 'Send optional diagnostic data'."
+      }
+     ],
+     "plain": "Windows keeps a checklist of which programmer tools and AI coding assistants you open, like a hall monitor noting who enters the library. It doesn't read your code or prompts - just the program names. That list gets sent to Microsoft unless you switch off 'optional diagnostic data' in privacy settings, which takes about a minute.",
+     "source_name": "Xusheng Li",
+     "source_url": "https://xusheng.dev/posts/windows-coding-agent-telemetry/",
+     "reading_time": 4,
+     "image_caption": "Left to right: 12 developer-tool categories · 5 desktop coding agents · 4 CLI coding agents tracked",
+     "image_alt": "Cut-paper infographic of three vertical bars in 12:5:4 proportion - ink tallest, cobalt medium, vermilion shortest - over an amber baseline",
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0",
+      "#E8480C",
+      "#F2C200"
+     ],
+     "image": "img/2026-11-17-4.jpg"
+    },
+    {
+     "id": "2026-11-17-5",
+     "kind": "TRY THIS",
+     "headline": "Carnegie Mellon Just Put Its CS Classroom on YouTube for Free",
+     "deck": "CMU's new CS Learn channel is publishing full lecture courses from seven departments - ML with Large Datasets is live now, and an AI Agents course from Daniel Fried and Graham Neubig premieres this Thursday.",
+     "lead": "Carnegie Mellon has launched CS Learn, a YouTube channel publishing complete classroom lecture courses for free, and it was one of the top stories on Hacker News today. Two courses are already up, six more premiere this week, and the January slate includes Multimodal Machine Learning.",
+     "body": "Carnegie Mellon has launched CS Learn, a YouTube channel publishing complete classroom lecture courses for free, and it was one of the top stories on Hacker News today. Two courses are already up, six more premiere this week, and the January slate includes Multimodal Machine Learning. Available right now: 10-605 Machine Learning with Large Datasets from William Cohen and 15-110 Principles of Computing from Franceska Xhakaj. This week's premieres: today brings 17-214 Principles of Software Construction and 15-442 Machine Learning Systems from Tianqi Chen and Zhihao Jia; Wednesday adds 17-635 Software Architectures and 17-643 Quality Management; Thursday lands the one you will care about most - 11-768 AI Agents, taught by Daniel Fried and Graham Neubig, alongside 17-645 Machine Learning in Production from Christian Kastner and Bogdan Vasilescu, the pair behind the well-known ML-in-production course. January 2027 adds Probability and Computing, Louis-Philippe Morency's Multimodal Machine Learning, AI and Machine Learning I, and more. The lectures are free to watch; CMU says self-paced courseware with AI tutoring is coming to the platform, and the paid part - graded work and an official credential - lives separately through CMU Online. These are real CMU classroom recordings from seven departments, not watered-down MOOC edits. The move is to subscribe to the channel now, start ML with Large Datasets this week, and block Thursday evening for the AI Agents premiere.",
+     "ptrs": [
+      "Free full CMU lecture courses on YouTube across seven departments - actual classroom recordings, not shortened edits",
+      "Live now: 10-605 Machine Learning with Large Datasets (William Cohen) and 15-110 Principles of Computing (Franceska Xhakaj)",
+      "This week: today 17-214 Software Construction + 15-442 ML Systems; Wednesday 17-635 Software Architectures + 17-643 Quality Management",
+      "Thursday: 11-768 AI Agents (Daniel Fried, Graham Neubig) + 17-645 ML in Production (Kastner, Vasilescu)",
+      "January 2027: Probability and Computing, Multimodal ML (Morency), AI and Machine Learning I, more",
+      "Self-paced courseware with AI tutoring announced as coming; the paid credential path runs separately through CMU Online"
+     ],
+     "why": "Bro. You are a first-year AIML student and one of the best AI schools on Earth just opened its classroom doors for ₹0. An actual AI Agents course from Graham Neubig's lab premieres THURSDAY - that is the exact field you keep building little agents in, taught by the people your textbooks cite. Ten minutes a day on this and you walk into your own classes already knowing the answer. This one's a no-brainer, even by Barney standards.",
+     "example": "Subscribe to the CS Learn channel tonight and watch the first 10-605 lecture (ML with Large Datasets) after dinner - free, no signup. Then on Thursday, catch the 11-768 AI Agents premiere; when your own coursework reaches agents or ML systems next semester, you will have already seen CMU's version of the material.",
+     "questions": [
+      {
+       "q": "Which two CS Learn courses are already available?",
+       "a": "Machine Learning with Large Datasets (10-605) and Principles of Computing (15-110)."
+      },
+      {
+       "q": "What premieres Thursday and who teaches it?",
+       "a": "11-768 AI Agents, by Daniel Fried and Graham Neubig (plus ML in Production the same day)."
+      },
+      {
+       "q": "What part of CS Learn is NOT free?",
+       "a": "The official credential track with graded work, offered separately through CMU Online - the lectures themselves are free."
+      }
+     ],
+     "plain": "Carnegie Mellon, one of the world's top computer science schools, is recording its real classroom lectures and posting them on YouTube where anyone can watch free. It's like sitting in the back row of a famous university without applying or paying. This week they're even releasing a full course on building AI agents.",
+     "source_name": "Carnegie Mellon CS Learn",
+     "source_url": "https://www.cs.cmu.edu/learn/",
+     "reading_time": 3,
+     "image_alt": "Cut-paper illustration of a cobalt play-button triangle resting on a stack of ink books with an amber bookmark and vermilion tassel",
+     "info_alt": "Schematic flow: cobalt play button, amber arrow to a stack of ink books, amber arrow to a vermilion star badge",
+     "info_caption": "Diagram, left to right: free YouTube lectures (play button) - self-paced courseware with AI tutor (book stack) - optional paid CMU credential (star)",
+     "info_labels": [
+      {
+       "t": "free lectures",
+       "x": 4,
+       "y": 88,
+       "c": "#2B4BE0"
+      },
+      {
+       "t": "courseware + AI tutor",
+       "x": 34,
+       "y": 88,
+       "c": "#141412"
+      },
+      {
+       "t": "paid credential",
+       "x": 74,
+       "y": 88,
+       "c": "#E8480C"
+      }
+     ],
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0",
+      "#F2C200",
+      "#E8480C"
+     ],
+     "image": "img/2026-11-17-5.jpg",
+     "info_image": "img/2026-11-17-5-info.jpg"
+    }
+   ]
+  },
+  {
    "date": "2026-11-16",
    "number": 30,
    "items": [
