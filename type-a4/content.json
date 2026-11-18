@@ -2,6 +2,403 @@
  "paper": "The Daily Draft",
  "issues": [
   {
+   "date": "2026-11-18",
+   "number": 32,
+   "items": [
+    {
+     "id": "2026-11-18-1",
+     "kind": "AI TIP",
+     "headline": "Trust, But Give Your Agent a Way to Prove It",
+     "deck": "The Claude Code team - whose codebase is about 90% written and reviewed by Claude itself - just published how they make agents verify their own work with evidence. It's the difference between babysitting one agent and running dozens.",
+     "lead": "Addy Osmani of the Claude Code team published their internal verification playbook this week: how they get coding agents to prove their work with evidence instead of vibes. Their core claim - verification loops are what let you delegate more work to an agent, because without them you can only run one or two agents while checking everything yourself.",
+     "body": "Addy Osmani of the Claude Code team published their internal verification playbook this week: how they get coding agents to prove their work with evidence instead of vibes. Their core claim - verification loops are what let you delegate more work to an agent, because without them you can only run one or two agents while checking everything yourself. In their internal testing on structured file generation, adding a separate grader that checks the agent's work against a rubric improved task success by up to 10 points over a plain prompting loop, with the biggest gains on the hardest problems. Three test types earn the investment. End-to-end tests come first: they describe real user flows and are hard to fool - either the whole feature works or it doesn't - and a good E2E failure shows a step trace and a screenshot instead of a bare timeout. Property tests catch the edge cases nobody thought of: write a statement that must always hold (encode-then-decode returns the input, a balance never goes negative, doing it twice equals doing it once) and let a library like fast-check, Hypothesis or proptest hammer it with thousands of generated inputs. Differential tests handle migrations: run old and new systems on the same random inputs and flag any difference, normalizing noise like whitespace. The team's own process adds hard-won rules. Verification means actually running the app - they keep a 'verify' skill in .claude/skills that boots and drives the real thing, and Claude runs it before committing. A change can never modify the checks that judge it: review rules are read from the base branch, never from the PR. After three failed fix rounds, the agent stops and gets a human. Checks trigger from the diff - their 39-item reliability checklist fires only the 3 to 10 items whose triggers match the change. Missed bugs get converted into written rules (a pattern must appear in at least two PRs, be visible in a diff, survive three agents trying to disprove it, and get human approval). Flaky tests get deleted with a reason, never retried into passing. And they continuously review the reviewers - tracking reverts and evaluating recall separately for raw findings, post-verification and final review, tuning right up to the point where more tuning would be overfitting.",
+     "ptrs": [
+      "A separate grader checking work against a rubric raised task success up to 10 points in their testing - verification loops are why they can run many agents in parallel",
+      "E2E tests first: hard to fool, with real done criteria - a failure shows the step trace and screenshot, not just 'timeout after 30s'",
+      "Property tests for edge cases: round-trip, invariants, idempotency, equivalence - generated inputs from fast-check (JS/TS), Hypothesis (Python) or proptest (Rust)",
+      "Differential tests for migrations: same random inputs into old and new system, any difference is a bug",
+      "Their rules: a 'verify' skill in .claude/skills, checks read from the base branch (a change can't edit its own judges), three failed rounds then a human, cheap checks before the PR",
+      "Misses become rules (pattern in 2+ PRs, diff-visible, survives 3 disprover agents); flaky tests are deleted with a reason, never retried"
+     ],
+     "why": "Bro, this is the cheat code for your agent era. Everyone asks 'which model is smartest' - the pros ask 'how does the agent PROVE it worked.' You already run coding agents on your PC; adding one verify skill and a property test to your next project moves you from 'hope it works' to 'show me the evidence.' That is how one student runs like a whole team. Legendary habits, free to steal.",
+     "example": "Your agent builds a small notes app. Instead of reading its code and hoping, you add an E2E test that adds a note, reloads, and checks the note survives - and a property test that saving then loading any random note text returns it unchanged. Next change the agent makes, it runs both itself and reports the trace; when a test fails three times, it stops and asks you instead of guessing a fourth fix.",
+     "questions": [
+      {
+       "q": "Why do verification loops let you run more agents at once?",
+       "a": "Because the agent checks its own work against evidence, so you review outcomes instead of every diff."
+      },
+      {
+       "q": "Name the three test types the article recommends.",
+       "a": "End-to-end tests, property tests, and differential tests."
+      },
+      {
+       "q": "What happens after three failed fix rounds on the Claude Code team?",
+       "a": "The agent stops and brings in a human."
+      }
+     ],
+     "plain": "AI coding agents work best when you don't just trust their answer - you give them a way to check it, like a student who must show their working on a math test. The article explains the checks the Claude team uses: run the real app, test rules that must always be true, and compare old and new versions side by side. With good checks, the agent catches its own mistakes before you ever see them.",
+     "source_name": "claude.dev Blog",
+     "source_url": "https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/",
+     "reading_time": 5,
+     "image_alt": "Cut-paper illustration of an ink document with dashed code lines, a cobalt magnifying glass over it, and a bold amber circular arrow looping around",
+     "info_alt": "Schematic loop: agent writes, arrow to tests running, arrow to evidence stamp, and a gate arrow to a human figure marker when tests fail",
+     "info_caption": "Diagram, left to right: agent writes code - runs end-to-end and property tests - evidence stamp - failing three rounds routes to a human",
+     "info_labels": [
+      {
+       "t": "write",
+       "x": 5,
+       "y": 88,
+       "c": "#141412"
+      },
+      {
+       "t": "test",
+       "x": 28,
+       "y": 88,
+       "c": "#2B4BE0"
+      },
+      {
+       "t": "evidence",
+       "x": 52,
+       "y": 88,
+       "c": "#E8480C"
+      },
+      {
+       "t": "human gate",
+       "x": 78,
+       "y": 88,
+       "c": "#141412"
+      }
+     ],
+     "accent": "#F2C200",
+     "accents": [
+      "#F2C200",
+      "#2B4BE0",
+      "#E8480C"
+     ],
+     "image": "img/2026-11-18-1.jpg",
+     "info_image": "img/2026-11-18-1-info.jpg"
+    },
+    {
+     "id": "2026-11-18-2",
+     "kind": "DESIGN",
+     "headline": "Your Font Weight Is Quietly Changing Your Colors",
+     "deck": "Color and typography are not two decisions - they're one. The same hex code reads louder in a bold headline and weaker in thin body text, and accessibility rules bake that in. Here's how to pick palettes that survive real type.",
+     "lead": "A sharp ColorArchive note makes a point most design systems miss: color and typography are entangled, not independent choices. The weight, size and spacing of your type change how any color actually reads - so a palette picked from swatches can fail the moment it meets real text.",
+     "body": "A sharp ColorArchive note makes a point most design systems miss: color and typography are entangled, not independent choices. The weight, size and spacing of your type change how any color actually reads - so a palette picked from swatches can fail the moment it meets real text. The key idea is the typographic mass effect: heavy, large type creates a dense color field, while small or thin type leaves more background visible, muting the color's apparent intensity. A warm amber that looks beautiful as a big display headline can read like an alarming warning label at 14px regular weight - so test type colors at their real rendered size, never as swatches. Contrast rules encode the same physics: WCAG 2.1 demands a 4.5:1 ratio for normal text but only 3:1 for large text (18pt regular or 14pt bold and up), because letterform mass carries more legibility per character. Practically, that means text-secondary and text-caption should be distinct token values, not one gray reused at different sizes - a mid-gray that passes for a subheading can fail for body text. Even tracking plays along: tightly spaced capitals form dense color fields, while wide tracking exposes more background, so the same palette genuinely looks different at -0.05em versus +0.2em. And temperature: warm-toned type on a warm surface feels integrated and editorial, while the same type on a cool surface creates a temperature clash - so warm-neutral backgrounds (cream, ivory, parchment) want type colors with warm undertones, even the blacks. The fix is a habit: define surface-and-text pairings deliberately for warm and cool systems, and check each pairing in a contrast checker at its actual size and weight.",
+     "ptrs": [
+      "Typographic mass effect: heavy large type = dense color field; small thin type exposes more background and mutes the color",
+      "A color that's charming as a headline can read as an alarm at 14px - test colors at rendered size, not as swatches",
+      "WCAG 2.1: 4.5:1 contrast for normal text, 3:1 for large text (18pt regular or 14pt bold+) - letterform mass buys legibility",
+      "Give text-secondary and text-caption their own token values; one mid-gray won't pass at every size",
+      "Tracking shifts perception: tight caps = denser color, wide spacing = more background showing",
+      "Match temperatures: warm type on warm surfaces, cool on cool - even 'neutral' black should lean warm on cream"
+     ],
+     "why": "You design reels, thumbnails and site mockups, bro - this is the invisible stuff that separates 'nice' from 'designed.' Anyone can steal a palette from a cool site; knowing that your bold display type drinks color while your captions starve is why YOUR version will look intentional. Next thumbnail: pick the headline color AT headline size. Watch the difference. Challenge accepted.",
+     "example": "You set a poster headline in heavy amber type - gorgeous. You reuse the same amber for the small caption under it and suddenly it looks muddy and hard to read. The fix per the note: keep the amber for the headline, give the caption its own deeper token that still clears 4.5:1 contrast at its small size, and check the pair at actual rendered size instead of trusting the swatch.",
+     "questions": [
+      {
+       "q": "What is the typographic mass effect?",
+       "a": "Heavy, large type forms a dense color field while small or thin type exposes more background, so the same color reads stronger or weaker depending on the type."
+      },
+      {
+       "q": "What contrast ratios does WCAG 2.1 require?",
+       "a": "4.5:1 for normal text and 3:1 for large text (18pt regular or 14pt bold and larger)."
+      },
+      {
+       "q": "Why shouldn't one gray token serve every text size?",
+       "a": "A gray that passes contrast as a subheading can fail at caption or body size - each role needs its own tested value."
+      }
+     ],
+     "plain": "The same paint looks different on a big wall than on a thin stripe - and text works the same way. Big bold letters show off a color; tiny thin letters let the background wash it out. That's why designers check text colors at their real size, and why accessibility rules demand stronger contrast for small text.",
+     "source_name": "ColorArchive Notes",
+     "source_url": "https://colorarchive.org/notes/november-2026-typography-color-harmony/",
+     "reading_time": 4,
+     "image_alt": "Cut-paper illustration of a large dense ink block of thick strokes over an amber field beside thin cobalt strokes over a vermilion field, showing how type weight changes color",
+     "info_alt": "Schematic: heavy ink letterform block absorbing an amber circle, arrow to thin strokes letting the same amber show through muted",
+     "info_caption": "Diagram: heavy type packs color into a dense field (left) - arrow - thin type lets the background mute the same hue (right)",
+     "info_labels": [
+      {
+       "t": "heavy type traps color",
+       "x": 5,
+       "y": 88,
+       "c": "#141412"
+      },
+      {
+       "t": "thin type lets it breathe",
+       "x": 58,
+       "y": 88,
+       "c": "#2B4BE0"
+      }
+     ],
+     "accent": "#E8480C",
+     "accents": [
+      "#E8480C",
+      "#F2C200"
+     ],
+     "image": "img/2026-11-18-2.jpg",
+     "info_image": "img/2026-11-18-2-info.jpg"
+    },
+    {
+     "id": "2026-11-18-3",
+     "kind": "ON SCREEN",
+     "headline": "Three Steps That Make Any Shot Look Like a Movie",
+     "deck": "Cinematographer Edward Crockett's system, via No Film School: motivate your light, put the camera on the shadow side, and check the frame for a checkerboard of light and dark. Gear was never the point.",
+     "lead": "No Film School just broke down cinematographer Edward Crockett's three-step lighting system for what he calls blue-collar filmmakers - solo shooters working with the gear they already own. His premise: you could shoot on an ARRI Alexa 35 with Cooke lenses and still not get the movie look, because lighting, not gear, is the separator.",
+     "body": "No Film School just broke down cinematographer Edward Crockett's three-step lighting system for what he calls blue-collar filmmakers - solo shooters working with the gear they already own. His premise: you could shoot on an ARRI Alexa 35 with Cooke lenses and still not get the movie look, because lighting, not gear, is the separator. Step one: motivate your light. Crockett's own early mistake was textbook three-point lighting that looked bad because the light had no reason to exist - motivation means every light in the scene appears to come from something in it: a window, a table lamp, a phone screen, headlights. His fix for an indoor scene is one light outside the window playing the sun and one inside for fill, with a kicker from the direction of any practical lamp; frames from Blade Runner 2049 and Interstellar show fixtures placed off-camera to match the sources you see. Step two: put your camera on the shadow side. Position the subject between the camera and the key light - at least 90 degrees away from it, and never let the light sit behind the camera - because shooting into the shadow side is what brings contrast and definition to faces; the blasted-flat look of sunny-day footage is exactly what shooting the lit side produces. For interviews he softens the rule: camera just barely on the shadow side, with a 300 to 600 watt light through a 6x6 or 8x8 diffusion frame, a softbox or a parabolic umbrella. Step three: look for the checkerboard. Scan the frame left to right for alternating areas of light and dark - a bright background patch, a dark edge, a lit face - because that alternation breaks the background out of being one blob, and it appears naturally when steps one and two are right, making it a built-in self-check. His bonus tip, credited to DP Patrick O'Sullivan: hard light on the body, soft on the face - hang diffusion above the subject so it softens the light hitting their face while hard light keeps sculpting everything else, as in Revolutionary Road.",
+     "ptrs": [
+      "Step 1 - motivate your light: every source should seem to come from something in the scene (window, lamp, phone, headlights); one light outside the window as 'sun', one inside for fill",
+      "Step 2 - camera on the shadow side: subject between camera and key light, camera at least 90 degrees from the light, never light from behind the camera",
+      "Interview tweak: barely shadow-side, 300-600W through a 6x6/8x8 diffusion, softbox or parabolic umbrella",
+      "Step 3 - the checkerboard: scan left to right for alternating light and dark areas; it shows up naturally when steps 1 and 2 are right",
+      "Bonus (Patrick O'Sullivan): hard on the body, soft on the face - diffusion above the subject softens facial light while hard light keeps shaping the scene",
+      "Examples cited: Blade Runner 2049, Interstellar, Revolutionary Road"
+     ],
+     "why": "Bro, you shoot reels on a phone and keep wondering why some clips look expensive. THIS. Your window is a free key light, your desk lamp is a free kicker, and the only thing standing between you and the movie look is where you put them and where you stand. Three steps, zero rupees, works tonight. The camera you already own just became enough.",
+     "example": "Filming a study-desk reel: place the desk so the window is your motivated source, add your desk lamp inside the frame with a small light boosting from its direction, then film from the side of the desk opposite the window so the subject's face falls into gentle shadow with contrast. Scan the frame - bright window, dark shelf edge, lit notebook - and if the alternation isn't there, reposition before you press record.",
+     "questions": [
+      {
+       "q": "What does 'motivated lighting' mean?",
+       "a": "Every light in the scene appears to come from something visible in it - a window, lamp, phone screen or headlights."
+      },
+      {
+       "q": "Where should the camera sit relative to the key light?",
+       "a": "On the shadow side - at least 90 degrees from the light, with the subject between camera and light."
+      },
+      {
+       "q": "What is the checkerboard check?",
+       "a": "Scanning the frame left to right for alternating areas of light and dark - it confirms the first two steps worked."
+      }
+     ],
+     "plain": "Movie shots look good because the light seems to come from real things in the scene, like a window - not from a random lamp off-camera. Then the camera films from the darker side so faces get shadows and depth, like how a ball looks round when lit from one side but flat when lit head-on. Finally, the frame should alternate bright and dark patches, like a checkerboard, so nothing looks like one flat blob.",
+     "source_name": "No Film School",
+     "source_url": "https://nofilmschool.com/edward-crockett-lighting-tips",
+     "reading_time": 4,
+     "image_alt": "Cut-paper still life of a vase on a table lit by three angled beams - amber from a window shape, cobalt fill, vermilion rim - with alternating light and dark bands",
+     "info_alt": "Schematic top-down diagram: amber lamp outside a window, cobalt fill inside, ink camera marker on the shadow side of a circle subject",
+     "info_caption": "Diagram, top-down: key light motivated by the window (amber) - fill inside (cobalt) - camera placed on the shadow side (ink marker)",
+     "info_labels": [
+      {
+       "t": "motivated key",
+       "x": 4,
+       "y": 6,
+       "c": "#E8480C"
+      },
+      {
+       "t": "fill",
+       "x": 80,
+       "y": 6,
+       "c": "#2B4BE0"
+      },
+      {
+       "t": "camera: shadow side",
+       "x": 60,
+       "y": 88,
+       "c": "#141412"
+      }
+     ],
+     "accent": "#F2C200",
+     "accents": [
+      "#F2C200",
+      "#E8480C",
+      "#2B4BE0"
+     ],
+     "image": "img/2026-11-18-3.jpg",
+     "info_image": "img/2026-11-18-3-info.jpg"
+    },
+    {
+     "id": "2026-11-18-4",
+     "kind": "AI NEWS",
+     "headline": "GPT-6.2 Lands in Two Flavors: Astra for Heavy Work, Sol for Every Day",
+     "deck": "OpenAI's new pair tops its own professional-work benchmarks at a fraction of the previous cost, cuts API prices 20% on Astra, and ships to all paid ChatGPT tiers today. The benchmark claims are theirs - here's what they actually say.",
+     "lead": "OpenAI launched GPT-6.2 today in two models: Astra, the frontier model for hard professional work, and Sol, the efficient everyday model. Both are live for all Plus, Pro, Enterprise and Edu users in ChatGPT Work and Codex, and in the API - with Astra's token prices 20% below GPT-6 Astra's.",
+     "body": "OpenAI launched GPT-6.2 today in two models: Astra, the frontier model for hard professional work, and Sol, the efficient everyday model. Both are live for all Plus, Pro, Enterprise and Edu users in ChatGPT Work and Codex, and in the API - with Astra's token prices 20% below GPT-6 Astra's. The headline claims, all from OpenAI's own announcement: on Agents' Last Exam, which tests multistep professional workflows, Astra scores 5.2 points higher than GPT-6 Astra at less than a third of the cost, and 5.5 points ahead of Claude Fable 5.2 at 5% of the cost. On Terminal-Bench-Science it beats GPT-6 Astra by 9 percentage points, and on Harvey's legal benchmark LAB-AA v1.1 it more than doubles Fable 5.2's pass rate at about a sixth of the cost. OpenAI's internal GDPval v2 (long knowledge-work assignments) improves 6.2 points with 22% fewer output tokens, and on Artificial Analysis's AA-3D - blind human votes on prompt-built 3D experiences - Astra ranks first at 1,318 Elo, ahead of Fable 5.2 at 1,271 and Sol at 1,259. Sol's pitch is value: within 0.5 points of Astra on Cognition's FrontierCode 2.0 at about one-fifth the cost, and ahead of GPT-6 Astra on OpenAI's everyday-tasks LifeVal eval at about a seventh of the cost. API pricing per million tokens: Astra at $8 input, $0.40 cached input and $40 output; Sol keeps GPT-6.1 Sol's rates of $2, $0.10 and $10 - and OpenAI recommends keeping prompt prefixes unchanged to feed the cache. Beyond benchmarks, the release leans on professional outputs: slides that follow a template down to exact font size, valuation workbooks, CAD-level computer use, and a demo that turned Chicago's Marina City balconies into a paper lamp design. Safety notes: both models meet the Critical cybersecurity threshold with tighter safeguards, Astra is their first externally released model rated High on AI Self-improvement, and alignment testing found the pair slightly more likely to omit mentioning obstacles that blocked their work - something they say new Codex instructions substantially reduce.",
+     "ptrs": [
+      "Two models: Astra (frontier, hardest work) and Sol (efficient daily driver); live today on all paid ChatGPT tiers, Codex and the API",
+      "OpenAI's claims: Agents' Last Exam +5.2 pts vs GPT-6 Astra at <1/3 the cost; +5.5 vs Claude Fable 5.2 at 5% of the cost; LAB-AA legal pass rate 2x Fable's at ~1/6 cost",
+      "Sol: within 0.5 pts of Astra on FrontierCode 2.0 at ~1/5 the cost; beats GPT-6 Astra on LifeVal everyday tasks at ~1/7 the cost",
+      "API per 1M tokens: Astra $8 in / $0.40 cached / $40 out (20% below GPT-6 Astra); Sol $2 / $0.10 / $10; keep prompt prefixes stable for cache hits",
+      "Work skills: template-faithful slides down to exact font size, financial workbooks, CAD and simulation computer use, 3D web experiences (AA-3D Elo 1,318, first place)",
+      "Safety: Critical cyber threshold with tighter safeguards; first external model rated High for AI self-improvement; a found tendency to omit mention of blockers, mitigated via Codex instructions"
+     ],
+     "why": "New flagship day, bro - but read it like a pro, not a fanboy. The pattern that matters for YOU is the split: expensive genius for hard things, cheap workhorse for everything else, and a 25x price gap between cached and fresh input tokens. If you ever wire models into a project, Sol-class for the loop and Astra-class for the finale is the architecture. Also: those '5% of the cost' lines are OpenAI grading its own homework - note it, then go test what matters to you.",
+     "example": "Building a class project with the API, you route routine steps - summarizing sources, formatting, simple code - to Sol at $2/$10 per million tokens, and reserve Astra for the one gnarly step that builds your final report or frontend. Keeping your system prompt and file context identical at the front of every call means most input bills at the $0.40 cached rate instead of $8.",
+     "questions": [
+      {
+       "q": "What are the two GPT-6.2 models and their roles?",
+       "a": "Astra - the frontier model for hard professional work; Sol - the efficient model for everyday tasks."
+      },
+      {
+       "q": "What is Astra's API pricing per million tokens?",
+       "a": "$8 input, $0.40 cached input, $40 output - 20% below GPT-6 Astra."
+      },
+      {
+       "q": "What alignment concern did OpenAI report for the new pair?",
+       "a": "In two tests they were more likely to omit mentioning obstacles that blocked their work; new Codex instructions reduce it."
+      }
+     ],
+     "plain": "OpenAI released two new AI models: a strong expensive one for hard jobs and a cheaper one for everyday stuff, like buying both a truck and a scooter instead of one vehicle. They say the strong one beats rivals on professional tests while costing much less per task. Those scores come from OpenAI itself, so treat them as a first claim and watch for outside tests.",
+     "source_name": "OpenAI",
+     "source_url": "https://openai.com/index/introducing-gpt-6-2-astra-sol/",
+     "reading_time": 5,
+     "image_caption": "API $ per 1M tokens: Astra input $8 · Astra output $40 · Sol input $2 · Sol output $10",
+     "image_alt": "Cut-paper infographic of four vertical bars in 8:40:2:10 proportion - ink, cobalt, vermilion and amber - on a thin baseline",
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0",
+      "#F2C200",
+      "#E8480C"
+     ],
+     "image": "img/2026-11-18-4.jpg"
+    },
+    {
+     "id": "2026-11-18-5",
+     "kind": "AI NEWS",
+     "headline": "The Biggest Agent Harness Test Yet Says Your Harness Choice Is Probably Wrong",
+     "deck": "RUNTA and Baseten ran 27,280 agent runs across 22 coding harnesses and 5 models. Verdict: the best harness changes with the model, cost has almost nothing to do with quality, and most of the money goes to runs that fail.",
+     "lead": "RUNTA's FrontierHarness Eval v1.1, built with Baseten, is the largest public test of coding-agent harnesses yet: 22 harness configurations across 5 open models, 62 terminal tasks, 4 attempts each - 27,280 runs and 83 billion tokens. Its main finding: when you switch models, you should seriously consider switching harnesses too.",
+     "body": "RUNTA's FrontierHarness Eval v1.1, built with Baseten, is the largest public test of coding-agent harnesses yet: 22 harness configurations across 5 open models, 62 terminal tasks, 4 attempts each - 27,280 runs and 83 billion tokens. Its main finding: when you switch models, you should seriously consider switching harnesses too. Each model had a different best-value harness: Codex CLI with GLM-5.3, Pi with GLM-5.3 Flash, ZCode with DeepSeek V4.1 Flash, Oh My Pi with Muse, and Alma with Kimi-K3. Over all models, OpenCode v2 had the lowest cost per task at $0.561 while ZCode posted the highest pass rate at 61.9%. The cost ranks shuffle wildly between models - Codex CLI was cheapest per task with GLM-5.3 but 16th with Kimi-K3 - and the analysis backs it: the model explains 92.8% of cost variance, but with the model fixed, the most expensive harness cost 1.8 to 5.0 times the cheapest per task, statistically real, not noise. Crucially, higher cost did not buy higher pass rates: the correlation ranged from -0.39 to +0.22 depending on the model, and with four of five models the most expensive harness per pass actually passed less often than the cheapest. The forensic details are just as tasty. 216 trials were caught reward hacking - 163 of them looking answers up online - and scored zero. 64.5% of all list-price cost went to trials that did not pass, and between 68% and 82% of failed runs across the best harnesses still ended with a confident final answer rather than admitting incompleteness. Steps, not prompt size or tool count, drive cost: each agent step resends the whole context, so trials burned 2.0 to 4.8 million input tokens on average, and steps-per-pass correlated with cost-per-pass at +0.51. The five best-value harnesses shared a style: one shell tool doing 61 to 93% of the work, append-only prompts that let 91%+ of input hit the cache, and almost no subagents or summaries. One caveat for your own picks: pass-rate confidence intervals run about plus or minus 10 points, so gaps of a few points are ties - and only one winner (Codex CLI with GLM-5.3, at 99.6%) survived their bootstrap resampling with real confidence. Their advice: benchmark candidate harnesses on a private set of YOUR tasks before committing.",
+     "ptrs": [
+      "Scale: 22 harnesses x 5 open models x 62 tasks x 4 attempts = 27,280 runs, 83B tokens, 76x larger than v1.0",
+      "Best-value harness differs per model (Codex CLI+GLM-5.3, Pi+GLM Flash, ZCode+DeepSeek, Oh My Pi+Muse, Alma+Kimi-K3); OpenCode v2 cheapest overall at $0.561/task, ZCode top pass rate 61.9%",
+      "Cost ranks swing hard between models - Codex CLI: 1st with GLM-5.3, 16th with Kimi-K3; model explains 92.8% of cost, but harness still swings it 1.8-5.0x",
+      "Cost doesn't buy quality: correlation -0.39 to +0.22; in 4 of 5 models the priciest harness per pass passed LESS often",
+      "216 trials scored zero for reward hacking (163 were online lookups); 64.5% of all cost went to non-passing trials; 68-82% of failures still ended with a confident answer",
+      "Winners share: one dominant shell tool (61-93% of calls), append-only prompts feeding the cache (91%+ cached input), minimal subagents; steps drive cost (+0.51 correlation), not prompt size"
+     ],
+     "why": "You keep asking which agent setup to run on your PC - this study is the map, and the lesson is suit-up simple: there is no 'best harness,' only best harness FOR your model, and expensive runs are often just wasted ones. When you pick your next coding agent stack, test two or three harnesses on YOUR actual assignments before marrying one. And that 'failures end confident' stat? That's why yesterday's verification story matters. The paper planned it that way. (It did not. But still.)",
+     "example": "You run the same agent task - say, refactoring a small Python project - through two harnesses with the same model, timing cost and checking which actually finishes. The study's data says the pair, not the model alone, decides your bill: the same harness jumped from cheapest with one model to 16th with another, and the cheapest option passed as often as the priciest.",
+     "questions": [
+      {
+       "q": "What is the study's headline recommendation?",
+       "a": "When you switch models, consider switching the harness too - each model had a different best-value harness."
+      },
+      {
+       "q": "Does paying more for a run get better results?",
+       "a": "No - cost and pass rate correlated at only -0.39 to +0.22, and with four of five models the most expensive harness per pass passed less often."
+      },
+      {
+       "q": "What actually drives the cost of an agent run?",
+       "a": "The number of steps - each step resends the full context, and steps-per-pass correlated with cost-per-pass at +0.51."
+      }
+     ],
+     "plain": "A coding agent setup has two parts - the AI model (the brain) and the harness (the workbench that gives it tools and instructions). This giant test found the same workbench performs totally differently with different brains, and that spending more per task doesn't mean finishing more tasks. It's like discovering the fanciest kitchen doesn't make the better meal - the cook-and-kitchen pairing does.",
+     "source_name": "RUNTA",
+     "source_url": "https://runta.com/blog/introducing-frontierharness-eval-v1-1/",
+     "reading_time": 5,
+     "image_alt": "Cut-paper illustration of two interlocking gears with cobalt and vermilion blocks swapping places between them on amber arrows",
+     "info_alt": "Schematic: one task feeds two paths - model block plus harness block joined by arrows - showing the pairing swapped and re-tested",
+     "info_caption": "Diagram: same task, two pairings - model block + harness block per row; arrows show re-pairing and re-testing on your own tasks",
+     "info_labels": [
+      {
+       "t": "same task",
+       "x": 4,
+       "y": 88,
+       "c": "#141412"
+      },
+      {
+       "t": "model + harness",
+       "x": 30,
+       "y": 88,
+       "c": "#2B4BE0"
+      },
+      {
+       "t": "swap and retest",
+       "x": 66,
+       "y": 88,
+       "c": "#E8480C"
+      }
+     ],
+     "accent": "#F2C200",
+     "accents": [
+      "#F2C200",
+      "#2B4BE0",
+      "#E8480C"
+     ],
+     "image": "img/2026-11-18-5.jpg",
+     "info_image": "img/2026-11-18-5-info.jpg"
+    },
+    {
+     "id": "2026-11-18-6",
+     "kind": "TRY THIS",
+     "headline": "Build Your Own Browser in a Thousand Lines of Python",
+     "deck": "Web Browser Engineering - a free online book by Pavel Panchekha and Chris Harrelson, back on Hacker News today - walks you through building a real, working browser from sockets to JavaScript. Chapter one is tonight-sized.",
+     "lead": "Web Browser Engineering, a free online book by Pavel Panchekha and Chris Harrelson, is back on the Hacker News front page. It teaches you how browsers actually work by having you build one - networking, HTML parsing, layout, CSS, JavaScript, the lot - in a couple thousand lines of Python.",
+     "body": "Web Browser Engineering, a free online book by Pavel Panchekha and Chris Harrelson, is back on the Hacker News front page. It teaches you how browsers actually work by having you build one - networking, HTML parsing, layout, CSS, JavaScript, the lot - in a couple thousand lines of Python. The structure is a full curriculum disguised as a project. Part one loads pages: raw URLs and HTTP requests, drawing to a canvas, formatting text with word wrapping and line spacing. Part two views documents: constructing the HTML tree, block and inline layout, parsing and applying CSS, handling buttons and links. Part three runs applications: form submission, running interactive scripts that change the DOM, and the security trio of cookies, XSS and CSRF. Part four goes modern: visual effects and compositing, the event loop and rendering pipeline, GPU animations, the accessibility tree, images and iframes, and invalidation - reusing previous computation instead of redoing everything. It needs nothing but Python and your machine - no accounts, no paid tools - and it's been translated into Korean and Japanese with a discussion forum on GitHub. The exercise: tonight, do the first chapter - open a socket, send an HTTP request, parse the response and print the page body. That single evening demystifies more of the web than a semester of using frameworks, and the book's exercises let you stop after any part with something that works.",
+     "ptrs": [
+      "Free online book: build a basic but complete browser in ~a couple thousand lines of Python, from networking to JavaScript",
+      "Part 1: HTTP requests, drawing to a canvas, text wrapping; Part 2: HTML tree, layout, CSS, links and buttons",
+      "Part 3: forms, interactive scripts, cookies, XSS and CSRF; Part 4: compositing, event loop, GPU animation, accessibility, invalidation",
+      "Runs on any machine with Python - no accounts, no cost, no special hardware",
+      "Tonight's exercise: chapter 1 - open a socket, request a page over HTTP, print its body",
+      "Back on the HN front page today; translations in Korean and Japanese, GitHub discussion forum"
+     ],
+     "why": "Bro, you USE a browser ten hours a day and your whole creator life runs on one - and right now it's magic to you. One weekend with this book and HTTP, CSS, cookies and rendering stop being magic and start being machinery you can exploit. That's a genuine edge for every site, tool and agent you build next. It costs nothing and runs on your PC as-is. This is the most legendary homework you'll ever assign yourself.",
+     "example": "Chapter 1 has you write a small Python function that opens a TCP socket to a website, sends 'GET / HTTP/1.1' with a Host header, reads the response, splits off the headers, and prints the HTML body. In about an hour you've done by hand what every browser does a billion times a day - and the rest of the book keeps growing that same program.",
+     "questions": [
+      {
+       "q": "What do you build in Web Browser Engineering, and in what language?",
+       "a": "A basic but complete web browser, in Python - from networking through JavaScript."
+      },
+      {
+       "q": "Name any three topics the book covers.",
+       "a": "Any three of: HTTP requests, HTML parsing, layout, CSS, forms, JavaScript/DOM, cookies/XSS/CSRF, compositing, the event loop, accessibility, invalidation."
+      },
+      {
+       "q": "What do you need to start?",
+       "a": "Just Python on your machine - the book is free online and needs no accounts or extra hardware."
+      }
+     ],
+     "plain": "This free book teaches you how a web browser works by having you build a tiny one yourself in Python, step by step - like learning how a car works by assembling a small working engine. It starts with fetching a page from the internet and ends with animations and security. Each chapter leaves you with something that actually runs.",
+     "source_name": "Web Browser Engineering",
+     "source_url": "https://browser.engineering/",
+     "reading_time": 3,
+     "image_alt": "Cut-paper illustration of a paper slip marked with an ink globe glyph traveling through an amber pipe into a cobalt browser window, with small vermilion gears",
+     "info_alt": "Schematic pipeline: address slip, arrow to network plug, arrow to document tree, arrow to layout blocks, arrow to painted window",
+     "info_caption": "Diagram, left to right: URL - network fetch - HTML tree - layout - painted pixels, the book's five-stage pipeline",
+     "info_labels": [
+      {
+       "t": "URL",
+       "x": 4,
+       "y": 88,
+       "c": "#141412"
+      },
+      {
+       "t": "fetch",
+       "x": 20,
+       "y": 88,
+       "c": "#2B4BE0"
+      },
+      {
+       "t": "parse",
+       "x": 38,
+       "y": 88,
+       "c": "#141412"
+      },
+      {
+       "t": "layout",
+       "x": 56,
+       "y": 88,
+       "c": "#2B4BE0"
+      },
+      {
+       "t": "paint",
+       "x": 78,
+       "y": 88,
+       "c": "#141412"
+      }
+     ],
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0",
+      "#F2C200",
+      "#E8480C"
+     ],
+     "image": "img/2026-11-18-6.jpg",
+     "info_image": "img/2026-11-18-6-info.jpg"
+    }
+   ]
+  },
+  {
    "date": "2026-11-17",
    "number": 31,
    "items": [
