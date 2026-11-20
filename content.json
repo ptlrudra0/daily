@@ -2,6 +2,390 @@
   "paper": "The Daily Draft",
   "issues": [
     {
+      "number": 34,
+      "date": "2026-11-20",
+      "items": [
+        {
+          "id": "2026-11-20-1",
+          "kind": "AI TIP",
+          "headline": "Before You Buy More RAM, Squeeze the RAM You Have",
+          "deck": "A developer filling a 32GB machine found his fix in memory compression instead of a shopping cart: up to 4x the effective capacity for a small CPU tax. Your Windows PC already does a version of this - here's what that means for your 32GB question.",
+          "lead": "Developer Therry van Neerven ran out of memory doing parallel AI-era work and fixed it without buying anything: he turned on zram, compressed memory, and watched 5.7GB of live data sit in 1.7GB of RAM - a 1:3.35 ratio. Compression ratios up to 1:4 are not uncommon, and the cost is a little extra CPU and some added latency on certain processes.",
+          "body": "Developer Therry van Neerven ran out of memory doing parallel AI-era work and fixed it without buying anything: he turned on zram, compressed memory, and watched 5.7GB of live data sit in 1.7GB of RAM - a 1:3.35 ratio. Compression ratios up to 1:4 are not uncommon, and the cost is a little extra CPU and some added latency on certain processes. The technique is older than the hype: Windows and macOS already compress memory by default, and many Android phones do too, so your own PC has been doing a version of this all along. Where it matters most today is Linux, because support is patchy - Fedora and Pop!_OS enable it by default, Ubuntu doesn't, and Amazon Linux only turns it on for smaller virtual machines. His stress test was gloriously petty: he opened over a hundred heavy websites in Firefox until the apps' demand exceeded his 32GB, then watched the overflow land in compressed zram swap instead of crashing. His argument isn't that RAM is a scam - it's that most workloads have idle CPU cycles, and trading a few of them for gigabytes of effective capacity is a bargain, on your own machine and on cloud servers where he figures it could have cut his old SaaS spend in half. One honest limit for your local-AI plans: compression stretches general multitasking and parallel-agent headroom, but a model's active weights want real, fast memory - and no amount of RAM compression adds a single gigabyte to your GPU's 6GB of VRAM.",
+          "ptrs": [
+            "zram demo: 5.7GB of live data compressed into 1.7GB of RAM = ratio 1:3.35; ratios up to 1:4 are not uncommon",
+            "Cost: a little more CPU and some added latency on certain processes - usually idle capacity anyway",
+            "Windows and macOS already compress memory by default (many Android phones too) - your PC does a version of this now",
+            "Linux is patchy: Fedora and Pop!_OS enable it, Ubuntu doesn't, Amazon Linux only on smaller VMs; the Arch wiki has the setup guide",
+            "His stress test: 100+ heavy sites open in Firefox until demand passed his 32GB - the overflow went to compressed swap, not a crash",
+            "He estimates RAM compression could have halved his old SaaS cloud spend; the same trick works on cloud VMs",
+            "The limit for local AI: this helps multitasking and parallel agents, but active model weights want real RAM, and VRAM doesn't compress"
+          ],
+          "why": "Bro, you're eyeing a 32GB upgrade for local models - this is the homework to do first, not instead. Know that Windows is already compressing, know the trick exists if you ever dual-boot Linux for experiments, and know the real bottleneck for your RTX 4050 is VRAM, which no software squeezes. Buy hardware with facts, not vibes. That's the suit-up move.",
+          "example": "His own test is the example to steal: open an absurd number of heavy tabs and apps until your machine should fall over, then watch in Task Manager (or zramctl on Linux) how much 'in use' memory is actually compressed data holding the fort.",
+          "questions": [
+            {
+              "q": "What compression ratio did his real demo hit?",
+              "a": "5.7GB in 1.7GB - about 1:3.35, and ratios up to 1:4 are not uncommon."
+            },
+            {
+              "q": "Does Rudy's Windows PC need zram enabled?",
+              "a": "No - Windows (like macOS and many Android phones) already compresses memory by default."
+            },
+            {
+              "q": "What does RAM compression NOT fix for local AI?",
+              "a": "GPU VRAM - the RTX 4050's 6GB stays 6GB, and active model weights want real fast memory."
+            }
+          ],
+          "plain": "Memory compression is like vacuum-packing clothes in a suitcase: a little effort squeezes them smaller, so the same bag holds more. Computers can do this with the stuff in their memory while it waits to be used. It won't make the suitcase bigger, but it delays the day you need a new one.",
+          "source_name": "curiousbits.nl",
+          "source_url": "https://curiousbits.nl/blog/do-not-buy-ram-compress/",
+          "reading_time": 4,
+          "accent": "#2B4BE0",
+          "accents": [
+            "#2B4BE0",
+            "#F2C200",
+            "#E8480C"
+          ],
+          "image": "img/2026-11-20-1.jpg",
+          "image_alt": "Cut-paper illustration of a memory chip filled with colored data blocks being squeezed by a giant C-clamp, with freed empty blocks appearing beside it.",
+          "info_image": "img/2026-11-20-1-info.jpg",
+          "info_alt": "Schematic: a tall stack of blocks pushed by an arrow through a press, emerging as a short compressed stack with a plus shape marking freed space.",
+          "info_caption": "Diagram: a tall stack of live data (left) goes through the compression press and comes out smaller (right) - the plus is the space you just won back.",
+          "info_labels": [
+            {
+              "t": "uncompressed",
+              "x": 6,
+              "y": 88,
+              "c": "#141412"
+            },
+            {
+              "t": "compress",
+              "x": 40,
+              "y": 88,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "same data, less RAM",
+              "x": 62,
+              "y": 88,
+              "c": "#E8480C"
+            },
+            {
+              "t": "headroom",
+              "x": 88,
+              "y": 70,
+              "c": "#A67C00"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-20-2",
+          "kind": "DESIGN",
+          "headline": "Eight Pages, One Sheet, Zero Glue",
+          "deck": "The classic one-sheet zine folds a single A4 into an 8-page booklet - and its page order is a beautiful puzzle: half the sheet prints upside down. A free browser app now solves the layout math for you.",
+          "lead": "Fold an A4 sheet in half three times, open it, cut along the center crease, fold it into a cross and close it: you get an 8-page booklet with no staples and no glue. That's the one-sheet zine, the cheapest publishing format in the world - and designing for it teaches a real layout lesson, because the flat sheet's page order is genuinely weird.",
+          "body": "Fold an A4 sheet in half three times, open it, cut along the center crease, fold it into a cross and close it: you get an 8-page booklet with no staples and no glue. That's the one-sheet zine, the cheapest publishing format in the world - and designing for it teaches a real layout lesson, because the flat sheet's page order is genuinely weird. When the sheet lies flat before folding, the top row - pages 6, 5, 4, 3 - must print rotated 180 degrees, while the bottom row reads back cover, front cover, page 1, page 2. Get that imposition wrong and your zine reads upside down. Maker Wilson Tovar got tired of rotating pictures in Photoshop and built fanzines.app, a free browser editor that handles the puzzle: you design each page right-side up with photos and text, and it exports a 300 DPI PDF with every panel placed and rotated correctly - all processing stays local, no uploads. The details show real design thinking. The sidebar groups pages into true spreads, because a physical zine's front cover sits alone on the right, then page 1 faces page 2 across the fold, 3 faces 4, 5 faces 6, and the back cover ends alone on the left. A spread view lets you check facing pages together before printing. Fill, Fit and Center buttons replace coordinate-typing for placing photos. And a review step shows the full sheet with cut and fold lines plus a 5mm safe margin, scaling everything to about 95% because most home printers clip a few millimeters off the edges. It works on phones and speaks English and Spanish. The lesson underneath the tool: constraints are the format. Eight panels, one sheet, a fold and a cut - and suddenly every page order and margin decision matters. That is graphic design in miniature.",
+          "ptrs": [
+            "The fold: A4 in half three times, cut the center crease, fold into a cross - an 8-page booklet, no staples or glue",
+            "The puzzle: on the flat sheet, pages 6-5-4-3 print upside down on the top row; the bottom row is back cover, front cover, 1, 2",
+            "fanzines.app: free, no signup; design right-side up in the browser, export an imposed 300 DPI PDF; everything stays local",
+            "True spreads: front cover alone on the right, 1 faces 2, 3 faces 4, 5 faces 6, back cover alone on the left - check facing pages before you print",
+            "Fill / Fit / Center for photo placement; a review step adds cut-fold lines and a 5mm safe margin, scaling to ~95% for home printers that clip edges",
+            "Works on phones; English and Spanish; the meta-lesson: tight physical constraints are what make it a design exercise"
+          ],
+          "why": "This is your design education in one sheet of paper, bro. A zine forces real decisions - sequence, spreads, margins, what survives a 95% scale - with zero stakes and a physical thing to hand someone at the end. Imagine a tiny TechBlast 'episode zero' zine. Instant artifact, instant portfolio piece. Challenge? Accepted.",
+          "example": "Pick 8 photos from one day out. Drop them into fanzines.app in reading order, use Fill on the cover, Fit for the rest, review the sheet with the safe margin on, print one copy, cut, fold - you're holding a published object made from one sheet of A4.",
+          "questions": [
+            {
+              "q": "Why does the top row of the flat sheet print upside down?",
+              "a": "Because the sheet folds back on itself - pages 6, 5, 4 and 3 must be rotated 180 degrees to read correctly once folded."
+            },
+            {
+              "q": "Which pages face each other in a folded one-sheet zine?",
+              "a": "Page 1 faces 2, 3 faces 4, 5 faces 6; the front cover sits alone on the right and the back cover alone on the left."
+            },
+            {
+              "q": "Why does the review step scale the layout to about 95%?",
+              "a": "Most home printers clip a few millimeters at the edges, so a 5mm safe margin keeps the covers intact."
+            }
+          ],
+          "plain": "A zine is a tiny homemade magazine. The magic trick here is that one normal sheet of paper, folded and cut the right way, becomes an 8-page booklet - like one of those paper fortune-tellers, but it ends as a book. The hard part is that the pages have to be printed in a scrambled order for the folding to work, and a free website now does that scrambling for you.",
+          "source_name": "krthr.co",
+          "source_url": "https://krthr.co/paper-folds-and-whats-new-in-fanzines-app/",
+          "reading_time": 5,
+          "accent": "#2B4BE0",
+          "accents": [
+            "#2B4BE0",
+            "#E8480C",
+            "#F2C200"
+          ],
+          "image": "img/2026-11-20-2.jpg",
+          "image_alt": "Cut-paper illustration of a single sheet of paper with folk-art shapes, scissors cutting its center crease, and the sheet becoming a small fanned booklet.",
+          "info_image": "img/2026-11-20-2-info.jpg",
+          "info_alt": "Step sequence: a flat sheet folds in half twice, scissors cut the center crease, the sheet folds into a cross and closes into a small booklet.",
+          "info_caption": "Diagram, left to right: fold the A4 in half twice - cut the center crease - fold into a cross - close it into an 8-page booklet.",
+          "info_labels": [
+            {
+              "t": "one A4",
+              "x": 4,
+              "y": 88,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "fold x2",
+              "x": 22,
+              "y": 88,
+              "c": "#A67C00"
+            },
+            {
+              "t": "one cut",
+              "x": 42,
+              "y": 88,
+              "c": "#E8480C"
+            },
+            {
+              "t": "cross-fold",
+              "x": 63,
+              "y": 88,
+              "c": "#A67C00"
+            },
+            {
+              "t": "booklet",
+              "x": 85,
+              "y": 88,
+              "c": "#2B4BE0"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-20-3",
+          "kind": "ON SCREEN",
+          "headline": "The Shot That Changes Its Mind Mid-Sentence",
+          "deck": "Rack focus: the camera shifts sharpness from one plane to another inside a single shot, and the audience's attention has no choice but to follow. Three jobs it does, and how the pros pull it.",
+          "lead": "Rack focus - also called pulling focus - is when a shot changes its plane of focus mid-take: the sharp foreground melts soft while something behind it snaps into clarity. It's one of cinema's quietest power moves because it redirects your attention without a cut, and it works on three distinct storytelling jobs.",
+          "body": "Rack focus - also called pulling focus - is when a shot changes its plane of focus mid-take: the sharp foreground melts soft while something behind it snaps into clarity. It's one of cinema's quietest power moves because it redirects your attention without a cut, and it works on three distinct storytelling jobs. First, it changes the emphasis of a scene: two characters talk in focus, then the focus drifts to reveal a third character, previously a blur, listening in - and the scene is suddenly about something else. Second, it delivers new information: an object or a part of the setting that was indistinct becomes sharp, and the audience learns something the frame was hiding. Third, it shows a character's inner experience without a word of dialogue - a rapid pull to a close-up face can play dawning comprehension, fear, or a satisfied smile as pure image. The drama lives in depth of field: a shallow depth of field makes the blur-to-sharp shift bold and unmistakable, while a deep one makes it subtle, sometimes too subtle to read. On a professional set the move belongs to the focus puller, a camera assistant who turns the lens's focus ring with a handheld follow focus tool, hitting marks rehearsed from a shot list while the camera operator holds the frame - it takes real coordination. The craft is evolving too: autofocus, once too imprecise for this, is making a comeback with modern digital cinema tools, and you can even fake the whole thing in post-production - shoot with a deep depth of field, then digitally simulate a narrow one and animate the focal plane.",
+          "ptrs": [
+            "Rack focus = the plane of focus moves within one unbroken shot; also called pulling focus",
+            "Job 1 - change emphasis: reveal the blurred third character who was listening all along",
+            "Job 2 - deliver information: a hidden object or detail snaps sharp and the audience learns something new",
+            "Job 3 - inner experience: a fast pull to a face shows realization or emotion with no dialogue",
+            "Shallow depth of field = dramatic shift; deep = subtle, sometimes unreadably subtle",
+            "On set: the focus puller turns the ring with a follow focus tool, hitting rehearsed marks while the operator holds frame",
+            "Modern shortcuts: smarter autofocus can automate pulls, and post-production can simulate a rack by faking shallow focus on a deep shot"
+          ],
+          "why": "You shoot reels on a phone, bro, which means you own this move already - tap-to-shift-focus IS a rack pull, and most creators waste it. Next time you want a reveal - product on the table, your face behind - don't cut, rack. One take, instant cinema grammar. That's how you look funded before you are.",
+          "example": "Frame a friend's face sharp in the foreground with a door behind them. Mid-shot, shift focus to the door just as it opens - the audience reads 'something's coming' before anyone speaks. That's job one and job two in a single pull.",
+          "questions": [
+            {
+              "q": "What are the three storytelling jobs of a rack focus?",
+              "a": "Change a scene's emphasis, deliver new information, and show a character's inner experience without dialogue."
+            },
+            {
+              "q": "Why does shallow depth of field make a rack focus more noticeable?",
+              "a": "The blur-to-sharp contrast is much more dramatic than in a deep-focus shot."
+            },
+            {
+              "q": "How can you fake a rack focus in post?",
+              "a": "Shoot with a deep depth of field, then digitally simulate narrow focus and animate the focal plane."
+            }
+          ],
+          "plain": "Your eyes do this all the time: look at your finger, and the room behind it goes soft; look at the room, and your finger blurs. A rack focus is the camera doing the same trick on purpose, mid-shot, to steer where you look - like someone pointing without saying a word.",
+          "source_name": "MasterClass",
+          "source_url": "https://www.masterclass.com/articles/rack-focus-guide",
+          "reading_time": 4,
+          "accent": "#E8480C",
+          "accents": [
+            "#E8480C",
+            "#2B4BE0"
+          ],
+          "image": "img/2026-11-20-3.jpg",
+          "image_alt": "Cut-paper illustration of a camera lens viewing a crisp vermilion flower in the foreground with a soft blurry cobalt house behind it.",
+          "info_image": "img/2026-11-20-3-info.jpg",
+          "info_alt": "Before-and-after focus diagram: a solid sharp flower with a dashed blurry house on the left, a double arrow, then the flower dashed and the house solid on the right.",
+          "info_caption": "Diagram: solid = in focus, dashed = blurred. The pull swaps which plane is sharp - attention follows the sharpness, no cut needed.",
+          "info_labels": [
+            {
+              "t": "focus: foreground",
+              "x": 6,
+              "y": 88,
+              "c": "#E8480C"
+            },
+            {
+              "t": "the pull",
+              "x": 44,
+              "y": 88,
+              "c": "#141412"
+            },
+            {
+              "t": "focus: background",
+              "x": 70,
+              "y": 88,
+              "c": "#2B4BE0"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-20-4",
+          "kind": "AI NEWS",
+          "headline": "Anthropic Rings the Bell: $83 to $97 on Day One",
+          "deck": "The first purely AI company to hit the stock market priced at $83, spiked to $111.53, and closed up 17% at $97.17 - a roughly $1.76 trillion valuation on a day the rest of tech sank.",
+          "lead": "Anthropic made its Nasdaq debut on Thursday as the first purely AI company to go public, and the day was a rollercoaster with a happy ending: priced at $83 a share, the stock spiked to $111.53 - briefly valuing the five-year-old company near $2 trillion - before settling at a $97.17 close, up roughly 17% for a valuation around $1.76 trillion.",
+          "body": "Anthropic made its Nasdaq debut on Thursday as the first purely AI company to go public, and the day was a rollercoaster with a happy ending: priced at $83 a share, the stock spiked to $111.53 - briefly valuing the five-year-old company near $2 trillion - before settling at a $97.17 close, up roughly 17% for a valuation around $1.76 trillion. The debut doubled as a referendum on the whole AI industry, and the rest of the market had a rough session in contrast: the Nasdaq Composite fell nearly 2.3%, Alphabet dropped 2.9% and Amazon lost almost 3.9%. The backdrop is a buildout of more than $1 trillion spent on AI in the last year alone, which keeps the bubble debate loud - University of Salford economist Richard Whittle noted that bubbles 'don't burst on the day of the largest deal; they burst later, if the positive future becomes suspect.' The cautionary tale on everyone's desk is SpaceX, which jumped about 10% on its own first day earlier this year to a record $2.2 trillion valuation, then fell below its debut price within a month and has mostly slid since. Quilter Cheviot's Ben Barringer expects Anthropic's 'initial exuberance' to wear off, and Saxo UK's Neil Wilson pointed out the strangest part of pricing it at all: as the first company of its kind on the market, 'there's no obvious peer to compare it to.' Most tech stocks dip after listing, the BBC notes - but Meta, Amazon and Google all did that on their way to becoming the biggest companies on Earth. The story topped the Hacker News front page at 900+ upvotes, where the thread split between 'historic' and 'bubble' in real time - community reaction, not analysis.",
+          "ptrs": [
+            "Priced at $83, spiked to $111.53 (near $2T), closed at $97.17 - up ~17%, valuing Anthropic around $1.76 trillion",
+            "First purely AI company to go public; founded just five years ago, maker of Claude",
+            "Same session: Nasdaq -2.3%, Alphabet -2.9%, Amazon -3.9% - Anthropic green on a red day",
+            "Context: over $1 trillion spent on AI buildout in the last year alone; bubble talk is everywhere",
+            "Cautions: SpaceX jumped ~10% on day one to a record $2.2T, then fell below its debut price within a month",
+            "Analyst takes: Barringer expects 'initial exuberance' to fade; Wilson: 'no obvious peer to compare it to'",
+            "HN front page #1 with 900+ upvotes; thread split between 'historic' and 'bubble' - community sentiment, not verified analysis"
+          ],
+          "why": "Watch this like a season finale, bro, because it's YOUR industry's origin story being priced in real time. The lesson isn't the 17% - it's the pattern: debut pop, sober month, then the long verdict. Whatever happens, you're studying AI in the years people will write books about. Legendary timing.",
+          "example": "The SpaceX parallel is the mental model to keep: first-day pop (up ~10%, record valuation), below debut price within a month. When Anthropic's price swings make headlines next month, you'll read them as a normal IPO arc instead of a verdict on AI itself.",
+          "questions": [
+            {
+              "q": "Where did Anthropic's shares price, peak and close on day one?",
+              "a": "Priced at $83, spiked to $111.53, closed at $97.17 - up about 17%."
+            },
+            {
+              "q": "How did the broader tech market do the same day?",
+              "a": "Badly - the Nasdaq fell nearly 2.3%, Alphabet 2.9% and Amazon almost 3.9%."
+            },
+            {
+              "q": "Why did the SpaceX debut come up in coverage?",
+              "a": "It also popped on day one to a record valuation, then fell below its debut price within a month - a cautionary pattern."
+            }
+          ],
+          "plain": "Anthropic, the company behind Claude, started selling shares to the public for the first time - like a bakery selling slices of itself. Lots of people wanted a slice, so the price jumped 17% on day one, even while the rest of the market had a bad day. Whether the slices stay expensive is the question everyone is now arguing about.",
+          "source_name": "BBC News",
+          "source_url": "https://www.bbc.com/news/articles/c3x29ggenz12o",
+          "reading_time": 5,
+          "accent": "#E8480C",
+          "accents": [
+            "#E8480C",
+            "#F2C200",
+            "#2B4BE0"
+          ],
+          "image": "img/2026-11-20-4.jpg",
+          "image_alt": "Cut-paper bar chart with three columns on a baseline: cobalt medium, vermilion tallest, amber slightly shorter.",
+          "image_caption": "Left to right: IPO price $83 - intraday high $111.53 - close $97.17 (up 17%)"
+        },
+        {
+          "id": "2026-11-20-5",
+          "kind": "AI NEWS",
+          "headline": "Claude Just Solved Two Black Hole Problems Humans Couldn't",
+          "deck": "Claude Fable 5.2 completed a physics calculation set up in 2003 and never finished, and proved the exact limit of a technique used to test theories of quantum gravity. Neither result describes our universe - both are real, preprinted science.",
+          "lead": "Anthropic reports that Claude Fable 5.2 solved two open problems in theoretical physics, both circling black holes and the search for quantum gravity. In the first, it finished a calculation physicists set up more than 20 years ago but never completed; in the second, it found - and proved - the exact limit of the simplest version of a method used to rule out wrong theories of quantum gravity.",
+          "body": "Anthropic reports that Claude Fable 5.2 solved two open problems in theoretical physics, both circling black holes and the search for quantum gravity. In the first, it finished a calculation physicists set up more than 20 years ago but never completed; in the second, it found - and proved - the exact limit of the simplest version of a method used to rule out wrong theories of quantum gravity. Problem one is about what happens when you heat up a theoretical model universe: at low temperatures it fills with a gas of particles, above a threshold a black hole forms, and Hawking and Page showed in 1983 that the switch is abrupt, like water boiling at 100 degrees. But their math only works while the universe is huge; as it shrinks toward the scale where spacetime gets blurry, the gravity-side calculation becomes impossible. Physicists found in 1999 that a transition exists there too, but couldn't tell if it was abrupt or smooth, and the 2003 calculation meant to settle it was never finished. Claude finished it - by running a small research group of copies of itself, each working out pieces independently and checking the math against known results - and showed the transition is abrupt there too, hinting that black hole formation is built into the underlying quantum theory, not just relativity. Problem two lives in a simpler universe with two dimensions of space: since 2009, physicists have used a 'bootstrap' method to set a ceiling on how heavy the lightest possible black hole could be, ruling out any theory that breaks it. Numerical results hinted where the best ceiling lay but couldn't prove it. Claude noticed a pattern in those numbers that physicists had missed, borrowed a method from another corner of math, calculated the precise ceiling and proved it can't be lowered. Anthropic is careful about scope: neither result describes our universe directly and neither has practical applications. The project itself started as a side experiment - researcher Hongbin Chen asked Claude to list interesting open black-hole problems, it returned 22 candidates, and the work grew from there, with preprints published for physicists to scrutinize.",
+          "ptrs": [
+            "Problem 1: finished the 2003 calculation showing the black-hole formation transition stays abrupt even where spacetime has no definite shape",
+            "Hawking & Page showed the abrupt switch in 1983 for huge universes; the small-scale regime's transition was found in 1999, abrupt-vs-smooth unsettled until now",
+            "Method: Claude ran a small research group of copies of itself, each solving pieces independently and checking math against known results",
+            "Problem 2: in a 2D model universe, Claude found a missed pattern in numerical bootstrap data and proved the exact, un-improvable ceiling on the lightest black hole's mass",
+            "Honest scope (Anthropic's own words): neither result describes our universe directly; neither has practical applications",
+            "Origin: a side project - researcher Hongbin Chen asked for open problems, Claude proposed 22 candidates; both results are now preprints open to scrutiny",
+            "HN front page at 390+ upvotes - community reaction ranged from awe to 'wait for peer review'"
+          ],
+          "why": "This is the 'AI does science' headline done RIGHT, bro: not a chatbot summarizing papers, but a model running its own little research group and leaving checkable proofs. And notice the honest footer - 'doesn't describe our universe, no practical applications.' That's how real labs talk. Steal that honesty for every claim you'll ever make.",
+          "example": "The swarm method is the stealable part: instead of asking one chat for one giant answer, spin the problem into independent pieces, solve each separately, and check every piece against known results - the same research-group trick that just cracked a 20-year-old calculation.",
+          "questions": [
+            {
+              "q": "What was the first problem Claude solved?",
+              "a": "It completed a 2003 calculation proving the black-hole formation phase transition stays abrupt even where spacetime loses a definite shape."
+            },
+            {
+              "q": "How did Claude approach the work?",
+              "a": "As a small research group of copies of itself, each solving pieces independently and checking the math against known results."
+            },
+            {
+              "q": "What caveat does Anthropic itself attach to both results?",
+              "a": "Neither describes our universe directly and neither has practical applications."
+            }
+          ],
+          "plain": "Black holes sit where physics' two rulebooks clash, so even simple questions about them can stall for decades. An AI was given two of these stuck problems and, by splitting the work among copies of itself like a study group, produced answers with checkable math. It doesn't change daily life - it's more like a very hard puzzle in a model universe finally being solved.",
+          "source_name": "Anthropic",
+          "source_url": "https://www.anthropic.com/research/claude-black-hole-physics",
+          "reading_time": 6,
+          "accent": "#2B4BE0",
+          "accents": [
+            "#2B4BE0",
+            "#F2C200"
+          ],
+          "image": "img/2026-11-20-5.jpg",
+          "image_alt": "Cut-paper illustration of a black hole with a swirling amber and cobalt accretion ring, small satellites feeding check-marked pieces into a document.",
+          "info_image": "img/2026-11-20-5-info.jpg",
+          "info_alt": "Diverge-and-converge diagram: one square fans out into five puzzle pieces, each earns a check mark, and all arrows merge into one stamped document.",
+          "info_caption": "Diagram: one problem (left) fans out to copies solving pieces independently - every piece checked - then merges into one verified proof.",
+          "info_labels": [
+            {
+              "t": "one problem",
+              "x": 3,
+              "y": 88,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "copies solve pieces",
+              "x": 33,
+              "y": 88,
+              "c": "#E8480C"
+            },
+            {
+              "t": "each checked",
+              "x": 56,
+              "y": 88,
+              "c": "#A67C00"
+            },
+            {
+              "t": "one proof",
+              "x": 84,
+              "y": 88,
+              "c": "#141412"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-20-6",
+          "kind": "TRY THIS",
+          "headline": "Publish an 8-Page Zine Tonight",
+          "deck": "One A4 sheet, three folds, one cut - that's a book. Fold a dummy with your hands first, then lay out the real thing in fanzines.app and print it tomorrow.",
+          "lead": "Tonight's drill has two halves. First, physical: take any sheet of A4, fold it in half three times, open it, cut the center crease, fold into a cross, and close it into a booklet - do it once with your hands so the page-order puzzle from today's DESIGN story makes sense in your fingers. Then, digital: open fanzines.app and lay out your real 8-pager.",
+          "body": "Tonight's drill has two halves. First, physical: take any sheet of A4, fold it in half three times, open it, cut the center crease, fold into a cross, and close it into a booklet - do it once with your hands so the page-order puzzle from today's DESIGN story makes sense in your fingers. Then, digital: open fanzines.app and lay out your real 8-pager. Pick a tiny theme - 8 photos, 8 one-line tips, 8 panels of one story - and design each page right-side up; the app handles the upside-down top row and scrambled order, exports a 300 DPI PDF, and never uploads your files. Use the spread view to check facing pages, Fill for the cover, Fit for the photos, and keep the 5mm safe margin on in the review step so your home printer doesn't eat the edges. Print, cut once, fold, hand it to someone. You're a publisher now - circulation: one.",
+          "ptrs": [
+            "Half 1: fold a physical dummy from scrap A4 - three folds, one center cut, cross-fold - feel why the top row prints upside down",
+            "Half 2: fanzines.app (free, no signup, local-only) - design 8 pages right-side up, export a 300 DPI imposed PDF",
+            "Theme small: 8 photos, 8 tips or 8 panels of one story; spread view to check facing pages",
+            "Fill on the cover, Fit on photos, safe margin ON in review (home printers clip edges)",
+            "Print, one cut, fold, hand it to a human - done"
+          ],
+          "why": "Bro, agencies and channels are built out of small finished things, not big plans. A zine is the smallest finished thing with your name on it. Total cost: one sheet of paper. Total time: under an hour. Return on investment: you get to say 'I published something this week' and mean it physically.",
+          "example": "Make '8 things I learned this week' - one line per page, cover is just the title big. It's the zine equivalent of a sketchbook page: fast, honest, done - and the format scales to a TechBlast mini-issue later.",
+          "questions": [
+            {
+              "q": "Why fold a paper dummy before using the app?",
+              "a": "Feeling the folds makes the scrambled flat-sheet page order (and the upside-down top row) make physical sense."
+            },
+            {
+              "q": "What three app features keep a home-printed zine clean?",
+              "a": "Spread view for facing pages, Fill/Fit placement, and the 5mm safe margin in the review step."
+            }
+          ],
+          "plain": "This is a craft mission: turn one sheet of paper into a tiny book with your hands, then use a free website to design a real one and print it. It's like paper airplane folding, except the result is a magazine you can give to someone.",
+          "source_name": "fanzines.app",
+          "source_url": "https://fanzines.app/",
+          "reading_time": 2,
+          "accent": "#2B4BE0",
+          "accents": [
+            "#2B4BE0",
+            "#E8480C",
+            "#F2C200"
+          ],
+          "image": "img/2026-11-20-6.jpg",
+          "image_alt": "Cut-paper illustration of a small handmade zine with fanned pages showing folk-art bird and flower motifs, scissors and paper scraps beside it."
+        }
+      ]
+    },
+    {
       "number": 33,
       "date": "2026-11-19",
       "items": [
