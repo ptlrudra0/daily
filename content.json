@@ -2,6 +2,370 @@
   "paper": "The Daily Draft",
   "issues": [
     {
+      "number": 35,
+      "date": "2026-11-21",
+      "items": [
+        {
+          "id": "2026-11-21-1",
+          "kind": "AI TIP",
+          "headline": "Hum a Tune, This Tiny Model Writes Down the Notes",
+          "deck": "Dettato turns any recording into a MIDI file with a model so small it sounds like a typo - 20 million parameters beating models 65 times its size. And yes, it clears your 6GB GPU without breaking a sweat.",
+          "lead": "Dettato is a new open-source audio-to-MIDI transcription model from kobimusic: feed it a song or a recording of you humming, and it spits out the notes as a MIDI file you can drop into any music app. The wild part is the size - at 20M parameters it is roughly 65x smaller than MuScriptor 1.3B, the previous best open model, and it still beats it on every published benchmark.",
+          "body": "Dettato is a new open-source audio-to-MIDI transcription model from kobimusic: feed it a song or a recording of you humming, and it spits out the notes as a MIDI file you can drop into any music app. The wild part is the size. At 20M parameters it is roughly 65x smaller than MuScriptor 1.3B, the previous best open model, and it still beats it on every published benchmark: composite score 60.8 against MuScriptor's 47.4, and even a nose ahead of mirelo's closed-source A2M v1.1 Pro at 56.1. The training story is just as sharp: the model was trained on absolutely no copyrighted recordings, using synthetic instrument audio and Creative Commons solo instruments from the URMP dataset blended with about 20 soundfonts, and the outputs are cleared for commercial use. Setup is two lines: pip install git+https://github.com/kobimusic/dettato, then run dettato song.mp3 -o out/ and you get out/song.mid plus a JSON of the notes; the weights download from Hugging Face on first run, and it needs Python 3.10+ and PyTorch 2.2+. A CUDA GPU is recommended but not demanding: on an RTX 5060 8GB a 4-minute song transcribes in about 15 seconds while peaking under 4GB of GPU memory, which means your RTX 4050 with 6GB fits comfortably; the CPU path works but is slow, with a 15-second clip taking 87 seconds on a laptop CPU. Keep the honest limits in view: dettato gives you performance MIDI - the right notes at the right times - not engraved sheet music, and the author himself points you to Songscription or Klangio if you need printable scores; splitting overlapping instruments correctly is a known weak spot, and m4a or aac files need ffmpeg installed. Bro, this is the suit-up moment for anyone making short-form video: original background music from your own humming, no licensing anxiety, running locally for free.",
+          "ptrs": [
+            "Open-source audio-to-MIDI model from kobimusic, released November 16 - recording in, MIDI file out, and commercial use of the output is explicitly allowed.",
+            "20M parameters, about 65x smaller than MuScriptor 1.3B, yet ahead on every published metric: composite 60.8 vs 47.4, and just past mirelo's closed A2M v1.1 Pro at 56.1.",
+            "Trained on zero copyrighted recordings - synthetic instruments plus CC solo recordings from URMP and around 20 soundfonts.",
+            "Two-line setup: pip install git+https://github.com/kobimusic/dettato, then dettato song.mp3 -o out/ gives out/song.mid and out/song.json; weights auto-download from Hugging Face; needs Python 3.10+ and PyTorch 2.2+.",
+            "Fits your rig: on an RTX 5060 8GB a 4-minute song takes ~15 seconds under 4GB VRAM, so a 6GB RTX 4050 is fine; CPU works but crawls (15s of audio took 87s on a laptop CPU).",
+            "Known limits: it writes performance MIDI (notes and timing), not sheet music - the author recommends Songscription or Klangio for that; instrument separation can wobble; m4a/aac inputs need ffmpeg on the PATH."
+          ],
+          "why": "You make reels, and background music is the eternal headache - stock tracks are overused, licensed tracks cost money. Record yourself humming a hook, run it through this, assign any instrument in a free DAW, and the track is yours, legally clean because the model never touched a copyrighted recording. It runs on your PC today, no upgrade needed.",
+          "example": "Hum a 20-second melody into your phone for a TechBlast reel intro. Copy the file to your PC, run dettato hook.mp3 -o out/, open out/hook.mid in a free DAW like Cakewalk, swap the piano-roll onto a synth patch, and export - an original intro sting, cleared for monetized videos.",
+          "questions": [
+            {
+              "q": "How can a 20M model beat a 1.3B one?",
+              "a": "The author treats transcription as a local pitch-lane problem with a purpose-built architecture instead of throwing a giant general model at it - and says the copyright-free training constraint pushed them toward better design rather than holding them back."
+            },
+            {
+              "q": "Will it run on your 16GB / RTX 4050 6GB machine?",
+              "a": "Yes. The README shows a 4-minute song peaking under 4GB of GPU memory on an RTX 5060 8GB, so 6GB VRAM is comfortable; CPU-only works too, just much slower."
+            },
+            {
+              "q": "Can you use the MIDI it makes in a monetized video?",
+              "a": "Yes - the model is open source and its outputs are explicitly cleared for commercial purposes, and no copyrighted recordings were used in training."
+            }
+          ],
+          "plain": "When you hum a song, a computer normally has no idea which notes you sang. This tool listens and writes down the notes, like a friend with perfect hearing jotting sheet music while you sing - except the friend is a tiny program that fits in a corner of your graphics card. Because it is small and free, anyone can use it, not just big studios.",
+          "source_name": "kobimusic",
+          "source_url": "https://kobi.music/research/dettato",
+          "reading_time": 5,
+          "accent": "#2B4BE0",
+          "accents": [
+            "#2B4BE0",
+            "#F2C200",
+            "#E8480C"
+          ],
+          "image": "img/2026-11-21-1.jpg",
+          "image_alt": "Cut-paper cobalt bird on an ink branch singing an amber soundwave that turns into a grid of red and ink note blocks.",
+          "info_image": "img/2026-11-21-1-schematic.jpg",
+          "info_alt": "Schematic: an amber soundwave flows through an arrow into a small cobalt chip and out as a grid of note blocks.",
+          "info_caption": "Diagram: audio in (left), one small 20M-parameter model (middle), MIDI notes out (right) - the whole trick fits in under 4GB of GPU memory.",
+          "info_labels": [
+            {
+              "t": "recording",
+              "x": 8,
+              "y": 90,
+              "c": "#A67C00"
+            },
+            {
+              "t": "dettato 20M",
+              "x": 42,
+              "y": 90,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "MIDI notes",
+              "x": 74,
+              "y": 90,
+              "c": "#E8480C"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-21-2",
+          "kind": "DESIGN",
+          "headline": "If Everything Shouts, Nobody Hears Anything",
+          "deck": "A developer measured a page where 19 of 20 texts were bold - and the price was the single weakest element. The fix was not louder design. It was quieter everything.",
+          "lead": "Visual hierarchy means arranging a screen so the eye reads it in the same order the user needs it - and the counterintuitive first move is to calm almost everything down, not to pump one thing up. A teardown of an online bookstore's page shows the failure perfectly: nearly every line was bold and colorful, and the price, the one thing every buyer hunts for, was the weakest text on the page.",
+          "body": "Visual hierarchy means arranging a screen so the eye reads it in the same order the user needs it - and the counterintuitive first move is to calm almost everything down, not to pump one thing up. Mert Özen's teardown of an online bookstore's book page shows the failure perfectly. The before page grew request by request: marketing wanted the shipping banner visible, someone wanted the author linked, someone else wanted ratings purple, until 19 of the 20 text elements were bold and all four buttons were identical solid blue. Measured with a script, the price sat at 16 pixels and regular weight - literally the least-emphasized text on the page - while the ISBN was the same size and heavier. The fix rebuilt the page in three levels: level one is what the page is (the book title, bumped from 22 to 32 pixels), level two is where the user decides and acts (price, stock, Add to cart, with the price at 28 pixels bold), level three is lookup-only metadata (ISBN, publisher, page count) in small regular grey. After the rebuild only 6 of 21 text elements were bold. Four tools do the work: size (few and clear steps - 16 vs 17 pixels reads as inconsistency, not hierarchy), weight (cheaper than size, so use it sparingly), colour (give every colour a job - dark grey for main text at 17.73:1 contrast, mid grey for secondary at 7.55:1, blue for clickable, green for stock) and position (top and left get seen first). The Gestalt principles explain grouping: proximity, similarity, common region, continuity and figure/ground tell the eye what belongs together - on the broken page, the stock line was spaced exactly like the metadata and vanished into it. And the famous F-shaped scanning pattern is a symptom, not a goal: when a page gives no hierarchy, users fall back on lazy scanning and miss the right side; a page with clear levels gets read heading to heading, the layer-cake pattern. Challenge accepted: open anything you designed recently, squint at it, and if you can not instantly name the one most important element, you know what to do.",
+          "ptrs": [
+            "Hierarchy = the eye's reading order matching the user's task order; three levels are enough: what the page is, where the user decides and acts, supporting lookup info.",
+            "The failure mode is accumulated emphasis: the bookstore page hit 19 of 20 texts bold and four identical solid buttons, so the price was the weakest element and the eye went to an orange banner first.",
+            "The first fix is calming, not enlarging: turning metadata from bold black to regular grey moved the needle more than making the price bigger; after the fix only 6 of 21 elements stayed bold.",
+            "Four tools, in order of bluntness: size (few, clear steps), weight (use sparingly), colour (assign roles - main text 17.73:1 contrast, secondary 7.55:1, one colour for clickable, one for status), position (top and left first).",
+            "Gestalt principles decide grouping: proximity, similarity, common region, continuity and figure/ground - identical spacing made the stock info vanish into the metadata list on the broken page.",
+            "NN/g's F-pattern is a symptom of weak hierarchy, not a design goal; clear levels flip scanning into the layer-cake pattern where users jump heading to heading."
+          ],
+          "why": "Every poster, thumbnail and landing page you touch wins or loses in the first second. This is the cheapest skill multiplier there is: no new software, no new fonts, just demote everything that is not the point - and suddenly the thing that matters finally reads.",
+          "example": "Take a reel cover you made. Turn every text except the title to regular weight and mid grey, make the title twice as big, and move the one action (follow, watch, buy) into its own tinted box. Squint: if the title and the action are the only things that survive the blur, you nailed it.",
+          "questions": [
+            {
+              "q": "Why did making the price bigger not fix the page?",
+              "a": "Emphasis only works against a calm background - with 19 of 20 texts bold, one more bold line goes unnoticed, so the fix started by quieting everything else down."
+            },
+            {
+              "q": "What are the three hierarchy levels?",
+              "a": "Level one says what the page is, level two is where the user decides and acts, level three is supporting information people look up only when they need it."
+            },
+            {
+              "q": "Is the F-pattern something to design for?",
+              "a": "No - NN/g calls it a symptom, not a goal: users fall back on it when the page gives no hierarchy; strong hierarchy produces heading-to-heading layer-cake scanning instead."
+            }
+          ],
+          "plain": "Imagine a room where everyone shouts at once - you cannot pick out a single voice. A page where everything is big and bold is that room. Design works when one thing speaks loudly, a few things speak normally, and everything else whispers, so visitors instantly know where to look first.",
+          "source_name": "Mert Özen",
+          "source_url": "https://www.mertozen.com/en/blog/visual-hierarchy-boyut-agirlik-renk-konum-gestalt",
+          "reading_time": 5,
+          "accent": "#E8480C",
+          "accents": [
+            "#E8480C",
+            "#2B4BE0"
+          ],
+          "image": "img/2026-11-21-2.jpg",
+          "image_alt": "One huge vermilion circle towering over a calm row of small cobalt squares and tiny amber dots.",
+          "info_image": "img/2026-11-21-2-schematic.jpg",
+          "info_alt": "Schematic: three tiers - one big vermilion circle, two medium cobalt squares, a row of tiny ink dots - with an amber arrow flowing down through them.",
+          "info_caption": "Diagram: the eye's path down three tiers - one hero element, a few supporters, then a row of quiet details.",
+          "info_labels": [
+            {
+              "t": "level 1: hero",
+              "x": 62,
+              "y": 18,
+              "c": "#E8480C"
+            },
+            {
+              "t": "level 2: decide",
+              "x": 62,
+              "y": 52,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "level 3: lookup",
+              "x": 62,
+              "y": 86,
+              "c": "#141412"
+            },
+            {
+              "t": "eye path",
+              "x": 6,
+              "y": 52,
+              "c": "#A67C00"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-21-3",
+          "kind": "ON SCREEN",
+          "headline": "Grey on Purpose: Why Movies Are Shot Flat and Painted Later",
+          "deck": "That gorgeous golden-hour look in your favorite film started life as a washed-out grey rectangle. Colour grading is the two-step that turns mud into mood - and the order is everything.",
+          "lead": "Professional cameras often record in log - a flat, grey, low-contrast image that looks broken until you learn it is deliberately capturing maximum detail for later. Post-production then works in two distinct stages: correction first, which makes the footage accurate and consistent, and grading second, which gives it a look that serves the story.",
+          "body": "Professional cameras often record in log - a flat, grey, low-contrast image that looks broken until you learn it is deliberately capturing maximum detail in the highlights and shadows for later. Post-production then works in two distinct stages, and the order is everything. Correction comes first and answers technical questions: exposure sits at a sensible brightness, white balance removes colour casts from mixed light so a white shirt reads white, contrast gets its black and white points, the log image is converted with the camera maker's own transform, every shot in a scene matches its neighbours, and noise or flicker gets cleaned. Only then does grading answer creative ones: the contrast curve, palette and saturation that give the film character, gently brightening a face or darkening frame edges to steer the eye, pulling a subject off a busy background, and carrying a mood arc - cooler, quieter opening scenes warming toward the finale. A look is not a filter; it is a short written decision, three or four lines like 'warm highlights, neutral shadows, gentle contrast, greens pulled back', agreed from three to five reference frames, built on each scene's key shots, reviewed on a calibrated monitor and a phone, locked, then balanced shot by shot. Creative LUTs sold as ready-made looks were built on someone else's footage under someone else's light - treat one as a sketch, never as the grade. Skin is where heavy grades get caught: every complexion sits near the skin-tone indicator line on a vectorscope, differing mainly in brightness and saturation, and the craft rule is firm - never lighten darker skin to suit a look, and keep two people side by side looking like two different people. One last discipline: grading happens after picture lock, because graded shots that get cut are wasted hours. Bro, this is legendary stuff for anyone cutting video: fix first, then paint, and check it on a phone because that is where your audience lives.",
+          "ptrs": [
+            "Log footage is flat and grey on purpose - it preserves highlight and shadow detail so the colourist has room to work; it must be converted and corrected before it looks like anything.",
+            "Correction = accuracy: exposure, white balance, contrast range, log conversion with the camera maker's transform, shot-to-shot continuity, noise and flicker clean-up.",
+            "Grading = intent: the look (contrast curve, palette, saturation), steering attention with brightness, separating subject from background, carrying the story's mood arc, and protecting brand colours.",
+            "A look must fit in three or four written lines agreed from 3-5 reference frames; grade each scene's key shots first, review on a calibrated monitor AND a phone, lock the look, then balance the whole film shot by shot.",
+            "Creative LUTs are someone else's recipe for someone else's footage - a sketch at best, never the finished grade.",
+            "Skin is the lie detector: all complexions sit near the vectorscope's skin-tone line; never lighten darker skin for a look, and grade only after picture lock."
+          ],
+          "why": "You shoot and cut reels, and this is the difference between 'phone footage' and 'that looks expensive'. The workflow is free to copy: correct one clip honestly, write your look in one sentence, apply it with restraint, and preview on your phone before posting.",
+          "example": "Your next reel: fix exposure and white balance on the worst-lit clip first so it matches the others. Then write the look down - 'warm highlights, soft contrast, slightly lifted blacks' - apply it lightly to every clip, and watch the whole thing on your phone, not the editing monitor, before exporting.",
+          "questions": [
+            {
+              "q": "Why does log footage look grey and lifeless?",
+              "a": "It is deliberately flat - the profile preserves detail in highlights and shadows to give the colourist room to work; it is raw material, not a finished image."
+            },
+            {
+              "q": "Why must correction come before grading?",
+              "a": "A look applied over uncorrected footage behaves differently on every shot; only accurate, consistent footage takes a look evenly."
+            },
+            {
+              "q": "Why check the grade on a phone?",
+              "a": "Because that is where the audience actually watches - a grade that only survives on a calibrated monitor fails in the real world."
+            }
+          ],
+          "plain": "Movie cameras record a dull grey version of the scene on purpose, like saving every ingredient separately instead of a premixed meal. Editors first fix the basics so every shot matches - brightness, white whites, steady contrast - and only then paint the mood on top, warm or cold. Doing it backwards is like icing a cake before baking it.",
+          "source_name": "The House of Edits",
+          "source_url": "https://thehouseofedits.com/blogs/the-art-of-color-grading/",
+          "reading_time": 5,
+          "accent": "#2B4BE0",
+          "accents": [
+            "#2B4BE0",
+            "#F2C200",
+            "#E8480C"
+          ],
+          "image": "img/2026-11-21-3.jpg",
+          "image_alt": "A cut-paper landscape split in two: the left half flat grey, the right half the same scene glowing in amber, vermilion and cobalt.",
+          "info_image": "img/2026-11-21-3-schematic.jpg",
+          "info_alt": "Schematic: three film frames in sequence with arrows - a flat grey landscape, a balanced neutral one, and a warm graded one.",
+          "info_caption": "Diagram: the same scene three times - flat log capture, corrected neutral, final graded look. Fixing always comes before painting.",
+          "info_labels": [
+            {
+              "t": "log capture",
+              "x": 6,
+              "y": 90,
+              "c": "#141412"
+            },
+            {
+              "t": "correct",
+              "x": 38,
+              "y": 90,
+              "c": "#141412"
+            },
+            {
+              "t": "grade",
+              "x": 70,
+              "y": 90,
+              "c": "#E8480C"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-21-4",
+          "kind": "AI NEWS",
+          "headline": "Math's 167-Year-Old Boss Fight Got Claimed Twice in One Day",
+          "deck": "A human mathematician and an Anthropic researcher working with Claude both announced proofs of the Riemann hypothesis on the same day. One is all human. One produced 17.4 million lines of machine-checked code. Suit up - this is history with an asterisk.",
+          "lead": "On November 20, Anthropic mathematician Levent Alpöge announced he believes he has, working with Claude, discovered a proof of the Riemann hypothesis - the statement many mathematicians consider the most important open problem in the field. Hours earlier, Stanford professor Ravi Vakil had rushed out a second, fully human proposed proof of the same prize by Alessandro Masullo, which Stanford's Brian Conrad has been checking closely for months and which is 'so far looking good'.",
+          "body": "On November 20, Anthropic mathematician Levent Alpöge announced: 'I believe I have, working with Claude, discovered a proof of the Riemann Hypothesis' - the statement many mathematicians consider the most important open problem in the field, formulated by Bernhard Riemann in 1859, two hundred years after his birth this September. Hours earlier the same day, Stanford professor and AMS president Ravi Vakil had rushed out a second, fully human proposed proof of the generalized hypothesis by Alessandro Masullo, writing that Brian Conrad has been looking closely at it for months, that it is 'so far looking good', and that the plan had been a quiet year of polishing before the news forced his hand. The hypothesis itself concerns the zeta function, which encodes how prime numbers are scattered: Riemann conjectured that, boring cases aside, every zero of the function lies on one vertical line, which would mean primes are distributed as randomly as they possibly could be. The AI claim is big and strange: Scott Aaronson reports the proof exists as roughly 17.4 million lines of formally verified Lean code, while Nature describes Alpöge's released document as a 4-page sketch. Reception is split right down the middle. Fields medalist James Maynard says 'if this fully checks out, it is clearly a historic milestone in mathematics'; number theorist Andrew Granville calls the released document 'garbled' and questions announcing it days after Anthropic's IPO, a timing Alpöge himself addresses - 'There is an obvious cynical view, to do with the timing, but it is false.' Aaronson, noting that Lean's verifier has its own known issues, still says his bet is the proof will stand. On Hacker News the thread hit 2,368 points and over 1,600 comments, where much of the community debate - worth treating as reaction, not verdict - circled on whether machine-checked math 'counts' before humans can digest it. Both claims now face months of rigorous checking; until that finishes, this is a claim, not a coronation.",
+          "ptrs": [
+            "The Riemann hypothesis, stated in 1859, says the zeta function's non-trivial zeroes all lie on one vertical line - which would mean prime numbers are scattered as randomly as possible; it is widely called the most important open problem in mathematics.",
+            "Two claims landed the same day: Anthropic's Levent Alpöge says he proved it working with Claude, and Stanford's Ravi Vakil posted Alessandro Masullo's fully human proof, checked closely by Brian Conrad for months and 'so far looking good'.",
+            "The AI proof is reportedly about 17.4 million lines of machine-verified Lean code (per Scott Aaronson); Nature describes the released document itself as a 4-page sketch.",
+            "Reception splits: Fields medalist James Maynard calls it 'clearly a historic milestone' if it checks out; Andrew Granville calls the write-up 'garbled' and questions the post-IPO timing, which Alpöge denies was a factor.",
+            "Aaronson flags that the Lean verifier itself has known issues, but bets the proof will stand - while stressing mathematicians will not be satisfied until they can explain the ideas themselves.",
+            "HN reaction (community color, not fact): the thread topped the front page with 2,368 points and 1,600+ comments, split between awe and skepticism about machine-scale proofs."
+          ],
+          "why": "You are studying AI, and this is the week the subject grew up in public: whichever claim survives review, a frontier model just co-authored a credible attempt at the hardest problem in mathematics. Watching how verification unfolds - Lean checks, human referees, counter-claims - is a live masterclass in how real science validates big claims.",
+          "example": "The scale gap in one frame: Aaronson notes commenters pointing out Masullo's human proof is on the order of 2% of the page count of the AI's 17.4-million-line Lean output - same summit, two very different climbs.",
+          "questions": [
+            {
+              "q": "What does the Riemann hypothesis actually claim?",
+              "a": "That apart from trivial cases, every zero of the zeta function lies on one vertical line - implying primes are distributed as randomly as they possibly could be."
+            },
+            {
+              "q": "Is the Riemann hypothesis solved now?",
+              "a": "Not settled either way - both the AI-assisted and the human proof are claims awaiting months of rigorous checking; Nature stresses the claim 'will need rigorous checking'."
+            },
+            {
+              "q": "What is Lean's role in the AI claim?",
+              "a": "The proof is formalized as roughly 17.4 million lines of Lean code that a verifier can check mechanically - though Aaronson notes the verifier itself has known issues that need fixing."
+            }
+          ],
+          "plain": "Prime numbers are the atoms of math, and for 167 years nobody could prove the deep pattern in how they are sprinkled through the number line. Riemann guessed all the key points of his special function line up on one straight line - like claiming every winning lottery ball secretly sits on one shelf. Now a person and an AI-assisted researcher both say they have proved it, and referees worldwide are checking every step.",
+          "source_name": "Nature",
+          "source_url": "https://www.nature.com/articles/d41586-026-03812-7",
+          "reading_time": 5,
+          "accent": "#2B4BE0",
+          "accents": [
+            "#2B4BE0",
+            "#E8480C"
+          ],
+          "image": "img/2026-11-21-4.jpg",
+          "image_alt": "Cut-paper shapes around one bold vertical cobalt line carrying a column of ink dots, with amber dots scattered away from it.",
+          "info_image": "img/2026-11-21-4-schematic.jpg",
+          "info_alt": "Schematic: a scattered cloud of ink dots on the left, an arrow, then the same dots aligned onto one vertical cobalt line on the right.",
+          "info_caption": "Diagram: the hypothesis in one move - the zeta function's zeroes, which could sit anywhere in the plane, all land on a single straight line.",
+          "info_labels": [
+            {
+              "t": "possible zeroes",
+              "x": 8,
+              "y": 90,
+              "c": "#141412"
+            },
+            {
+              "t": "if RH is true",
+              "x": 44,
+              "y": 90,
+              "c": "#E8480C"
+            },
+            {
+              "t": "one critical line",
+              "x": 74,
+              "y": 90,
+              "c": "#2B4BE0"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-21-5",
+          "kind": "AI NEWS",
+          "headline": "OpenAI's Anti-Copycat Report Card: 54% Down to 0.2%",
+          "deck": "OpenAI just published how it stops rivals from vacuuming out its models' hidden reasoning - and the internal numbers are a beatdown: one attack class collapsed from 54% success to 0.2%.",
+          "lead": "OpenAI published a detailed account of how it defends against adversarial distillation - rivals training copycat models on its models' outputs without the safeguards. The headline numbers from its internal red-teaming: attacks trying to recover a model's protected chain-of-thought from an earlier request succeeded 54.0% of the time against GPT-6 Astra with original safeguards, and 0.2% against GPT-6.2 Astra with the updated stack.",
+          "body": "OpenAI published a detailed account of how it defends against adversarial distillation - rivals training copycat models on its models' outputs without the safeguards that govern the originals, a risk OpenAI spells out for cyber and biology in particular. The defense targets the crown jewels: the chain-of-thought, the model's internal step-by-step reasoning, which OpenAI calls protected reasoning because those traces teach a student model far more than final answers do. Its own experiments back that up - students fine-tuned on exact reasoning traces outperformed students trained on summaries, and the gap persisted after a light round of reinforcement learning. The headline numbers come from internal adaptive red-teaming, where automated attackers adjust to the defenses: extraction of protected reasoning from an earlier request fell from a 54.0% average success rate against GPT-6 Astra with original safeguards to 0.2% against GPT-6.2 Astra with updated ones, and extraction from the current request fell from 22.9% to 0.9%. The stack works at two levels: per request (adversarially trained model behavior, input classifiers that spot extraction attempts, output classifiers that catch reasoning leaking into messages or tool-call arguments, and API rules that tie protected reasoning to the conversation that produced it) and per campaign (investigating coordinated extraction across accounts and enforcing, with weekly actions that have run from thousands to tens of thousands of accounts). OpenAI also names names: a February Congressional briefing over DeepSeek distillation activity, and a September report attributing part of a disrupted extraction campaign to individuals associated with Moonshot AI. Keep the calibration honest, bro: these are OpenAI's internal evaluations of its own defenses, not an independent audit - but as a public benchmark of how frontier labs guard their models' minds, it is the most concrete disclosure anyone has made.",
+          "ptrs": [
+            "Adversarial distillation = training a student model on a frontier model's outputs to clone capabilities without the safeguards; OpenAI flags cyber and biology as the dual-use danger zones.",
+            "Chain-of-thought traces are the prime target: OpenAI's experiments show students trained on exact reasoning traces beat students trained on summaries, even after extra reinforcement learning.",
+            "Internal adaptive red-teaming (attackers adjust to defenses): earlier-request reasoning extraction fell from 54.0% (GPT-6 Astra, original safeguards) to 0.2% (GPT-6.2 Astra, updated); current-request extraction fell from 22.9% to 0.9%.",
+            "Two-layer defense: per-request (refusal training, input and output classifiers covering tool-call arguments, API rules binding reasoning to its own conversation) and per-campaign (cross-account investigations and enforcement).",
+            "Weekly enforcement has run from thousands to tens of thousands of accounts; OpenAI says it briefed Congress in February on DeepSeek distillation activity and attributed part of a disrupted September campaign to individuals linked to Moonshot AI.",
+            "Caveat: all figures are OpenAI's internal evaluations of its own defenses - self-reported, not independently audited."
+          ],
+          "why": "This is the business model of AI labs made visible: the reasoning is the product, and everyone is trying to steal it. If you ever fine-tune or distill open models yourself - totally legal with open weights - this piece shows you exactly why the closed labs draw the line where they do.",
+          "example": "The classifiers check tool-call arguments, not just chat text: if a model hides its private reasoning inside a function call's parameters instead of its answer, the output classifier can still block the leak before it reaches the caller.",
+          "questions": [
+            {
+              "q": "Why do attackers want reasoning traces instead of final answers?",
+              "a": "Traces contain the intermediate steps the final answer leaves out, and OpenAI's own tests show students trained on exact traces learn more transferable capability than students trained on summaries."
+            },
+            {
+              "q": "What did the 54.0% to 0.2% figure measure?",
+              "a": "In OpenAI's internal adaptive black-box red-teaming, the average success rate of attacks recovering protected reasoning from an earlier request - 54.0% against GPT-6 Astra with original safeguards, 0.2% against GPT-6.2 Astra with updated ones."
+            },
+            {
+              "q": "Are these numbers independently verified?",
+              "a": "No - they are OpenAI's self-reported internal evaluations of its own defenses; treat them as the company's own scoreboard, not an outside audit."
+            }
+          ],
+          "plain": "Big AI models think in hidden steps before they answer, and those steps are like a chef's secret recipe - copy them and you can train your own chef without the safety rules. OpenAI says it used to let attackers steal the recipe about half the time in its tests, and new locks cut that to almost never. It is their own kitchen inspection, but the locks are now public knowledge.",
+          "source_name": "OpenAI",
+          "source_url": "https://openai.com/index/combatting-adversarial-distillation/",
+          "reading_time": 6,
+          "accent": "#2B4BE0",
+          "accents": [
+            "#2B4BE0"
+          ],
+          "image": "img/2026-11-21-5.jpg",
+          "image_alt": "Cut-paper bar chart: a very tall cobalt bar beside a barely visible vermilion sliver, then a medium cobalt bar beside a small vermilion sliver on an ink baseline.",
+          "image_caption": "Attack success rates, old vs new safeguards - earlier-request extraction 54.0% to 0.2% - current-request extraction 22.9% to 0.9%. (OpenAI internal evals)"
+        },
+        {
+          "id": "2026-11-21-6",
+          "kind": "TRY THIS",
+          "headline": "TRY THIS: Break an AI by Hiding Its Homework",
+          "deck": "A ten-minute experiment that shows you exactly why labs guard chain-of-thought like gold - using nothing but two chat windows.",
+          "lead": "Tonight, run your own teacher-student distillation test with any chatbot. You will watch a model that only gets the summary of another model's reasoning fumble a follow-up question - the same gap OpenAI measured when it found exact reasoning traces teach a student far more than summaries.",
+          "body": "Tonight, run your own teacher-student distillation test with any chatbot. You will watch a model that only gets the summary of another model's reasoning fumble a follow-up question - the same gap OpenAI measured when it found exact reasoning traces teach a student model far more than summaries, the reason it now guards those traces so hard. Here is the protocol, ten minutes, zero setup. Step one: pick a problem with several dependent steps - a tricky math puzzle, a multi-clause logic riddle, or debugging a short broken program. Step two: in a fresh chat (the teacher), ask the model to solve it while showing complete step-by-step reasoning, and keep the full transcript. Step three: open a brand-new chat (the student) and paste only the final answer plus a two-line summary of the reasoning - no steps. Step four: ask the student a follow-up that depends on the hidden middle, like 'which step breaks if this constraint flips?' or 'why did you rule out the second possibility?'. Step five: ask the teacher the same follow-up and compare. The teacher, holding its full trace, answers instantly; the student, holding only the summary, hedges, reconstructs, or contradicts itself. That gap you just measured at your desk is the whole ballgame: summaries compress away the recoverable middle, and OpenAI found that middle is exactly what transfers capability - which is why its new safeguards bind reasoning to its own conversation and why the extraction success rate dropped to 0.2% in its tests. Challenge: run it twice with different problem types and see which kind of reasoning survives compression best.",
+          "ptrs": [
+            "Protocol: teacher chat solves a multi-step problem with full reasoning shown; student chat gets only the final answer plus a two-line summary; then ask both a follow-up that depends on the hidden steps.",
+            "What you will see: the teacher answers follow-ups instantly from its intact trace; the student hedges, back-tracks or invents steps it never saw.",
+            "Why it matters: OpenAI found students fine-tuned on exact reasoning traces outperform summary-trained students - the compressed-away middle is where capability transfers.",
+            "Good problem picks: a multi-constraint logic puzzle, a probability brain-teaser, or debugging a 15-line broken program - anything where step 4 depends on step 2.",
+            "Level up: run it with two different problem types and note which kind of thinking (math vs code) loses more in the summary."
+          ],
+          "why": "This is the rare experiment where you reproduce the mechanism behind a frontier-lab safety disclosure on your own machine in ten minutes - and it permanently changes how you read claims about model distillation.",
+          "example": "Teacher chat: 'Solve: three switches, three bulbs in another room, one visit allowed - show full reasoning.' Student chat gets only: 'Answer: turn on switch 1 for ten minutes, turn it off, turn on switch 2, then enter; the warm unlit bulb maps to switch 1.' Then ask the student why touching the bulbs matters - and watch it scramble for the step it never received.",
+          "questions": [
+            {
+              "q": "What does the student chat represent in real distillation?",
+              "a": "A model trained only on another model's summaries or final answers - OpenAI found such students learn less than ones trained on exact reasoning traces."
+            },
+            {
+              "q": "Why use a follow-up question instead of a new problem?",
+              "a": "Because the follow-up depends on the hidden middle steps - that is precisely what a summary strips away, so it exposes the gap."
+            },
+            {
+              "q": "What is the takeaway about AI summaries?",
+              "a": "A summary preserves the conclusion but compresses away the recoverable reasoning - fine for reading, lossy for learning."
+            }
+          ],
+          "plain": "If a friend solves a puzzle and tells you only the answer, you cannot explain how they got it. This game does that to an AI on purpose: one chat keeps the full work, another gets just the answer, and you ask both a tricky follow-up. The one with only the answer stumbles - proof that the steps, not the answer, carry the skill.",
+          "source_name": "OpenAI",
+          "source_url": "https://openai.com/index/combatting-adversarial-distillation/",
+          "reading_time": 2,
+          "accent": "#2B4BE0",
+          "accents": [
+            "#2B4BE0",
+            "#F2C200",
+            "#E8480C"
+          ],
+          "image": "img/2026-11-21-6.jpg",
+          "image_alt": "A tall stack of scribbled cut-paper sheets, an arrow to one thin amber card with a single line, then an arrow to a solid cobalt wall."
+        }
+      ]
+    },
+    {
       "number": 34,
       "date": "2026-11-20",
       "items": [
