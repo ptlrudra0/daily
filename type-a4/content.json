@@ -2,6 +2,311 @@
   "paper": "The Daily Draft",
   "issues": [
     {
+      "number": 36,
+      "date": "2026-11-22",
+      "items": [
+        {
+          "id": "2026-11-22-1",
+          "kind": "AI TIP",
+          "headline": "A model that thinks in loops, and the honest map of where it runs",
+          "deck": "Thinking Machines' Inkling 2 Mini is a 26.4B mixture-of-experts that only wakes 3.4B parameters per token and reuses its middle layers three times - and the community has already squeezed it to 5.4GB. Whether it runs on your PC depends on which door you take.",
+          "lead": "Inkling 2 Mini, released November 20 by Thinking Machines Lab, is an open-weights reasoning model with an unusual trick: its middle layers loop three times per token instead of running once, so a small model gets extra thinking passes without extra weights. It leads every open-weights model under 100B parameters on two current benchmarks - and it has already been compressed small enough to matter for people without datacenter GPUs.",
+          "body": "Thinking Machines Lab released Inkling 2 Mini on November 20 as open weights. The architecture is a looped mixture-of-experts transformer: 26.4 billion parameters total, but only 3.4 billion activate per token, and the middle block of layers runs three times per token, giving the model repeated passes over its own work. Counting the layers that actually fire, it touches about 5.4 billion weight-activations per token. On the DeepSWE v1.1 coding benchmark it scores 48.2% and on the Vals Index v2.2 it scores 46.5%, the best of any open-weights model under 100 billion parameters. The team also reports a variable-loop variant whose time horizon on agentic tasks without chain-of-thought grew from 16 seconds to 37 seconds at three loops, with no rise in agentic misbehavior. The honest hardware picture: the official NVFP4 weights are about 20GB, demonstrated on a 48GB MacBook Pro and NVIDIA's DGX Spark - not a 16GB Windows machine. A community member has published a 5.38GB build at 1.65 bits per weight that still scores 88.0% on GSM8K and 70.7% on HumanEval, beating larger community quants, but it is packed for Apple Silicon's MLX runtime only. For a Windows PC with 16GB RAM, the practical paths today are the 7.76GB Unsloth GGUF through llama.cpp on CPU (works, slowly) or running it hosted through Tinker, where Thinking Machines has made it available for inference and customization. The lab is also upfront about weak spots: multi-turn chat scores lag Qwen3.6-27B noticeably.",
+          "ptrs": [
+            "Released November 20 by Thinking Machines Lab as open weights; also available on their Tinker platform for hosted inference and customization.",
+            "Architecture: looped transformer - the middle layers run three times per token. Mixture-of-experts: 26.4B total parameters, 3.4B active, about 5.4B weight-activations per token.",
+            "Leads all open-weights models under 100B on DeepSWE v1.1 (48.2%) and the Vals Index v2.2 (46.5%).",
+            "A variable-loop variant grew its no-chain-of-thought time horizon on agentic tasks from 16 seconds to 37 seconds at 3 loops, with shorter but still legible reasoning traces and no measured rise in agentic sabotage.",
+            "Official NVFP4 weights are about 20GB - the lab demoed them building a flight sim and a 20-agent village offline on a 48GB MacBook Pro. Not a fit for 16GB RAM plus 6GB VRAM today.",
+            "A community 'LookAtMyQuant' build squeezes the 18.89GB weights to 5.38GB (1.65 bits per weight) and still hits GSM8K 88.0% and HumanEval 70.7% - but it runs only on Apple Silicon via MLX.",
+            "On a Windows PC the workable routes are the 7.76GB Unsloth GGUF on CPU through llama.cpp inside 16GB RAM (slow but real), or hosted on Tinker at full quality.",
+            "Known weak spots, from the lab itself: multi-turn chat (50.0% on MultiChallenge) and complex instruction following (33.4%), both behind Qwen3.6-27B."
+          ],
+          "why": "Local models keep shrinking toward your hardware, and this is the clearest sign yet: a frontier-lab reasoning model whose community quant would idle in a corner of your RAM. The catch is just as useful to know - the tiny build is Mac-only, so your honest path today is a CPU GGUF or the hosted version, and the 32GB upgrade question stays exactly that: a question.",
+          "example": "Say you want to test it tonight without spending anything: download the 7.76GB Unsloth GGUF, run it with llama.cpp on CPU with the context at 8K, and ask it to debug a small Python script. Expect seconds per token, not chat-app speed - but you are running a current open-weights reasoning leader on a 16GB machine.",
+          "questions": [
+            {
+              "q": "How does a 3.4B-active model beat much bigger ones?",
+              "a": "Two multipliers stack: mixture-of-experts keeps only 3.4B parameters firing per token while 26.4B exist to specialize, and the looped middle layers give each token three passes through the model's core reasoning block. Thinking Machines' own variable-loop experiments show more loops buying longer task horizons without extra weights."
+            },
+            {
+              "q": "Can you run the 5.38GB version on your RTX 4050 PC?",
+              "a": "No - that build is packed for Apple's MLX runtime and only runs on Apple Silicon. Your Windows path is the 7.76GB GGUF on CPU via llama.cpp (fits 16GB RAM, runs slowly) or Tinker's hosted version. The official ~20GB weights would be 32GB-upgrade territory and even then target Mac and DGX-class runtimes."
+            },
+            {
+              "q": "Where does it still lose?",
+              "a": "Multi-turn conversation and complex constraints. The lab's own numbers put it at 50.0% on MultiChallenge and 33.4% on ComplexConstraints, behind Qwen3.6-27B. It is a reasoning engine first, a chatbot second."
+            }
+          ],
+          "plain": "A new open model gets big-brain results from small parts by reusing its middle layers three times per token. The famous 5.4GB shrunk version only works on Macs. On your Windows PC, use the 7.76GB version on CPU (slow) or the hosted one. Great at reasoning, mediocre at long chats.",
+          "source_name": "Thinking Machines Lab",
+          "source_url": "https://thinkingmachines.ai/news/inkling-2-mini/",
+          "reading_time": 5,
+          "accent": "#2B4BE0",
+          "accents": [
+            "#2B4BE0",
+            "#E8480C"
+          ],
+          "image": "img/2026-11-22-1.jpg",
+          "image_alt": "Cut-paper bar chart: one very tall cobalt bar beside a much shorter vermilion bar on an ink baseline",
+          "image_caption": "Same model, two suitcases: the community weights at 18.89GB, and the 1.65-bit build at 5.38GB - about 28% of the size, with GSM8K still at 88%. Apple Silicon only, mind."
+        },
+        {
+          "id": "2026-11-22-2",
+          "kind": "DESIGN",
+          "headline": "One number that sizes every headline you will ever set",
+          "deck": "Pick a base size, pick a ratio, multiply - that is a modular scale, the quiet math behind type systems that feel inevitable instead of arbitrary. Designers have leaned on it since the Renaissance; your CSS can lean on it tonight.",
+          "lead": "A modular type scale is a row of font sizes where each step is the previous one times a fixed ratio - base times ratio to the power of n. Instead of guessing that a headline feels about right at 42px, you pick a ratio like 1.25 and let the ladder generate every size in the system, so headings, body and captions all share one hidden rhythm.",
+          "body": "The idea, laid out in a recent essay by designer Rasmus Starck, is almost suspiciously simple: choose a base size (say 16px) and a ratio (say 1.25), and every size in your design is base x ratio^n - 16, 20, 25, 31, 39, and so on. The practice is old: Robert Bringhurst's The Elements of Typographic Style documents classical scales from 6 to 72 points that printers used for centuries, built on ratios that echo musical harmony. Tim Brown's 2011 A List Apart essay 'More Meaningful Typography' revived the idea for the web and shipped modularscale.com to compute the ladders. The practical payoff is consistency: every size on the page is related to every other by the same multiplier, so the design feels tuned rather than assembled. The modern wrinkle is context - a ratio that sings on a big monitor crowds a phone, so many designers run a gentler ratio for small screens and a bolder one for large ones. In CSS this is now a few custom properties and calc() away, no framework required.",
+          "ptrs": [
+            "The formula: size(n) = base x ratio^n. Base 16px with ratio 1.25 gives 16, 20, 25, 31.25, 39 - a ladder, not a guess.",
+            "The lineage is real: Bringhurst documents classical type scales (6, 7, 8, 9, 10, 11, 12, 14, 16, 18, 21, 24, 36, 48, 60, 72pt) rooted in centuries of printing and musical proportion.",
+            "Tim Brown's 2011 A List Apart article 'More Meaningful Typography' brought the idea to the web; his modularscale.com calculator still generates scales from a base and ratio.",
+            "Ratio is the taste knob: small ratios (1.125-1.2) give subtle, text-heavy hierarchy; big ratios (1.414 and up) give dramatic poster contrast.",
+            "Screen size changes the answer: a wide ratio crowds a phone, so a common pattern is ~1.2 for mobile and ~1.333+ for desktop, switched in one media query.",
+            "In modern CSS the whole system is three custom properties and calc(): --base, --ratio, and sizes computed as var() chains - no preprocessor needed."
+          ],
+          "why": "You tweak designs constantly, and this kills a whole category of fiddling: once a scale exists, 'how big should this heading be' stops being a vibe decision and becomes a rung on a ladder. It is also the difference between a page that looks designed and one that looks decorated.",
+          "example": "Tonight: open any page you have styled, set --base: 1rem and --ratio: 1.25, then define --s1: calc(var(--base) * var(--ratio)), --s2: calc(var(--s1) * var(--ratio)) and so on, and swap your hardcoded heading sizes for the variables. If the hierarchy feels timid on desktop, bump the ratio to 1.333 inside one media query and watch the whole page retune itself.",
+          "questions": [
+            {
+              "q": "Why multiply instead of adding a fixed number of pixels?",
+              "a": "Because perception is proportional: the jump from 12px to 16px reads as big, while 40px to 44px barely registers. Multiplying by a ratio keeps each step feeling like the same-size move at every level of the scale - the same reason musical intervals are ratios, not fixed frequency gaps."
+            },
+            {
+              "q": "Which ratio should you start with?",
+              "a": "1.25 (the 'major third') is the standard safe start: enough hierarchy to feel deliberate, gentle enough for text-heavy pages. Go 1.125 for dense dashboards, 1.333 or 1.414 when you want poster-like contrast - and consider a smaller ratio on phones, where big steps run out of width fast."
+            }
+          ],
+          "plain": "Choose a base font size and a multiplier; every size on the page is the base times the multiplier again and again. It is a centuries-old printing trick, it makes pages feel tuned, and it is three lines of CSS.",
+          "source_name": "Rasmus Starck",
+          "source_url": "https://blog.starcklin.com/en/2026/11/modular-scale-typography/",
+          "reading_time": 4,
+          "accent": "#E8480C",
+          "accents": [
+            "#2B4BE0",
+            "#E8480C",
+            "#F2C200"
+          ],
+          "image": "img/2026-11-22-2.jpg",
+          "image_alt": "Cut-paper staircase of five squares growing left to right from a tiny ink square to a huge cobalt one",
+          "info_image": "img/2026-11-22-2-schematic.jpg",
+          "info_alt": "Diagram: a small base square with a curved multiplication arrow feeding a rising staircase of larger squares",
+          "info_caption": "Same multiplier, every step. Change the base or the ratio and the whole ladder retunes at once.",
+          "info_labels": [
+            {
+              "t": "base size",
+              "x": 12,
+              "y": 78,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "x ratio",
+              "x": 34,
+              "y": 30,
+              "c": "#F2C200"
+            },
+            {
+              "t": "x ratio again",
+              "x": 58,
+              "y": 22,
+              "c": "#E8480C"
+            },
+            {
+              "t": "your headings",
+              "x": 80,
+              "y": 70,
+              "c": "#141414"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-22-3",
+          "kind": "ON SCREEN",
+          "headline": "Why some movie sound belongs to the world, and some to you",
+          "deck": "Dialogue, footsteps, a radio playing in the kitchen - sound the characters can hear is diegetic. The score swelling over the mountains is not. The border between them is one of cinema's oldest tricks, and editors cross it on purpose.",
+          "lead": "Diegetic sound is any sound that exists inside the story's world - dialogue, footsteps, doors, a song on a car radio - while non-diegetic sound exists only for the audience: the orchestral score, narration, stylized whooshes. A new primer from sound-design toolmaker Krotos walks through how the two layers are built, and how films blur the line on purpose.",
+          "body": "The vocabulary is simple, the craft is not. Diegetic sound comes from inside the storyworld: what characters say and what their world does - dialogue, Foley footsteps, offscreen traffic that implies a city without showing it. Non-diegetic sound is commentary aimed at you alone: the score, a narrator's voice, the sub-bass boom under a title card. Sound teams make diegetic audio believable by giving it the room it claims to live in - reverb that matches the hall, the muffled smallness of a phone speaker, panning that tracks a car across the frame. Blade Runner 2049 is a favorite example of heavy Foley craft, with every footstep and fabric move performed to picture. The sophisticated move is the trans-diegetic transition: a needle drops on a record inside the scene, and a beat later the same song becomes the full score, sliding from the characters' world into yours without a cut. Editors use it to hand emotion between the story and the audience so smoothly you never notice the border crossing.",
+          "ptrs": [
+            "Diegetic = inside the storyworld: dialogue, Foley (performed footsteps, cloth, props), and ambience from sources the scene implies, even offscreen.",
+            "Non-diegetic = audience-only: the musical score, narration, and stylized sound effects that no character can hear.",
+            "Believability comes from space cues: reverb matched to the room, speaker emulation for phones and radios, panning that follows onscreen motion.",
+            "Blade Runner 2049 is a reference case for dense Foley - nearly everything you hear was performed and recorded to picture.",
+            "Offscreen diegetic sound is a budget-free storytelling device: a siren or a dog bark builds a world bigger than the frame.",
+            "Trans-diegetic transitions blur the border on purpose: a song starts on a character's radio and swells into the score, carrying a scene's emotion into the audience's layer.",
+            "The Krotos primer (February 2026) frames the split as the first decision in any sound build: what does the world say, and what do we say about it?"
+          ],
+          "why": "You shoot and cut video; this is the cheapest production-value upgrade that exists. Record three seconds of room tone, add the right reverb to a phone voice, let one song escape the scene and become your score - viewers can't name what improved, but the edit feels expensive.",
+          "example": "In your next reel: find the moment your background track starts, and instead of fading it in, let it begin as a tinny speaker inside the shot for two seconds - a phone, a shop radio - then bloom it to full quality as the cut lands. You have just done the trans-diegetic trick that trailers charge money for.",
+          "questions": [
+            {
+              "q": "Is a character's voiceover diegetic or not?",
+              "a": "Usually non-diegetic - narration is aimed at the audience and the other characters can't hear it. The exception is when the voice is anchored in the world: a phone call, a letter read aloud, an announcer in a stadium. The test is always 'can anyone inside the story hear this?'"
+            },
+            {
+              "q": "Why do phone voices in films sound thin?",
+              "a": "That thin, band-limited sound is deliberate speaker emulation - the mixer filters the voice to match what a real phone speaker would produce. It is one of the space cues that makes a diegetic sound feel anchored in the world instead of pasted on top of it."
+            }
+          ],
+          "plain": "Sound the characters can hear is diegetic; sound only you hear is the score. Good films fake rooms with reverb and panning, and the slickest move is a song that starts inside the scene and quietly becomes the soundtrack.",
+          "source_name": "Krotos",
+          "source_url": "https://krotos.studio/blog/what-is-diegetic-sound",
+          "reading_time": 4,
+          "accent": "#E8480C",
+          "accents": [
+            "#E8480C",
+            "#2B4BE0",
+            "#F2C200"
+          ],
+          "image": "img/2026-11-22-3.jpg",
+          "image_alt": "Cut-paper picture frame holding an ink mountain scene with small amber soundwave ripples, a huge vermilion ribbon circling outside the frame",
+          "info_image": "img/2026-11-22-3-schematic.jpg",
+          "info_alt": "Diagram: a rectangle border with two small wave glyphs inside, a large circle with wave rings outside, arrows crossing the border both ways",
+          "info_caption": "The border is the decision. Sounds live inside the world or outside it - and directors smuggle them across when it serves the story.",
+          "info_labels": [
+            {
+              "t": "the storyworld",
+              "x": 56,
+              "y": 14,
+              "c": "#141414"
+            },
+            {
+              "t": "diegetic: they hear it",
+              "x": 70,
+              "y": 30,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "non-diegetic: only you",
+              "x": 8,
+              "y": 80,
+              "c": "#E8480C"
+            },
+            {
+              "t": "trans-diegetic crossings",
+              "x": 38,
+              "y": 52,
+              "c": "#A67C00"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-22-4",
+          "kind": "AI NEWS",
+          "headline": "The Riemann proof now carries the Lean community's stamp",
+          "deck": "Yesterday we told you about the claim. Today the people who guard the proof assistant itself spoke: the Lean FRO and the Mathlib Initiative say they have full confidence Alpoge's proof of the Riemann Hypothesis is correct - 17 million lines of machine-checked mathematics.",
+          "lead": "The Lean and Mathlib communities have issued a joint statement - endorsed by both the Lean FRO and the Mathlib Initiative - saying they have full confidence that Leander Alpoge's proof of the Riemann Hypothesis is correct. It is the strongest possible response to yesterday's claim, and it came with a public list of exactly what was checked.",
+          "body": "Yesterday's story was a claim; today's is a certification. In a November 21 blog post, the Lean and Mathlib communities - speaking jointly through the Lean FRO and the Mathlib Initiative, the two bodies that maintain the proof assistant and its mathematical library - state: 'We have full confidence that Alpoge's proof of the Riemann Hypothesis is correct.' The verification runs to about 17 million lines of Lean, and the post details the four criteria that were checked: the formal statement is Mathlib's own vetted definition of the Riemann Hypothesis, not a lookalike; the entire library compiles, and dozens of people have independently reproduced the build; the proved theorem was matched against the official statement with a dedicated comparator tool; and the raw proof export was re-checked by multiple independent verification kernels, including con-leche and con-ron, which carry their own formal proofs that they cannot accept a false proof. An accessible overview of the mathematics is hosted by Drew Sutherland at MIT. The Hacker News discussion ran to 836 points and 688 comments, and the community's own caveat is worth quoting: formal certainty is not the same as human understanding, and the work of digesting the ideas is only starting.",
+          "ptrs": [
+            "Joint statement published November 21, endorsed by both the Lean FRO and the Mathlib Initiative - the maintainers of the proof assistant and its library, respectively.",
+            "The sentence that matters: 'We have full confidence that Alpoge's proof of the Riemann Hypothesis is correct.'",
+            "Scale: about 17 million lines of Lean code compiled as part of the verification.",
+            "Check 1 - the statement: the proved proposition is Mathlib's vetted RiemannHypothesis definition, so it is the real conjecture, not a weakened paraphrase.",
+            "Check 2 - the build: the library compiles from scratch, and dozens of people reproduced the compile independently.",
+            "Check 3 - the match: a comparator tool plus con-leche --compare verified the proved theorem is exactly the Mathlib statement.",
+            "Check 4 - independent kernels: the raw proof export was re-verified by multiple independent checkers, including con-leche and con-ron, which carry formal proofs of their own soundness.",
+            "The community's own caveat: machine-checked correctness is settled; human understanding of the ideas is the next project. Drew Sutherland (MIT) hosts an accessible overview of the mathematics."
+          ],
+          "why": "This is the pattern to remember for every future 'AI helps solve famous problem' headline: the claim, then the independent machine audit, then the human verdict. The Riemann Hypothesis - 166 years open, a million-dollar Clay prize - just cleared all three gates in public, with receipts you can re-run yourself.",
+          "example": "You can inspect the certificate chain yourself: the community blog post links the comparator output and the independent-kernel checkers (con-leche, con-ron), and the Mathlib statement of the Riemann Hypothesis is a few lines of readable Lean. Even without following the math, reading what was checked is a masterclass in how to verify a claim properly.",
+          "questions": [
+            {
+              "q": "Who exactly is vouching here?",
+              "a": "Not the prover and not a journalist: the Lean FRO (the organization that builds the Lean proof assistant) and the Mathlib Initiative (the community that maintains its mathematics library). They are the people with the most to lose from endorsing a wrong proof, and they published their checking criteria with the endorsement."
+            },
+            {
+              "q": "How can software certify 17 million lines?",
+              "a": "By checking exports, not trust: the proof produces a raw certificate file, and small independent programs - some, like con-leche and con-ron, with their own machine-checked proofs that they cannot accept a false theorem - re-verify every step. Compilers and comparators confirm the theorem being proved is literally Mathlib's Riemann Hypothesis."
+            },
+            {
+              "q": "Is the million-dollar prize paid out now?",
+              "a": "Not automatically. The Clay Institute has its own rules and human review process for the Millennium Prize. The Lean certification settles machine-checkable correctness; the prize committee's judgment, and the community's deeper reading of the ideas, are separate and still ahead."
+            }
+          ],
+          "plain": "The people who maintain the Lean proof system checked yesterday's claimed Riemann Hypothesis proof four different ways - right statement, clean compile, exact match, independent re-verification - and now say they are fully confident it is correct. The machines are convinced; humans are still reading.",
+          "source_name": "Lean community blog",
+          "source_url": "https://leanprover-community.github.io/blog/posts/riemann-hypothesis/",
+          "reading_time": 5,
+          "accent": "#2B4BE0",
+          "accents": [
+            "#E8480C",
+            "#F2C200",
+            "#2B4BE0"
+          ],
+          "image": "img/2026-11-22-4.jpg",
+          "image_alt": "Cut-paper stack of glyph-covered sheets beside an enormous vermilion checkmark stamped over them",
+          "info_image": "img/2026-11-22-4-schematic.jpg",
+          "info_alt": "Horizontal pipeline diagram: paper stack, arrow, cobalt gear, arrow, two magnifying glasses, arrow, vermilion seal with checkmark",
+          "info_caption": "Four gates, all public: the statement is Mathlib's own, the library compiles, a comparator matches theorem to statement, and independent kernels re-check every step.",
+          "info_labels": [
+            {
+              "t": "the proof, 17M lines",
+              "x": 8,
+              "y": 80,
+              "c": "#141414"
+            },
+            {
+              "t": "compiles clean",
+              "x": 30,
+              "y": 16,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "independent checkers",
+              "x": 48,
+              "y": 82,
+              "c": "#A67C00"
+            },
+            {
+              "t": "certified",
+              "x": 78,
+              "y": 20,
+              "c": "#E8480C"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-22-5",
+          "kind": "TRY THIS",
+          "headline": "Prove 2 + 2 = 4 like a mathematician, in your browser",
+          "deck": "Lean - the same proof assistant that just certified the Riemann Hypothesis - runs free in a browser tab. No install, no signup: type one line, watch a computer accept your proof, then break it and watch it refuse.",
+          "lead": "The Lean community maintains an online playground where the full proof assistant runs in your browser. It is the exact tool behind today's 17-million-line Riemann verification, scaled down to a text box - and a three-line exercise gives you the real sensation of a machine checking your logic.",
+          "body": "Proof assistants are usually an afternoon of installers and toolchain wrangling. Lean's community cuts that to zero: their homepage links a live online version of Lean that runs in the browser, no account needed. The sensation to chase is the compiler's verdict. Type 'example : 2 + 2 = 4 := rfl' and run it - rfl is Lean's 'this is true by computation' proof, and the checker accepts silently. Now change the 4 to a 5 and run again: the same tool that just certified the Riemann Hypothesis rejects your claim, with an error pointing at the lie. That refusal is the entire idea of formal verification in miniature. For a second hit, prove something genuinely non-obvious - that addition commutes for all natural numbers: 'example (a b : Nat) : a + b = b + a := Nat.add_comm a b'. You have just reused a theorem from Mathlib, the same library the Riemann proof builds on. And if you want the machine to do the work, try 'example : 2 + 3 * 4 = 14 := by omega' - the omega tactic solves arithmetic goals by itself.",
+          "ptrs": [
+            "The Lean community homepage links a browser version of Lean - no install, no signup, the same proof assistant used for the Riemann verification.",
+            "Exercise 1: type 'example : 2 + 2 = 4 := rfl' and run it. rfl proves things that are true by direct computation.",
+            "Exercise 2: change the 4 to a 5. The checker refuses with an error - the same mechanism that would catch a false step in a million-line proof.",
+            "Exercise 3: prove a real theorem for ALL natural numbers: 'example (a b : Nat) : a + b = b + a := Nat.add_comm a b'. You just cited Mathlib, the library under today's Riemann certification.",
+            "Exercise 4: let the machine prove arithmetic itself with 'example : 2 + 3 * 4 = 14 := by omega'.",
+            "Ten minutes, zero setup, and you have touched the exact verification stack from today's lead story."
+          ],
+          "why": "You have read about formal verification twice in two days; this converts the headline into a hand-feel in ten minutes. Once a proof checker has rejected your deliberate lie, you understand the Riemann certification better than most people commenting on it.",
+          "example": "Do it now: open the Lean community homepage, click through to the online version, paste 'example : 2 + 2 = 4 := rfl', run it, then corrupt the 4 into a 5 and run again. The error message is the whole point - software that cannot be flattered into accepting a wrong claim.",
+          "questions": [
+            {
+              "q": "What is rfl actually doing?",
+              "a": "rfl stands for reflexivity - it proves goals of the form 'X = X' by having Lean compute both sides down to the same thing. When you write 2 + 2 = 4, Lean evaluates 2 + 2, gets 4, sees 4 = 4, and accepts. When you write 2 + 2 = 5, the computation produces 4, 4 is not 5, and there is no proof to give."
+            },
+            {
+              "q": "Is the browser version the real thing?",
+              "a": "Yes - it runs the genuine Lean toolchain compiled for the web, not a toy simulator. The same kernel design that checks your one-liner is what independent verifiers just used on the 17-million-line Riemann proof; only the scale differs."
+            }
+          ],
+          "plain": "The proof software from today's big story runs free in a browser tab. Type a one-line proof, watch it accepted, then write a false statement and watch the machine refuse. That refusal is why the Riemann certification means something.",
+          "source_name": "Lean community",
+          "source_url": "https://leanprover-community.github.io/",
+          "reading_time": 3,
+          "accent": "#E8480C",
+          "accents": [
+            "#2B4BE0",
+            "#E8480C"
+          ],
+          "image": "img/2026-11-22-5.jpg",
+          "image_alt": "Cut-paper browser window frame floating in white space, a branching tree of small dots inside climbing to one vermilion checkmark"
+        }
+      ]
+    },
+    {
       "number": 35,
       "date": "2026-11-21",
       "items": [
