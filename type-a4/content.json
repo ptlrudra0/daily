@@ -2,6 +2,305 @@
   "paper": "The Daily Draft",
   "issues": [
     {
+      "number": 37,
+      "date": "2026-11-23",
+      "items": [
+        {
+          "id": "2026-11-23-1",
+          "kind": "AI TIP",
+          "headline": "One number OpenAI says predicts the future - learn to read it",
+          "deck": "While everyone argues about benchmark scores, OpenAI's chief scientist just published the metric his lab actually steers by: perplexity. GPT-3.5 sat at 0.99, GPT-4 at 0.91 - and at 0.76 the math breakthroughs started. Here is how to read the ladder.",
+          "lead": "Jakub Pachocki, OpenAI's chief scientist, published 'Perplexity and Intelligence' on November 22 with an unusually concrete disclosure: the internal log-perplexity numbers his lab uses to track pretraining progress. His argument - capabilities emerge predictably as this one number falls, so the industry should adopt it as a shared metric and tie safety limits to it.",
+          "body": "Perplexity measures how well a model predicts the next token on held-out data; lower means better predictions, and it is equivalent to the cross-entropy loss you see in training logs. Pachocki's post is built on a claim OpenAI rarely makes this explicitly: that modern AI capability is mostly one dial - training a better compressor - and that this dial's reading has predicted each capability leap. His disclosed ladder, on OpenAI's main internal eval set: GPT-3.5 sat at log-perplexity about 0.99 and could hold fluent conversation; GPT-4 at about 0.91 could use chain-of-thought productively; current models are below 0.8; and when a model hit about 0.76, it 'started producing groundbreaking results' on open math problems, delivered in a single Slack thread. He expects the next transformative window around 0.68-0.7, without claiming to know what those capabilities will be. The policy ask is the point: he proposes perplexity as a shared cross-lab metric with common limits developers commit not to cross until monitoring catches up - for example, a successor to chain-of-thought monitors. He is equally upfront about the metric's four weaknesses: labs evaluate on different datasets, perplexity maps to no single task, chain-of-thought reasoning boosts capability without lowering perplexity, and the achievable floor is unknown - and near the floor, small gains mean big leaps. Publishing internal numbers, he says, costs OpenAI competitive secrecy but buys a shared scientific basis for pacing. The Hacker News discussion ran to 482 points.",
+          "ptrs": [
+            "Perplexity = how surprised the model is by the next token, averaged over held-out data. Lower is better. Log-perplexity is the same number as cross-entropy loss - the exact value in your training logs.",
+            "OpenAI's disclosed ladder (internal eval set): GPT-3.5 about 0.99 (fluent chat), GPT-4 about 0.91 (productive chain-of-thought), today's models below 0.8, math breakthroughs starting at about 0.76.",
+            "Next predicted window: 0.68-0.7 log-perplexity, capabilities unknown - his point is that capabilities EMERGE at thresholds; nobody pre-orders them.",
+            "The proposal: make perplexity a shared industry metric, and set common development limits tied to it that labs do not cross until monitoring (like a successor to CoT monitors) catches up.",
+            "Four honest weaknesses he lists: datasets differ across labs, the metric maps to no real task, chain-of-thought gains don't show in perplexity, and the floor is unknown - near it, tiny drops hide huge jumps.",
+            "Why it cost OpenAI something: publishing internal perplexity tells competitors exactly where they stand; the post says safety transparency outweighed that.",
+            "HN discussion hit 482 points - community reaction, not a verified endorsement."
+          ],
+          "why": "You are training to be an AI engineer, and this is the field's master gauge explained by the person holding it. When the next model launches with cherry-picked benchmark wins, you will have a better question to ask: what is the loss, on what held-out set, and where does that sit on the ladder? That one habit makes you un-hypeable.",
+          "example": "Next model announcement you see, run the Pachocki test: ignore the demo, look for any disclosed perplexity or loss on a held-out set, and place it on the ladder - near 0.9 is GPT-4-class, below 0.8 is current frontier, 0.68-0.7 is the window OpenAI itself says to watch. No number disclosed? That silence is also data.",
+          "questions": [
+            {
+              "q": "Does lower perplexity mean the model is right more often?",
+              "a": "Not directly - it means the model predicts held-out text better on average. Pachocki's own caveat: perplexity maps to no single task, and chain-of-thought reasoning makes models far more capable without lowering perplexity at all. It tracks the substrate, not any one skill."
+            },
+            {
+              "q": "Why would a lab want a shared metric it also warns is flawed?",
+              "a": "Because pacing needs any ruler all labs can read the same way. His argument: perplexity is the one metric that has predicted capability emergence for years, so despite four known weaknesses it is the best candidate for common limits tied to monitoring milestones."
+            },
+            {
+              "q": "What happens near the 'floor'?",
+              "a": "Real text has inherent randomness, so loss can never reach zero - and nobody knows the floor's exact value. As models approach it, the same 0.01 drop corresponds to a bigger capability jump, which is why the 0.68-0.7 window matters even though it looks like a small step."
+            }
+          ],
+          "plain": "AI labs grade their models by how well they guess the next word in fresh text - one number called perplexity. OpenAI's chief scientist just published their scores: every big ability showed up when that number dropped past a mark. He wants every lab to share this number and agree on speed limits.",
+          "source_name": "OpenAI",
+          "source_url": "https://openai.com/index/perplexity-and-intelligence/",
+          "reading_time": 5,
+          "accent": "#2B4BE0",
+          "accents": [
+            "#2B4BE0",
+            "#E8480C",
+            "#F2C200"
+          ],
+          "image": "img/2026-11-23-1.jpg",
+          "image_alt": "Cut-paper bar chart: four bars descending left to right - tall cobalt, slightly shorter vermilion, shorter amber, shortest cobalt",
+          "image_caption": "Left to right, log-perplexity: GPT-3.5 ~0.99 - GPT-4 ~0.91 - math breakthroughs ~0.76 - next window ~0.69. Lower bar, stronger model."
+        },
+        {
+          "id": "2026-11-23-2",
+          "kind": "DESIGN",
+          "headline": "Color and type share one volume knob - pick who shouts",
+          "deck": "A loud palette plus an expressive typeface is not double the energy - it is visual static. Type foundry Timeless Type's latest note explains why the eye gives color and letterforms one shared attention budget, and how to decide which one carries the accent.",
+          "lead": "A new essay from the Timeless Type studio lays out a rule most beginners learn the hard way: color and typography draw from the same pool of viewer attention, so when both shout at once, neither is heard. The fix is a deliberate casting decision - one disruptor per design, the other element playing support.",
+          "body": "The essay's core claim is physiological: the eye does not process 'chromatic vibrance' and 'letterform silhouette' in separate departments - it measures total disruption against the background. So a highly decorative display face (extreme stroke contrast, swashes, wild counters) already consumes the entire attentional budget; flood it with neon color or gradients and edge recognition collapses into 'chromatic noise'. The inverse also holds: when the brand demands safety orange or acid yellow, the type must be structurally calm - disciplined grotesques and austere geometrics survive chromatic violence because their clean edges anchor the composition. Why it fails: saturated color creates simultaneous contrast that makes edges shimmer, while intricate letterforms live and die by edge definition - the two mechanisms fight on the same turf. The usual patches (drop shadows, white outlines, framing blocks) only add clutter over a foundational imbalance. The studio's diagnostics are concrete: strip the layout to black and white - if the type is expressive without pigment, keep color understated; test the palette at full saturation over neutral letterforms - if the palette alone carries the energy, keep the type modest; check edges at small mobile sizes; reserve gradients for plain type only; and write into the brand document which element - type or color - is the official disruptor across packaging, billboards and UI.",
+          "ptrs": [
+            "The shared-budget rule: the eye measures total visual disruption, not color and type separately - both draw from one attentional pool.",
+            "Expressive type (swashes, extreme contrast, wild counters) + loud color = collapsed edges and sensory exhaustion. Pick one.",
+            "Loud palette + neutral type works: clean grotesques and rigid geometrics anchor against saturated fields.",
+            "Why it fails: saturated color makes edges shimmer (simultaneous contrast); complex glyphs need crisp edges to be read. Same turf, direct conflict.",
+            "Drop shadows and outline patches treat the symptom - the real fix is rebalancing which element shouts.",
+            "Five diagnostics: the black-and-white strip test, max-saturation-over-neutral-type test, small-screen edge check, gradients only on plain type, and a written brand rule naming the disruptor."
+          ],
+          "why": "Your reels and thumbnails live or die on exactly this: a flashy font on a saturated background reads as mush on a phone screen. One casting decision - is the TYPE the star or is the COLOR the star - instantly makes your graphics look intentional instead of assembled.",
+          "example": "Take your next thumbnail: if you want that wild display font, set it in ink or white on a flat muted background and let the letterforms perform. If you want a screaming vermilion background, switch the font to a plain bold grotesque and let the color carry it. Then shrink the design to phone size - if the glyph edges dissolve, you have your answer.",
+          "questions": [
+            {
+              "q": "Why can't a strong palette and a fancy typeface both be 'the accent'?",
+              "a": "The eye evaluates total disruption against the background through one optical channel - it does not budget attention separately for hue and silhouette. Two maximal signals compete for the same budget, and the glyph edges lose."
+            },
+            {
+              "q": "What is the black-and-white test for?",
+              "a": "Strip the layout to pure black and white. If the typography feels expressive and complete without pigment, the letterforms are already the event - so the color you add later should stay quiet. It reveals which element is doing the work before you commit."
+            }
+          ],
+          "plain": "Your eyes treat loud colors and fancy letters as noise from the same speaker. If both are at full volume, you hear static. Good designers let one shout and the other whisper - like a bright red poster with plain type, or a gorgeous font in simple black.",
+          "source_name": "Timeless Type",
+          "source_url": "https://www.timelesstype.co/blog/tuning-the-signal-why-color-and-letterforms-must-negotiate-for-volume",
+          "reading_time": 4,
+          "accent": "#E8480C",
+          "accents": [
+            "#E8480C",
+            "#2B4BE0"
+          ],
+          "image": "img/2026-11-23-2.jpg",
+          "image_alt": "Two posters side by side: one ornate ink letterform on plain white, one small calm cobalt circle on a loud vermilion field",
+          "info_image": "img/2026-11-23-2-schematic.jpg",
+          "info_alt": "Diagram: a balance scale weighing an ornate shape against a solid circle, one side up one down, with two sliders below set high and low",
+          "info_caption": "One budget, two claimants. Ornate type up means color down; saturated color up means type down. Balance is a decision, not an accident.",
+          "info_labels": [
+            {
+              "t": "type energy",
+              "x": 16,
+              "y": 20,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "color energy",
+              "x": 70,
+              "y": 52,
+              "c": "#E8480C"
+            },
+            {
+              "t": "one wins, one supports",
+              "x": 34,
+              "y": 90,
+              "c": "#141414"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-23-3",
+          "kind": "ON SCREEN",
+          "headline": "GTA 6's secret weapon is a field guide",
+          "deck": "The loudest game launch in history - $1.8 billion on day one - ships with 60 collectible bird species, and Audubon sent an actual birder to find them all. His verdict: the wildlife is placed like a real ecosystem, and that is why the world feels alive.",
+          "lead": "Grand Theft Auto VI launched November 19 to $1.8 billion in first-day revenue, and among its collectible systems - 338 vehicles, 205 weapons - sits a stranger one: at least 60 bird species you can study through in-game binoculars. Audubon magazine's Nicholas Lund tracked down every one, and his field report is a masterclass in how believable worlds are built.",
+          "body": "Lund's review, published November 20 in Audubon, reads like a real birding trip log. The mechanics are simple: look at any bird through your binoculars, hold a button to 'study' it, and it enters your Progress menu. The design lesson is in the placement. The map respects the real ecological boundaries of South Florida: herons, gulls and other waterbirds concentrate in the southern coasts, Red-bellied Woodpeckers and Wood Storks appear farther north, owls come out at night, and actual introduced Florida exotics - Monk Parakeets, Spot-breasted Orioles, Red Junglefowl - show up exactly where a Florida birder would expect them. Lund's advice to players is the same as real birding: stop chasing species lists, find the habitat, and the species follow. The inaccuracies are just as instructive: critically endangered Whooping Cranes are weirdly common, Golden Eagles soar over mountains Florida does not have, and a few species are renamed because Carolina and Baltimore do not exist in the GTA universe - consistency with the fiction beats accuracy to our world. And the deepest accuracy is not the birds at all but the landscape: mangrove beaches, grassy swamps, roadkill on highways, the fonts on roadside fruit stands. Pre-release marketing promised 62 species; the official screen lists 60. The result: players are pausing mid-crime-spree to birdwatch, because the world rewards attention the way a real place does.",
+          "ptrs": [
+            "GTA 6 launched November 19 with $1.8 billion day-one revenue; its Progress menu tracks 338 vehicles, 205 weapons - and 60 bird species.",
+            "Birding mechanic: spot through binoculars, hold to 'study', species logged - the game hands you zoom binoculars before the first mission.",
+            "The species placement follows real South Florida ecology: waterbirds south, forest birds north, owls at night, real introduced exotics in the right spots.",
+            "The practical tip that emerges: find the habitat and the species follow - identical to real birding.",
+            "Documented inaccuracies: common Whooping Cranes (critically endangered in reality), Golden Eagles over nonexistent Florida mountains, renamed species to fit the fictional map (Black-capped for Carolina chickadee, 'New World Oriole').",
+            "Marketing said 62 birds; the official Progress screen lists 60 - the gap itself became community trivia.",
+            "The most accurate layer is the landscape: mangrove beaches, swamp grass, roadkill, fruit-stand typography - the stage convinces before the actors do."
+          ],
+          "why": "You build worlds too - every reel, every frame. GTA 6's lesson transfers directly: believability is not detail-count, it is CONSISTENCY - put things where they ecologically, logically belong, and viewers feel a place instead of a backdrop. Break a rule only when your fiction's internal logic demands it.",
+          "example": "Designing a market scene for a reel? Do what Rockstar's artists did: place elements by real-world logic - vegetable carts near the entrance, mechanic shops on the edge of town, pigeons on the electric wires at dusk - before adding anything flashy. The brain registers 'this place is real' from placement logic, not polygon count.",
+          "questions": [
+            {
+              "q": "What makes a game world's wildlife feel 'thought-out' rather than decorative?",
+              "a": "Ecological placement. GTA 6 puts waterbirds in southern coastal zones, forest birds north, owls out at night, and real introduced species where Florida birders actually find them - so the pattern holds up when a player tests it, which is exactly what Audubon's reviewer did."
+            },
+            {
+              "q": "Why rename the chickadee instead of using the accurate species?",
+              "a": "Internal consistency wins over real-world accuracy: Carolina does not exist in the GTA universe, so a 'Carolina Chickadee' would break the fiction. The rule the designers follow is that the world must agree with itself, even when it disagrees with reality."
+            }
+          ],
+          "plain": "The new GTA has 60 kinds of birds you can collect like Pokemon. A real birdwatcher found them all and discovered they live in the right neighborhoods - ducks by the coast, owls at night. Fake worlds feel real when everything is placed where it logically belongs.",
+          "source_name": "Audubon",
+          "source_url": "https://www.audubon.org/magazine/birds-of-gta-6-field-guide-vice-city-wildlife",
+          "reading_time": 5,
+          "accent": "#2B4BE0",
+          "accents": [
+            "#2B4BE0",
+            "#E8480C",
+            "#F2C200"
+          ],
+          "image": "img/2026-11-23-3.jpg",
+          "image_alt": "Cut-paper binocular viewfinder framing a flat stylized wading bird with a spatulate bill among ink marsh grasses",
+          "info_image": "img/2026-11-23-3-schematic.jpg",
+          "info_alt": "Diagram: a landscape strip in three zones - cobalt water with wading birds, amber grassland with other birds, ink forest with an owl - crossed by one arrow",
+          "info_caption": "Left to right: coastal waterbirds, open-country birds, night owls. Find the habitat and the species follow - in the game and in the field.",
+          "info_labels": [
+            {
+              "t": "coast: waders",
+              "x": 8,
+              "y": 18,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "grassland: open-country",
+              "x": 38,
+              "y": 18,
+              "c": "#A67C00"
+            },
+            {
+              "t": "forest: night shift",
+              "x": 74,
+              "y": 14,
+              "c": "#141414"
+            },
+            {
+              "t": "your search path",
+              "x": 40,
+              "y": 88,
+              "c": "#E8480C"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-23-4",
+          "kind": "AI NEWS",
+          "headline": "The second Riemann proof is 940 pages of human handwriting - and it is already bleeding",
+          "deck": "Same day as the Alpöge-Claude release, a solo mathematician's 940-page manuscript claiming the GRANDER generalized Riemann Hypothesis went public - rushed out a year early. Within hours, reviewers found cracks. This is what open science at full speed actually looks like.",
+          "lead": "On November 20, the same day as the Alpöge-Claude Lean release, Stanford's Ravi Vakil posted a 'hurried announcement': Alessandro Masullo's 940-page manuscript 'The Music of the Primes', claiming the generalized Riemann Hypothesis by purely human, classical means. John Carlos Baez's patient explainer, published November 22, walks through the strategy - and the problems found within hours.",
+          "body": "The contrast is the story. Alpöge's proof exists as 17 million lines of machine-checked Lean, certified by the community on November 21. Masullo's is a human-scale manuscript in the tradition of Connes' trace-formula program: build a new formula for the logarithmic derivative of L-functions that visibly stays holomorphic - pole-free - up to the critical line, which forces every nontrivial zero onto it. It does not use Weil's positivity criterion, the route most attempts in this tradition take (the manuscript says so in boldface). The claim is even bigger than Alpöge's: the generalized Riemann Hypothesis for Hecke L-functions over general number fields. But the release was forced: Brian Conrad, who has read the manuscript for months, told Scientific American the plan was a full year of polishing before any announcement - Alpöge's claim made waiting impossible. Chapter 13, where GRH should finally be deduced, still contains placeholders. And the public stress test found issues within hours: an AI-assisted review organized by Eric Naslund argues a key theorem mispredicts a test case (expected log 2, but the stated limit conditions are unsatisfiable, giving 0); a separate checking effort flagged page 444, where a property of Schauder bases is extended to Markushevich bases, where it is false - and the false claim is used later. Baez's verdict is the balanced one: these objections may be fixable, the strategy is genuinely new and unlike Alpöge's (which transplants Stepanov's finite-field method with automorphic machinery), and even a failed attempt teaches where this dream breaks. Meanwhile a community Lean-formalization effort for Masullo's manuscript already has a progress map - 150 HN points of spectators watching the second race begin.",
+          "ptrs": [
+            "Timeline: both proofs released November 20. Masullo's manuscript: 940 pages, human-written, claiming the GENERALIZED Riemann Hypothesis - a bigger claim than Alpöge's.",
+            "Posted by Ravi Vakil as a 'hurried announcement'; Brian Conrad says a full year of polishing was planned before Alpöge's claim forced early release.",
+            "Strategy: a new trace formula for L-functions, in Connes' program, explicitly NOT using Weil's positivity criterion (boldface in the manuscript).",
+            "Crack 1: an AI-assisted review organized by Eric Naslund says a key theorem predicts log 2 on a test case but its limit conditions are unsatisfiable - yielding 0.",
+            "Crack 2: page 444 extends a Schauder-basis property to Markushevich bases, where it is false; the false claim is used later in the manuscript.",
+            "Chapter 13 - where GRH should be deduced - still has placeholder text. Objections may be fixable; the paper is openly a draft.",
+            "Baez: the approach is genuinely novel and different from Alpöge's Stepanov-plus-automorphic route, so even fixing one proof would not make the other redundant.",
+            "A community Lean formalization of Masullo's manuscript already has a public progress map - HN discussion at 150 points (community reaction, not verification)."
+          ],
+          "why": "You just watched the two futures of mathematics collide in one weekend: a machine proof too big for any human to read, checked by other machines in 48 hours - and a human proof any expert can read, cracked in 48 hours by a swarm including AI reviewers. Whichever survives, the playbook for how big claims get tested has permanently changed - and you are studying for a career inside it.",
+          "example": "Watch the two verification styles side by side: Alpöge's proof was certified by compiling and kernel-checking an export (binary verdict, fast). Masullo's is being reviewed by mathematicians reading arguments and AI reviewers probing test cases (incremental, judgment-heavy). When you ship your own work, you now know both gauntlets exist - formal checks for what machines can verify, adversarial human reading for what they cannot.",
+          "questions": [
+            {
+              "q": "Is the Riemann Hypothesis back to being unproven?",
+              "a": "No - these are two independent attempts. Alpöge's Lean proof was certified by the Lean and Mathlib communities on November 21 and stands. Masullo's separate manuscript claims the broader generalized RH but is an openly rough draft with reported flaws now under review."
+            },
+            {
+              "q": "Why release a 940-page draft with placeholders?",
+              "a": "Priority pressure. Brian Conrad says the plan was a year of polishing, but Alpöge's November 20 claim made waiting impossible - in mathematics, being second to announce can cost priority for the result, so the draft went public unfinished."
+            },
+            {
+              "q": "What is a trace formula, in one sentence?",
+              "a": "An identity that computes the same quantity two ways - once as a sum over 'spectral' data (here, zeros of the L-function) and once over 'geometric' data (here, primes) - so control of one side forces structure on the other."
+            }
+          ],
+          "plain": "A second person claims to have solved the mega-puzzle from yesterday's story - his way uses 940 pages of pen-and-paper math instead of computer code. Because it came out a year early, sharp readers (and AI helpers) already found possible mistakes. Now everyone watches to see if the cracks can be patched.",
+          "source_name": "Azimuth (John Carlos Baez)",
+          "source_url": "https://johncarlosbaez.wordpress.com/2026/11/22/masullo-on-the-riemann-hypothesis/",
+          "reading_time": 6,
+          "accent": "#2B4BE0",
+          "accents": [
+            "#2B4BE0",
+            "#F2C200"
+          ],
+          "image": "img/2026-11-23-4.jpg",
+          "image_alt": "Cut-paper tall stack of tied manuscript pages beside a small open laptop with a glowing cobalt screen",
+          "info_image": "img/2026-11-23-4-schematic.jpg",
+          "info_alt": "Diagram sequence: manuscript stack, arrow to magnifying glass, arrow to the same stack with a small crack, arrow to a pencil drawing a fresh page",
+          "info_caption": "Left to right: the manuscript, the public review, the cracks found in hours, the revision now underway. Open science, at speed.",
+          "info_labels": [
+            {
+              "t": "940 pages",
+              "x": 6,
+              "y": 88,
+              "c": "#141414"
+            },
+            {
+              "t": "public review",
+              "x": 28,
+              "y": 14,
+              "c": "#2B4BE0"
+            },
+            {
+              "t": "cracks found",
+              "x": 52,
+              "y": 88,
+              "c": "#E8480C"
+            },
+            {
+              "t": "revision",
+              "x": 76,
+              "y": 16,
+              "c": "#A67C00"
+            }
+          ]
+        },
+        {
+          "id": "2026-11-23-5",
+          "kind": "TRY THIS",
+          "headline": "Put an AI in your house tonight - free, private, no terminal",
+          "deck": "Unsloth Desktop is a free Windows app that serves open models through a chat interface - no Python, no commands, no subscription. Your 6GB card is below the comfy tier, but the offload trick means your 16GB of RAM quietly saves the day.",
+          "lead": "A beginner's guide published November 22 walks through running your own local ChatGPT-style assistant on Windows using Unsloth Desktop - a free app, no terminal commands, about 10-15 minutes of setup. The catch for your exact hardware is real but workable, and the guide's own tables say why.",
+          "body": "The setup is genuinely simple: install Unsloth Desktop (free), let it serve a model through a chat interface, pick a model sized to your GPU. The guide used an RTX 5090, but its tables are the useful part. Quantization shrinks models to lower precision - think of the same photo saved at 8, 4 and 2 bits: mostly the same picture, less detail. The guide's tiers: 8-12GB VRAM runs 9B-12B models; 16GB runs 14B and mixture-of-experts models up to 35B; 32GB runs 27B-35B at high quality. Your RTX 4050's 6GB sits below the first tier - so the honest recipe for YOUR machine tonight: pick a small model (a 3-4B-class Qwen at 4-bit, roughly 2.5GB) that fits the GPU entirely and runs fast, OR use the guide's key trick - mixture-of-experts models run only a few billion parameters per token, so the rest can live in system RAM. That is why the guide puts 35B MoE models in the 16GB row, quoting about 47 tokens/second for Qwen3.6-35B on a 16GB card. For Inkling 2 Mini specifically (yesterday's star): its quants run 10-11GB at 2-bit up to 24GB at 8-bit - the 2-bit file fits in your 16GB RAM with partial GPU offload, no 32GB upgrade required, just slower tokens. The privacy pitch: everything stays in the house, no usage limits, no subscription - and the whole family can use it on the home network.",
+          "ptrs": [
+            "Unsloth Desktop: free Windows app, chat interface, no terminal or Python; setup 10-15 minutes plus model download time.",
+            "Quantization in one image: the same photo at 8, 4 and 2 bits - lower precision, smaller file, some quality loss; workloads differ in how much they care.",
+            "Guide's VRAM tiers: 8-12GB runs 9B-12B models; 16GB runs 14B + MoE up to 35B; 32GB runs 27B-35B comfortably with long context.",
+            "Your 6GB card is below tier one - your honest options: a 3-4B 4-bit model fully on GPU (fast), or MoE offload into your 16GB RAM (bigger brains, slower).",
+            "The MoE trick: only a few billion parameters fire per token, so the rest waits in system RAM - how a 35B model lands in the 16GB row at about 47 tokens/sec on the guide's test card.",
+            "Inkling 2 Mini on your machine: 2-bit build is 10-11GB total - fits your 16GB RAM with partial GPU offload today, no upgrade needed; the guide notes 26.4B parameters, Apache 2.0, vision support, 1M-token context.",
+            "What you get: a private, free, no-limits assistant on your home network - the guide's framing is 'a Claude and ChatGPT replacement that runs at home', and the tradeoff versus the paid apps is speed and top-end quality."
+          ],
+          "why": "This is the cheapest real upgrade to your AI workflow available: zero rupees, tonight, on hardware you already own. A local model handles the token-heavy grunt work - summarizing long PDFs, batch rewriting, private notes - without touching your usage limits on the paid apps you save for hard problems.",
+          "example": "Tonight: install Unsloth Desktop, update it (Inkling needs a recent build), and pull a 4-bit 3-4B Qwen first - it fits your 6GB GPU whole and answers instantly, so you see the magic work. Then, if you want yesterday's reasoning model, download Inkling 2 Mini 2-bit and let it split between GPU and RAM - slower, but a frontier-adjacent brain living in your PC.",
+          "questions": [
+            {
+              "q": "Will a big model fry your 16GB RAM setup?",
+              "a": "No - the cost is speed, not safety. MoE models keep most weights in system RAM and fire only a few billion parameters per token; if the model plus context fits in RAM, it runs, just slower. The guide's own 35B-at-16GB row runs at about 47 tokens per second on a 16GB card."
+            },
+            {
+              "q": "What do you actually lose versus paid ChatGPT or Claude?",
+              "a": "Top-end quality and speed. Local open models at consumer sizes trail the frontier apps on hard reasoning and polish; what you gain is privacy (nothing leaves the house), zero marginal cost, no usage caps, and always-on availability - which is why the guide frames it as offloading token-heavy routine work."
+            }
+          ],
+          "plain": "You can run your own ChatGPT-like assistant on your PC for free with one app. Small models fit your graphics card directly; bigger ones can borrow your regular RAM to still work, just slower. Everything stays private in your house - like having a well instead of buying bottled water.",
+          "source_name": "GPU Partner",
+          "source_url": "https://gpupartner.com/blog/beginners-guide-local-ai-inkling-qwen-unsloth",
+          "reading_time": 4,
+          "accent": "#F2C200",
+          "accents": [
+            "#F2C200",
+            "#E8480C",
+            "#2B4BE0"
+          ],
+          "image": "img/2026-11-23-5.jpg",
+          "image_alt": "Cut-paper cozy house with an amber roof, a desk and computer inside showing a small glowing cobalt spark on the monitor"
+        }
+      ]
+    },
+    {
       "number": 36,
       "date": "2026-11-22",
       "items": [
