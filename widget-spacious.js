@@ -30,6 +30,10 @@
 //     wallpaper or move the widget, re-run the setup.
 //   - Headlines/numerals use Impact, the closest iOS built-in
 //     to the site's Anton typeface.
+//   - Reminders: the widget shows your next reminders (times in IST)
+//     under the headline. The list is stored only on your phone: tap
+//     a private "update reminders" link from Instinct (opens this
+//     script, saves the list locally). Never posted online.
 //   - Widget content is static between iOS-controlled refreshes;
 //     the animations live in the article, not the widget.
 // ============================================================
@@ -303,8 +307,100 @@ function dashRow(stack, total, curIdx) {
   }
 }
 
+
+// ---------- reminders (feed: reminders.json, times are IST) ----------
+// Each reminder is {title, time:"HH:MM", dates:["YYYY-MM-DD",...]} or
+// {title, time, from:"YYYY-MM-DD", until:"YYYY-MM-DD"} (daily, inclusive).
+// The widget works out what is next on the device, so the list stays
+// correct between feed updates; past reminders drop off by themselves.
+const REM_CACHE = FM.documentsDirectory() + "/daily-draft-reminders.json";
+function remStamp(date, time) { return new Date(date + "T" + time + ":00+05:30"); }
+function pad2(n) { return String(n).padStart(2, "0"); }
+function istDateStr(ms) {
+  const d = new Date(ms + 5.5 * 3600 * 1000);
+  return d.getUTCFullYear() + "-" + pad2(d.getUTCMonth() + 1) + "-" + pad2(d.getUTCDate());
+}
+function upcomingReminders(list, nowMs, max) {
+  const out = [];
+  for (const r of (list || [])) {
+    if (!r || !r.title || !r.time) continue;
+    let dates = [];
+    if (Array.isArray(r.dates)) dates = r.dates;
+    else if (r.from && r.until) {
+      for (let i = 0; i < 400; i++) {
+        const ds = istDateStr(remStamp(r.from, "12:00").getTime() + i * 86400000);
+        if (ds > r.until) break;
+        dates.push(ds);
+      }
+    }
+    let next = null;
+    for (const ds of dates) {
+      const t = remStamp(ds, r.time);
+      if (isNaN(t.getTime())) continue;
+      if (t.getTime() >= nowMs - 30 * 60 * 1000 && t.getTime() <= nowMs + 60 * 86400000 && (!next || t < next.at)) next = { title: r.title, at: t, ds: ds, time: r.time };
+    }
+    if (next) out.push(next); // one row per reminder: its next occurrence
+  }
+  out.sort((a, b) => a.at - b.at);
+  return out.slice(0, max);
+}
+function remWhen(rem, nowMs) {
+  const today = istDateStr(nowMs), tomorrow = istDateStr(nowMs + 86400000);
+  const [hh, mm] = rem.time.split(":").map(Number);
+  const clock = ((hh % 12) || 12) + (mm ? ":" + pad2(mm) : "") + (hh < 12 ? " AM" : " PM");
+  let day;
+  if (rem.ds === today) day = "TODAY";
+  else if (rem.ds === tomorrow) day = "TOMORROW";
+  else {
+    const d = new Date(rem.ds + "T12:00:00Z");
+    day = d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" }).toUpperCase().replace(",", "");
+  }
+  return day + " " + clock;
+}
+async function getReminders() {
+  // Private by design: reminders live only in this phone's Scriptable
+  // storage. Nothing is fetched from the internet.
+  try { if (FM.fileExists(REM_CACHE)) return JSON.parse(FM.readString(REM_CACHE)); } catch (e) {}
+  return [];
+}
+function importReminders(b64) {
+  const raw = Data.fromBase64String(b64.replace(/-/g, "+").replace(/_/g, "/")).toRawString();
+  const data = JSON.parse(raw);
+  const list = Array.isArray(data) ? data : (data.reminders || []);
+  FM.writeString(REM_CACHE, JSON.stringify(list));
+  return list.length;
+}
+function addReminderRows(w, rems, acc, compact) {
+  if (!rems.length) return;
+  const nowMs = Date.now();
+  const box = w.addStack();
+  box.layoutVertically();
+  box.spacing = compact ? 1 : 3;
+  for (const rem of rems) {
+    const row = box.addStack();
+    row.layoutHorizontally();
+    row.centerAlignContent();
+    row.spacing = 5;
+    const dot = row.addStack();
+    dot.size = new Size(4, 4);
+    dot.cornerRadius = 2;
+    dot.backgroundColor = acc;
+    const when = row.addText(remWhen(rem, nowMs));
+    when.font = new Font("Menlo", compact ? 6.5 : 7.5);
+    when.textColor = SOFT;
+    when.lineLimit = 1;
+    const ttl = row.addText(rem.title);
+    ttl.font = Font.boldSystemFont(compact ? 8.5 : 10);
+    ttl.textColor = INK;
+    ttl.lineLimit = 1;
+    ttl.minimumScaleFactor = 0.7;
+    row.addSpacer();
+  }
+}
+
 // ---------- widget face ----------
-async function buildWidget(issue, state, family) {
+async function buildWidget(issue, state, family, remList) {
+  const rems = upcomingReminders(remList, Date.now(), family === "large" ? 3 : family === "medium" ? 2 : 1);
   const w = new ListWidget();
   w.backgroundImage = faceBackground(family);
   w.refreshAfterDate = new Date(Date.now() + 15 * 60 * 1000);
@@ -323,6 +419,8 @@ async function buildWidget(issue, state, family) {
     sub.font = Font.systemFont(10);
     sub.textColor = SOFT;
     sub.lineLimit = 2;
+    w.addSpacer(8);
+    addReminderRows(w, rems, DEF_A1, family === "small");
     w.addSpacer();
     return w;
   }
@@ -340,7 +438,9 @@ async function buildWidget(issue, state, family) {
     const kind = w.addText(it.kind.toUpperCase());
     kind.font = new Font("Menlo", 7);
     kind.textColor = SOFT;
-    w.addSpacer(8);
+    w.addSpacer(6);
+    addReminderRows(w, rems, acc, true);
+    w.addSpacer(5);
     dashRow(w.addStack(), total, idx);
   } else if (family === "medium") {
     w.setPadding(14, 20, 12, 20);
@@ -350,7 +450,9 @@ async function buildWidget(issue, state, family) {
     head.font = new Font("Impact", 17);
     head.textColor = INK;
     head.lineLimit = 2;
-    w.addSpacer(4);
+    w.addSpacer(6);
+    addReminderRows(w, rems, acc, true);
+    w.addSpacer(2);
   } else {
     w.setPadding(16, 22, 14, 22);
     masthead(w, issue, false);
@@ -374,7 +476,9 @@ async function buildWidget(issue, state, family) {
     lead.font = Font.systemFont(10.5);
     lead.textColor = INK;
     lead.lineLimit = 3;
-    w.addSpacer(10);
+    w.addSpacer(8);
+    addReminderRows(w, rems, acc, false);
+    w.addSpacer(8);
     const foot = w.addStack();
     foot.layoutHorizontally();
     foot.centerAlignContent();
@@ -395,12 +499,21 @@ async function getIssue() {
 }
 
 // ---------- run ----------
+if (args.queryParameters && args.queryParameters.reminders) {
+  const a = new Alert();
+  try { a.title = "Reminders updated"; a.message = importReminders(args.queryParameters.reminders) + " reminders saved on this phone."; }
+  catch (e) { a.title = "Couldn't read that reminder link"; a.message = "Ask Instinct to send it again."; }
+  a.addAction("OK");
+  await a.present();
+  Script.complete();
+} else {
 const family = config.widgetFamily || "medium";
 
 if (config.runsInWidget) {
   try {
     const issue = await getIssue();
-    Script.setWidget(await buildWidget(issue, loadState(), family));
+    const remList = await getReminders();
+    Script.setWidget(await buildWidget(issue, loadState(), family, remList));
   } catch (e) {
     const w = new ListWidget();
     w.backgroundColor = PAPER;
@@ -419,9 +532,10 @@ if (config.runsInWidget) {
   // go straight to the article. A manual run inside the app gets the menu.
   let openArticle = true;
   if (!config.widgetFamily) {
-    const choice = await pickOption("The Daily Draft", null, ["Read today's edition", "Set up wallpaper background", "Adjust background alignment"]);
+    const choice = await pickOption("The Daily Draft", null, ["Read today's edition", "Set up wallpaper background", "Adjust background alignment", "Clear saved reminders"]);
     if (choice === "Set up wallpaper background") { await setupWallpaper(); openArticle = false; }
     else if (choice === "Adjust background alignment") { await adjustAlignment(); openArticle = false; }
+    else if (choice === "Clear saved reminders") { try { FM.remove(REM_CACHE); } catch (e) {} openArticle = false; }
     else if (!choice) openArticle = false;
   }
   if (openArticle) {
@@ -446,4 +560,5 @@ if (config.runsInWidget) {
     } catch (e) {}
   }
   Script.complete();
+}
 }
