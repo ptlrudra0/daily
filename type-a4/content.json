@@ -2,6 +2,327 @@
  "paper": "The Daily Draft",
  "issues": [
   {
+   "number": 39,
+   "date": "2026-11-25",
+   "items": [
+    {
+     "id": "2026-11-25-1",
+     "kind": "AI TIP",
+     "headline": "Your Loss Function Is Lying in the Last Decimal",
+     "deck": "KL divergence can never be negative. PyTorch hands out negatives anyway, and the standard fix hides the crime scene.",
+     "lead": "A new paper tested PyTorch's KL divergence code against certified references on 8.5 million inputs and found the math quietly breaking: near tiny divergences, over 85% of FP32 results carry at least 1% relative error and about 30% come out negative, for a quantity that mathematically cannot be negative. The community's standard advice, clamp at zero, hides the symptom and zeroes your gradients.",
+     "ptrs": [
+      "KL divergence is the regulariser inside VAEs, the trust-region constraint in policy optimisation, the classic distillation loss, and a standard metric for how far a compressed model moved; 39 of the 116 PyTorch packages the authors inspected call it.",
+      "The failure is catastrophic cancellation: the usual formulas subtract nearly equal numbers, and floating point cannot hold the tiny difference. One precision higher does not save you: evaluated in the next precision up, the same formulas still left 7-51% of values significantly wrong in 22 of 23 configurations.",
+      "The repair is formula-level, not hardware-level: stable closed-form decompositions, compensated arithmetic and analytic gradients removed over 97% of significant errors in the working format, and the strict version correctly rounded all 567 million scored components of PyTorch's F.kl_div. Code is public at github.com/xi-xiaoran/stablekl.",
+      "Impact is real, not theoretical: identical-start distillation runs disagreed on up to 97% of top-1 predictions, KL-based layer rankings in a quantized LLM shifted, and 19-59% of GPT-2 circuit edge scores were affected. With repaired code, the effects all but vanish.",
+      "HN discussion (30+ points): numerics people nodded along, several admitting they had clamped negative KL values for years without asking why they appeared."
+     ],
+     "why": "You will train VAEs, distill small models and touch RL fine-tuning within a year, and this bug never crashes; it just silently bends your results. Knowing that a formula can be mathematically right and numerically wrong is the difference between debugging for a night and debugging for a month, bro.",
+     "body": "A new paper tested PyTorch's KL divergence code against certified references on 8.5 million inputs and found the math quietly breaking: near tiny divergences, over 85% of FP32 results carry at least 1% relative error and about 30% come out negative, for a quantity that mathematically cannot be negative. KL divergence is the regulariser inside VAEs, the trust-region constraint in policy optimisation, the classic distillation loss, and a standard metric for how far a compressed model moved; 39 of the 116 PyTorch packages the authors inspected call it. The failure is catastrophic cancellation: the usual formulas subtract nearly equal numbers, and floating point cannot hold the tiny difference. One precision higher does not save you: evaluated in the next precision up, the same formulas still left 7-51% of values significantly wrong in 22 of 23 configurations. The repair is formula-level, not hardware-level: stable closed-form decompositions, compensated arithmetic and analytic gradients removed over 97% of significant errors in the working format, and the strict version correctly rounded all 567 million scored components of PyTorch's F.kl_div, with code public at github.com/xi-xiaoran/stablekl. Impact is real, not theoretical: identical-start distillation runs disagreed on up to 97% of top-1 predictions, KL-based layer rankings in a quantized LLM shifted, and 19-59% of GPT-2 circuit edge scores were affected; with repaired code the effects all but vanish. The community's standard advice, clamp negative values at zero, hides the symptom and zeroes your gradients. On Hacker News, numerics people nodded along, several admitting they had clamped negative KL values for years without asking why they appeared.",
+     "example": "You distill a small student model from a teacher, starting both from the same weights. The KL term should begin at exactly zero, but the paper shows official code paths returning tiny negative or noisy values, and clamping them kills the early gradient entirely. Swap in the stablekl implementations (or any compensated, decomposition-based KL), and the loss starts at true zero with a working gradient from step one.",
+     "plain": "Computers store decimals with limited digits, like a calculator that rounds. When you subtract two almost identical numbers, the correct digits cancel and only rounding noise is left, so a value that should be a tiny positive number can come out negative. It is like weighing a suitcase, then the suitcase plus a T-shirt, and the scale saying the shirt weighs minus three grams. The fix is to rearrange the formula so the cancellation never happens.",
+     "questions": [
+      {
+       "q": "Why does PyTorch sometimes return negative KL divergence?",
+       "a": "Catastrophic cancellation: the formulas subtract nearly equal numbers and floating point cannot hold the tiny true difference, so noise, sometimes negative, is what remains."
+      },
+      {
+       "q": "Why is clamping negative KL values at zero a bad fix?",
+       "a": "It hides the symptom and zeroes the gradients; many inaccurate values are positive anyway, so the error silently stays in training."
+      },
+      {
+       "q": "What actually fixes it?",
+       "a": "Formula-level repairs: stable decompositions, compensated arithmetic and analytic gradients, which removed over 97% of significant errors in the paper's tests."
+      }
+     ],
+     "source_name": "arXiv: The KL Divergence Is Never Negative, Except in PyTorch",
+     "source_url": "https://arxiv.org/abs/2611.30835",
+     "reading_time": 5,
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0",
+      "#F2C200"
+     ],
+     "image": "img/2026-11-25-1.jpg",
+     "image_alt": "Two nearly identical overlapping cut-paper bell curves in cobalt and amber, a thin vermilion sliver of difference between them, ink specks of noise around",
+     "info_image": "img/2026-11-25-1-schematic.jpg",
+     "info_alt": "Diagram: two overlapping amber squares with a small vermilion crescent of difference, then the crescent alone, then the crescent too small to fill any cell of a fine cobalt grid",
+     "info_caption": "Diagram: subtract two nearly equal shapes and only a sliver remains; on a coarse number grid the sliver falls between the cells and gets lost.",
+     "info_labels": [
+      {
+       "t": "two near-equal values",
+       "x": 4,
+       "y": 8,
+       "c": "#A67C00"
+      },
+      {
+       "t": "the true difference",
+       "x": 40,
+       "y": 8,
+       "c": "#E8480C"
+      },
+      {
+       "t": "too small for FP32",
+       "x": 68,
+       "y": 88,
+       "c": "#2B4BE0"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-25-2",
+     "kind": "DESIGN",
+     "headline": "Explain Anything the Way This Watch Page Does",
+     "deck": "One interactive page teaches a 500-year-old machine with a diving board, a spiral and a drag of the finger. Its structure is the real lesson.",
+     "lead": "Martin C. Martin's interactive 3D page 'How a Mechanical Watch Keeps Time' explains a machine with centuries of parts by doing three things relentlessly: starting from the single part that matters most, teaching one idea per step, and letting you drag every mechanism with your finger. It is a masterclass in explainer design hiding inside a horology lesson.",
+     "ptrs": [
+      "The page opens with the timekeeping part, not the history: the hairspring, a flat spiral of steel ribbon invented by Christiaan Huygens around 1675, swinging at a steady rate that the rest of the watch follows.",
+      "Every concept gets a physical analogy first. The hairspring is introduced as 'a diving board rolled up': bend becomes wind, straight becomes rest, and the overshoot that makes a diving board bounce is what makes the spiral swing.",
+      "Each section carries exactly one mechanism, with its rough invention date (balance wheel around 1364, hairspring 1675) and a 3D figure you can rotate, so the reader manipulates the idea instead of just reading it.",
+      "The page openly hands you the next rung when you finish: it credits Bartosz Ciechanowski's deeper mechanical-watch essay, keeping its own scope tight instead of trying to say everything.",
+      "The author marvels that a well-calibrated mechanical watch holds 99.99% accuracy for $100, his framing for why the machine deserves the treatment."
+     ],
+     "why": "This is literally your TechBlast format problem: take something intimidating and make a stranger feel smart in ninety seconds. Steal the skeleton, most important part first, one idea per screen, analogy before mechanism, interaction if the medium allows. Your reels are the drag-with-a-finger medium, bro.",
+     "body": "Martin C. Martin's interactive 3D page 'How a Mechanical Watch Keeps Time' explains a machine with centuries of parts by doing three things relentlessly: starting from the single part that matters most, teaching one idea per step, and letting you drag every mechanism with your finger. The page opens with the timekeeping part, not the history: the hairspring, a flat spiral of steel ribbon invented by Christiaan Huygens around 1675, swinging at a steady rate that the rest of the watch follows. Every concept gets a physical analogy first; the hairspring is introduced as 'a diving board rolled up', where bend becomes wind, straight becomes rest, and the overshoot that makes a diving board bounce is what makes the spiral swing. Each section carries exactly one mechanism with its rough invention date (balance wheel around 1364, hairspring 1675) and a 3D figure you can rotate, so the reader manipulates the idea instead of just reading it. The page openly hands you the next rung when you finish, crediting Bartosz Ciechanowski's deeper mechanical-watch essay and keeping its own scope tight. The author marvels that a well-calibrated mechanical watch holds 99.99% accuracy for $100, his framing for why the machine deserves the treatment.",
+     "example": "Take your next reel topic, say how gradient descent works. Do not start with calculus. Start with the one part that matters (the downhill step), anchor it to a physical analogy (a marble in a bowl), show one idea per cut, and end by pointing at one deeper resource. That is the watch-page structure, mapped onto sixty seconds.",
+     "plain": "A complicated machine stops being scary when someone shows you its single most important part first, compares it to something from everyday life, and adds one piece at a time. It is like learning a recipe by first tasting the dish, then adding ingredients one by one, instead of reading the whole cookbook at once.",
+     "questions": [
+      {
+       "q": "Which part does the page teach first, and why?",
+       "a": "The hairspring, because it is the part that actually keeps time; the rest of the watch follows its beat."
+      },
+      {
+       "q": "What role does the diving board play?",
+       "a": "It is the physical analogy: the board's bend-and-overshoot is the same behaviour as the spiral spring's wind-and-swing."
+      },
+      {
+       "q": "What does the page do instead of covering everything?",
+       "a": "It keeps scope tight, one mechanism per step, then points readers to a deeper essay for the next level."
+      }
+     ],
+     "source_name": "Martin C. Martin",
+     "source_url": "https://martincmartin.github.io/slidev-stem/watches/article/1/",
+     "reading_time": 4,
+     "accent": "#141414",
+     "accents": [
+      "#141414",
+      "#F2C200",
+      "#E8480C"
+     ],
+     "image": "img/2026-11-25-2.jpg",
+     "image_alt": "An exploded cut-paper watch mechanism in layers: cobalt spiral hairspring, ink balance wheel, amber and vermilion gears, small screws",
+     "info_image": "img/2026-11-25-2-schematic.jpg",
+     "info_alt": "Diagram: an assembled circle of parts on the left, an arrow to four separated parts in a row, an arrow to the reassembled circle with a curved rotation arrow",
+     "info_caption": "Diagram: show the whole, separate it into one idea per piece, then reassemble; the curved arrow is the reader dragging the mechanism.",
+     "info_labels": [
+      {
+       "t": "start with the whole",
+       "x": 4,
+       "y": 8,
+       "c": "#141414"
+      },
+      {
+       "t": "one idea per part",
+       "x": 36,
+       "y": 88,
+       "c": "#E8480C"
+      },
+      {
+       "t": "reassembled, understood",
+       "x": 62,
+       "y": 8,
+       "c": "#2B4BE0"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-25-3",
+     "kind": "ON SCREEN",
+     "headline": "The Neon Sign Was Fake. Its Light Was Not.",
+     "deck": "For Motor City's quietest scene, the crew built light for a sign that did not exist yet. That is the difference between shooting a location and building a world.",
+     "lead": "Cinematographer John Matysiak has written up how he lit Motor City's wordless diner scene, and the detail that matters is backwards: the huge neon sign was going to be added in VFX, so his crew lined the building with real tubes to make the imaginary sign's light genuinely fall on wet pavement, cars and faces. The effect had to exist before the thing causing it did.",
+     "ptrs": [
+      "The scene is a dialogue-free reunion between Sophia (Shailene Woodley) and Reynolds (Ben Foster) in a downtown diner; the location was not a diner at all but a Blimpie sandwich shop, rebuilt with production designer Mayne Burke and art director Rick Dennis.",
+      "Director Potsy Ponciroli and Matysiak wanted 1970s street-film texture without imitation: Arri Alexa 35 with Master Anamorphic primes (35-135mm), the 40mm and 50mm detuned by Arri Rental for controlled flare around headlights.",
+      "Gaffer Jason Velez ran sixteen Astera Titan Tubes along the roofline, eight top, eight bottom, at 30-40% output, so the not-yet-existing VFX neon (DNEG, supervisor Bernie Kimbacher) already contaminated the facade, sidewalk and parked cars like a real sign would.",
+      "Inside, warmth comes from 60-watt soft-white incandescent practicals plus Aputure Infinimat bases and Astera Lightsocks for closeups, so actors sit in ambient light rather than under a key; outside, condors with Arri SkyPanel X23 and X21 units pooled sodium-vapor backlight, letting the frame fall into darkness between pools.",
+      "The show LUT came from real 35mm tests with colorist Walter Volpatto (Kodak 5219 and 5207, pushed, shot at T4), recreating gate weave, halation, texture and highlight roll-off digitally, since shooting the whole film on 35mm was not financially possible.",
+      "The lesson for your own shots: light the effect, not the fixture. If a sign, a fire or a screen will exist in the final image, its light must exist on set, or the composite never glues."
+     ],
+     "why": "You shoot and grade your own footage, and this is the pro move that separates convincing from cheap: decide what should glow in the final frame, then put a real source where the glow would live. One cheap tube light aimed like a neon sign beats an hour of compositing, challenge accepted.",
+     "body": "Cinematographer John Matysiak has written up how he lit Motor City's wordless diner scene, and the detail that matters is backwards: the huge neon sign was going to be added in VFX, so his crew lined the building with real tubes to make the imaginary sign's light genuinely fall on wet pavement, cars and faces. The scene is a dialogue-free reunion between Sophia (Shailene Woodley) and Reynolds (Ben Foster) in a downtown diner; the location was not a diner at all but a Blimpie sandwich shop, rebuilt with production designer Mayne Burke and art director Rick Dennis. Director Potsy Ponciroli and Matysiak wanted 1970s street-film texture without imitation, shooting on Arri Alexa 35 with Master Anamorphic primes (35-135mm), the 40mm and 50mm detuned by Arri Rental for controlled flare around headlights. Gaffer Jason Velez ran sixteen Astera Titan Tubes along the roofline, eight top, eight bottom, at 30-40% output, so the not-yet-existing VFX neon (DNEG, supervisor Bernie Kimbacher) already contaminated the facade, sidewalk and parked cars like a real sign would. Inside, warmth comes from 60-watt soft-white incandescent practicals plus Aputure Infinimat bases and Astera Lightsocks for closeups, so actors sit in ambient light rather than under a key; outside, condors with Arri SkyPanel X23 and X21 units pooled sodium-vapor backlight, letting the frame fall into darkness between pools. The show LUT came from real 35mm tests with colorist Walter Volpatto (Kodak 5219 and 5207, pushed, shot at T4), recreating gate weave, halation, texture and highlight roll-off digitally, since shooting the whole film on 35mm was not financially possible. The lesson: light the effect, not the fixture. If a sign will exist in the final image, its light must exist on set, or the composite never glues.",
+     "example": "Shooting a night scene where a phone screen will glow on someone's face? Do not add the glow in editing. Put a small real light near the phone position while shooting, matched in colour, so the shadows, reflections and skin all respond to a source that agrees with the final image. Same principle as the Titan Tubes, scaled to a reel budget.",
+     "plain": "In this scene, a big neon sign was going to be drawn in later by computer artists. But neon light spills onto streets, cars and faces, and you cannot fake that spill convincingly afterwards. So the crew hung real colored light tubes where the sign would be, like putting a lamp in the room before deciding which lamp to buy. The camera records real light; the computer only adds the sign's shape.",
+     "questions": [
+      {
+       "q": "Why did the crew rig real tubes for a sign that would be added in VFX?",
+       "a": "So the sign's light would genuinely spill onto the street, cars and actors; a drawn sign without real interactive light never composits convincingly."
+      },
+      {
+       "q": "How did they keep the diner interior natural?",
+       "a": "Warm 60-watt incandescent practicals plus soft mat and tube lights, so actors sit in ambient light instead of under an obvious key light."
+      },
+      {
+       "q": "What did the 35mm film tests become?",
+       "a": "The show LUT: its gate weave, halation, texture and highlight roll-off were recreated digitally as the film's consistent look."
+      }
+     ],
+     "source_name": "American Cinematographer",
+     "source_url": "https://theasc.com/article/motor-city-cinematography-matysiak/",
+     "reading_time": 5,
+     "accent": "#141414",
+     "accents": [
+      "#141414",
+      "#E8480C",
+      "#F2C200"
+     ],
+     "image": "img/2026-11-25-3.jpg",
+     "image_alt": "A night diner seen through plate glass, warm amber booth glow inside, vermilion and cobalt neon reflections on the wet street outside",
+     "info_image": "img/2026-11-25-3-schematic.jpg",
+     "info_alt": "Diagram split by a vertical glass pane: warm amber lamp and table on the left, neon tubes spilling vermilion and cobalt light on a wet street on the right, curved arrows crossing the glass both ways",
+     "info_caption": "Diagram: one continuous world through glass - interior practicals and exterior neon are balanced as a single lighting setup, not two.",
+     "info_labels": [
+      {
+       "t": "warm practicals inside",
+       "x": 4,
+       "y": 8,
+       "c": "#A67C00"
+      },
+      {
+       "t": "the glass is not a wall",
+       "x": 36,
+       "y": 90,
+       "c": "#141414"
+      },
+      {
+       "t": "neon spill, real tubes",
+       "x": 62,
+       "y": 8,
+       "c": "#E8480C"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-25-4",
+     "kind": "AI NEWS",
+     "headline": "Tidal Deletes 29 Million AI Tracks and Dares Rivals to Follow",
+     "deck": "The first full ban on AI-generated music by a streaming platform lands December 9. The numbers behind it are wild.",
+     "lead": "Tidal will remove all wholly AI-generated tracks from its catalog starting December 9, the first music streaming platform to ban AI music entirely. The trigger, according to Tidal lead Robert Andersen at parent company Block: 43% of tracks distributed to the service in the last 90 days were detected as AI-generated, and 96% of AI songs get zero plays.",
+     "ptrs": [
+      "The cleanup removes about 29 million tracks, and Tidal expects to reject 80,000 to 85,000 songs a day going forward; Andersen wrote 'We encourage our peers to follow suit' and promised the catalog will be clear by the beginning of the year.",
+      "This escalates a policy from five months ago, when Tidal demonetized AI-powered songs, forced AI-generated and AI-assisted labels, and banned tracks tied to fraud, such as impersonating established artists.",
+      "Rivals are filtering rather than banning: Spotify says it removed 75 million slop or spam tracks from its catalog and another 50 million from recommendations this year, and labels suspected AI acts as 'AI Persona'; Apple Music plans AI-generated and AI-assisted labels.",
+      "The creator angle cuts both ways: distribution just got harder for fully synthetic music, while 'human artistry' becomes a marketed premium, Spotify's own statement bets listeners will value it more.",
+      "HN discussion (nearly 300 points): debate split between cheering the anti-slop purge and asking who verifies the detector's mistakes when a human track gets flagged as AI."
+     ],
+     "why": "You make content for platforms that are drowning in generated slop. Tidal just made 'made by a human' a selling point with numbers behind it. Whatever you create, the provenance of your work is becoming part of its value, bro. Keep receipts of your process.",
+     "body": "Tidal will remove all wholly AI-generated tracks from its catalog starting December 9, the first music streaming platform to ban AI music entirely. The trigger, according to Tidal lead Robert Andersen at parent company Block: 43% of tracks distributed to the service in the last 90 days were detected as AI-generated, and 96% of AI songs get zero plays. The cleanup removes about 29 million tracks, and Tidal expects to reject 80,000 to 85,000 songs a day going forward; Andersen wrote 'We encourage our peers to follow suit' and promised the catalog will be clear by the beginning of the year. This escalates a policy from five months ago, when Tidal demonetized AI-powered songs, forced AI-generated and AI-assisted labels, and banned tracks tied to fraud, such as impersonating established artists. Rivals are filtering rather than banning: Spotify says it removed 75 million slop or spam tracks from its catalog and another 50 million from recommendations this year, and labels suspected AI acts as 'AI Persona'; Apple Music plans AI-generated and AI-assisted labels. The creator angle cuts both ways: distribution just got harder for fully synthetic music, while 'human artistry' becomes a marketed premium, a bet Spotify's own statement makes explicitly. On Hacker News, the nearly 300-point discussion split between cheering the anti-slop purge and asking who verifies the detector's mistakes when a human track gets flagged.",
+     "example": "If you ever publish music, beats or AI-assisted audio, treat the workflow like provenance: keep project files, stems and session dates. On a platform that bans 'wholly AI-generated' work, the difference between removed and monetized can be the evidence that a human made decisions, exactly what labels like Tidal's 'AI-assisted' tier are built around.",
+     "plain": "A music app found that nearly half the new songs sent to it were made by AI, and almost nobody listened to them. So it is deleting all fully AI-made songs, like a library throwing out millions of unread photocopied books to make room for authors. Other apps are only labeling the AI books instead, and everyone is arguing about which approach is fair to real musicians.",
+     "questions": [
+      {
+       "q": "What exactly is Tidal banning, and when?",
+       "a": "Wholly AI-generated tracks, removed starting December 9 and gone by the beginning of the year; AI-assisted human work stays labeled, not banned."
+      },
+      {
+       "q": "What two numbers did Tidal's lead cite to justify the ban?",
+       "a": "43% of tracks distributed in the last 90 days were detected as AI-generated, and 96% of AI songs receive zero plays."
+      },
+      {
+       "q": "How are Spotify and Apple Music responding differently?",
+       "a": "Filtering and labeling instead of banning: Spotify removed spam tracks and uses an 'AI Persona' label; Apple Music plans AI-generated and AI-assisted labels."
+      }
+     ],
+     "source_name": "Variety",
+     "source_url": "https://variety.com/2026/music/news/tidal-bans-ai-generated-music-1236594123/",
+     "reading_time": 4,
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0",
+      "#E8480C",
+      "#141414"
+     ],
+     "image": "img/2026-11-25-4.jpg",
+     "image_alt": "Two horizontal cut-paper bars in ink outlines, the top filled vermilion to about two-fifths, the bottom filled cobalt nearly to the end",
+     "image_caption": "Bars: 43% of new tracks detected AI-generated · 96% of AI songs get zero plays"
+    },
+    {
+     "id": "2026-11-25-5",
+     "kind": "TRY THIS",
+     "headline": "Find Your Mailroom: The Two-API-Call Audit",
+     "deck": "Anthropic interviewed 58 companies about real AI adoption. The best trick in the whole report is a watching exercise you can run on yourself this week.",
+     "lead": "Anthropic's new 'Working with AI' report distills 66 interviews across 58 companies, and its opening story is the whole lesson: a law firm's mail clerks spent five minutes per letter renaming and filing PDFs, until a senior developer simply watched them work and built an AI system that became two API calls. This week's exercise: be your own senior developer.",
+     "ptrs": [
+      "The audit: for two days, log every repeated computer task you do, with rough minutes. You are looking for your mailroom, the task that is pure rename, move, reformat, copy-paste.",
+      "Then write the two-step rule that would replace it, like the firm's: name the document from its first page, then put it in the right folder. If your task fits a rule that simple, automate it with a script or an AI tool this weekend.",
+      "The report's big finding on value: most companies gain from AI by increasing output, not cutting costs, so aim your automation at doing more, not just doing less.",
+      "On jobs: few AI-driven domestic layoffs were reported, but most companies said they are hiring less and cutting contractors, especially offshore ones, an early warning for the international business-services industry.",
+      "On rollout: top-down automation mandates bred insecurity and expert resistance; pure bottom-up adoption stayed shallow. The winners reorganized so people own whole workflows, one firm paired juniors with seniors to mark up AI first drafts together, keeping judgment alive.",
+      "Bottleneck warning: once coding speeds up, review, sales and decisions become the constraint. Automate a task and the queue just moves; plan for where it moves to."
+     ],
+     "why": "Your agency idea is, at heart, selling this audit to people who cannot do it themselves. Run it on yourself first so you have the before-and-after numbers; 'I found the task that ate five minutes a letter and killed it' is a pitch, a case study and a reel, all in one. Legendary leverage, bro.",
+     "body": "Anthropic's new 'Working with AI' report distills 66 interviews across 58 companies, and its opening story is the whole lesson: a law firm's mail clerks spent five minutes per letter renaming and filing PDFs, until a senior developer simply watched them work and built an AI system that became two API calls. This week's exercise: be your own senior developer. For two days, log every repeated computer task you do, with rough minutes, looking for your mailroom, the task that is pure rename, move, reformat, copy-paste. Then write the two-step rule that would replace it, like the firm's: name the document from its first page, then put it in the right folder. If your task fits a rule that simple, automate it with a script or an AI tool this weekend. The report's big finding on value: most companies gain from AI by increasing output, not cutting costs, so aim your automation at doing more, not just doing less. On jobs: few AI-driven domestic layoffs were reported, but most companies said they are hiring less and cutting contractors, especially offshore ones, an early warning for the international business-services industry. On rollout: top-down automation mandates bred insecurity and expert resistance, while pure bottom-up adoption stayed shallow; the winners reorganized so people own whole workflows, and one firm paired juniors with seniors to mark up AI first drafts together, keeping judgment alive. Bottleneck warning: once coding speeds up, review, sales and decisions become the constraint, so automate a task and the queue just moves; plan for where it moves to.",
+     "example": "Say your log shows you spend 20 minutes a day renaming downloaded lecture PDFs and dragging them into subject folders. Your two-step rule: read the first page's title line, file under the matching subject. A tiny Python script or one AI-agent prompt does both. That is the mailroom play, and your saved 20 minutes is the case study.",
+     "plain": "A worker watched office staff rename and file documents by hand, five minutes each, then built a small AI tool that does it automatically. The idea is to watch your own habits the same way: find the boring thing you repeat daily, write down its steps as a rule, and let a tool follow the rule. Like noticing you always move photos into the same three albums, then letting the phone sort them for you.",
+     "questions": [
+      {
+       "q": "What is the 'mailroom' in this story?",
+       "a": "Any repeated, rule-based task done by hand, like the clerks spending five minutes per letter renaming and filing PDFs before it became two API calls."
+      },
+      {
+       "q": "How do companies mostly gain from AI, according to the report?",
+       "a": "By increasing output rather than cutting costs: accelerating existing work and enabling new products and services."
+      },
+      {
+       "q": "What did the winning firms do differently about roles?",
+       "a": "They reorganized so people own whole workflows and redeployed them to bottleneck tasks AI cannot do, instead of just automating single tasks."
+      }
+     ],
+     "source_name": "Anthropic",
+     "source_url": "https://www.anthropic.com/news/working-with-ai",
+     "reading_time": 5,
+     "accent": "#141414",
+     "accents": [
+      "#141414",
+      "#2B4BE0",
+      "#E8480C"
+     ],
+     "image": "img/2026-11-25-5.jpg",
+     "image_alt": "A paper envelope dropping into a large ink funnel, three neat file folders in cobalt, amber and vermilion below",
+     "info_image": "img/2026-11-25-5-schematic.jpg",
+     "info_alt": "Diagram: a circular loop of four nodes joined by vermilion arrows - an ink clipboard, a cobalt magnifier over papers, an amber gear, a vermilion clock",
+     "info_caption": "Diagram: the audit loop - log every repeated task, magnify the most mechanical one, build the automation, bank the time, repeat.",
+     "info_labels": [
+      {
+       "t": "log your tasks",
+       "x": 34,
+       "y": 4,
+       "c": "#141414"
+      },
+      {
+       "t": "spot the robot work",
+       "x": 64,
+       "y": 42,
+       "c": "#2B4BE0"
+      },
+      {
+       "t": "automate the rule",
+       "x": 36,
+       "y": 90,
+       "c": "#A67C00"
+      },
+      {
+       "t": "bank the minutes",
+       "x": 4,
+       "y": 42,
+       "c": "#E8480C"
+      }
+     ]
+    }
+   ]
+  },
+  {
    "number": 38,
    "date": "2026-11-24",
    "items": [
