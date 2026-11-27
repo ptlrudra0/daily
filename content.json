@@ -2,6 +2,391 @@
  "paper": "The Daily Draft",
  "issues": [
   {
+   "number": 41,
+   "date": "2026-11-27",
+   "items": [
+    {
+     "id": "2026-11-27-1",
+     "kind": "AI NEWS",
+     "headline": "Google Puts a Turnstile Between Agents and Your Gmail",
+     "deck": "From February 2027, AI agents must reach Gmail and Drive through Google's new MCP gateways, and they need a person's yes before hitting send.",
+     "lead": "Google made its Workspace MCP servers and CLI generally available on November 24 and set a deadline: from February 1, 2027, AI agents must use them to reach Gmail, Drive and the rest of Workspace, while regular apps keep the existing REST APIs.",
+     "ptrs": [
+      "The reasoning: the old APIs were built for apps that move at human speed, where a valid login meant the user wanted the action; agents act on their own at machine speed, so every request now gets checked against company permissions and data-loss rules.",
+      "Agents can still draft emails and summarize documents on their own, but sending email, changing Drive sharing and bulk edits all require a person's explicit sign-off.",
+      "Each agent needs its own sign-in identity with tight scopes and usage quotas, the same model Google already uses for its Gemini coworker agents, and it will start billing for that usage on April 1, 2027.",
+      "A new AI Tools Addendum says AI tools cannot train models on Workspace data, cannot scrape it, cannot build rival services from it, and must delete it when a user disconnects.",
+      "Google also tells developers to screen for prompt injection, the hidden commands in emails or files that can hijack an agent, while user-facing controls to see and revoke agent access are still on the way."
+     ],
+     "why": "You are building agent workflows and MCP connections are literally on your list of tools to learn. This is the shape the whole ecosystem is taking: agents get their own IDs, their own quotas, and a human checkpoint on anything irreversible.",
+     "body": "Bro, Google just built airport security for AI agents, and every agent flying into your Gmail has to go through it. On November 24, Google made its Workspace MCP servers and command-line tool generally available, and announced that from February 1, 2027, AI agents must use these gateways to reach Gmail, Drive and the other Workspace apps. Regular apps keep the existing REST APIs; agents get the new door. The logic is hard to argue with: those APIs were built for software moving at human speed, where a valid login meant a person wanted the action. Agents act on their own at machine speed, so every request now gets checked against company permissions and data-loss rules. Drafting emails and summarizing docs stays autonomous, but sending email, changing Drive sharing and bulk edits all need a person's explicit sign-off. Each agent also gets its own sign-in identity with tight scopes and quotas, the same setup Google's Gemini coworker agents already use, and Google starts billing for that usage on April 1, 2027. A new AI Tools Addendum bans training on Workspace data, bans scraping, and requires deletion when a user disconnects. Google even tells developers to screen for prompt injection, the hidden commands lurking in emails and files. The one gap: the controls for you to see and revoke your agents' access yourself are still to come.",
+     "plain": "Google is giving AI helpers their own special entrance to Gmail and Drive instead of letting them use the same door as normal apps. At that entrance, a guard checks every single action, and the helper is not allowed to actually send your email or share your files unless a real person says yes.",
+     "example": "The practical fork for your own agents: drafting stays free-running, but wire any send, share or bulk action to a human approval step, and give each agent its own credentials instead of your login. That is exactly the pattern Google is now enforcing on everyone.",
+     "questions": [
+      {
+       "q": "When do agents have to switch to the Workspace MCP servers?",
+       "a": "By February 1, 2027; regular apps can keep using the existing REST APIs, only agents are required to move."
+      },
+      {
+       "q": "Which actions need a human's approval?",
+       "a": "Sending email, changing Drive sharing settings, and making bulk edits; drafting and summarizing can stay autonomous."
+      },
+      {
+       "q": "Can AI tools train on Workspace data under the new rules?",
+       "a": "No. The AI Tools Addendum bans training on it, scraping it, and building rival services from it, and requires deletion when a user disconnects."
+      }
+     ],
+     "source_name": "The Next Web",
+     "source_url": "https://thenextweb.com/news/google-workspace-ai-agents-mcp-servers-rules",
+     "reading_time": 2,
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0",
+      "#F2C200",
+      "#E8480C"
+     ],
+     "image": "img/2026-11-27-1.jpg",
+     "image_alt": "Cut-paper illustration of a tall cobalt gatehouse with a raised vermilion barrier arm across a road, a queue of paper envelopes and folders waiting on one side, a tidy filing depot on the other.",
+     "info_image": "img/2026-11-27-1-schematic.jpg",
+     "info_alt": "Diagram of a flow: a small square node, an arrow passing through a gated archway in a bold wall, reaching three stacked rectangles, with a thinner arrow looping back through a checkpoint disc.",
+     "info_caption": "Diagram: every agent call passes the gateway; sensitive actions loop back for a person's sign-off.",
+     "info_labels": [
+      {
+       "t": "agent, own ID + quota",
+       "x": 4,
+       "y": 8,
+       "c": "#141414"
+      },
+      {
+       "t": "gateway checks every call",
+       "x": 38,
+       "y": 88,
+       "c": "#E8480C"
+      },
+      {
+       "t": "Gmail, Drive, Workspace",
+       "x": 62,
+       "y": 8,
+       "c": "#2B4BE0"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-27-2",
+     "kind": "AI NEWS",
+     "headline": "Signal Draws the Curtain on OS-Level AI Agents",
+     "deck": "The app now blocks screenshots on iOS 27 and auto-enables screen security on Android when it catches an AI assistant reading your chats, and its president calls OS agents an existential threat.",
+     "lead": "Signal announced on November 20 that it is restricting the AI agents built into mobile operating systems from capturing Signal data, blocking screenshots inside the app on iOS 27 and auto-enabling its Screen security setting on Android when it detects an AI assistant trying to read the screen.",
+     "ptrs": [
+      "The targets are Gemini Intelligence with Google Gemini on Android and Onscreen Awareness with Siri AI on iOS, which scan what is on screen to answer questions and act for you, capturing your Signal messages in the process.",
+      "This is the second time Signal has done this: it previously blocked Microsoft Recall, which took screenshots every few seconds on Windows 11, from capturing Signal messages.",
+      "President Meredith Whittaker calls OS-level AI an existential threat to application privacy and admits the fix is incomplete: blocking screenshots does not stop agents pulling data through the filesystem.",
+      "macOS gets no protection for now, because Signal says it cannot reliably block screenshots there; its only advice for macOS 27 users is to add Signal to the Excluded Apps list under Siri in System Settings.",
+      "Signal is asking Apple, Google and Microsoft for two things: a documented way for apps to opt out of AI data access, and real technical documentation of how these agents access and process data.",
+      "You can turn the protection off in Signal's settings if you want screenshots back, but Signal warns that exposes your chats, and your contacts', to the OS agents."
+     ],
+     "why": "Agents are moving into the operating system itself, which puts them above every app's own privacy promises. If you care about where your messages and your agents meet, this fight decides the ground rules.",
+     "body": "Suit up, this one is the privacy fight of the agent era. Signal announced on November 20 that it is restricting the agentic AI built into iOS 27 and Android from capturing Signal data. Inside the app, screenshots are now blocked on iOS 27, and on Android the Screen security setting switches itself on the moment Signal detects an AI assistant trying to read your screen. The targets are Google's Gemini Intelligence and Apple's Onscreen Awareness with Siri AI, which scan whatever is on screen so they can answer questions and do your bidding, sweeping your Signal messages into whatever local database or remote server the OS agent is using. Signal has been here before: it already blocked Microsoft Recall's every-few-seconds screenshots on Windows 11. President Meredith Whittaker calls OS-level AI an existential threat to app privacy, and she is honest about the limits: blocking screenshots is incomplete, because agents could still pull data through the filesystem, and on macOS Signal cannot block screenshots reliably at all, so the only advice is adding Signal to Siri's Excluded Apps list. Her ask of Apple, Google and Microsoft is simple: a documented opt-out from AI data access for apps, and real documentation of how these agents work. You can disable the protection in settings, but Signal warns that opens your chats, and your contacts', to the agents.",
+     "plain": "The AI helpers built into your phone read whatever is on your screen, including private chats. Signal now pulls a curtain over its own window so the helpers cannot peek. The curtain has holes, and Signal says only the phone makers can fix that properly.",
+     "example": "One concrete move from the post: on Android, Signal's Screen security setting turns itself on automatically when an AI assistant tries to access the screen, so the default posture is protected without you digging through settings.",
+     "questions": [
+      {
+       "q": "What exactly is Signal blocking?",
+       "a": "Screenshots inside the app on iOS 27, and AI-assistant screen reading on Android via the auto-enabled Screen security setting, targeting Gemini and Siri AI."
+      },
+      {
+       "q": "Why does Signal call the fix incomplete?",
+       "a": "It does not stop agents accessing data already on the device through the filesystem, and macOS gets no screenshot blocking at all."
+      },
+      {
+       "q": "What is Signal asking OS makers for?",
+       "a": "A documented opt-out from AI data access for apps, and accurate technical documentation of how OS-level agents access and process data."
+      }
+     ],
+     "source_name": "Signal blog",
+     "source_url": "https://signal.org/blog/protecting-your-privacy/",
+     "reading_time": 2,
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0",
+      "#E8480C",
+      "#F2C200"
+     ],
+     "image": "img/2026-11-27-2.jpg",
+     "image_alt": "Cut-paper illustration of an upright smartphone with its screen hidden behind a heavy cobalt theater curtain on amber rings, abstract searching eyes in the dark corners blocked by the folds.",
+     "info_image": "img/2026-11-27-2-schematic.jpg",
+     "info_alt": "Diagram of a phone cross-section with a glowing screen layer and a solid ink shield above it, three vermilion arrow bolts descending from an abstract eye and breaking on the shield.",
+     "info_caption": "Diagram: the app shields its own screen; OS-level eyes get blocked at the glass.",
+     "info_labels": [
+      {
+       "t": "OS agent tries to read",
+       "x": 4,
+       "y": 8,
+       "c": "#A67C00"
+      },
+      {
+       "t": "screenshot blocked",
+       "x": 36,
+       "y": 88,
+       "c": "#141414"
+      },
+      {
+       "t": "chat stays private",
+       "x": 62,
+       "y": 8,
+       "c": "#E8480C"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-27-3",
+     "kind": "AI TIP",
+     "headline": "Your Model Has Two Kinds of 'I Don't Know'",
+     "deck": "A clear new introduction to uncertainty in ML: why MSE already picks an uncertainty model for you, and the lane split where the best fit steers straight into the divider.",
+     "lead": "Christian Henning published an introduction to uncertainty in machine learning on November 26 that builds the whole topic from one running example: predicting a car's steering angle when the road ahead splits into two lanes.",
+     "ptrs": [
+      "Two kinds of uncertainty: epistemic comes from what you have not learned yet, and more data reduces it; aleatoric comes from what the inputs cannot tell you, and more data of the same kind will not touch it.",
+      "The line between them depends on what you measure: an unmeasured coin flip is aleatoric 50/50, but measure how it is thrown and physics decides it, so the uncertainty becomes epistemic and learnable.",
+      "Training with mean squared error is secretly a probability model: it is exactly a Gaussian with fixed variance around the network's output, so every MSE model has already made an uncertainty choice, whether you picked one or not.",
+      "The lane split shows why the choice matters: in the middle lane half of drivers go left and half go right, and the MSE best fit is the average, which steers straight into the divider; a mixture of two Gaussians contains the truth and fixes it.",
+      "A low loss cannot save you from the wrong model: the expected NLL equals the distance to the truth plus the truth's own entropy, and since you never know that entropy, the loss alone never tells you how far off you still are.",
+      "Bayesian inference keeps every plausible hypothesis weighted by a posterior instead of committing to one, but a misspecified model can still be confidently wrong, because the posterior only weighs hypotheses inside the model."
+     ],
+     "why": "This is the mental model behind confidence scores, selective prediction and half the calibration talk in your AIML coursework, taught with one picture instead of a formula dump. Read it before your next probability-heavy lecture.",
+     "body": "Bro, here is the cleanest explanation of uncertainty in ML you will read this semester. Christian Henning's new introduction builds the whole topic on one example: predicting steering angle from a car's front camera, on a road that splits into two lanes. First, the two kinds of not-knowing. Epistemic uncertainty is what you have not learned yet, and more data shrinks it. Aleatoric uncertainty is what the inputs cannot tell you, and piling on more of the same data does nothing. The catch: which is which depends on what you measure. An unmeasured coin flip is aleatoric 50/50; measure the throw and physics decides the landing, turning it epistemic. Then the part that should be tattooed on every ML student's forearm: training with mean squared error is already a probability model, a Gaussian with fixed variance around the network's output. You picked an uncertainty model whether you meant to or not. And it bites. In the middle lane, half of drivers go left and half go right, so the MSE best fit averages them and steers straight into the divider. No parameters can fix it, because a single Gaussian has one peak. A mixture of two Gaussians contains the truth and nails it. Henning also shows why a low loss cannot clear your name: your expected loss is the distance to the truth plus the truth's own entropy, and you never know that entropy, so the number alone stays silent. Bayesian inference keeps every plausible hypothesis weighted by a posterior, but even that can be confidently wrong if the truth lives outside the model. Three sources of uncertainty, three different cures: richer inputs, more data, or a better model.",
+     "plain": "A model can be unsure for two different reasons: it has not studied enough, or the question genuinely has no single answer. Guessing the steering direction at a fork by averaging left and right gives you 'straight ahead', which is the one answer that is definitely wrong. Picking the right kind of model fixes it, more data alone cannot.",
+     "example": "The diagnostic habit to steal: when a confident prediction looks off, ask which kind of uncertainty you are seeing. Needs richer inputs, like the driver's route? Aleatoric. Needs more examples? Epistemic. Needs a different model shape, like the two-Gaussian mixture? Model misspecification, and no amount of data cures it.",
+     "questions": [
+      {
+       "q": "What separates epistemic from aleatoric uncertainty?",
+       "a": "Epistemic comes from what the model has not learned and shrinks with more data; aleatoric comes from information the inputs do not contain and only richer inputs reduce it."
+      },
+      {
+       "q": "Why does MSE steer into the divider at the lane split?",
+       "a": "MSE is a single fixed-variance Gaussian, whose best fit is the mean; the average of left and right is straight ahead, and no parameter choice gives a single Gaussian two peaks."
+      },
+      {
+       "q": "Can a Bayesian model still be confidently wrong?",
+       "a": "Yes. The posterior only weighs hypotheses inside the model, so a misspecified model is confident about the least wrong hypothesis it contains."
+      }
+     ],
+     "source_name": "Christian Henning",
+     "source_url": "https://chrhenning.com/blog/2026/introduction-to-uncertainty/",
+     "reading_time": 3,
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0",
+      "#F2C200",
+      "#E8480C"
+     ],
+     "image": "img/2026-11-27-3.jpg",
+     "image_alt": "Cut-paper illustration of a road forking around a tall vermilion divider island into cobalt and amber lanes, a small abstract car hesitating at the split, dotted paper scatter showing many possible paths.",
+     "info_image": "img/2026-11-27-3-schematic.jpg",
+     "info_alt": "Diagram in two halves: a single smooth hill curve centered over a road fork on the left, two smaller hill curves over the diverging lanes with a gap above the divider on the right.",
+     "info_caption": "Diagram: one peak averages the fork into the divider; two peaks tell the truth.",
+     "info_labels": [
+      {
+       "t": "one peak: averages, crashes",
+       "x": 4,
+       "y": 8,
+       "c": "#141414"
+      },
+      {
+       "t": "the divider",
+       "x": 44,
+       "y": 88,
+       "c": "#E8480C"
+      },
+      {
+       "t": "two peaks: both truths kept",
+       "x": 55,
+       "y": 8,
+       "c": "#2B4BE0"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-27-4",
+     "kind": "DESIGN",
+     "headline": "Your Phone Camera Is a Lens That Ran Out of Room",
+     "deck": "A lens designer's deep dive into smartphone optics: why the tiny camera is a harder problem than a big DSLR lens, and what a lens looks like at the end of its rope.",
+     "lead": "Lens design site A Pencil of Rays published a deep dive on November 25 into the engineering of smartphone cameras, arguing the tiny phone lens is a harder design problem than many big DSLR lenses, because constraint, not complexity, is what makes lens design hard.",
+     "ptrs": [
+      "The core argument in one sentence: a DSLR designer can solve optical problems by adding space, spreading elements across a barrel 50 to 150 mm long with ten or more pieces of glass; a smartphone designer gets a few millimeters, with the sensor often less than 10 mm behind the first surface.",
+      "A modern phone module must simultaneously deliver a wide field of view, a large sensor, a bright aperture, a fixed total length, low cost, high yield at tens of millions of units, and an image that plays nicely with the computational pipeline, with none of those allowed to lose.",
+      "The constraint outsiders never meet: the chief ray angle. Sensor pixels sit under microlenses that only accept light from a limited range of angles, so the sensor vendor hands over a hard interface spec that fights directly against making the lens shorter.",
+      "When the small set of usable optical materials is exhausted, the remaining gains come from surface geometry, not glass: designers manage the paths of off-axis rays instead of relying on exotic material properties.",
+      "That is why extreme aspherical surfaces took over mobile: one moulded plastic element with a wild enough profile does the work that used to take three spherical glass elements, and those alien gull-wing cross-sections are what a lens looks like when it has run out of room.",
+      "The piece closes by folding space itself: the tetraprism telephoto bends the light path sideways inside the phone body to buy focal length the thickness budget cannot."
+     ],
+     "why": "You shoot your reels and photos on a phone, and this is the best explanation anywhere of why the bump on the back looks the way it does. The deeper lesson transfers to every design you will ever ship: the interesting work starts where the constraints leave no room for the textbook answer.",
+     "body": "Have you met your phone camera? Really met it? A Pencil of Rays just published a monster deep dive into smartphone lens engineering, and the thesis is delicious: that tiny lens is a harder problem than many big DSLR lenses. Not because it is better, but because constraint, not complexity, is what makes lens design hard. A DSLR designer fighting aberrations has moves: add an element, spread the group, reach for exotic glass, because the customer already paid two thousand dollars for a barrel 50 to 150 millimeters long. A smartphone designer gets a few millimeters, with the sensor often less than 10 mm behind the first surface, and every fraction of a millimeter is being argued over by the industrial designer, the battery and the sensor stack, with optics usually losing. Then comes the constraint nobody outside mobile has met: the chief ray angle. Sensor pixels live under microlenses that only accept light from a limited range of angles, so the sensor vendor hands over a hard interface spec, and it fights directly against making the lens shorter. With only a small set of usable materials, the remaining gains come from surface geometry, managing ray paths instead of correcting aberrations one by one. That is why extreme aspherics rule mobile: one moulded plastic element with a wild gull-wing profile does the work of three spherical glass elements. Those alien shapes are not showing off; they are what a lens looks like when it has run out of room. And when even that is not enough, the tetraprism folds the light path sideways to fit a telephoto into a phone.",
+     "plain": "Big camera lenses can fix problems by adding more glass and more space. A phone lens is the size of a coin and is not allowed to grow, so its designers bend light with crazy-shaped plastic surfaces and even fold the light path sideways, like fitting a bookshelf into a shoebox by turning every book on its side.",
+     "example": "Design review trick to steal: when you see an odd, awkward shape in a finished product, ask which constraint forced it. The gull-wing lens element is not style; it is the visible scar of a millimeter budget that lost an argument to a battery.",
+     "questions": [
+      {
+       "q": "Why is a phone lens harder than a DSLR lens?",
+       "a": "The DSLR designer can add space and glass; the phone designer must satisfy image quality, size, cost, yield and sensor compatibility at once inside a few millimeters, with none allowed to lose."
+      },
+      {
+       "q": "What is the chief ray angle constraint?",
+       "a": "Sensor pixels sit under microlenses that only accept light from limited incidence angles, so the sensor vendor imposes a hard spec that directly fights making the lens shorter."
+      },
+      {
+       "q": "Why do phone lenses use extreme aspherical surfaces?",
+       "a": "One moulded plastic element with a wild profile can do the work of three spherical glass elements, recovering performance the space and material budgets cannot provide."
+      }
+     ],
+     "source_name": "A Pencil of Rays",
+     "source_url": "https://www.pencilofrays.com/smartphone-lens/",
+     "reading_time": 3,
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0",
+      "#E8480C",
+      "#F2C200"
+     ],
+     "image": "img/2026-11-27-4.jpg",
+     "image_alt": "Cut-paper cross-section of a tiny stacked camera lens inside a slim phone slice, five exaggerated gull-wing cobalt lens elements bending thin amber paper light rays left to right.",
+     "info_image": "img/2026-11-27-4-schematic.jpg",
+     "info_alt": "Diagram of a slim phone cross-section where an amber light strip enters a cobalt prism, bounces twice in a zigzag folded path, and lands on a small vermilion sensor plate.",
+     "info_caption": "Diagram: the tetraprism folds the light path sideways to fit a telephoto into a phone's thickness.",
+     "info_labels": [
+      {
+       "t": "light enters",
+       "x": 4,
+       "y": 8,
+       "c": "#A67C00"
+      },
+      {
+       "t": "two bounces, folded path",
+       "x": 36,
+       "y": 88,
+       "c": "#2B4BE0"
+      },
+      {
+       "t": "sensor",
+       "x": 62,
+       "y": 8,
+       "c": "#E8480C"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-27-5",
+     "kind": "ON SCREEN",
+     "headline": "'The Whole World. You're Going.'",
+     "deck": "Nolan's department heads on building The Odyssey from scratch: 5,300 costumes, 7,000 extras, six countries, two million feet of Imax film, and no set extensions.",
+     "lead": "Gold Derby sat production designer Ruth De Jong, costume designer Ellen Mirojnick and makeup head Luisa Abel around one table for a November 24 deep dive into how Christopher Nolan's The Odyssey was built, entirely on Imax cameras, with ground-up builds and zero set extensions.",
+     "ptrs": [
+      "The numbers: shoots in six countries, more than 5,300 costumes, 7,000 extras, and over two million feet of large-format film; producer Emma Thomas describes it as shooting six films in one.",
+      "Nolan's process starts with secrecy: no emailed scripts, collaborators come to his house to read on the spot; De Jong took four or five hours over it and asked what the parameters were, and Nolan answered, 'The whole world. You're going.'",
+      "During prep he keeps his department heads apart, with the upstairs art department off-limits, so each designer finds their own version of the film before he merges them; Mirojnick says that isolation is what produces a 'oneness' when they finally come together.",
+      "Thomas says the fast prep is deliberate, because longer preps get thrown in the bin: in prep Nolan demands the impossible, and once shooting starts he becomes pragmatic and plays within the box they built for him.",
+      "Set pieces were executed almost entirely in camera: the Trojan horse erected on a Morocco beach, Circe's lair built from scratch on a Scottish clifftop cove positioned so boats could approach its practical smoke, and 500 shades rising from the underworld on Iceland's black sands beneath the midnight sun.",
+      "Abel came aboard earlier than usual for prosthetics designed to go unnoticed, including laid-in beards Nolan normally avoids, on the logic that good craft disappears into the world."
+     ],
+     "why": "You study cinema and you love directors who treat craft as the special effect. This is a masterclass in the part nobody sees: the organizational design, isolation then convergence, that lets enormous practical builds land as one coherent world.",
+     "body": "Bro. SUIT UP, because The Odyssey is shaping up to be the practical-effects event of the decade. Gold Derby got Nolan's department heads, production designer Ruth De Jong, costume designer Ellen Mirojnick and makeup head Luisa Abel, all Oscar nominees from Oppenheimer, to spill how it was built. The mandate, delivered after De Jong read the script at Nolan's house, because he never emails scripts, was four words: 'The whole world. You're going.' The result: six countries, more than 5,300 costumes, 7,000 extras, over two million feet of large-format film, all of it shot on Imax with ground-up builds and no set extensions. Producer Emma Thomas calls it six films in one. The process lesson is the good stuff. In prep, Nolan keeps his department heads apart: the upstairs art department is off-limits, and each designer develops their own version of the film before he brings them together. Mirojnick found it startling, then understood: the isolation is what creates the 'oneness' when they converge. Thomas says the breakneck prep is deliberate, because Nolan demands the impossible in prep and turns pragmatic on set, playing within whatever box they built. And the builds are absurd in the best way: a Trojan horse erected on a Morocco beach, Circe's lair constructed from scratch on a Scottish clifftop cove placed so the boats could see its practical smoke and approach, and 500 shades rising from the underworld on Iceland's black sands under the midnight sun. Abel's prosthetics, including laid-in beards, were designed to go unnoticed, because the best craft is the kind you never catch working.",
+     "plain": "A director making a film about a mythical sea journey decided to really go to sea. His team built everything for the camera instead of on a computer: a giant wooden horse on a real beach, a witch's house on a real cliff, and thousands of costumes, all planned in separate rooms so each craft leader formed their own ideas before joining up.",
+     "example": "Steal the prep pattern for group projects: give each person a protected stretch to form their own full version of the work before anyone sees anyone else's, then merge. The isolation feels slow; the convergence is where the quality comes from.",
+     "questions": [
+      {
+       "q": "How much of The Odyssey was built practically?",
+       "a": "Per the department heads, everything: shot entirely on Imax with ground-up builds and no set extensions, across six countries with 5,300-plus costumes and 7,000 extras."
+      },
+      {
+       "q": "Why does Nolan keep department heads apart in prep?",
+       "a": "So each finds their own version of the film first; the designers say that isolation is what produces the unified vision when he finally brings them together."
+      },
+      {
+       "q": "Where was Circe's lair built?",
+       "a": "From scratch on a wind-swept Scottish clifftop cove, positioned so boats could see its practical fire and smoke and approach from the water."
+      }
+     ],
+     "source_name": "Gold Derby",
+     "source_url": "https://www.goldderby.com/film/2026/the-odyssey-christopher-nolan-department-heads-interview-production-design-costumes-makeup/",
+     "reading_time": 3,
+     "accent": "#E8480C",
+     "accents": [
+      "#E8480C",
+      "#2B4BE0",
+      "#F2C200"
+     ],
+     "image": "img/2026-11-27-5.jpg",
+     "image_alt": "Cut-paper illustration of a gigantic vermilion wooden Trojan horse under construction on a beach, ink scaffolding towers and ladders, layered cobalt waves and a big amber sun.",
+     "info_image": "img/2026-11-27-5-schematic.jpg",
+     "info_alt": "Diagram of a winding dashed sea route with six vermilion flag pennants, from a walled amber coastal city past an island cliff house across cobalt waves to a dark volcanic shore.",
+     "info_caption": "Diagram: the shoot's route, six countries of ground-up builds, from Troy's beach to the underworld's black sands.",
+     "info_labels": [
+      {
+       "t": "Troy: horse built on the sand",
+       "x": 4,
+       "y": 8,
+       "c": "#A67C00"
+      },
+      {
+       "t": "Circe's cliff, Scotland",
+       "x": 36,
+       "y": 88,
+       "c": "#2B4BE0"
+      },
+      {
+       "t": "underworld, Iceland",
+       "x": 62,
+       "y": 8,
+       "c": "#141414"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-27-6",
+     "kind": "TRY THIS",
+     "headline": "27 Days, 406 Agents, and Everything That Broke",
+     "deck": "One builder ran a coordinator-and-workers team of AI agents on his real daily work for 27 days and wrote down every failure, so you do not have to learn them the expensive way.",
+     "lead": "Ethan published a field report on November 26 after 27 days of running a coordinator-and-workers team of Claude Code agents on his actual work: email, app updates, servers, research, with one hard wall at payments, which the system fills in up to checkout and then stops for him.",
+     "ptrs": [
+      "The tally as of November 26: 27 days, 35 coordinator sessions, 105 worker sessions, 266 sub-agents; the coordinator runs with a written manual, splits requests into briefs, checks the results, and reports to a group chat on his phone.",
+      "Rule one: state lives on disk, not in the conversation; a busy day fills the context window by mid-afternoon, so at 70% and 85% warnings the coordinator writes a handoff file and a fresh session reads it, every wake-up is read disk, act, write back.",
+      "Waiting costs money: one worker's non-blocking wait tool looped through about 290,000 tokens a turn and ate roughly 77% of the 1.3 billion context tokens read that day; another agent reported it had waited 30 minutes when the clock said one, so check the clock, not the agent.",
+      "A loud failure needs a listener: another user's agent sat deaf for 19 days because the client only handled one error code and silently retried the rest; the fix is to log every failure and exit with a distinct code after ten minutes, because exiting is the one signal a supervisor reliably sees.",
+      "Guardrails can lock you out: a session-level taint tracker needed six patches in five days and once blocked the system from writing its own memory, so it was retired with the lesson that taint belongs to data, not sessions.",
+      "His closing checklist: put state on disk, give every wait an independent clock, decide who hears a loud failure before you make it loud, treat permissions as a file you write, and check the clock, the screen and the signed-in account yourself, because an agent's report is a claim until checked."
+     ],
+     "why": "This is your exact hobby, an agent team doing real chores, documented by someone else's scars. The checklist alone will save you tokens, money and at least one very confusing afternoon.",
+     "body": "Legend. Wait for it. Dary field report just dropped. Ethan ran a coordinator-and-workers team of Claude Code agents on his real work for 27 days, email, app updates, servers, research, with a hard wall at payments, and wrote down everything that broke. The setup: a coordinator session with a written manual splits requests into briefs, hands them to workers, checks what comes back, and reports to a group chat on his phone. As of November 26 the tally is 35 coordinator sessions, 105 worker sessions and 266 sub-agents. The lessons are gold. State lives on disk, not in the conversation, because a busy day fills the context window by mid-afternoon; every wake-up is read disk, act, write back. Waiting costs money: one worker's broken wait tool looped through about 290,000 tokens a turn and ate roughly 77% of the day's 1.3 billion context tokens, and another agent swore it waited 30 minutes when the clock said one. A loud failure needs a listener: one agent sat deaf for 19 days because its client silently retried every error but one, and the fix, exit with a distinct code after ten minutes of failure, works because exiting is the one signal a supervisor reliably sees. Guardrails can lock you out: his session-level taint tracker got six patches in five days and was retired, because taint belongs to data, not sessions. And the line to print and frame: an agent's report is a claim until checked. Check the clock, the screen and the signed-in account yourself.",
+     "plain": "Someone let a team of AI helpers run his daily chores for almost a month and kept a diary of every breakdown. The big lessons: write everything down in files the helpers re-read, never trust a helper's sense of time, make sure somebody notices when one goes quiet, and always double-check what a helper says it did.",
+     "example": "The one check worth adopting today, verbatim from the post: before you make any failure loud, decide who hears it. A crashed background job is only useful if something, a supervisor, a scheduler, a human, actually sees the exit and re-arms it.",
+     "questions": [
+      {
+       "q": "What is the first rule of the setup?",
+       "a": "State lives on disk, not in the conversation; every session wake-up reads the state file, acts, and writes it back, so handoffs between sessions survive a full context window."
+      },
+      {
+       "q": "How did one worker burn 77% of a day's tokens?",
+       "a": "Its wait-for-new-posts tool returned immediately instead of blocking, so it looped at about 290,000 tokens per turn; the day's reads on that model totaled roughly 1.3 billion tokens."
+      },
+      {
+       "q": "Why retire the session-level taint tracker?",
+       "a": "It needed six patches in five days for false positives, tainted sessions tainted their children, and it once blocked the system from its own memory repo; taint should track data and the actions that use it, not sessions."
+      }
+     ],
+     "source_name": "Ethan",
+     "source_url": "https://ethanflow.com/writing/what-broke-ai-agent-team/",
+     "reading_time": 3,
+     "accent": "#F2C200",
+     "accents": [
+      "#F2C200",
+      "#2B4BE0",
+      "#E8480C"
+     ],
+     "image": "img/2026-11-27-6.jpg",
+     "image_alt": "Cut-paper infographic of three horizontal torn-paper bars sharing one left edge: a short vermilion bar, a medium cobalt bar, and a long amber bar, on warm white.",
+     "image_caption": "Bars: 35 coordinator sessions · 105 worker sessions · 266 sub-agents in 27 days"
+    }
+   ]
+  },
+  {
    "number": 40,
    "date": "2026-11-26",
    "items": [
