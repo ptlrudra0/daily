@@ -2,6 +2,381 @@
  "paper": "The Daily Draft",
  "issues": [
   {
+   "number": 42,
+   "date": "2026-11-28",
+   "items": [
+    {
+     "id": "2026-11-28-1",
+     "kind": "AI NEWS",
+     "headline": "Two States Sue SpaceX Over Grok's 'Spicy Mode'",
+     "deck": "Virginia and Oregon filed suit on November 23, alleging SpaceX knowingly let Grok generate non-consensual sexualized images, including of children, while telling users the platform was safe.",
+     "lead": "Virginia Attorney General Jay Jones filed suit against SpaceX on November 23, with Oregon Attorney General Dan Rayfield filing a separate but similar action, alleging that the company knowingly failed to stop Grok from generating sexualized images of real people, including children, without their consent, while publicly promoting the safety of X and its AI tool.",
+     "ptrs": [
+      "The suits were filed in the Circuit Court for the City of Richmond and Oregon's Multnomah County Circuit Court; both are allegations in a civil filing, not established findings.",
+      "The filings allege Grok could fabricate a realistic nude or sexualized image or video of a person from a single existing photograph, and that X created and promoted a 'spicy mode' specifically allowing nude and sexualized image generation, marketed as part of Grok's 'rebellious streak'.",
+      "A study by the Center for Countering Digital Harm, cited in the filing, estimated that between December 29, 2025 and January 8, 2026, Grok created and posted on X approximately three million sexualized images, including about 23,000 that appeared to depict children: roughly 190 sexualized images per minute, and one apparent child image every 41 seconds.",
+      "CCDH also estimated that nearly 30% of the identified sexualized images of children remained publicly accessible on X a week or more after identification, and some 'removed' ones stayed reachable via separate URLs.",
+      "Jones says the company 'prioritized growth and engagement over safety, and deceived the public about it'; Rayfield says the missing safeguards were 'considered a feature, not a bug'; the suits seek accountability for harms and new consumer protections."
+     ],
+     "why": "When you build with image models, this case is the boundary map: consent and safeguards are not polish, they are the product. Reading legal filings as allegations, not verdicts, is also a skill worth practicing, because the numbers inside are one side's evidence.",
+     "body": "Bro, this one is serious, so straight facts, attributed. On November 23, Virginia Attorney General Jay Jones sued SpaceX, the company that operates X, xAI and Grok, and Oregon Attorney General Dan Rayfield filed a separate but similar suit. The allegation: SpaceX knowingly failed to prevent Grok from generating sexualized images of real people, including children, without their knowledge or consent, while falsely promoting the platform and the tool as safe. According to the filings, Grok could fabricate a realistic nude or sexualized image or video from a single existing photograph, and X built and promoted a 'spicy mode' specifically for nude and sexualized generation, sold as part of Grok's 'rebellious streak'. The filing cites a Center for Countering Digital Harm study estimating that between December 29, 2025 and January 8, 2026, Grok created and posted roughly three million sexualized images on X, including about 23,000 that appeared to depict children, a pace of roughly 190 per minute, with nearly 30% of the identified child images still publicly accessible a week or more later. Jones says the company prioritized growth over safety and deceived the public; Rayfield says the missing safeguards were considered a feature, not a bug. Both suits ask for accountability and significant new consumer protections. These are civil allegations, and SpaceX will get its response in court, but the evidentiary bar the states claim to have is now on the record.",
+     "plain": "Two US states are suing the company behind the Grok AI, saying it let people turn ordinary photos of real people into fake sexual images without their consent, and that the company advertised itself as safe anyway. A lawsuit is one side making its case, so the numbers inside are the states' evidence, not a settled verdict.",
+     "example": "Reading legal news like a builder: the 'three million images' figure is a CCDH estimate quoted inside an allegation. It may hold up or be challenged, so the accurate takeaway is 'the states claim, citing a study', not 'it is proven'. That one habit keeps your own reposts honest.",
+     "questions": [
+      {
+       "q": "What do the two lawsuits allege?",
+       "a": "That SpaceX knowingly failed to prevent Grok from generating non-consensual sexualized images, including of children, while promoting X and Grok as safe; both are allegations, not court findings."
+      },
+      {
+       "q": "What did the CCDH study cited in the filing estimate?",
+       "a": "Roughly three million sexualized images posted by Grok on X between December 29, 2025 and January 8, 2026, including about 23,000 that appeared to depict children."
+      },
+      {
+       "q": "What is 'spicy mode' in the filings?",
+       "a": "A mode the states say X created and promoted that specifically allowed generation of nude and sexualized images, marketed as part of Grok's 'rebellious streak'."
+      }
+     ],
+     "source_name": "Virginia Office of the Attorney General",
+     "source_url": "https://www.oag.state.va.us/media-center/news-releases/jay-jones/3162-attorneys-general-jones-and-rayfield-file-suit-against-spacex-parent-company-of-x-xai-and-grok-over-creation-and-promotion-of-child-exploitation-and-non-consensual-images-on-platform",
+     "reading_time": 2,
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0",
+      "#F2C200"
+     ],
+     "image": "img/2026-11-28-1.jpg",
+     "image_alt": "Cut-paper illustration of an ink-columned courthouse, a large balance scale in front with paper photographs weighing one pan down and a cracked gear in the other.",
+     "info_image": "img/2026-11-28-1-schematic.jpg",
+     "info_alt": "Diagram of a shield wall with one jagged crack, three arrow bolts passing through the crack and scattering a stack of paper photographs, intact shield segments deflecting other bolts.",
+     "info_caption": "Diagram: one missing safeguard lets the harm straight through; the states say the crack was known and left open.",
+     "info_labels": [
+      {
+       "t": "missing safeguards, alleged",
+       "x": 4,
+       "y": 8,
+       "c": "#141414"
+      },
+      {
+       "t": "harm at scale",
+       "x": 62,
+       "y": 8,
+       "c": "#E8480C"
+      },
+      {
+       "t": "what safety promises claimed",
+       "x": 4,
+       "y": 88,
+       "c": "#2B4BE0"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-28-2",
+     "kind": "AI NEWS",
+     "headline": "The Internet's Favorite Neural Net Book Just Left the Internet",
+     "deck": "Michael Nielsen replaced his free classic Neural Networks and Deep Learning with a note saying he no longer wants to help train people for frontier AI work.",
+     "lead": "Michael Nielsen has taken down Neural Networks and Deep Learning, his free online textbook, replacing the book's site with a November 2026 note explaining that he no longer wishes to help, even in a very small way, train people to contribute to frontier AI work.",
+     "ptrs": [
+      "Nielsen writes that he wrote the book between 2011 and 2015, expecting AGI to be many decades away and broadly beneficial, and that his views changed as, in his words, the frontier labs' 'extraordinarily reckless behaviour' let the systems race ahead, leaving humanity 'far too little time to meet the challenges'; he calls the labs' conduct knowingly endangering all of humanity.",
+      "His core argument is not the usual loss-of-control scenario: it is that nature may contain technologies that are cheap to build, catastrophic, and indefensible; the matchstick is his example, a one-cent technology that costs hundreds of billions of dollars a year to defend against.",
+      "He asks you to imagine a 100-times speed-up of technological progress: all of the 20th century's technological problems, from the atomic bomb to climate change, arriving in 1901, with the next century's worth in 1902, and no time for social defenses to adapt.",
+      "On technical AI safety he is blunt: alignment work, he argues, is 'mostly market-supplied safety', making systems more palatable to consumers and governments and speeding the race it claims to slow.",
+      "Against the 'better us than someone worse' justification he sets a burden-of-proof test: would an independent jury believe your work truly reduces risk; he answers no for the frontier labs, citing Anthropic's 2026 Responsible Scaling Policy dropping its 2023 pause pledge and co-founder Jared Kaplan's point that unilateral commitments make little sense 'if competitors are blazing ahead', and calls such promises 'safety theatre'.",
+      "This is one influential author's opinion and personal decision, not a regulatory finding; the notice does not say whether the book will return, and it points readers to his longer essay 'Which Future?'."
+     ],
+     "why": "This book sits on practically every first-year ML reading list, possibly yours. Whatever you make of his argument, one of the field's best teachers just concluded that teaching the basics feeds a danger, and his note is the clearest short version of the debate you will inherit.",
+     "body": "Bro, the book that taught half the internet how neural nets work just got pulled by its own author. Michael Nielsen has taken down Neural Networks and Deep Learning, the free textbook he wrote between 2011 and 2015, and the book's site now carries a November 2026 note instead. His reason, in his own words: he does not wish to help, even in a very small way, train people to contribute to frontier AI work, because he believes the frontier labs are knowingly endangering all of humanity. Back then he expected AGI decades away and broadly beneficial; now he argues the real issue is not rogue machines but destructive technologies latent in nature that are cheap to build and impossible to defend against. His analogy: the matchstick, a one-cent technology that costs hundreds of billions of dollars a year to defend against. His thought experiment: imagine the entire 20th century's technological problems, atomic bomb to climate change, landing in 1901, and the next set in 1902. On technical safety he is blunt, calling alignment work mostly market-supplied safety that makes systems palatable and speeds the race. And against 'better us than someone worse' he demands proof, citing Anthropic dropping its 2023 pause pledge in its 2026 Responsible Scaling Policy and Jared Kaplan's 'if competitors are blazing ahead' line, and brands such promises safety theatre. To be clear, this is Nielsen's opinion and personal decision, not a regulatory finding, and the note does not say whether the book will return. But when a teacher this good burns his own textbook, the field should at least read the note.",
+     "plain": "A famous teacher gave away a free book that explained neural networks to beginners. He has now removed it, saying he no longer wants to help train people for work he believes is dangerous. It is like a beloved driving instructor closing his school because he thinks car makers are making traffic unsafe faster than society can cope.",
+     "example": "His sharpest test, usable on any 'trust us' claim: what evidence would convince a tough but fair-minded adversary that this work truly reduces risk? Try it on the next safety announcement you read, from any lab, and watch how much of the announcement survives the question.",
+     "questions": [
+      {
+       "q": "Why did Nielsen say he took the book down?",
+       "a": "He no longer wishes to help, even in a very small way, train people to contribute to frontier AI work, which he believes is racing ahead recklessly."
+      },
+      {
+       "q": "What is the matchstick analogy meant to show?",
+       "a": "That nature can hold technologies that are cheap to create and extremely expensive to defend against: a one-cent match costs society hundreds of billions of dollars a year in fire defense."
+      },
+      {
+       "q": "What does he mean by 'market-supplied safety'?",
+       "a": "His claim that technical alignment work mainly makes AI systems more palatable to consumers and governments, speeding development while addressing only a subsidiary problem."
+      }
+     ],
+     "source_name": "Michael Nielsen",
+     "source_url": "http://neuralnetworksanddeeplearning.com/",
+     "reading_time": 3,
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0",
+      "#E8480C"
+     ],
+     "image": "img/2026-11-28-2.jpg",
+     "image_alt": "Cut-paper illustration of a large cobalt book swinging its own cover shut like a curling wave, an amber bookmark ribbon trailing, small vermilion pages scattering into the wind.",
+     "info_image": "img/2026-11-28-2-schematic.jpg",
+     "info_alt": "Diagram of a flow from an open book through an arrow to a graduation cap and onward to a laboratory tower, with a bold vermilion bar slamming down across the first arrow to halt it.",
+     "info_caption": "Diagram: Nielsen's argument is that teaching feeds the frontier pipeline; his act cuts the flow at his own book.",
+     "info_labels": [
+      {
+       "t": "the free textbook",
+       "x": 4,
+       "y": 8,
+       "c": "#2B4BE0"
+      },
+      {
+       "t": "author's own stop",
+       "x": 38,
+       "y": 88,
+       "c": "#E8480C"
+      },
+      {
+       "t": "frontier work",
+       "x": 62,
+       "y": 8,
+       "c": "#141414"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-28-3",
+     "kind": "AI TIP",
+     "headline": "Who Watches the Provers?",
+     "deck": "Days after a machine-checked Riemann proof made headlines, DJB's catalog of soundness bugs in proof checkers lands as the perfect counterweight: 111 reported for Coq alone.",
+     "lead": "Cryptographer Daniel J. Bernstein maintains a catalog of reported soundness bugs in proof-checking programs, bugs that could let false statements slip past the very software meant to certify mathematical proofs, and it is essential reading after last week's celebration of machine-verified mathematics.",
+     "ptrs": [
+      "His list, counting default usage and excluding user-interface vulnerabilities, carries reported soundness bugs for every major checker: Coq/Rocq 111, HOL98/HOL4 24, Lean 3 and 4 23, Isabelle 20, Metamath 9, Mizar 7, and HOL Light 3, with reports spanning 1993 to 2026.",
+      "The security mindset is to minimize the trusted computing base, the part reviewers must check: HOL Light's proof-checking kernel is attractive at only about 400 lines, though Bernstein notes size says nothing about how carefully it was reviewed or about bugs in the underlying language.",
+      "His practical advice: run a proof through multiple independent checkers, preferably each in its own isolated environment, which is easy when checkers share an input language, though he warns bugs can be shared between checkers too.",
+      "The stronger path is verifying the verifier: a close translation of the HOL Light kernel's inference rules was proven in 2006 to generate only correct theorems, checked by HOL Light itself under a large-cardinal assumption; in 2022 a clone called Candle was proven correct down to the CPU executing its instructions, with that proof checked in HOL4.",
+      "Context for last week: the claimed Riemann Hypothesis proof was re-verified by multiple independent checkers including con-leche, a Lean kernel variant itself carrying formal soundness proofs, which is exactly the belt-and-suspenders pattern this page advocates.",
+      "Bernstein's residual worry: we still rely on large proof-checking binaries vouched for by other large binaries, and he wants more work on simplifying them."
+     ],
+     "why": "You watched the math world certify an AI's proof last week. This is the other half of the lesson: a certificate is only as strong as the checker, so the professional habit is asking what checked the checker, and the answer can itself be a proof.",
+     "body": "Bro, last week the math world threw a parade because an AI's Riemann proof was machine-verified. This week, DJB walks in with a list and asks: who watches the provers? Daniel J. Bernstein's page catalogs reported soundness bugs in proof-checking software, the bugs that could let a false statement slip past the very program meant to certify it. The tally, default usage, user-interface bugs excluded: Coq/Rocq 111 reported bugs, HOL4 24, Lean 3 and 4 23, Isabelle 20, Metamath 9, Mizar 7, HOL Light 3, with reports running from 1993 into 2026. His security framing is the trusted computing base: the smaller the part you must trust, the better, and HOL Light's roughly 400-line kernel is the beauty queen on that metric, though Bernstein notes line count says nothing about review quality or bugs in the language underneath. The practical advice is redundant checking: run the proof through multiple independent checkers in isolated environments, easy when they share an input language, though bugs can be shared too. And the power move is verifying the verifier: the HOL Light kernel's rules were proven correct in 2006 under a large-cardinal assumption, and in 2022 its clone Candle was proven correct down to how the CPU executes its instructions, with that proof checked in HOL4. Which is exactly why last week's proof was re-verified with con-leche, a kernel variant carrying its own formal soundness proofs. Trust, but make the trust structural.",
+     "plain": "A proof-checking program is like an exam grader that never sleeps. This page is a record of times the graders themselves made mistakes. The safest exams are graded by several independent graders, and the very best graders have had their own grading rules mathematically proven fair.",
+     "example": "The pattern in action last week: the claimed Riemann proof was not trusted to one checker. It was re-verified by independent checkers including con-leche, which carries formal soundness proofs about itself, so a single checker's bug could not quietly wave a false proof through.",
+     "questions": [
+      {
+       "q": "What is a soundness bug in a proof checker?",
+       "a": "A bug that at least potentially lets false statements pass the checking program; Bernstein's list links reports of such bugs for the major checkers, many demonstrated exploitable."
+      },
+      {
+       "q": "Why run a proof through multiple checkers?",
+       "a": "A bug in one program is caught by the others; it is easy when checkers share an input language, though Bernstein warns some bugs are shared between checkers."
+      },
+      {
+       "q": "What makes HOL Light's kernel attractive to security reviewers?",
+       "a": "Its stability and simplicity: the proof-checking kernel is only about 400 lines, minimizing the trusted computing base, though size alone says nothing about review depth."
+      }
+     ],
+     "source_name": "D. J. Bernstein, cr.yp.to",
+     "source_url": "https://cr.yp.to/proofs/falseccp.html",
+     "reading_time": 3,
+     "accent": "#E8480C",
+     "accents": [
+      "#E8480C",
+      "#2B4BE0",
+      "#F2C200"
+     ],
+     "image": "img/2026-11-28-3.jpg",
+     "image_alt": "Cut-paper infographic of seven horizontal torn-paper bars sharing one left edge, ordered longest to shortest, alternating vermilion, cobalt and amber.",
+     "image_caption": "Bars, longest to shortest: reported soundness bugs per checker, Coq/Rocq 111 · HOL4 24 · Lean 23 · Isabelle 20 · Metamath 9 · Mizar 7 · HOL Light 3"
+    },
+    {
+     "id": "2026-11-28-4",
+     "kind": "DESIGN",
+     "headline": "Steal Like a Cartographer",
+     "deck": "The making of Sprite Fusion's Game Dev Atlas: weeks of reference immersion, one paid font, a real island's elevation data, and engraving in real time.",
+     "lead": "Sprite Fusion published a making-of for its Game Dev Atlas on November 25, a fantasy map of game development techniques drawn like a 16th-century atlas, and the process notes are a compact masterclass in art direction.",
+     "ptrs": [
+      "Reference immersion comes before any tool: the author spent weeks wandering Google Images, Wikipedia and online museum galleries, collecting 1570 maps of the North, the Miller Atlas, portolan charts, tritons and illuminated letters onto a moodboard, letting decisions about what to take and what to reject form on their own.",
+      "Typography carries most of the design weight: after research, the Luminari font by Canada Type was simply the right fit, so he paid for it rather than accept a free alternative that was almost the vibe, with the rule 'never concede terrain on your instinct'.",
+      "The final type is distressed to read as hand-set: each letter sits a hair off its line, inked unevenly and bitten at the edges, a negative effect layered over the plain font until it looks printed by hand.",
+      "For a realistic island, skip procedural generation and pick a real one: the atlas's island is built from actual elevation data of Kerguelen, a real sub-Antarctic island, sourced from Terrain Tiles on AWS by Mapzen, with a NASA Earth Observatory photo as reference.",
+      "The map's finish is engraving in real time, and the atlas's technique pages practice what they preach: the effects chapter builds procedural VFX, a frost nova or plasma orb, as single function calls instead of drawn sprite sheets."
+     ],
+     "why": "This is the design process your reels and thumbnails secretly need: marinate in references until taste crystallizes, then refuse to compromise on the two or three details that carry the whole piece. It costs time and one font license, not talent you lack.",
+     "body": "Bro, you want to know what real art direction looks like? It looks like weeks of doing 'nothing'. Sprite Fusion's making-of for the Game Dev Atlas, a fantasy map of game dev techniques styled as a 16th-century atlas, starts with zero tools and zero code: just wandering museum galleries, Wikipedia and image search, pinning 1570 maps, the Miller Atlas, portolan charts and illuminated letters to a moodboard until the decisions start forming themselves. That is the whole work: deciding what you want, and setting the quality bar. Then the font. Typography conveys most of the design weight, and when Luminari by Canada Type turned out to be the right fit, he paid for it instead of settling for a free almost, because you never concede terrain on your instinct. The type then gets distressed until each letter sits a hair off its line, inked unevenly and bitten at the edges, so it reads hand-set. For the island, no procedural terrain generator: he took real elevation data of Kerguelen, an actual sub-Antarctic island, from Terrain Tiles on AWS by Mapzen, with a NASA Earth Observatory photo as reference, then engraved it in real time. And the atlas practices what it preaches: its effects pages build procedural VFX, frost novas and plasma orbs, as single function calls. Reference immersion, one paid font, real geography. That is the recipe.",
+     "plain": "Making something look convincingly old starts with studying real old things for a long time before drawing anything. The mapmaker used genuine old maps as reference, bought the one font that felt exactly right, and shaped his fantasy island from the measurements of a real island, the way tracing a real leaf beats inventing one.",
+     "example": "The transferable move for a TechBlast thumbnail: spend your first hour building a reference board of twenty posters you love, mark what each does that you want, then design. The atlas spent weeks in that phase; the drawing was the easy part that came after.",
+     "questions": [
+      {
+       "q": "What comes before any tool in this process?",
+       "a": "Weeks of reference immersion: collecting real historical maps, charts and illuminated letters onto a moodboard until decisions about what to take and reject form on their own."
+      },
+      {
+       "q": "Why pay for the Luminari font when free alternatives existed?",
+       "a": "Typography carries most of the design weight, and the free options were only almost right; the author's rule is never concede terrain on your instinct."
+      },
+      {
+       "q": "Where did the atlas's island come from?",
+       "a": "Real elevation data of Kerguelen, a sub-Antarctic island, from Terrain Tiles on AWS by Mapzen, with a NASA Earth Observatory photo as visual reference."
+      }
+     ],
+     "source_name": "Sprite Fusion",
+     "source_url": "https://www.spritefusion.com/blog/making-a-fantasy-map-like-a-16th-century-atlas",
+     "reading_time": 2,
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0"
+     ],
+     "image": "img/2026-11-28-4.jpg",
+     "image_alt": "Cut-paper illustration of an antique fantasy atlas map with a jagged fjorded island, a vermilion compass rose, a coiling sea serpent in cobalt waves and an amber cartouche corner.",
+     "info_image": "img/2026-11-28-4-schematic.jpg",
+     "info_alt": "Diagram of a three-panel sequence with arrows: an island photograph, the same island as stacked elevation terraces, the same island fully engraved with etched mountains and waves.",
+     "info_caption": "Diagram: real photo to elevation terraces to engraved coastline; the fantasy is built on measured ground.",
+     "info_labels": [
+      {
+       "t": "real island photo",
+       "x": 4,
+       "y": 8,
+       "c": "#A67C00"
+      },
+      {
+       "t": "elevation data",
+       "x": 36,
+       "y": 88,
+       "c": "#2B4BE0"
+      },
+      {
+       "t": "engraved finish",
+       "x": 62,
+       "y": 8,
+       "c": "#141414"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-28-5",
+     "kind": "ON SCREEN",
+     "headline": "Two Kinds of Darkness, One World",
+     "deck": "Nocturne cinematographer David Franco on welding Pennsylvania woods and solitary confinement into one visual world: stage-built cells, tested cement, and a light well as the only clock.",
+     "lead": "In a November 25 interview, Nocturne cinematographer David Franco explained how the Apple TV thriller makes the woods of Pennsylvania and an underground solitary-confinement block feel like one world, while deliberately resisting the polished 'beauty lighting' a DP usually falls back on.",
+     "ptrs": [
+      "The show pairs a manipulative serial killer in solitary confinement, played by Stephen Graham, with a damaged former cop; Franco says shooting around Pittsburgh made nature unavoidable, so the production leaned into the juxtaposition, choosing a prison location where windows keep trees and grass visible beyond the walls.",
+      "The solitary cells were built on a stage with production designer Judy Rhee, which let them control everything, down to selecting the exact cement: they ran many tests on textures and tones for surfaces most viewers will never consciously register.",
+      "The lighting problem of an underground, essentially lightless space was solved with a small light well: a narrow shaft of real sunlight that changes the feeling of the cell and gives a sense of time passing.",
+      "Franco avoided 'beauty lighting' on purpose: after period and fantasy work he wanted something contemporary, grounded and occasionally imperfect, building character without following the pleasing recipe, though Graham's shower scene still gets gorgeously lit.",
+      "On actors: Graham, whom Franco shot as Al Capone on Boardwalk Empire, disappears into character, and Liev Schreiber 'loves to forget everything' technical, knowing where the camera is but never playing to it, which let Franco put the lens extremely close without prettifying.",
+      "Franco's honest confession on craft: the intellectual work of prep is the fun part, 'all I wanna do is prep a show', and then the shoot is the trench."
+     ],
+     "why": "This is a lighting philosophy you can steal for reels with zero budget: motivated light sources, texture tests before the shoot, and the courage to skip the pretty recipe when the story wants rough edges. Your phone and one window can run this playbook.",
+     "body": "Bro, here is a cinematographer admitting the recipe is a trap. David Franco shot Nocturne, the Apple TV thriller about a serial killer still wreaking havoc from solitary confinement, and his whole job was making two kinds of darkness, the Pennsylvania woods and an underground cell block, belong to one world. Step one: embrace the location. Shooting around Pittsburgh, nature is right there, so the prison they chose keeps windows with trees and grass visible beyond the walls, the juxtaposition living inside the frame. Step two: control the controllable. The solitary cells were stage-built with production designer Judy Rhee, and they tested cement textures and tones obsessively, surfaces most viewers will never consciously register. Step three: the elegant fix. An underground cell has no light and no time, so Franco cut a small light well, one narrow shaft of real sunlight that changes the room's feeling and tells you the hour. And step four, the brave one: resist beauty lighting. After period and fantasy work, Franco wanted contemporary, grounded, occasionally imperfect, building character without the pleasing recipe every DP falls back on. It helps that his actors vanish: Stephen Graham, his Al Capone from Boardwalk Empire, disappears into character, and Liev Schreiber, in Franco's words, loves to forget everything technical, so the camera can sit extremely close without prettifying. Franco's confession is the keeper: all he wants to do is prep a show; the shoot is the trench.",
+     "plain": "A camera crew needed a dark prison cell and dark forests to feel like they belong in the same story. They kept real trees visible through the prison windows, built the cells themselves so they could pick the perfect wall texture, and let one thin beam of sunlight tell viewers what time of day it was, the way a sun stripe moving across your floor marks the afternoon.",
+     "example": "The motivated-lighting trick for your next reel: one narrow, explainable light source, a window, a door crack, a phone screen, changes mood and tells time. Franco built an entire underground world around a single light well; you can build a shot around a single window.",
+     "questions": [
+      {
+       "q": "How did Nocturne show time passing in a lightless underground cell?",
+       "a": "With a small light well delivering a narrow shaft of real sunlight, which changes the feeling of the space and marks the hour."
+      },
+      {
+       "q": "Why did Franco resist 'beauty lighting'?",
+       "a": "He wanted a contemporary, grounded, occasionally imperfect look that builds character, rather than the pleasing recipe cinematographers fall back on."
+      },
+      {
+       "q": "What did building the cells on a stage allow?",
+       "a": "Total control with production designer Judy Rhee, down to running many tests on cement textures and tones for surfaces viewers barely register."
+      }
+     ],
+     "source_name": "Meet Me at Crafty",
+     "source_url": "https://atcrafty.substack.com/p/nocturne-cinematography-david-franco-interview",
+     "reading_time": 2,
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0"
+     ],
+     "image": "img/2026-11-28-5.jpg",
+     "image_alt": "Cut-paper cross-section of a stark underground cement cell, a narrow amber shaft of light falling diagonally from a tiny well above, a single cobalt tree silhouette above ground.",
+     "info_image": "img/2026-11-28-5-schematic.jpg",
+     "info_alt": "Diagram of a vertical cross-section: sun and tree line at ground level, a narrow light well cut through earth strata, delivering one angled beam into a small underground room.",
+     "info_caption": "Diagram: one cut through the strata turns a lightless cell into a room with a clock.",
+     "info_labels": [
+      {
+       "t": "surface: sun + trees",
+       "x": 4,
+       "y": 8,
+       "c": "#A67C00"
+      },
+      {
+       "t": "the light well",
+       "x": 40,
+       "y": 88,
+       "c": "#141414"
+      },
+      {
+       "t": "cell gets a clock",
+       "x": 62,
+       "y": 8,
+       "c": "#E8480C"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-28-6",
+     "kind": "TRY THIS",
+     "headline": "See Every Agent Session You've Ever Run as One Graph",
+     "deck": "SessionGraph reads your coding agents' session stores, fully locally, and opens them as one branching graph you can explore and compare with friends.",
+     "lead": "SessionGraph, which hit the Hacker News front page this week, pulls all your coding agent sessions into one place: it reads your harness's session store, indexes it locally, and opens a desktop app where your history renders as one interactive branching graph.",
+     "ptrs": [
+      "Run it without installing anything: 'npx sessiongraph' in a terminal reads the session store and opens the app; everything happens locally and privately, with no data leaving your machine.",
+      "It supports a long list of harnesses: Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot CLI and Copilot Chat, Cline, Roo Code, Kilo Code, Goose, Amp, Continue, Factory Droid, Zed Agent, Devin and more.",
+      "Native desktop apps exist for macOS on Apple Silicon and Intel, Windows as an MSI installer, and Linux as AppImage, DEB and RPM, so it runs on your Windows PC as a real app, not a terminal toy.",
+      "The graph is built for comparison as well as nostalgia: you can visualize your session history and compare graphs with friends, which turns agent usage into something you can review like game film."
+     ],
+     "why": "Yesterday's paper ran a field report of 27 days and 406 agent sessions where the biggest failures were invisible until someone looked. This is the looking tool: one command on your PC and your own agent history becomes a shape you can actually inspect.",
+     "body": "Bro, yesterday we read about a guy whose agent team burned 1.3 billion tokens in a day and nobody noticed until the bill arrived. Today, the antidote hits the HN front page. SessionGraph takes every coding agent session you have ever run and turns it into one interactive branching graph. It reads your harness's session store, indexes it locally, and opens a desktop app to play around in. Fully local, fully private: nothing leaves your machine. Getting started is one command, npx sessiongraph, no install. If you want the real app, there are native builds: macOS on Apple Silicon and Intel, an MSI installer for Windows, and AppImage, DEB and RPM for Linux, so your Windows PC is covered either way. The harness support list is deep: Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot CLI and Chat, Cline, Roo Code, Kilo Code, Goose, Amp, Continue, Factory Droid, Zed Agent, Devin and more. And it is social: you can compare graphs with friends, which turns your agent usage into game film you can review. Run it after a heavy week and the shape of your work, where sessions branched, where they died, jumps out at you.",
+     "plain": "Every chat you have with a coding agent is saved on your computer, but the files are boring to open one by one. This tool gathers all of them and draws them as a family tree, so you can see your whole history of agent work at a glance, like looking at a season's match replays on one whiteboard.",
+     "example": "The five-minute version: open a terminal on your PC, run npx sessiongraph, and let it index your Claude Code sessions. The branching graph shows where work split into parallel attempts and where sessions stalled, the exact failures yesterday's field report warned about.",
+     "questions": [
+      {
+       "q": "How do you run SessionGraph without installing it?",
+       "a": "Run 'npx sessiongraph' in a terminal; it reads the harness session store and opens the desktop app, all locally."
+      },
+      {
+       "q": "Does your session data leave your machine?",
+       "a": "No. The site describes it as fully local and private: indexing and the app run on your machine."
+      },
+      {
+       "q": "What platforms and harnesses are covered?",
+       "a": "Native apps for macOS, Windows and Linux, and harnesses including Claude Code, Codex, Cursor, Gemini CLI, Copilot CLI, Cline, Roo Code, Goose, Zed Agent, Devin and more."
+      }
+     ],
+     "source_name": "SessionGraph",
+     "source_url": "https://sessiongraph.ai",
+     "reading_time": 2,
+     "accent": "#2B4BE0",
+     "accents": [
+      "#2B4BE0",
+      "#F2C200"
+     ],
+     "image": "img/2026-11-28-6.jpg",
+     "image_alt": "Cut-paper illustration of a branching constellation graph: one large cobalt root node sprouting ink stems that fork into smaller amber and vermilion paper discs spreading rightward.",
+     "info_image": "img/2026-11-28-6-schematic.jpg",
+     "info_alt": "Diagram of four small terminal windows each emitting an arrow, the arrows converging into one funnel, out of which a single branching tree graph with nodes grows.",
+     "info_caption": "Diagram: every harness's session logs funnel into one graph you can explore.",
+     "info_labels": [
+      {
+       "t": "session stores on disk",
+       "x": 4,
+       "y": 8,
+       "c": "#141414"
+      },
+      {
+       "t": "indexed locally",
+       "x": 38,
+       "y": 88,
+       "c": "#E8480C"
+      },
+      {
+       "t": "one branching graph",
+       "x": 62,
+       "y": 8,
+       "c": "#2B4BE0"
+      }
+     ]
+    }
+   ]
+  },
+  {
    "number": 41,
    "date": "2026-11-27",
    "items": [
